@@ -1,0 +1,47 @@
+#avoid git spying
+RedirectMatch 404 /\.git
+
+# http://sevenspark.com/docs/ubermenu-menu-item-limit
+php_value max_input_vars 3000
+php_value max_execution_time  3000
+php_value max_input_time   3000
+
+
+
+# BEGIN Maintenece Mode
+#<IfModule mod_rewrite.c>  
+#ErrorDocument 503 /app/themes/ecotrust/maintenance.php
+#RewriteEngine on  
+#RewriteBase /
+#RewriteCond %{REMOTE_ADDR} !^123\.456\.789\.000  
+#RewriteCond %{REQUEST_URI} !/app/themes/YOUR-THEME/maintenance.php$ [NC]  
+#RewriteCond %{REQUEST_URI} !\.(jpe?g?|css|svg|png|gif|eot|woff|ttf) [NC]  
+#RewriteRule .* - [R=503]
+#</IfModule> 
+
+#<IfModule mod_headers.c>
+     ## 3600 = 60 minutes
+     ## 86400 = 1 day
+     #Header always set Retry-After "7200"
+#</IfModule> 
+# END Maintenance Mode
+
+
+# Required by WP Ultimate CSV Importer
+<ifmodule mod_security.c> 
+SecFilterEngine Off 
+SecFilterScanPOST Off 
+</ifmodule>
+
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress

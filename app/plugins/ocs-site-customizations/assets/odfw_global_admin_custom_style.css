@@ -1,0 +1,34 @@
+#adminmenu #menu-posts-ecoregion {
+	border-top: 9px solid #aaaaaa;
+	margin-top: 15px;
+}
+#adminmenu #menu-posts-strategy_species {
+	border-bottom: 9px solid #aaaaaa;
+	margin-bottom: 15px;
+}
+.cmb2-text-url {
+	width: 95%;
+}
+
+.cmb-field-list > .cmb-row.cmb-type-title {
+    padding-bottom: 0.5em !important;
+}
+.cmb-field-list > .cmb-row.cmb-type-title  .cmb2-metabox-title {
+    font-size: 18px;
+}
+
+.cmb-row .cmb-type-custom-attached-posts .has-thumbnails.connected {
+    /* DEFAULT: height: 600;*/
+    height: auto;
+}
+
+/* make repeat groups stick together visually */
+.cmb2-metabox .cmb-repeat-group-wrap {
+    background-color: #edf7ed;
+    max-width: 1000px;
+    padding: 10px !important;
+}
+
+#poststuff .cmb-repeatable-group h2 {
+    white-space: nowrap;
+}

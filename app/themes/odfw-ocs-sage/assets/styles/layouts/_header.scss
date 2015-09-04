@@ -1,0 +1,44 @@
+#header {
+	background-color: $greenLight;
+
+	.brand {
+		background-color: $green;
+		display: inline-block;
+		color: #fff;
+		font-family: $headings-font-family;
+		font-size: 33px;
+		letter-spacing: 0.08em;
+		line-height: 63px;
+		text-align: center;
+		text-transform: uppercase;
+		width: 16.6667%;
+
+		&:hover {
+			background-color: $greenLight;
+			text-decoration: none;
+		}
+	}
+	.search-wrap {
+		display: inline-block;
+		width: 70%;
+		form, input {
+			display: inline-block;
+			width: 80%;
+		}
+		input {
+			background-color: $greenLight;
+			border: 0 none;
+			outline: none;
+			@include h1Styles;
+			padding: 1px 15px 1px 41px;
+		}
+		button {
+			display: inline-block;
+			margin-top: -12px;
+		}
+	}
+}
+
+.page-header {
+	border-bottom: 0;
+}

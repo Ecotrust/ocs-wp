@@ -1,0 +1,29 @@
+// Temporary Grid
+.ocs-strategy-species, .ecoregions, .parent-pageid-109 {
+// pageid-109 = strategy species parent
+	.listings-wrap > article > div,
+	.listings-wrap > section > article { //not all are this way yet but orta be.
+		float: left;
+		margin: 0 30px 30px 0;
+		min-height: 200px;
+		width: 250px;
+
+		&:nth-child(3n+1){
+			clear: both;
+		}
+		&:hover {
+		}
+
+		a {
+			color: $text-color;
+			display: block;
+			padding: 10px;
+			&:hover {
+				background-color: #eee;
+				text-decoration: none;
+			}
+		}
+	}
+
+
+}
