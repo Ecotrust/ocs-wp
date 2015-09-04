@@ -3,7 +3,7 @@
 ## Notes:
 * WordPress itself is a submodule
 * wp-config.php, plugin folders and theme files are in the repository root. wp-config.php has been updated to point to these.
-  * see http://davidwinter.me/articles/2012/04/09/install-and-manage-wordpress-with-git/ for more info on the WordPress set up
+  * see https://davidwinter.me/install-and-manage-wordpress-with-git/ for more info on the WordPress set up
 
 
 ## Requirements
