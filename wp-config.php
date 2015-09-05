@@ -1,10 +1,12 @@
 <?php
-/*
+/**
  *
+ * Oregon Conservation Strategy WordPress Base Configuration
  *
  */
 
-/*
+/**
+ *
  * ____ Let's Get Local (and set a few other defaults) ____
  *
  **********************************************************/
@@ -22,33 +24,50 @@
 	define('WP_MEMORY_LIMIT',			'256M' ); // Greedy
 	define('AUTOMATIC_UPDATER_DISABLED', true  );
 
+/**
+ *
+ * Define two constants for use with Compass Map iframes
+ *
+ */
+
+    // Path to the build directory for front-end assets
+    define('COMPASS_URL_PREFIX', 'http://52.25.124.64/visualize/');
+    // Path to the build directory for front-end assets
+    define('COMPASS_URL_SUFFIX', '&print=true');
+
+
+/**
+ *
+ * ____ More WordPress Settings _____
+ *
+ **************************************/
+    /* AutoSave Interval. */
+    define( 'AUTOSAVE_INTERVAL', '40' );
+    /* Specify maximum number of Revisions. */
+    define( 'WP_POST_REVISIONS', '7' );
+    /* Media Trash. */
+    define( 'MEDIA_TRASH', true );
+    /* Trash Days. */
+    define( 'EMPTY_TRASH_DAYS', '365' );
+
+
+    /* Compression. Gulp has got this. May be useful for plugins */
+    define( 'COMPRESS_CSS',        false );
+    define( 'COMPRESS_SCRIPTS',    false );
+    define( 'ENFORCE_GZIP',        true );
+
+    /* PHP Memory */
+    //define( 'WP_MEMORY_LIMIT', '1128' );
+    //define( 'WP_MAX_MEMORY_LIMIT', '1256' );
+
+    /* WordPress Cache */
+    //define( 'WP_CACHE', true );
 
 
 
-/* AutoSave Interval. */
-define( 'AUTOSAVE_INTERVAL', '40' );
-/* Specify maximum number of Revisions. */
-define( 'WP_POST_REVISIONS', '7' );
-/* Media Trash. */
-define( 'MEDIA_TRASH', true );
-/* Trash Days. */
-define( 'EMPTY_TRASH_DAYS', '365' );
 
-
-/* PHP Memory */
-//define( 'WP_MEMORY_LIMIT', '1128' );
-//define( 'WP_MAX_MEMORY_LIMIT', '1256' );
-
-/* WordPress Cache */
-//define( 'WP_CACHE', true );
-
-
-/* Compression. Grunt has got this. May be useful for plugins */
-define( 'COMPRESS_CSS',        false );
-define( 'COMPRESS_SCRIPTS',    false );
-define( 'ENFORCE_GZIP',        true );
-
-/*
+/**
+ *
  * ____ Database Information ____
  *
  *********************************/
@@ -68,7 +87,8 @@ define( 'ENFORCE_GZIP',        true );
 
 
 
-/*
+/**
+ *
  * ____ Go Go Memcache! ____
  *
  ***************************/
@@ -78,7 +98,7 @@ define( 'ENFORCE_GZIP',        true );
 
 
 
-/*
+/**
  * ____ Authentication Unique Keys and Salts ___
  *
  * Generate this section here: https://api.wordpress.org/secret-key/1.1/salt/
@@ -95,13 +115,14 @@ define( 'ENFORCE_GZIP',        true );
 
 
 /**
+ *
  * ___ It Begins: Bootstrap Wordpress ____
  *
  ******************************************/
 
-// Absolute path to the WordPress directory.
-if ( !defined('ABSPATH') )
-	define('ABSPATH', dirname(__FILE__) . '/wordpress/');
+    // Absolute path to the WordPress directory.
+    if ( !defined('ABSPATH') )
+        define('ABSPATH', dirname(__FILE__) . '/wordpress/');
 
-// Sets up WordPress vars and included files.
-require_once(ABSPATH . 'wp-settings.php');
+    // Sets up WordPress vars and included files.
+    require_once(ABSPATH . 'wp-settings.php');

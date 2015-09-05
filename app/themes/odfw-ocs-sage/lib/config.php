@@ -64,15 +64,3 @@ function display_sidebar() {
   return $display;
 }
 
-/**
- * Define Prefix and Suffix for Compass URL inclusions
- */
-
-if (!defined('COMPASS_URL_PREFIX')) {
-  // Path to the build directory for front-end assets
-  define('COMPASS_URL_PREFIX', 'http://52.25.124.64/visualize/');
-}
-if (!defined('COMPASS_URL_SUFFIX')) {
-  // Path to the build directory for front-end assets
-  define('COMPASS_URL_SUFFIX', '&print=true');
-}

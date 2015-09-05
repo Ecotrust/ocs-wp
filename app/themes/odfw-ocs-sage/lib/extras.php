@@ -45,26 +45,6 @@ function sage_wrap_base_cpts($templates) {
 }
 
 
-// @TODO all of this compass stuff should be moved to the site plugin
-function get_the_odfw_compass_iframe ($url) {
-	//$cleanURL = esc_html( $url );
-	$fullURL = COMPASS_URL_PREFIX . $url . COMPASS_URL_SUFFIX;
 
-	$out = '<section class="compass-wrap">';
-	$out .= '<iframe class="compass-iframe" frameborder="0" src="' . $fullURL .'"></iframe>';
-	$out .= '</section>';
-
-	return $out;
-}
-function the_odfw_compass_iframe ($url) {
-	echo get_the_odfw_compass_iframe($url);
-}
-function the_odfw_compass_iframe_shortcode($atts, $content = null) {
-    extract(shortcode_atts(array(
-        "url" => 'Please Include A Compass URL'
-    ), $atts));
-	return get_the_odfw_compass_iframe($url);
-}
-add_shortcode('compassMap', 'Roots\Sage\Extras\the_odfw_compass_iframe_shortcode');
 
 

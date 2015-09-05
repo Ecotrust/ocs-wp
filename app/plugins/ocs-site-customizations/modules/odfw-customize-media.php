@@ -93,6 +93,6 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
  *
  */
 
-include_once('alt-text-reminder.php');
+include_once(ODFW_CUSTOMIZATIONS_PLUGIN_URL . '/modules/alt-text-reminder.php');
 
 $odfw_alt_text_reminder = new odfw_alt_text_reminder;

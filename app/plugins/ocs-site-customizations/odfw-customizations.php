@@ -42,18 +42,15 @@ class ODFW_customizations {
             define('ODFW_MODULES', ODFW_CUSTOMIZATIONS_PLUGIN_URL . 'modules/');
         }
 
-
         include_once(ODFW_MODULES . 'odfw-custom-post-types.php');
-
 
         include_once(ODFW_MODULES . 'odfw-custom-taxonomies.php');
 
-
         include_once(ODFW_MODULES . 'odfw-custom-meta-boxes.php');
 
+        include_once(ODFW_MODULES . 'odfw-content-authoring.php');
 
         include_once(ODFW_MODULES . 'odfw-customize-admin.php');
-
 
         include_once(ODFW_MODULES . 'odfw-customize-media.php');
 

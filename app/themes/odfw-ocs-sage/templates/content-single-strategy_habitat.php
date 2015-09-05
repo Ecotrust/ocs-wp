@@ -103,11 +103,10 @@
 
 
 
-		<?php
-			$the_compass_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_compass-link', true );
-				if ( ! empty($the_compass_field) ): ?>
-					<?php Roots\Sage\Extras\the_odfw_compass_iframe($the_compass_field); ?>
-			<?php endif; ?>
+		<?php $the_compass_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_compass-link', true );
+			if ( ! empty($the_compass_field) ): ?>
+				<?php the_odfw_compass_iframe($the_compass_field); ?>
+		<?php endif; ?>
 
 
 

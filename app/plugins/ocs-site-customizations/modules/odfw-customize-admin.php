@@ -73,3 +73,44 @@ function OCS_add_excerpts_to_pages() {
      add_post_type_support( 'page', 'excerpt' );
 }
 add_action( 'init', 'OCS_add_excerpts_to_pages' );
+
+
+// Register Modified Date Column for both posts & pages
+function modified_column_register( $columns ) {
+	$columns['Modified'] = __( 'Modified Date', 'modified' );
+
+	return $columns;
+}
+add_filter( 'manage_posts_columns', 'modified_column_register' );
+add_filter( 'manage_pages_columns', 'modified_column_register' );
+
+// Display the modified date of each post
+function modified_column_display( $column_name, $post_id ) {
+	global $post;
+	$modified = the_modified_date();
+	echo $modified;
+}
+add_action( 'manage_posts_custom_column', 'modified_column_display', 10, 2 );
+add_action( 'manage_pages_custom_column', 'modified_column_display', 10, 2 );
+
+// Register the column as sortable
+function modified_column_register_sortable( $columns ) {
+	$columns['Modified'] = 'modified';
+	return $columns;
+}
+add_filter( 'manage_edit-post_sortable_columns', 'modified_column_register_sortable' );
+add_filter( 'manage_edit-page_sortable_columns', 'modified_column_register_sortable' );
+
+// Support for Custom Post Types
+add_action('wp', 'add_sortable_views_for_custom_post_types');
+
+function add_sortable_views_for_custom_post_types(){
+	$args=array(
+	  'public'   => true,
+	  '_builtin' => false
+	);
+	$post_types=get_post_types($args);
+	foreach ($post_types  as $post_type ) {
+		add_filter( 'manage_edit-'.$post_type.'_sortable_columns', 'modified_column_register_sortable' );
+	}
+}
