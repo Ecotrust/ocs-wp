@@ -118,7 +118,7 @@
 
 
 <section class="cmb2-wrap-group factors_repeat_group">
-    <h2>Ecoregion-level limiting factors and recommended approaches</h2>
+    <h2>Limiting Factors and Recommended Approaches</h2>
 
     <div class="cmb2-group">
         <?php $the_field = get_post_meta( get_the_ID(), 'factors_repeat_group', true );
