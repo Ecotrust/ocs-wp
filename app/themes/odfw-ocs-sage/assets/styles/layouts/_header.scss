@@ -26,17 +26,35 @@
 			width: 80%;
 		}
 		input {
+			@include h1Styles;
 			background-color: $greenLight;
 			border: 0 none;
+			/* font-weight is still tbd */
+			/*font-family: $headings-font-family-lighter;*/
 			outline: none;
-			@include h1Styles;
 			padding: 1px 15px 1px 41px;
+			text-transform: uppercase;
+			/*
+			&.focused {
+				font-family: $headings-font-family;
+			}
+			*/
 		}
 		button {
 			display: inline-block;
 			margin-top: -12px;
 		}
 	}
+}
+
+::-webkit-input-placeholder {
+   color: $greyDark;
+}
+:-moz-placeholder {
+   color: $greyDark;
+}
+:-ms-input-placeholder {
+   color: $greyDark;
 }
 
 .page-header {

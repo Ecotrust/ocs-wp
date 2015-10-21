@@ -1583,8 +1583,11 @@ section h4{margin-bottom:0;margin-top:15px}
 #header .brand:hover{background-color:#D3E9D1;text-decoration:none}
 #header .search-wrap{display:inline-block;width:70%}
 #header .search-wrap form,#header .search-wrap input{display:inline-block;width:80%}
-#header .search-wrap input{background-color:#D3E9D1;border:0 none;outline:0;color:#404041;font-family:"TradeGothicBold","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:33px;height:62px;letter-spacing:.02em;line-height:62px;padding:1px 15px 1px 41px}
+#header .search-wrap input{color:#404041;font-family:"TradeGothicBold","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:33px;height:62px;letter-spacing:.02em;line-height:62px;background-color:#D3E9D1;border:0 none;outline:0;padding:1px 15px 1px 41px;text-transform:uppercase}
 #header .search-wrap button{display:inline-block;margin-top:-12px}
+::-webkit-input-placeholder{color:#404041}
+:-moz-placeholder{color:#404041}
+:-ms-input-placeholder{color:#404041}
 .page-header{border-bottom:0}
 .sidebar{background-color:#404041;line-height:1.2;padding:0}
 .sidebar>nav>ul{padding:0}
