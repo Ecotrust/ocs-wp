@@ -17,9 +17,11 @@
 	'common': {
 	  init: function() {
 		// JavaScript to be fired on all pages
+    /*
 		CP.$body.on('click touchstart', '.photo-info', function () {
 			$(this).toggleClass('visible');
 		});
+    */
 	  },
 	  finalize: function() {
 		// JavaScript to be fired on all pages, after page specific JS is fired
