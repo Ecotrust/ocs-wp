@@ -207,4 +207,7 @@ wp_reset_postdata();
 
     </div>
   </article>
+
+<?php get_template_part('templates/content', 'success-story'); ?>
+
 <?php endwhile; ?>

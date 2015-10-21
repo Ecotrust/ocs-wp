@@ -12,4 +12,7 @@
     </footer>
     <?php comments_template('/templates/comments.php'); ?>
   </article>
+
+<?php get_template_part('templates/content', 'success-story'); ?>
+
 <?php endwhile; ?>
