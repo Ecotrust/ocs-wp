@@ -549,8 +549,31 @@ function setupCustomFields () {
 
 
 
+	/*
+	 *
+	 * Success Story Boxes
+	 *
+	 */
 
+  add_action('cmb2_init', 'success_story_metabox');
+  function success_story_metabox() {
+    $success_story_cmb = new_cmb2_box( array(
+      'id'           => 'posts_success_story',
+      'title'        => __('Success Story', 'odfw'),
+      'desc'         => __('Select a success story to go with this post', 'odfw'),
+      'object_types' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
+      'context'      => 'normal',
+      'priority'     => 'low'
+    ));
 
+    $success_story_cmb->add_field(array(
+      'name' => __('Success Story', 'odfw'),
+      'desc' => __('Use the spyglass icon to select a success story to include with this post.', 'odfw'),
+      'post_type'   => 'success_story',
+      'id' => 'success_story',
+      'type' => 'post_search_text',
+    ));
+  }
 
 
 	/*
