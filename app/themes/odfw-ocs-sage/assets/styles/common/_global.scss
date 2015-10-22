@@ -1,38 +1,14 @@
-p, li, td, dt, dl, caption {
-	font-weight: 300;
-	max-width: 600px;
-}
 
-h1, h2, h3 {
-	text-transform: uppercase;
+body {
+	//clear the fixed footer
+	padding-bottom: 40px;
 }
-//quick fix. @TODO set with bootstrap vars/computation
-h1, h2 {
-	margin-top: 36px;
-	margin-bottom: 23px;
-}
-h1 {
-	//temporary. Comps have no h1-title is in search box
-	@include h1Styles;
-	&.entry-title {
-		height: auto;
-		margin: 25px 0 0 0 ;
-		line-height: 1;
-	}
-	+small {
-		font-family: $body-font-italic;
-		font-size: 14px;
-		text-transform: uppercase;
-		display: block;
-		margin-bottom: 24px;
-	}
-}
-section h4 {
-	margin-bottom: 0;
-    margin-top: 15px;
-}
-
 .sidebar-primary main.main {
 	padding-left: 30px;
 }
 
+
+// TEMP #2 until table styles are sorted.
+table {
+	max-width: 80% !important;
+}
