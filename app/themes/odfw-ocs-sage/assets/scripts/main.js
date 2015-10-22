@@ -22,6 +22,10 @@
 			$(this).toggleClass('visible');
 		});
     */
+
+    //temp hack until HTML is updated!
+    $('table').attr('border', 0).addClass('table');
+
 	  },
 	  finalize: function() {
 		// JavaScript to be fired on all pages, after page specific JS is fired
