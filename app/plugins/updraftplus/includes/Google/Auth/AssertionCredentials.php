@@ -15,14 +15,12 @@
  * limitations under the License.
  */
 
-require_once "Google/Auth/OAuth2.php";
-require_once "Google/Signer/P12.php";
-require_once "Google/Utils.php";
+if (!class_exists('Google_Client')) {
+  require_once dirname(__FILE__) . '/../autoload.php';
+}
 
 /**
  * Credentials object used for OAuth 2.0 Signed JWT assertion grants.
- *
- * @author Chirag Shah <chirags@google.com>
  */
 class Google_Auth_AssertionCredentials
 {
@@ -118,9 +116,14 @@ class Google_Auth_AssertionCredentials
   {
     $header = array('typ' => 'JWT', 'alg' => 'RS256');
 
+    $payload = json_encode($payload);
+    // Handle some overzealous escaping in PHP json that seemed to cause some errors
+    // with claimsets.
+    $payload = str_replace('\/', '/', $payload);
+
     $segments = array(
       Google_Utils::urlSafeB64Encode(json_encode($header)),
-      Google_Utils::urlSafeB64Encode(json_encode($payload))
+      Google_Utils::urlSafeB64Encode($payload)
     );
 
     $signingInput = implode('.', $segments);

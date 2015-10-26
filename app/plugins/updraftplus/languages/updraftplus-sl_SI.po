@@ -10,35 +10,107 @@ msgstr ""
 "X-Generator: GlotPress/0.1\n"
 "Project-Id-Version: UpdraftPlus\n"
 
+#: admin.php:447
+msgid "day"
+msgstr ""
+
+#: admin.php:448
+msgid "in the month"
+msgstr ""
+
+#: admin.php:449
+msgid "day(s)"
+msgstr ""
+
+#: admin.php:450
+msgid "hour(s)"
+msgstr ""
+
+#: admin.php:451
+msgid "week(s)"
+msgstr ""
+
+#: admin.php:452
+msgid "For backups older than"
+msgstr ""
+
+#: admin.php:453
+msgid "Processing..."
+msgstr ""
+
+#: admin.php:1575
+msgid "Backup sets removed: %d"
+msgstr ""
+
+#: admin.php:2766
+msgid "Press here to look inside your remote storage methods for any existing backup sets (from any site, if they are stored in the same folder)."
+msgstr ""
+
+#: admin.php:2802
+msgid "Actions upon selected backups"
+msgstr ""
+
+#: admin.php:2804
+msgid "Select all"
+msgstr ""
+
+#: admin.php:2805
+msgid "Deselect"
+msgstr ""
+
+#: admin.php:2822 admin.php:2825
+msgid "Are you sure that you wish to remove %s from UpdraftPlus?"
+msgstr ""
+
+#: admin.php:3609
+msgid "or to configure more complex schedules"
+msgstr ""
+
+#: restorer.php:689
+msgid "Deferring..."
+msgstr ""
+
+#: updraftplus.php:127
+msgid "You do not have UpdraftPlus completely installed - please de-install and install it again. Most likely, WordPress malfunctioned when copying the plugin files."
+msgstr ""
+
+#: addons/morestorage.php:25
+msgid "(as many as you like)"
+msgstr ""
+
+#: addons/fixtime.php:146 addons/fixtime.php:151
+msgid "Add an additional retention rule..."
+msgstr ""
+
 #: methods/updraftvault.php:524
 msgid "You do not currently have any UpdraftPlus Vault quota"
 msgstr ""
 
-#: restorer.php:1687
+#: restorer.php:1865
 msgid "This problem is caused by trying to restore a database on a very old MySQL version that is incompatible with the source database."
 msgstr ""
 
-#: restorer.php:1687
+#: restorer.php:1865
 msgid "This database needs to be deployed on MySQL version %s or later."
 msgstr ""
 
-#: admin.php:2035
+#: admin.php:2270
 msgid "The UpdraftPlus directory in wp-content/plugins has white-space in it; WordPress does not like this. You should rename the directory to wp-content/plugins/updraftplus to fix this problem."
 msgstr ""
 
-#: admin.php:2346
+#: admin.php:2581
 msgid "Free 1Gb for UpdraftPlus Vault"
 msgstr ""
 
-#: admin.php:2391
+#: admin.php:2626
 msgid "No advertising links on UpdraftPlus settings page"
 msgstr ""
 
-#: class-updraftplus.php:3243
+#: class-updraftplus.php:3264
 msgid "The database backup uses MySQL features not available in the old MySQL version (%s) that this site is running on."
 msgstr ""
 
-#: class-updraftplus.php:3243
+#: class-updraftplus.php:3264
 msgid "You must upgrade MySQL to be able to use this database."
 msgstr ""
 
@@ -66,15 +138,15 @@ msgstr ""
 msgid "If you have forgotten your password, then go here to change your password on updraftplus.com."
 msgstr ""
 
-#: admin.php:329
+#: admin.php:444
 msgid "Your backup will use your old settings until you save your changes."
 msgstr ""
 
-#: admin.php:730
+#: admin.php:942
 msgid "%s has been chosen for remote storage, but you are not currently connected."
 msgstr ""
 
-#: admin.php:730
+#: admin.php:942
 msgid "Go to the remote storage settings in order to connect."
 msgstr ""
 
@@ -82,19 +154,19 @@ msgstr ""
 msgid "Payments can be made in US dollars, euros or GB pounds sterling, via card or PayPal."
 msgstr ""
 
-#: admin.php:309
+#: admin.php:424
 msgid "Connecting..."
 msgstr ""
 
-#: admin.php:311
+#: admin.php:426
 msgid "Disconnecting..."
 msgstr ""
 
-#: admin.php:312
+#: admin.php:427
 msgid "Counting..."
 msgstr ""
 
-#: admin.php:313
+#: admin.php:428
 msgid "Update quota count"
 msgstr ""
 
@@ -188,7 +260,7 @@ msgstr ""
 msgid "Quota:"
 msgstr ""
 
-#: admin.php:310 methods/updraftvault.php:322
+#: admin.php:425 methods/updraftvault.php:322
 msgid "Disconnect"
 msgstr ""
 
@@ -229,7 +301,7 @@ msgstr ""
 msgid "Without this permission, UpdraftPlus cannot delete backups - you should also set your 'retain' settings very high to prevent seeing deletion errors."
 msgstr ""
 
-#: backup.php:2554
+#: backup.php:2605
 msgid "The zip engine returned the message: %s."
 msgstr ""
 
@@ -237,59 +309,59 @@ msgstr ""
 msgid "Delete failed:"
 msgstr ""
 
-#: addons/migrator.php:1436 admin.php:319
+#: addons/migrator.php:1438 admin.php:434
 msgid "You should check that the remote site is online, not firewalled, does not have security modules that may be blocking access, has UpdraftPlus version %s or later active and that the keys have been entered correctly."
 msgstr ""
 
-#: addons/migrator.php:1451
+#: addons/migrator.php:1453
 msgid "If sending directly from site to site does not work for you, then there are three other methods - please try one of these instead."
 msgstr ""
 
-#: admin.php:317
+#: admin.php:432
 msgid "Creating..."
 msgstr ""
 
-#: admin.php:320
+#: admin.php:435
 msgid "Please give this key a name (e.g. indicate the site it is for):"
 msgstr ""
 
-#: admin.php:322
+#: admin.php:437
 msgid "key name"
 msgstr ""
 
-#: admin.php:323
+#: admin.php:438
 msgid "Deleting..."
 msgstr ""
 
-#: addons/migrator.php:1461 admin.php:324
+#: addons/migrator.php:1463 admin.php:439
 msgid "Testing connection..."
 msgstr ""
 
-#: admin.php:328
+#: admin.php:443
 msgid "Download"
 msgstr ""
 
-#: admin.php:1161
+#: admin.php:1373
 msgid "This backup set was not known by UpdraftPlus to be created by the current WordPress installation, but was either found in remote storage, or was sent from a remote site."
 msgstr ""
 
-#: admin.php:1161
+#: admin.php:1373
 msgid "You should make sure that this really is a backup set intended for use on this website, before you restore (rather than a backup set of an unrelated website)."
 msgstr ""
 
-#: admin.php:2619
+#: admin.php:2864
 msgid "This makes time-outs much more likely. You are recommended to turn safe_mode off, or to restore only one entity at a time, <a href=\"https://updraftplus.com/faqs/i-want-to-restore-but-have-either-cannot-or-have-failed-to-do-so-from-the-wp-admin-console/\">or to restore manually</a>."
 msgstr ""
 
-#: admin.php:3905
+#: admin.php:4173
 msgid "Backup sent to remote site - not available for download."
 msgstr ""
 
-#: admin.php:3906
+#: admin.php:4174
 msgid "Site"
 msgstr ""
 
-#: admin.php:4138
+#: admin.php:4406
 msgid "(backup set imported from remote location)"
 msgstr ""
 
@@ -297,7 +369,7 @@ msgstr ""
 msgid "This storage method does not allow downloading"
 msgstr ""
 
-#: addons/reporting.php:141
+#: addons/reporting.php:142
 msgid "Backup made by %s"
 msgstr ""
 
@@ -309,59 +381,59 @@ msgstr ""
 msgid "Restore an existing backup set onto this site"
 msgstr ""
 
-#: addons/migrator.php:1404
+#: addons/migrator.php:1406
 msgid "Backup data will be sent to:"
 msgstr ""
 
-#: addons/migrator.php:1417
+#: addons/migrator.php:1419
 msgid "site not found"
 msgstr ""
 
-#: addons/migrator.php:1447
+#: addons/migrator.php:1449
 msgid "The site URL you are sending to (%s) looks like a local development website. If you are sending from an external network, it is likely that a firewall will be blocking this."
 msgstr ""
 
-#: addons/migrator.php:1480
+#: addons/migrator.php:1482
 msgid "Also send this backup to the active remote storage locations"
 msgstr ""
 
-#: addons/migrator.php:1529
+#: addons/migrator.php:1531
 msgid "A key with this name already exists; you must use a unique name."
 msgstr ""
 
-#: addons/migrator.php:1543
+#: addons/migrator.php:1545
 msgid "Key created successfully."
 msgstr ""
 
-#: addons/migrator.php:1543
+#: addons/migrator.php:1545
 msgid "You must copy and paste this key now - it cannot be shown again."
 msgstr ""
 
-#: addons/migrator.php:1855
+#: addons/migrator.php:1861
 msgid "Keys for this site are created in the section below the one you just pressed in."
 msgstr ""
 
-#: addons/migrator.php:1855
+#: addons/migrator.php:1861
 msgid "So, to get the key for the remote site, open the 'Migrate' window on that site, scroll down, and you can create one there."
 msgstr ""
 
-#: addons/migrator.php:1870
+#: addons/migrator.php:1876
 msgid "To allow another site to send a backup to this site, create a key, and then press the 'Migrate' button on the sending site, and copy-and-paste the key there."
 msgstr ""
 
-#: addons/migrator.php:1870
+#: addons/migrator.php:1876
 msgid "Create a key..."
 msgstr ""
 
-#: addons/migrator.php:1874
+#: addons/migrator.php:1880
 msgid "Your new key:"
 msgstr ""
 
-#: addons/migrator.php:1892
+#: addons/migrator.php:1898
 msgid "No keys to allow remote sites to connect have yet been created."
 msgstr ""
 
-#: addons/migrator.php:1901
+#: addons/migrator.php:1907
 msgid "Existing keys"
 msgstr ""
 
@@ -389,67 +461,67 @@ msgstr ""
 msgid "Almost all FTP servers will want passive mode; but if you need active mode, then uncheck this."
 msgstr ""
 
-#: addons/migrator.php:1558
+#: addons/migrator.php:1560
 msgid "key"
 msgstr ""
 
-#: addons/migrator.php:1568
+#: addons/migrator.php:1570
 msgid "The entered key was the wrong length - please try again."
 msgstr ""
 
-#: addons/migrator.php:1570 addons/migrator.php:1572 addons/migrator.php:1576
+#: addons/migrator.php:1572 addons/migrator.php:1574 addons/migrator.php:1578
 msgid "The entered key was corrupt - please try again."
 msgstr ""
 
-#: addons/migrator.php:1581
+#: addons/migrator.php:1583
 msgid "The entered key does not belong to a remote site (it belongs to this one)."
 msgstr ""
 
-#: addons/migrator.php:1597
+#: addons/migrator.php:1599
 msgid "The key was successfully added."
 msgstr ""
 
-#: addons/migrator.php:1597
+#: addons/migrator.php:1599
 msgid "It is for sending backups to the following site: "
 msgstr ""
 
-#: addons/migrator.php:1616
+#: addons/migrator.php:1618
 msgid "No receiving sites have yet been added."
 msgstr ""
 
-#: addons/migrator.php:1618 admin.php:318
+#: addons/migrator.php:1620 admin.php:433
 msgid "Send to site:"
 msgstr ""
 
-#: addons/migrator.php:1624 admin.php:325
+#: addons/migrator.php:1626 admin.php:440
 msgid "Send"
 msgstr ""
 
-#: addons/migrator.php:1854
+#: addons/migrator.php:1860
 msgid "Or, send a backup to another site"
 msgstr ""
 
-#: addons/migrator.php:1855
+#: addons/migrator.php:1861
 msgid "To add a site as a destination for sending to, enter that site's key below."
 msgstr ""
 
-#: addons/migrator.php:1855
+#: addons/migrator.php:1861
 msgid "How do I get a site's key?"
 msgstr ""
 
-#: addons/migrator.php:1858
+#: addons/migrator.php:1864
 msgid "Paste key here"
 msgstr ""
 
-#: addons/migrator.php:1869
+#: addons/migrator.php:1875
 msgid "Or, receive a backup from a remote site"
 msgstr ""
 
-#: admin.php:314
+#: admin.php:429
 msgid "Adding..."
 msgstr ""
 
-#: addons/migrator.php:1858 admin.php:315
+#: addons/migrator.php:1864 admin.php:430
 msgid "Add site"
 msgstr ""
 
@@ -461,11 +533,11 @@ msgstr ""
 msgid "The UpdraftPlus Migrator modifies the restoration operation appropriately, to fit the backup data to the new site."
 msgstr ""
 
-#: restorer.php:1689
+#: restorer.php:1867
 msgid "To use this backup, your database server needs to support the %s character set."
 msgstr ""
 
-#: admin.php:2341
+#: admin.php:2576
 msgid "WebDAV, OneDrive, Copy.Com, SFTP/SCP, encrypted FTP"
 msgstr ""
 
@@ -493,7 +565,7 @@ msgstr ""
 msgid "After pressing this button, you will be given the option to choose which components you wish to migrate"
 msgstr ""
 
-#: admin.php:307 admin.php:329
+#: admin.php:422 admin.php:444
 msgid "You have made changes to your settings, and not saved."
 msgstr ""
 
@@ -529,7 +601,7 @@ msgstr ""
 msgid "Create OneDrive credentials in your OneDrive developer console."
 msgstr ""
 
-#: addons/migrator.php:1451 addons/onedrive.php:660
+#: addons/migrator.php:1453 addons/onedrive.php:660
 msgid "For longer help, including screenshots, follow this link."
 msgstr ""
 
@@ -589,15 +661,15 @@ msgstr ""
 msgid "Do remember to save your settings."
 msgstr ""
 
-#: restorer.php:1785
+#: restorer.php:1963
 msgid "Uploads path (%s) has changed during a migration - resetting (to: %s)"
 msgstr ""
 
-#: admin.php:219
+#: admin.php:308
 msgid "UpdraftPlus news, high-quality training materials for WordPress developers and site-owners, and general WordPress news. You can de-subscribe at any time."
 msgstr ""
 
-#: admin.php:221
+#: admin.php:310
 msgid "For personal support, the ability to copy sites, more storage destinations, encrypted backups for security, multiple backup destinations, better reporting, no adverts and plenty more, take a look at the premium version of UpdraftPlus - the world’s most popular backup plugin."
 msgstr ""
 
@@ -718,188 +790,188 @@ msgstr "Videti je, da je IP naslov (%s) vašega strežnika blokiran."
 msgid "This most likely means that you share a webserver with a hacked website that has been used in previous attacks."
 msgstr "To običajno pomeni, da ste na strežniku z napadeno spletno stranjo, ki je bila uporabljena v prejšnjih napadih."
 
-#: addons/autobackup.php:603
+#: addons/autobackup.php:605
 msgid "Update cancelled - reload page to try again."
 msgstr "Posodobitev je preklicana - ponovno naložite stran in poskusite znova."
 
-#: admin.php:212 admin.php:226
+#: admin.php:301 admin.php:315
 msgid "Dismiss (for %s months)"
 msgstr "Opusti (za %s mesecev)"
 
-#: admin.php:214
+#: admin.php:303
 msgid "Thank you for backing up with UpdraftPlus!"
 msgstr "Hvala za ustvarjanje varnostne kopije z UpdraftPlus!"
 
-#: admin.php:219
+#: admin.php:308
 msgid "Free Newsletter"
 msgstr "Brezplačno glasilo"
 
-#: admin.php:219
+#: admin.php:308
 msgid "Follow this link to sign up."
 msgstr "Za prijavo sledi tej povezavi."
 
-#: admin.php:221
+#: admin.php:310
 msgid "UpdraftPlus Premium"
 msgstr "UpdraftPlus Premium"
 
-#: admin.php:221
+#: admin.php:310
 msgid "Compare with the free version"
 msgstr "Primerjaj z brezplačno različico"
 
-#: admin.php:221
+#: admin.php:310
 msgid "Go to the shop."
 msgstr "Pojdi v trgovino."
 
-#: admin.php:223
+#: admin.php:312
 msgid "More Quality Plugins"
 msgstr "Več kakovostnih vtičnikov"
 
-#: admin.php:223
+#: admin.php:312
 msgid "Free two-factor security plugin"
 msgstr "Brezplačen dvofaktorski varnostni vtičnik"
 
-#: admin.php:223
+#: admin.php:312
 msgid "Premium WooCommerce plugins"
 msgstr "Premium WooCommerce vtičniki"
 
-#: class-updraftplus.php:3037
+#: class-updraftplus.php:3053
 msgid "Follow this link to sign up for the UpdraftPlus newsletter."
 msgstr "Za prijavo na UpdraftPlus glasilo sledite tej povezavi."
 
-#: restorer.php:924
+#: restorer.php:978
 msgid "You should enable %s to make your pretty permalinks (e.g. %s) work"
 msgstr "Omogočiti je treba %s , da bodo vaše lepe trajne povezave (npr. %s) delovale"
 
-#: admin.php:1909
+#: admin.php:2142
 msgid "Newsletter sign-up"
 msgstr "Prijava na glasilo"
 
-#: admin.php:2290
+#: admin.php:2525
 msgid "If you have made a purchase from UpdraftPlus.Com, then follow this link to the instructions to install your purchase."
 msgstr "Če ste plačali na UpdraftPlus.Com, potem sledite tej povezavi za navodila, kako namestiti vaš nakup."
 
-#: admin.php:2290
+#: admin.php:2525
 msgid "The first step is to de-install the free version."
 msgstr "Prvi korak je odstranitev brezplačne različice."
 
-#: admin.php:3262
+#: admin.php:3507
 msgid "No backup has been completed"
 msgstr "Nobena varnostna kopija ni bila dokončana"
 
-#: addons/fixtime.php:26
+#: addons/fixtime.php:254
 msgid "(at same time as files backup)"
 msgstr "(medtem, ko se ustvarja varnostna kopija)"
 
-#: admin.php:2336
+#: admin.php:2571
 msgid "Dropbox, Google Drive, FTP, S3, Rackspace, Email"
 msgstr "Dropbox, Google Drive, FTP, S3, Rackspace, E-pošta"
 
-#: admin.php:2351
+#: admin.php:2586
 msgid "Backup extra files and databases"
 msgstr "Ustvari varnostno kopijo posebnih datotek in baz podatkov"
 
-#: admin.php:2356
+#: admin.php:2591
 msgid "Migrate / clone (i.e. copy) websites"
 msgstr "Preseli / kloniraj (torej kopiraj) spletne strani"
 
-#: admin.php:2361
+#: admin.php:2596
 msgid "Basic email reporting"
 msgstr "Osnovno poročanje preko e-pošte"
 
-#: admin.php:2366
+#: admin.php:2601
 msgid "Advanced reporting features"
 msgstr "Napredne možnosti poročanja"
 
-#: admin.php:2371
+#: admin.php:2606
 msgid "Automatic backup when updating WP/plugins/themes"
 msgstr "Samodejna varnostna kopija pri posodabljanju WP/vtičnikov/tem"
 
-#: admin.php:2376
+#: admin.php:2611
 msgid "Send backups to multiple remote destinations"
 msgstr "Pošlji varnostno kopijo na več oddaljenih ciljev"
 
-#: admin.php:2381
+#: admin.php:2616
 msgid "Database encryption"
 msgstr "Šifriranje baze podatkov"
 
-#: admin.php:2386
+#: admin.php:2621
 msgid "Restore backups from other plugins"
 msgstr "Obnovi varnostne kopije iz drugih vtičnikov"
 
-#: admin.php:2396
+#: admin.php:2631
 msgid "Scheduled backups"
 msgstr "Načrtovane varnostne kopije"
 
-#: admin.php:2401
+#: admin.php:2636
 msgid "Fix backup time"
 msgstr "Enak čas varnostnega kopiranja"
 
-#: admin.php:2406
+#: admin.php:2641
 msgid "Network/Multisite support"
 msgstr "Podpora za Network/Multisite"
 
-#: admin.php:2411
+#: admin.php:2646
 msgid "Lock settings access"
 msgstr "Zakleni dostop do nastavitev"
 
-#: admin.php:2416
+#: admin.php:2651
 msgid "Personal support"
 msgstr "Osebna podpora"
 
-#: admin.php:2290
+#: admin.php:2525
 msgid "You are currently using the free version of UpdraftPlus from wordpress.org."
 msgstr "Trenutno uporabljate brezplačno različico UpdraftPlus iz wordpress.org."
 
-#: admin.php:2292
+#: admin.php:2527
 msgid "Get UpdraftPlus Premium"
 msgstr "Pridobi UpdraftPlus Premium"
 
-#: admin.php:2293
+#: admin.php:2528
 msgid "Full feature list"
 msgstr "Seznam vseh značilnosti"
 
-#: admin.php:2294
+#: admin.php:2529
 msgid "Pre-sales FAQs"
 msgstr "Pogosto zastavljena vprašanja pred nakupom"
 
-#: admin.php:2295
+#: admin.php:2530
 msgid "Ask a pre-sales question"
 msgstr "Zastavi vprašanje pred nakupom"
 
-#: admin.php:2308
+#: admin.php:2543
 msgid "Get it from"
 msgstr "Pridobi iz"
 
-#: admin.php:2312
+#: admin.php:2547
 msgid "Buy It Now!"
 msgstr "Kupi sedaj!"
 
-#: admin.php:2316
+#: admin.php:2551
 msgid "Backup WordPress files and database"
 msgstr "Ustvari varnostno kopijo Wordpress datotek in baz podatkov"
 
-#: admin.php:2321
+#: admin.php:2556
 msgid "Translated into over %s languages"
 msgstr "Preveden v preko %s jezikov"
 
-#: admin.php:2326
+#: admin.php:2561
 msgid "Restore from backup"
 msgstr "Obnovi iz varnostne kopije"
 
-#: admin.php:2331
+#: admin.php:2566
 msgid "Backup to remote storage"
 msgstr "Ustvari varnostno kopijo na oddaljeno spletno mesto"
 
-#: admin.php:301
+#: admin.php:416
 msgid "You did not select any components to restore. Please select at least one, and then try again."
 msgstr "Izbrali niste nobenih komponent za obnovo. Izberite vsaj eno in poskusite znova."
 
-#: admin.php:2552
+#: admin.php:2787
 msgctxt "Uploader: Drop backup files here - or - Select Files"
 msgid "or"
 msgstr "ali"
 
-#: admin.php:3392
+#: admin.php:3660
 msgctxt "Uploader: Drop db.gz.crypt files here to upload them for decryption - or - Select Files"
 msgid "or"
 msgstr "ali"
@@ -912,25 +984,25 @@ msgstr "Ta varnostna kopija je velika %s Mb - poskus pošiljanja preko e-pošte 
 msgid "%s Error: Failed to initialise"
 msgstr "%s Napaka: Napaka pri zagonu"
 
-#: addons/autobackup.php:852
+#: addons/autobackup.php:855
 msgid "Backup (where relevant) plugins, themes and the WordPress database with UpdraftPlus before updating"
 msgstr "Pred posodobitvijo ustvari varnostno kopijo vtičnikov (kjer je to ustrezno), tem in Wordpress baz podatkov z UpdraftPlus."
 
-#: restorer.php:1666
+#: restorer.php:1844
 msgctxt "The user is being told the number of times an error has happened, e.g. An error (27) occurred"
 msgid "An error (%s) occurred:"
 msgstr "Pripetila se je napaka (%s):"
 
-#: admin.php:3271
+#: admin.php:3516
 msgctxt "i.e. Non-automatic"
 msgid "Manual"
 msgstr "Ročno"
 
-#: admin.php:3448
+#: admin.php:3716
 msgid "Check this box to have a basic report sent to"
 msgstr "Za pošiljanje osnovnega poročila izberi ti polje"
 
-#: admin.php:3448
+#: admin.php:3716
 msgid "your site's admin address"
 msgstr "naslov skrbnika vašega spletnega mesta"
 
@@ -944,11 +1016,11 @@ msgctxt "\"tenant\" is a term used with OpenStack storage - Google for \"OpenSta
 msgid "tenant"
 msgstr "zakupnik"
 
-#: addons/sftp.php:338
+#: addons/sftp.php:341
 msgid "Resuming partial uploads is supported for SFTP, but not for SCP. Thus, if using SCP then you will need to ensure that your webserver allows PHP processes to run long enough to upload your largest backup file."
 msgstr "Nadaljevanje nalaganja po delčkih je podprto za SFTP, ne pa za SCP. Če torej uporabljate SCP, je treba zagotoviti, da vaš strežnik dovoljuje tako dolge procese PHP, da se bo naložila vaša največja varnostna kopija."
 
-#: addons/sftp.php:375
+#: addons/sftp.php:378
 msgctxt "Do not translate BEGIN RSA PRIVATE KEY. PCKS1, XML, PEM and PuTTY are also technical acronyms which should not be translated."
 msgid "PKCS1 (PEM header: BEGIN RSA PRIVATE KEY), XML and PuTTY format keys are accepted."
 msgstr "PKCS1 (PEM glava: BEGIN RSA PRIVATE KEY), XML in PuTTY format ključi so sprejeti."
@@ -961,19 +1033,19 @@ msgstr "Druga datoteka/mapa na vašem strežniku, ki jo želite varnostno kopira
 msgid "Change Lock Settings"
 msgstr "Spremeni nastavitve zaklepanja"
 
-#: restorer.php:957
+#: restorer.php:1136
 msgid "Clearing cached pages (%s)..."
 msgstr "Čistim predpomnjene strani (%s)..."
 
-#: restorer.php:1672
+#: restorer.php:1850
 msgid "Create table failed - probably because there is no permission to drop tables and the table already exists; will continue"
 msgstr "Ustvarjanje preglednice ni uspelo - najbrž zato, ker ni dovoljenja za ustvarjanje preglednic in preglednica že obstaja; nadaljujem"
 
-#: admin.php:2048
+#: admin.php:2283
 msgid "For even more features and personal support, check out "
 msgstr "Za več značilnosti in osebno podporo preveri"
 
-#: admin.php:185 admin.php:2105
+#: admin.php:274 admin.php:2340
 msgid "Add-ons"
 msgstr "Dodatki"
 
@@ -1061,8 +1133,8 @@ msgstr "Za podporo glede odklepanja, kontaktirajte osebo, ki za vas upravlja z U
 msgid "WordPress core (only)"
 msgstr "Wordpress jedro (samo)"
 
-#: addons/autobackup.php:86 addons/autobackup.php:815 addons/autobackup.php:823
-#: admin.php:306
+#: addons/autobackup.php:86 addons/autobackup.php:820 addons/autobackup.php:828
+#: admin.php:421
 msgid "Automatic backup before update"
 msgstr "Samodejna varnostna kopija pred posodabljanjem"
 
@@ -1070,59 +1142,59 @@ msgstr "Samodejna varnostna kopija pred posodabljanjem"
 msgid "Database decryption phrase"
 msgstr "Fraza za šifriranje baze podatkov"
 
-#: backup.php:2556
+#: backup.php:2607
 msgid "A zip error occurred"
 msgstr "Napaka pri ustvarjanju zip"
 
-#: backup.php:2558
+#: backup.php:2609
 msgid "your web hosting account appears to be full; please see: %s"
 msgstr "vaš račun spletnega gostovanja je videti popolnoma zaseden; prosimo, glejte: %s"
 
-#: backup.php:2560
+#: backup.php:2611
 msgid "check your log for more details."
 msgstr "Preverite poročilo za več podrobnosti."
 
-#: admin.php:1592
+#: admin.php:1825
 msgid "Error: unexpected file read fail"
 msgstr "Napaka: nepričakovana napaka pri branju datoteke"
 
-#: class-updraftplus.php:3198
+#: class-updraftplus.php:3218
 msgid "Backup label:"
 msgstr "Oznaka varnostne kopije"
 
-#: admin.php:2136
+#: admin.php:2371
 msgid "The 'Backup Now' button is disabled as your backup directory is not writable (go to the 'Settings' tab and find the relevant option)."
 msgstr "Gumb za varnostno kopiranje je onemogočen, ker ni mogoče zapisovati na mesto varnostne kopije (pojdi v zavihek Nastavitve in poišči ustrezno možnost)."
 
-#: admin.php:2519
+#: admin.php:2754
 msgid "Following a link for Database/Plugins/Themes/Uploads/Others will make UpdraftPlus try to bring the backup file back from the remote storage (if any - e.g. Amazon S3, Dropbox, Google Drive, FTP) to your webserver. Then you will be allowed to download it to your computer. If the fetch from the remote storage stops progressing (wait 30 seconds to make sure), then press again to resume. Remember that you can also visit the cloud storage vendor's website directly."
 msgstr "Ob kliku na povezavo Database/Plugins/Themes/Uploads/Others bo UpdraftPlus poskusil prenesti varnostno kopijo iz oddaljene lokacije  (če obstaja - npr. Amazon S3, Dropbox, Google Drive, FTP) na vaš strežnik. Nato jo boste lahko prenesli na vaš računalnik. Če se postopek na oddaljeni lokaciji ustavi (počakajte 30 sekund, da boste prepričani), ponovno kliknite za nadaljevanje. Imejte v mislih, da lahko prav tako tudi neposredno obiščite spletno stran prodajalca prostora v oblaku."
 
-#: admin.php:2541
+#: admin.php:2776
 msgid "Upload files into UpdraftPlus."
 msgstr "Naloži datoteke v UpdraftPlus."
 
-#: admin.php:2748
+#: admin.php:2993
 msgid "For the ability to lock access to UpdraftPlus settings with a password, upgrade to UpdraftPlus Premium."
 msgstr "Za možnost zaklepanja dostopa do nastavitev UpdraftPlus z geslom, nadgradite UpdraftPlus v različico Premium."
 
-#: admin.php:3232
+#: admin.php:3477
 msgid "incremental backup; base backup: %s"
 msgstr "inkrementalna varnostna kopija; temeljna varnostna kopija: %s"
 
-#: admin.php:3304 admin.php:3334
+#: admin.php:3556 admin.php:3596
 msgid "and retain this many scheduled backups"
 msgstr "in ohrani toliko časovno nastavljivih varnostnih kopij"
 
-#: admin.php:3844
+#: admin.php:4112
 msgid "Backup date"
 msgstr "Datum varnostne kopije"
 
-#: admin.php:3845
+#: admin.php:4113
 msgid "Backup data (click to download)"
 msgstr "Podatki varnostne kopije (klik za prenos)"
 
-#: admin.php:4164
+#: admin.php:4432
 msgid "View Log"
 msgstr "Oglej si poročilo"
 
@@ -1142,11 +1214,11 @@ msgstr "(razlikovanje malih in velikih črk)"
 msgid "N.B. Copy is case-sensitive."
 msgstr "Kopiranje razlikuje med malimi in velikimi črkami."
 
-#: addons/reporting.php:59
+#: addons/reporting.php:60
 msgid "Your label for this backup (optional)"
 msgstr "Vaša oznaka za to varnostno kopijo (po izbiri)"
 
-#: methods/googledrive.php:885
+#: methods/googledrive.php:893
 msgid "%s does not allow authorisation of sites hosted on direct IP addresses. You will need to change your site's address (%s) before you can use %s for storage."
 msgstr "%s ne dovoljuje avtorizacije na spletišču z direktnimi IP naslovi. Morali boste spremeniti naslov vašega spletišča (%s) preden boste boste lahko uporabljali %s za shranjevanje."
 
@@ -1162,15 +1234,15 @@ msgstr "Tvoja e-pošta je veljavna, vendar UpdraftPlus.Com ni prepoznal tvojega 
 msgid "You entered an email address that was not recognised by UpdraftPlus.Com"
 msgstr "Vpisali ste e-pošte, ki je UpdraftPlus.Com ni prepoznal."
 
-#: admin.php:2239
+#: admin.php:2474
 msgid "To proceed, press 'Backup Now'. Then, watch the 'Last Log Message' field for activity."
 msgstr "Za nadaljevanje, pritisni \"Kopiraj zdaj\". Nato spremljaj aktivnosti v polju \"Zadnje poročilo\"."
 
-#: class-updraftplus.php:3215
+#: class-updraftplus.php:3235
 msgid "Your backup is of a WordPress multisite install; but this site is not. Only the first site of the network will be accessible."
 msgstr "Tvoja varnostna kopija je od Wordpress multisite, a to spletišče ni takšno. Na voljo bo samo prvo spletno mesto od multisite."
 
-#: class-updraftplus.php:3215
+#: class-updraftplus.php:3235
 msgid "If you want to restore a multisite backup, you should first set up your WordPress installation as a multisite."
 msgstr "Če želite obnoviti varnostno kopijo multisite, je potrebno naprej nastaviti namestitev Worpress kot multisite."
 
@@ -1210,79 +1282,79 @@ msgstr "Niste še povezani s svojim UpdraftPlus.Com računom."
 msgid "You need to connect to receive future updates to UpdraftPlus."
 msgstr "Za prihodnje posodobitve UpdraftPlus se je potrebno povezati."
 
-#: class-updraftplus.php:3190
+#: class-updraftplus.php:3210
 msgid "The site in this backup was running on a webserver with version %s of %s. "
 msgstr "Spletno mesto v tej varnostni kopiji je delovalo na strežniku z verzijo %s od %s."
 
-#: class-updraftplus.php:3190
+#: class-updraftplus.php:3210
 msgid "This is significantly newer than the server which you are now restoring onto (version %s)."
 msgstr "To je izrazito novejše kot strežnik, na katerega obnavljate podatke (verzija %s)."
 
-#: class-updraftplus.php:3190
+#: class-updraftplus.php:3210
 msgid "You should only proceed if you cannot update the current server and are confident (or willing to risk) that your plugins/themes/etc. are compatible with the older %s version."
 msgstr "Nadaljuj samo, če ne moreš posodobiti trenutnega strežnika in si prepričan (ali pripravljen tvegati), da so tvoji vtičniki/teme/idr. združljivi s starejšo %s verzijo."
 
-#: class-updraftplus.php:3190
+#: class-updraftplus.php:3210
 msgid "Any support requests to do with %s should be raised with your web hosting company."
 msgstr "Za podporo v zvezi z %s se je priporočljivo obrniti na tvojega ponudnika spletnega gostovanja."
 
-#: class-updraftplus.php:3028 class-updraftplus.php:3057
+#: class-updraftplus.php:3044 class-updraftplus.php:3073
 msgid "UpdraftPlus is on social media - check us out here:"
 msgstr "UpdraftPlus je prisoten na socialnih omrežjih - poišči na tukaj:"
 
-#: admin.php:1907 class-updraftplus.php:3028 class-updraftplus.php:3057
+#: admin.php:2140 class-updraftplus.php:3044 class-updraftplus.php:3073
 msgid "Twitter"
 msgstr "Twitter"
 
-#: class-updraftplus.php:3028 class-updraftplus.php:3057
+#: class-updraftplus.php:3044 class-updraftplus.php:3073
 msgid "Facebook"
 msgstr "Facebook"
 
-#: class-updraftplus.php:3028 class-updraftplus.php:3057
+#: class-updraftplus.php:3044 class-updraftplus.php:3073
 msgid "Google+"
 msgstr "Google+"
 
-#: class-updraftplus.php:3028 class-updraftplus.php:3057
+#: class-updraftplus.php:3044 class-updraftplus.php:3073
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: admin.php:3568
+#: admin.php:3836
 msgid "UpdraftPlus will split up backup archives when they exceed this file size. The default value is %s megabytes. Be careful to leave some margin if your web-server has a hard size limit (e.g. the 2 Gb / 2048 Mb limit on some 32-bit servers/file systems)."
 msgstr "UpdraftPlus bo razdelil arhive varnostne kopije, ko presežejo to velikost. Privzeta vrednost je %s megabajtov. Bodi pozoren, da pustiš nekaj manevrskega prostora, če ima tvoj strežnik omejitev (npr. 2 Gb / 2048 Mb na nekaterih 32-bitnih strežnikih/datotečni sistemih."
 
-#: admin.php:4211
+#: admin.php:4479
 msgid "Why am I seeing this?"
 msgstr "Zakaj vidim to?"
 
-#: admin.php:2530
+#: admin.php:2765
 msgid "Press here to look inside your UpdraftPlus directory (in your web hosting space) for any new backup sets that you have uploaded."
 msgstr "Pritisni tukaj za ogled mape UpdraftPlus (v prostoru tvojega spletnega gostovanja) za nove varnostne kopije, ki si jih naložil."
 
-#: admin.php:2530
+#: admin.php:2765
 msgid "The location of this directory is set in the expert settings, in the Settings tab."
 msgstr "Mesto te mape je določeno v naprednih nastavitvah zavihka Nastavitve."
 
-#: admin.php:1437 admin.php:1444
+#: admin.php:1670 admin.php:1677
 msgid "Start backup"
 msgstr "Prični varnostno kopiranje"
 
-#: restorer.php:924
+#: restorer.php:978
 msgid "You are using the %s webserver, but do not seem to have the %s module loaded."
 msgstr "Uporabljaš %s strežnik, vendar ni videti, da bi bil naložen %s modul."
 
-#: admin.php:3178
+#: admin.php:3423
 msgid "You will need to consult with your web hosting provider to find out how to set permissions for a WordPress plugin to write to the directory."
 msgstr "Za informacijo o dovoljenju Wordpress vtičnika o zapisovanjo v mapo, se bo  potrebno posvetovati z vašim ponudnikom spletnega gostovanja."
 
-#: admin.php:2675
+#: admin.php:2920
 msgid "Unless you have a problem, you can completely ignore everything here."
 msgstr "Če nimate problema, lahko popolnoma prezrete vse, kar je tukaj."
 
-#: admin.php:1713
+#: admin.php:1946
 msgid "You will find more information about this in the Settings section."
 msgstr "Več informacij o tem boste našli med Nastavitvami."
 
-#: admin.php:1748
+#: admin.php:1981
 msgid "This file could not be uploaded"
 msgstr "Te datoteke ni bilo mogoče naložiti"
 
@@ -1294,31 +1366,31 @@ msgstr "Ali je bila ta varnostna kopija narejena z drugim tovrstnim vtičnikom? 
 msgid "Supported backup plugins: %s"
 msgstr "Podprti vtičniki za varnostno kopiranje: %s"
 
-#: admin.php:3313
+#: admin.php:3569
 msgid "Incremental file backup intervals"
 msgstr "Intervali inkrementalne varnostne kopije"
 
-#: admin.php:3316
+#: admin.php:3572
 msgid "Tell me more about incremental backups"
 msgstr "Več o inkrementalni varnostni kopiji"
 
-#: admin.php:2710
+#: admin.php:2955
 msgid "Memory limit"
 msgstr "Limit spomina"
 
-#: class-updraftplus.php:3301 restorer.php:1159
+#: class-updraftplus.php:3322 restorer.php:1338
 msgid "restoration"
 msgstr "obnova"
 
-#: restorer.php:1620
+#: restorer.php:1799
 msgid "Table to be implicitly dropped: %s"
 msgstr "Posredno spuščena tabela: %s"
 
-#: backup.php:646
+#: backup.php:656
 msgid "Full backup"
 msgstr "Celotna varnostna kopija"
 
-#: backup.php:646
+#: backup.php:656
 msgid "Incremental"
 msgstr "Inkrementalno"
 
@@ -1334,7 +1406,7 @@ msgstr "(oglej si poročilo...)"
 msgid "now proceeding with the updates..."
 msgstr "nadaljujem s posodobitvami..."
 
-#: admin.php:3272 admin.php:3273 admin.php:3274 updraftplus.php:72
+#: admin.php:3517 admin.php:3518 admin.php:3519 updraftplus.php:72
 #: updraftplus.php:73
 msgid "Every %s hours"
 msgstr "Vsakih %s ur"
@@ -1371,75 +1443,75 @@ msgstr "Iskanja/zamenjave ni mogoče povrniti - ste prepričani, da to želite?"
 msgid "Go"
 msgstr "Pojdi"
 
-#: restorer.php:1694
+#: restorer.php:1872
 msgid "Too many database errors have occurred - aborting"
 msgstr "Pripetilo se je preveč napak z bazami podatkov - preklicujem"
 
-#: backup.php:708
+#: backup.php:718
 msgid "read more at %s"
 msgstr "preberi več na %s"
 
-#: backup.php:708
+#: backup.php:718
 msgid "Email reports created by UpdraftPlus (free edition) bring you the latest UpdraftPlus.com news"
 msgstr "E-poštna poročila UpdraftPlus (brezplačna različica) prinašajo zadnje novice z UpdraftPlus.com "
 
-#: methods/googledrive.php:891
+#: methods/googledrive.php:899
 msgid "N.B. If you install UpdraftPlus on several WordPress sites, then you cannot re-use your project; you must create a new one from your Google API console for each site."
 msgstr "Če namestite UpdraftPlus na več Wordpress spletnih mestih, potem ni mogoče ponovno uporabiti vašega projekta; ustvariti je potrebno novega s konzolo Google API za vsako spletno mesto."
 
-#: admin.php:3830
+#: admin.php:4098
 msgid "You have not yet made any backups."
 msgstr "Niste še naredili nobenih varnostnih kopij."
 
-#: admin.php:3358
+#: admin.php:3626
 msgid "Database Options"
 msgstr "Možnosti baze podatkov"
 
-#: admin.php:2766
+#: admin.php:3011
 msgid "The buttons below will immediately execute a backup run, independently of WordPress's scheduler. If these work whilst your scheduled backups do absolutely nothing (i.e. not even produce a log file), then it means that your scheduler is broken."
 msgstr "Spodnji gumb bo takoj izvedel varnostno kopiranje, ne glede na časovnik Wordpressa. Če to deluje, medtem ko časovno nastavljena varnostna kopija ne naredi popolnoma nič (npr. tudi poročilo ne nastane), potem nastavitve časovnika ne delujejo."
 
-#: admin.php:2732
+#: admin.php:2977
 msgid "%s (%s used)"
 msgstr "%s (%s uporabljeno)"
 
-#: admin.php:2735
+#: admin.php:2980
 msgid "Plugins for debugging:"
 msgstr "Vtičniki za razhroščevanje:"
 
-#: admin.php:2732
+#: admin.php:2977
 msgid "Free disk space in account:"
 msgstr "Razpoložljiv prostor na računu:"
 
-#: admin.php:2512
+#: admin.php:2747
 msgid "Existing Backups: Downloading And Restoring"
 msgstr "Obstoječe varnostne kopije: prenos in obnavljanje"
 
-#: admin.php:153 admin.php:2101
+#: admin.php:242 admin.php:2336
 msgid "Current Status"
 msgstr "Trenutni status"
 
-#: admin.php:161 admin.php:1403 admin.php:1528 admin.php:2102
+#: admin.php:250 admin.php:1636 admin.php:1761 admin.php:2337
 msgid "Existing Backups"
 msgstr "Obstoječe varnostne kopije"
 
-#: admin.php:177 admin.php:2104
+#: admin.php:266 admin.php:2339
 msgid "Debugging / Expert Tools"
 msgstr "Razhroščevanje / napredna orodja"
 
-#: admin.php:2141
+#: admin.php:2376
 msgid "This button is disabled because your backup directory is not writable (see the settings)."
 msgstr "Ta gumb ni omogočen, ker na izbrano mesto za varnostno kopijo ni mogoče zapisovati (glej nastavitve)."
 
-#: admin.php:679
+#: admin.php:891
 msgid "Welcome to UpdraftPlus!"
 msgstr "Dobrodošli na UpdraftPlus!"
 
-#: admin.php:679
+#: admin.php:891
 msgid "To make a backup, just press the Backup Now button."
 msgstr "Za ustvarjanje varnostne kopije, zgolj pritisni na gumb Kopiraj zdaj."
 
-#: admin.php:679
+#: admin.php:891
 msgid "To change any of the default settings of what is backed up, to configure scheduled backups, to send your backups to remote storage (recommended), and more, go to the settings tab."
 msgstr "Za spreminjanje privzetih nastavitev varnostnega kopiranja, prilagajanje v naprej potekajočih kopij, pošiljanje kopij na oddaljen pogon (priporočljivo) in drugo pojdi na zavihek Nastavitve."
 
@@ -1511,11 +1583,11 @@ msgstr "ime baze podatkov"
 msgid "database connection attempt failed"
 msgstr "poskus povezave z bazo podatkov ni uspel"
 
-#: addons/reporting.php:344
+#: addons/reporting.php:345
 msgid "External database (%s)"
 msgstr "Zunanja baza podatkov (%s)"
 
-#: methods/googledrive.php:891
+#: methods/googledrive.php:899
 msgid "Follow this link to your Google API Console, and there activate the Drive API and create a Client ID in the API Access section."
 msgstr "Sledi tej povezavi do svoje Google API konzole, kjer lahko aktiviraš Drive API in ustvariš ID klienta v oddelku API dostop."
 
@@ -1527,55 +1599,55 @@ msgstr "neuspel dostop do zgornje mape"
 msgid "However, subsequent access attempts failed:"
 msgstr "Kakorkoli, kasnejši poskusi dostopa niso uspeli:"
 
-#: admin.php:3984
+#: admin.php:4252
 msgid "External database"
 msgstr "Zunanja baza podatkov"
 
-#: admin.php:3563
+#: admin.php:3831
 msgid "This will also cause debugging output from all plugins to be shown upon this screen - please do not be surprised to see these."
 msgstr "To bo povzročilo tudi razhroščevanje iz drugih vtičnikov, ki se bodo prikazali na zaslonu - prosimo, ob tem ne bodite presenečeni."
 
-#: admin.php:3416
+#: admin.php:3684
 msgid "Back up more databases"
 msgstr "Varnostno kopiraj več baz podatkov"
 
-#: admin.php:3367
+#: admin.php:3635
 msgid "Don't want to be spied on? UpdraftPlus Premium can encrypt your database backup."
 msgstr "Ne želite, da kdo vohuni za vami? UpdraftPlus Premium omogoča šifriranje varnostne kopije baze podatkov."
 
-#: admin.php:3367
+#: admin.php:3635
 msgid "It can also backup external databases."
 msgstr "Poleg tega lahko naredi varnostno kopijo zunanjih podatkovnih baz."
 
-#: admin.php:3376
+#: admin.php:3644
 msgid "You can manually decrypt an encrypted database here."
 msgstr "Tukaj lahko ročno dešifrirate šifrirano podatkovno bazo."
 
-#: admin.php:3394
+#: admin.php:3662
 msgid "First, enter the decryption key"
 msgstr "Najprej vnesite dešifrirni ključ"
 
-#: admin.php:3342
+#: admin.php:3609
 msgid "use UpdraftPlus Premium"
 msgstr "uporabite UpdraftPlus Premium"
 
-#: class-updraftplus.php:3092
+#: class-updraftplus.php:3108
 msgid "Decryption failed. The database file is encrypted."
 msgstr "Dešifriranje ni uspelo. Podatkovna baza je šifrirana."
 
-#: admin.php:1172
+#: admin.php:1384
 msgid "Only the WordPress database can be restored; you will need to deal with the external database manually."
 msgstr "Obnovljena je lahko samo Wordpressova podatkovna baza; zunanje baze podatkov je potrebno obnoviti ročno."
 
-#: restorer.php:1390 restorer.php:1641 restorer.php:1676 restorer.php:1689
+#: restorer.php:1569 restorer.php:1819 restorer.php:1854 restorer.php:1867
 msgid "An error occurred on the first %s command - aborting run"
 msgstr "Prišlo je do napake pri prvem %s ukazu - preklicujem"
 
-#: backup.php:1144
+#: backup.php:1158
 msgid "database connection attempt failed."
 msgstr "Povezava z bazo podatkov ni uspela."
 
-#: addons/moredatabase.php:70 backup.php:1144
+#: addons/moredatabase.php:70 backup.php:1158
 msgid "Connection failed: check your access details, that the database server is up, and that the network connection is not firewalled."
 msgstr "Povezava ni uspela: preveri podrobnosti dostopa, da je strežnik dosegljiv, in da spletne povezave ne blokira požarni zid."
 
@@ -1694,7 +1766,7 @@ msgid "Could not access %s container"
 msgstr "Ne moremo dostopati do %s kontejnerja"
 
 #: addons/copycom.php:548 addons/onedrive.php:683 methods/dropbox.php:422
-#: methods/googledrive.php:940
+#: methods/googledrive.php:948
 msgid "Account holder's name: %s."
 msgstr "Ime nosilca računa: %s."
 
@@ -1704,20 +1776,20 @@ msgstr "Ime nosilca računa: %s."
 msgid "%s error - failed to access the container"
 msgstr "%s napaka: neuspeh pri dostopu do kontejnerja"
 
-#: methods/googledrive.php:920
+#: methods/googledrive.php:928
 msgid "<strong>This is NOT a folder name</strong>."
 msgstr "<strong>To NI ime mape</strong>."
 
-#: methods/googledrive.php:920
+#: methods/googledrive.php:928
 msgid "It is an ID number internal to Google Drive"
 msgstr "To je ID številka v Google Drive"
 
-#: methods/googledrive.php:929
+#: methods/googledrive.php:937
 msgid "To be able to set a custom folder name, use UpdraftPlus Premium."
 msgstr "Za poimenovanje map po meri uporabite UpdraftPlus Premium."
 
 #: addons/copycom.php:540 addons/google-enhanced.php:72 addons/onedrive.php:675
-#: methods/googledrive.php:916 methods/googledrive.php:926
+#: methods/googledrive.php:924 methods/googledrive.php:934
 msgid "Folder"
 msgstr "Mapa"
 
@@ -1725,7 +1797,7 @@ msgstr "Mapa"
 msgid "Name: %s."
 msgstr "Ime: %s."
 
-#: addons/onedrive.php:267 methods/googledrive.php:848
+#: addons/onedrive.php:267 methods/googledrive.php:856
 msgid "%s download: failed: file not found"
 msgstr "%s prenos: neuspelo: ne najdem datoteke"
 
@@ -1745,39 +1817,39 @@ msgstr "Vaša %s različica: %s."
 msgid "Google Drive list files: failed to access parent folder"
 msgstr "Google Drive seznam datotek: neuspeh pri dostopu do zgornje mape"
 
-#: admin.php:4492
+#: admin.php:4761
 msgid "Theme directory (%s) not found, but lower-case version exists; updating database option accordingly"
 msgstr "Ne najdem direktorija (%s) teme, a obstaja različica z majhnimi črkami; možnost posodabljanja podatkovne baze"
 
-#: admin.php:2737
+#: admin.php:2982
 msgid "Fetch"
 msgstr "Pridobi"
 
-#: admin.php:2739
+#: admin.php:2984
 msgid "Call"
 msgstr "Kliči"
 
-#: admin.php:2545 admin.php:3384
+#: admin.php:2780 admin.php:3652
 msgid "This feature requires %s version %s or later"
 msgstr "Ta značilnost zahteva %s  različico %s ali kasnejšo"
 
-#: restorer.php:1815
+#: restorer.php:1993
 msgid "Elegant themes theme builder plugin data detected: resetting temporary folder"
 msgstr "Zaznani so podatki theme builder vtičnika od Elegant themes: resetiram začasno mapo"
 
-#: restorer.php:78
+#: restorer.php:84
 msgid "Failed to unpack the archive"
 msgstr "Neuspeh pri razširjanju arhiva"
 
-#: restorer.php:230
+#: restorer.php:236
 msgid "%s files have been extracted"
 msgstr "%s datotek je bilo razširjenih"
 
-#: class-updraftplus.php:832
+#: class-updraftplus.php:844
 msgid "Error - failed to download the file"
 msgstr "Napaka - neuspeh pri prenosu datoteke"
 
-#: admin.php:2530
+#: admin.php:2765
 msgid "Rescan local folder for new backup sets"
 msgstr "Preišči lokalno mapo za novimi varnostnimi kopijami"
 
@@ -1793,7 +1865,7 @@ msgstr "Nameščene različica UpdraftPlus Backup/Restore ni bila preizkušena n
 msgid "It has been tested up to version %s."
 msgstr "Preizkušeno je bilo do različice %s."
 
-#: addons/sftp.php:451
+#: addons/sftp.php:454
 msgid "password/key"
 msgstr "geslo/ključ"
 
@@ -1801,79 +1873,79 @@ msgstr "geslo/ključ"
 msgid "SCP/SFTP password/key"
 msgstr "SCP/SFTP geslo/ključ"
 
-#: addons/sftp.php:304
+#: addons/sftp.php:307
 msgid "The key provided was not in a valid format, or was corrupt."
 msgstr "Izbrani ključ ni v veljavnem formatu ali je poškodovan."
 
-#: addons/sftp.php:367
+#: addons/sftp.php:370
 msgid "Your login may be either password or key-based - you only need to enter one, not both."
 msgstr "Vaša prijava lahko temelji na geslu ali ključu - vnesti je potrebno samo enega in ne obeh."
 
-#: addons/sftp.php:372 admin.php:321
+#: addons/sftp.php:375 admin.php:436
 msgid "Key"
 msgstr "Ključ"
 
-#: addons/importer.php:207 admin.php:4035 class-updraftplus.php:1993
+#: addons/importer.php:207 admin.php:4303 class-updraftplus.php:2005
 msgid "Backup created by: %s."
 msgstr "Varnostna kopija ustvarjena z: %s."
 
-#: admin.php:4041
+#: admin.php:4309
 msgid "Files and database WordPress backup (created by %s)"
 msgstr "Varnostna kopija datotek in podatkovnih baz Wordpress (narejena z %s)"
 
-#: admin.php:4041
+#: admin.php:4309
 msgid "Files backup (created by %s)"
 msgstr "Varnostna kopija datotek (narejena z %s)"
 
-#: admin.php:3976 admin.php:4037
+#: admin.php:4244 admin.php:4305
 msgid "unknown source"
 msgstr "nepoznan vir"
 
-#: admin.php:3982
+#: admin.php:4250
 msgid "Database (created by %s)"
 msgstr "Podatkovna baza (narejena z %s)"
 
-#: admin.php:2531
+#: admin.php:2766
 msgid "Rescan remote storage"
 msgstr "Ponovno preišči lokalno shrambo"
 
-#: admin.php:2529
+#: admin.php:2764
 msgid "Upload backup files"
 msgstr "Naloži datoteke varnostne kopije"
 
-#: admin.php:1792
+#: admin.php:2025
 msgid "This backup was created by %s, and can be imported."
 msgstr "Ta varnostna kopija je bila narejena z %s in jo lahko uvozimo."
 
-#: admin.php:708
+#: admin.php:920
 msgid "WordPress has a number (%d) of scheduled tasks which are overdue. Unless this is a development site, this probably means that the scheduler in your WordPress install is not working."
 msgstr "Wordpress ima več (%d) poteklih načrtovanih opravil. Če spletno mesto ni v razvoju, to verjetno pomeni, da načrtovalec opravil v vaši namestitvi Wordpressa ne deluje."
 
-#: admin.php:708
+#: admin.php:920
 msgid "Read this page for a guide to possible causes and how to fix it."
 msgstr "Preberi to stran za pojasnilo o možnih razlogih in odpravi napak."
 
-#: admin.php:286 admin.php:287 class-updraftplus.php:2000
+#: admin.php:401 admin.php:402 class-updraftplus.php:2012
 msgid "This file does not appear to be an UpdraftPlus backup archive (such files are .zip or .gz files which have a name like: backup_(time)_(site name)_(code)_(type).(zip|gz))."
 msgstr "Ta datoteka ni videti arhiv varnostne kopije UpdraftPlus backup archive (takšne datoteke so .zip ali .gz, ki imajo imena kot: backup_(time)_(site name)_(code)_(type).(zip|gz))."
 
-#: admin.php:286
+#: admin.php:401
 msgid "However, UpdraftPlus archives are standard zip/SQL files - so if you are sure that your file has the right format, then you can rename it to match that pattern."
 msgstr "Kakorkoli, UpdraftPlus arhivi so običajne zip/SQL datoteke - če ste prepričani, da je vaša datoteka v ustreznem formatu, jo lahko preimenujete, da bo ustrezala vzorcu."
 
-#: admin.php:287 class-updraftplus.php:2000
+#: admin.php:402 class-updraftplus.php:2012
 msgid "If this is a backup created by a different backup plugin, then UpdraftPlus Premium may be able to help you."
 msgstr "Če je bila ta varnostna kopija ustvarjena z drugim tovrstnim vtičnikom, potem vam morda lahko pomaga UpdraftPlus Premium."
 
-#: admin.php:1185 admin.php:4038 restorer.php:1127
+#: admin.php:1397 admin.php:4306 restorer.php:1306
 msgid "Backup created by unknown source (%s) - cannot be restored."
 msgstr "Varnostno kopijo je ustvaril nepoznani vir (%s) - obnova ni mogoča."
 
-#: restorer.php:724 restorer.php:826
+#: restorer.php:776 restorer.php:878
 msgid "The WordPress content folder (wp-content) was not found in this zip file."
 msgstr "V tej zip datoteki ne najdemo Wordpressove vsebinske mape (wp-content)."
 
-#: restorer.php:588
+#: restorer.php:594
 msgid "This version of UpdraftPlus does not know how to handle this type of foreign backup"
 msgstr "Ta različica UpdraftPlus ne zna rokovati s to vrsto varnostne kopije."
 
@@ -1881,7 +1953,7 @@ msgstr "Ta različica UpdraftPlus ne zna rokovati s to vrsto varnostne kopije."
 msgid "%s returned an unexpected HTTP response: %s"
 msgstr "%s je vrnil nepričakovan HTTP odgovor: %s"
 
-#: addons/sftp.php:912
+#: addons/sftp.php:915
 msgid "The UpdraftPlus module for this file access method (%s) does not support listing files"
 msgstr "UpdraftPlus modul za metodo dostopa do te datoteke (%s) ne podpira seznama datotek"
 
@@ -1890,19 +1962,11 @@ msgstr "UpdraftPlus modul za metodo dostopa do te datoteke (%s) ne podpira sezna
 msgid "No settings were found"
 msgstr "Na najdemo nastavitev"
 
-#: class-updraftplus.php:2118
+#: class-updraftplus.php:2133
 msgid "One or more backups has been added from scanning remote storage; note that these backups will not be automatically deleted through the \"retain\" settings; if/when you wish to delete them then you must do so manually."
 msgstr "Ena ali več varnostnih kopij je bila dodana pri iskanju v oddaljeni shrambi; imejte v mislih, da te kopije ne bodo samodejno izbrisane preko nastavitve \"ohrani\"; če/ko jih želite izbrisati, je to potrebno narediti ročno."
 
-#: admin.php:2581
-msgid "Are you sure that you wish to remove this backup set from UpdraftPlus?"
-msgstr "Ste prepričani, da želite odstraniti to varnostno kopijo iz UpdraftPlus?"
-
-#: admin.php:2531
-msgid "Press here to look inside any remote storage methods for any existing backup sets."
-msgstr "Pritisnite tukaj za ogled katerekoli metode oddaljene shrambe za katerokoli varnostno kopijo."
-
-#: admin.php:257
+#: admin.php:372
 msgid "Rescanning remote and local storage for backup sets..."
 msgstr "Ponovno preiskujem oddaljeno in lokalno shrambo za varnostnimi kopijami..."
 
@@ -1922,7 +1986,7 @@ msgstr "Reduced redundancy storage"
 msgid "Adjusting multisite paths"
 msgstr "Prilagajanje multisite poti"
 
-#: addons/reporting.php:435
+#: addons/reporting.php:436
 msgid "Log all messages to syslog (only server admins are likely to want this)"
 msgstr "Vsa sporočila oblikuj v syslog (to ustreza najbrž samo strežniškim administratorjem)"
 
@@ -1943,15 +2007,15 @@ msgstr "Odstrani"
 msgid "Other %s FAQs."
 msgstr "Druga %s pogosto zastavljena vprašanja."
 
-#: admin.php:3563
+#: admin.php:3831
 msgid "Check this to receive more information and emails on the backup process - useful if something is going wrong."
 msgstr "Označi za prejemanje več informacij in e-pošte o procesu varnostnega kopiranja - uporabno, če gre kaj narobe."
 
-#: addons/morefiles.php:261 admin.php:3663
+#: addons/morefiles.php:261 admin.php:3931
 msgid "If entering multiple files/directories, then separate them with commas. For entities at the top level, you can use a * at the start or end of the entry as a wildcard."
 msgstr "Če vključujete več datotek/direktorijev, jih ločite z vejicami. Za entitete na najvišji ravni lahko kot wildcard uporabite * na začetku ali koncu vnosa."
 
-#: restorer.php:1804
+#: restorer.php:1982
 msgid "Custom content type manager plugin data detected: clearing option cache"
 msgstr "Zaznani so podatki vtičnika za upravljanje vsebin po meri: brišem predpomnilnik možnosti"
 
@@ -1959,15 +2023,15 @@ msgstr "Zaznani so podatki vtičnika za upravljanje vsebin po meri: brišem pred
 msgid "encrypted FTP (explicit encryption)"
 msgstr "šifrirani FTP (explicitno šifriranje)"
 
-#: class-updraftplus.php:3301 methods/ftp.php:307 restorer.php:1158
+#: class-updraftplus.php:3322 methods/ftp.php:307 restorer.php:1337
 msgid "Your web server's PHP installation has these functions disabled: %s."
 msgstr "Namestitev PHP na vašem spletnem strežniku nima vzpostavljenih teh funkcij: %s."
 
-#: class-updraftplus.php:3301 methods/ftp.php:307 restorer.php:1159
+#: class-updraftplus.php:3322 methods/ftp.php:307 restorer.php:1338
 msgid "Your hosting company must enable these functions before %s can work."
 msgstr "Vaše spletno gostovanje mora omogočiti te funkcije preden  %s bodo lahko delovale."
 
-#: admin.php:2439
+#: admin.php:2674
 msgid "Don't send this backup to remote storage"
 msgstr "Te varnostne kopije ne pošiljajte na oddaljeno shrambo"
 
@@ -1979,7 +2043,7 @@ msgstr "običajen nešifriran FTP"
 msgid "encrypted FTP (implicit encryption)"
 msgstr "šifriran FTP (implicitno šifriranje)"
 
-#: restorer.php:1300
+#: restorer.php:1479
 msgid "Backup created by:"
 msgstr "Varnostna kopija narejena z:"
 
@@ -2031,39 +2095,39 @@ msgstr "Vaš plačan dostop do posodobitev UpdraftPlus na tem spletnem mestu je 
 msgid "To regain access to updates (including future features and compatibility with future WordPress releases) and support, please renew."
 msgstr "Za ponovno pridobitev dostopa do posodobitev (vključno z s prihodnjimi funkcijami in združljivostjo s prihodnjimi različicami Wordpressa) ter podpore, prosimo obnovite."
 
-#: class-updraftplus.php:3321
+#: class-updraftplus.php:3342
 msgid "The database file appears to have been compressed twice - probably the website you downloaded it from had a mis-configured webserver."
 msgstr "Videti je, da je bila podatkovna baza dvakrat stisnjena - spletna stran, od koder ste prenesli datoteko, je imela najbrž napačno nastavljen strežnik."
 
-#: class-updraftplus.php:3328 class-updraftplus.php:3349
+#: class-updraftplus.php:3349 class-updraftplus.php:3370
 msgid "The attempt to undo the double-compression failed."
 msgstr "Poskus razveljavitve dvojnega stiskanja ni uspel."
 
-#: class-updraftplus.php:3351
+#: class-updraftplus.php:3372
 msgid "The attempt to undo the double-compression succeeded."
 msgstr "Poskus razveljavitve dvojnega stiskanja je uspel."
 
-#: admin.php:1415
+#: admin.php:1648
 msgid "Constants"
 msgstr "Konstante"
 
-#: backup.php:1334
+#: backup.php:1348
 msgid "Failed to open database file for reading:"
 msgstr "Odpiranje podatkovne baze za branje ni uspel:"
 
-#: backup.php:1183
+#: backup.php:1197
 msgid "please wait for the rescheduled attempt"
 msgstr "Prosimo, počakajte na ponoven preložen poskus"
 
-#: backup.php:1185
+#: backup.php:1199
 msgid "No database tables found"
 msgstr "Ne najdemo podatkovne baze"
 
-#: addons/reporting.php:183
+#: addons/reporting.php:184
 msgid "Note that warning messages are advisory - the backup process does not stop for them. Instead, they provide information that you might find useful, or that may indicate the source of a problem if the backup did not succeed."
 msgstr "Imejte v mislih, da so opozorilna sporočila v svetovalne namene - postopek varnostnega kopiranje se zaradi njih ne ustavi. Namesto tega ponujajo informacije, ki bi utegnile biti koristne ali pa se nanašajo na izvor problema, če varnostno kopiranje ni uspelo."
 
-#: restorer.php:1704
+#: restorer.php:1882
 msgid "Database queries processed: %d in %.2f seconds"
 msgstr "Procesirane poizvedbe podatkovne baze: %d v %.2f sekundah"
 
@@ -2083,31 +2147,31 @@ msgstr "Tabela je preskočena: podatke v tej tabeli (%s) ne iščite/zamenjujte"
 msgid "Errors occurred:"
 msgstr "Pojavile so se napake:"
 
-#: admin.php:4232
+#: admin.php:4499
 msgid "Follow this link to download the log file for this restoration (needed for any support requests)."
 msgstr "Sledite povezavi za prenos poročila te obnovitve (potrebno za podporo)."
 
-#: admin.php:3610
+#: admin.php:3878
 msgid "See this FAQ also."
 msgstr "Glej tudi ta pogosto zastavljena vprašanja."
 
-#: admin.php:3498
+#: admin.php:3766
 msgid "If you choose no remote storage, then the backups remain on the web-server. This is not recommended (unless you plan to manually copy them to your computer), as losing the web-server would mean losing both your website and the backups in one event."
 msgstr "Če ne izberete oddaljene shrambe, varnostne kopije ostanejo na strežniku. Tega ne priporočamo (razen, če jo nameravate ročno prenesti na vaš računalnik), saj bi izguba strežnika pomenila izgubo tako spletne strani kot varnostne kopije hkrati."
 
-#: admin.php:2601
+#: admin.php:2845
 msgid "Retrieving (if necessary) and preparing backup files..."
 msgstr "Ponovno pridobivanje (če je potrebno) in priprava datotek varnostne kopije..."
 
-#: admin.php:1157
+#: admin.php:1369
 msgid "The PHP setup on this webserver allows only %s seconds for PHP to run, and does not allow this limit to be raised. If you have a lot of data to import, and if the restore operation times out, then you will need to ask your web hosting company for ways to raise this limit (or attempt the restoration piece-by-piece)."
 msgstr "Namestitev PHP na tem strežniku dovoljuje, da se PHP izvaja le %s sekund in ne dovoljuje dvig limita. Če imate za uvoziti veliko podatkov in se operacija obnavljanja izteče, boste morali prositi ponudnika spletnega gostovanja za možnosti dviga tega limita (ali poskusite obnoviti po delčkih)."
 
-#: restorer.php:570
+#: restorer.php:576
 msgid "Existing unremoved folders from a previous restore exist (please use the \"Delete Old Directories\" button to delete them before trying again): %s"
 msgstr "Obstajajo neodstranjene mape od prejšnjih obnovitev (prosimo, da za njihovo odstranitev uporabite gumb \"Zbriši stare direktorije\" preden poskusite znova): %s"
 
-#: admin.php:683 class-updraftplus.php:486
+#: admin.php:895 class-updraftplus.php:498
 msgid "The amount of time allowed for WordPress plugins to run is very low (%s seconds) - you should increase it to avoid backup failures due to time-outs (consult your web hosting company for more help - it is the max_execution_time PHP setting; the recommended value is %s seconds or more)"
 msgstr "Za izvajanje Wordpressovih vtičnikov je na voljo zelo malo časa (%s sekund) - v izzogib neuspešnih varnostnih kopij zaradi izteka časa bi ga morali zagotoviti več (posvetujte se s svojim ponudnikom spletnega gostovanja za več pomoči to je PHP nastavitev max_execution_time; priporočena vrednost je %s sekund ali več)"
 
@@ -2123,28 +2187,28 @@ msgstr "Onemogoči ta vtičnik: %s: ponovno ga aktivirajte ročno, ko boste prip
 msgid "%s: Skipping cache file (does not already exist)"
 msgstr "%s: Preskoči predpomnjeno datoteko (še ne obstaja)"
 
-#: addons/sftp.php:667 addons/sftp.php:670 includes/ftp.class.php:44
+#: addons/sftp.php:670 addons/sftp.php:673 includes/ftp.class.php:44
 #: includes/ftp.class.php:47
 msgid "The %s connection timed out; if you entered the server correctly, then this is usually caused by a firewall blocking the connection - you should check with your web hosting company."
 msgstr "%s povezava se je iztekla; če je strežnik pravilno nastavljen, to ponavadi povzroča požarni zid, ki blokira povezavo - preverite pri svojem ponudniku spletnega gostovanja."
 
-#: admin.php:4501
+#: admin.php:4769
 msgid "The current theme was not found; to prevent this stopping the site from loading, your theme has been reverted to the default theme"
 msgstr "Trenutna tema ni najdena; da bi preprečili nenalaganje strani, smo vašo temo povrnili na privzeto temo"
 
-#: admin.php:1952
+#: admin.php:2187
 msgid "Restore failed..."
 msgstr "Obnovitev ni uspela..."
 
-#: addons/moredatabase.php:102 admin.php:1552
+#: addons/moredatabase.php:102 admin.php:1785
 msgid "Messages:"
 msgstr "Sporočila:"
 
-#: restorer.php:1602
+#: restorer.php:1781
 msgid "An SQL line that is larger than the maximum packet size and cannot be split was found; this line will not be processed, but will be dropped: %s"
 msgstr "Najdena je SQL vrstica, ki je večja od največje velikosti paketa in je ne moremo razdeliti; te vrstice ne bomo procesirali, vendar bo spuščena: %s"
 
-#: restorer.php:350
+#: restorer.php:356
 msgid "The directory does not exist"
 msgstr "Direktorij ne obstaja"
 
@@ -2297,155 +2361,155 @@ msgstr "Računi, ustvarjeni na rackspacecloud.com so US-računi; računi, ustvar
 msgid "An unknown error occurred when trying to connect to UpdraftPlus.Com"
 msgstr "Pripetila se je nepoznana napake pri poskusu povezave z Updraft.Com"
 
-#: admin.php:300
+#: admin.php:415
 msgid "Create"
 msgstr "Ustvari"
 
-#: admin.php:263
+#: admin.php:378
 msgid "The new user's RackSpace console password is (this will not be shown again):"
 msgstr "Geslo konzole novega uporabnika RackSpace je (to se ne več pokazalo):"
 
-#: admin.php:264
+#: admin.php:379
 msgid "Trying..."
 msgstr "Poskušam..."
 
-#: backup.php:1291
+#: backup.php:1305
 msgid "The database backup appears to have failed - the options table was not found"
 msgstr "Varnostna kopija podatkovne baze ni uspela - tabela možnosti ni bila najdena"
 
-#: addons/reporting.php:356
+#: addons/reporting.php:357
 msgid "(when decrypted)"
 msgstr "(ko dešifrirano)"
 
-#: admin.php:273 admin.php:4455
+#: admin.php:388 admin.php:4724
 msgid "Error data:"
 msgstr "Podatki napake:"
 
-#: admin.php:4191
+#: admin.php:4459
 msgid "Backup does not exist in the backup history"
 msgstr "V zgodovini varnostnih kopij ne obstaja varnostna kopija"
 
-#: admin.php:2800
+#: admin.php:3045
 msgid "Your WordPress install has old directories from its state before you restored/migrated (technical information: these are suffixed with -old). You should press this button to delete them as soon as you have verified that the restoration worked."
 msgstr "Vaša namestitev Wordpressa vsebuje stare direktorije izpred obnove/selitve (tehnična informacija: imajo pripono -old). Za izbris pritisnite ta gumb, takoj ko se prepričate, da je obnovitev uspela."
 
-#: restorer.php:1362
+#: restorer.php:1541
 msgid "Split line to avoid exceeding maximum packet size"
 msgstr "Razdeli vrstico v izzogib preseganja največje velikosti paketa"
 
-#: restorer.php:1249
+#: restorer.php:1428
 msgid "Your database user does not have permission to drop tables. We will attempt to restore by simply emptying the tables; this should work as long as you are restoring from a WordPress version with the same database structure (%s)"
 msgstr "Uporabnik vaše podatkovne baze nima dovoljenja za spuščanje tabel. Poskušali bomo obnoviti  preprosto s praznjenjem tabel; to bi moralo delovati, če obnavljate iz različice Wordpressa z enako strukturo baze podatkov (%s)"
 
-#: restorer.php:1293
+#: restorer.php:1472
 msgid "<strong>Backup of:</strong> %s"
 msgstr "<strong>Varnostna kopija:</strong> %s"
 
-#: restorer.php:1087
+#: restorer.php:1266
 msgid "New table prefix: %s"
 msgstr "Predpona nove tabele: %s"
 
-#: restorer.php:756 restorer.php:770
+#: restorer.php:808 restorer.php:822
 msgid "%s: This directory already exists, and will be replaced"
 msgstr "%s: Ta direktorij že obstaja in bo zamenjan"
 
-#: restorer.php:786
+#: restorer.php:838
 msgid "File permissions do not allow the old data to be moved and retained; instead, it will be deleted."
 msgstr "Dovoljenja datoteke ne omogočajo prenosa ali ohranitve starih podatkov; namesto tega bodo izbrisani."
 
-#: restorer.php:75
+#: restorer.php:81
 msgid "Could not move the files into place. Check your file permissions."
 msgstr "Podatkov nismo mogli premakniti na izbrano mesto. Preverite dovoljenja vaše datoteke."
 
-#: restorer.php:68
+#: restorer.php:74
 msgid "Moving old data out of the way..."
 msgstr "Premikam stare podatke..."
 
-#: restorer.php:72
+#: restorer.php:78
 msgid "Could not move old files out of the way."
 msgstr "Ni bilo mogoče premakniti starih podatkov."
 
-#: restorer.php:74
+#: restorer.php:80
 msgid "Could not move new files into place. Check your wp-content/upgrade folder."
 msgstr "Ni bilo mogoče premakniti novih podatkov na izbrano mesto. Preverite svojo mapo wp-content/upgrade."
 
-#: addons/reporting.php:413
+#: addons/reporting.php:414
 msgid "Enter addresses here to have a report sent to them when a backup job finishes."
 msgstr "Tukaj vnesite naslove, na katere bomo poslali poročilo ob zaključku varnostnega kopiranja."
 
-#: addons/reporting.php:426
+#: addons/reporting.php:427
 msgid "Add another address..."
 msgstr "Dodaj nov naslov..."
 
-#: addons/reporting.php:271
+#: addons/reporting.php:272
 msgid " (with errors (%s))"
 msgstr "(z napakami (%s))"
 
-#: addons/reporting.php:273
+#: addons/reporting.php:274
 msgid " (with warnings (%s))"
 msgstr "(z opozorili (%s))"
 
-#: addons/reporting.php:303
+#: addons/reporting.php:304
 msgid "Use the \"Reporting\" section to configure the email addresses to be used."
 msgstr "Za nastavitev uporabljenih e-poštnih naslovov uporabi sekcijo \"Poročanje\"."
 
-#: addons/reporting.php:329
+#: addons/reporting.php:330
 msgid "files: %s"
 msgstr "datoteke: %s"
 
-#: addons/reporting.php:347
+#: addons/reporting.php:348
 msgid "Size: %s Mb"
 msgstr "Velikost: %s Mb"
 
-#: addons/reporting.php:352 addons/reporting.php:357
+#: addons/reporting.php:353 addons/reporting.php:358
 msgid "%s checksum: %s"
 msgstr "%s checksum: %s"
 
-#: addons/reporting.php:386
+#: addons/reporting.php:387
 msgid "Email reports"
 msgstr "E-poštna poročila"
 
-#: addons/reporting.php:163
+#: addons/reporting.php:164
 msgid "Errors"
 msgstr "Napake"
 
-#: addons/reporting.php:178
+#: addons/reporting.php:179
 msgid "Warnings"
 msgstr "Opozorila"
 
-#: addons/reporting.php:187
+#: addons/reporting.php:188
 msgid "Time taken:"
 msgstr "Porabljen čas:"
 
-#: addons/reporting.php:188
+#: addons/reporting.php:189
 msgid "Uploaded to:"
 msgstr "Naloženo na:"
 
-#: addons/reporting.php:219
+#: addons/reporting.php:220
 msgid "Debugging information"
 msgstr "Informacije o razhroščevanju"
 
-#: addons/reporting.php:121
+#: addons/reporting.php:122
 msgid "%d errors, %d warnings"
 msgstr "%d napak, %d opozoril"
 
-#: addons/reporting.php:135
+#: addons/reporting.php:136
 msgid "%d hours, %d minutes, %d seconds"
 msgstr "%d ur, %d minut, %d sekund"
 
-#: addons/reporting.php:140
+#: addons/reporting.php:141
 msgid "Backup Report"
 msgstr "Poročilo o varnostni kopiji"
 
-#: addons/reporting.php:148
+#: addons/reporting.php:149
 msgid "Backup began:"
 msgstr "Začetek varnostnega kopiranja:"
 
-#: addons/morefiles.php:55 addons/morefiles.php:56 addons/reporting.php:149
+#: addons/morefiles.php:55 addons/morefiles.php:56 addons/reporting.php:150
 msgid "Contains:"
 msgstr "Vsebuje:"
 
-#: addons/reporting.php:160
+#: addons/reporting.php:161
 msgid "Errors / warnings:"
 msgstr "Napake / opozorila:"
 
@@ -2453,7 +2517,7 @@ msgstr "Napake / opozorila:"
 msgid "%s authentication"
 msgstr "%s avtentifikacija"
 
-#: addons/copycom.php:374 addons/onedrive.php:463 class-updraftplus.php:278
+#: addons/copycom.php:374 addons/onedrive.php:463 class-updraftplus.php:290
 #: methods/dropbox.php:128 methods/dropbox.php:468 methods/dropbox.php:482
 #: methods/dropbox.php:577
 msgid "%s error: %s"
@@ -2479,84 +2543,84 @@ msgstr "Potreben %s PHP modul ni nameščen - prosite vašega ponudnika spletneg
 msgid "%s did not return the expected response - check your log file for more details"
 msgstr "%s ni vrnil pričakovanega odgovora - preverite poročilo za več podrobnosti"
 
-#: admin.php:308 methods/updraftvault.php:232 methods/updraftvault.php:274
+#: admin.php:423 methods/updraftvault.php:232 methods/updraftvault.php:274
 #: udaddons/options.php:243
 msgid "Connect"
 msgstr "Poveži"
 
-#: admin.php:3450
+#: admin.php:3718
 msgid "For more reporting features, use the Reporting add-on."
 msgstr "Za več funkcij poročanja uporabi dodatek Poročanje."
 
-#: class-updraftplus.php:3163
+#: class-updraftplus.php:3181
 msgid "(version: %s)"
 msgstr "(različica: %s)"
 
-#: addons/reporting.php:459 admin.php:255 methods/email.php:77
+#: addons/reporting.php:460 admin.php:370 methods/email.php:77
 msgid "Be aware that mail servers tend to have size limits; typically around %s Mb; backups larger than any limits will likely not arrive."
 msgstr "Imejte v mislih, da imajo e-poštni strežniki pogosto omejitve velikosti; običajno okoli %sMb; varnostne kopije, ki so večje od katerihkoli omejitev po vsej verjetnosti ne bodo prispele."
 
-#: addons/reporting.php:459 admin.php:254
+#: addons/reporting.php:460 admin.php:369
 msgid "When the Email storage method is enabled, also send the entire backup"
 msgstr "Ko je na voljo e-poštna shramba, prav tako pošlji celotno varnostno kopijo"
 
-#: backup.php:657
+#: backup.php:667
 msgid "Unknown/unexpected error - please raise a support request"
 msgstr "Nepoznana/nepričakovana napaka - prosimo, obrnite se na podporo"
 
-#: addons/reporting.php:216 backup.php:693
+#: addons/reporting.php:217 backup.php:703
 msgid "The log file has been attached to this email."
 msgstr "Poročilo se nahaja v priponki."
 
-#: backup.php:699
+#: backup.php:709
 msgid "Backed up: %s"
 msgstr "Kopirano: %s"
 
-#: backup.php:735
+#: backup.php:745
 msgid "Backup contains:"
 msgstr "Varnostna kopija vsebuje:"
 
-#: addons/reporting.php:147 backup.php:736
+#: addons/reporting.php:148 backup.php:746
 msgid "Latest status:"
 msgstr "Zadnji status:"
 
-#: backup.php:649
+#: backup.php:659
 msgid "Files and database"
 msgstr "Datoteke in baze podatkov"
 
-#: backup.php:651
+#: backup.php:661
 msgid "Files (database backup has not completed)"
 msgstr "Datoteke (varnostna kopija podatkovne baze ni bila končana)"
 
-#: backup.php:651
+#: backup.php:661
 msgid "Files only (database was not part of this particular schedule)"
 msgstr "Samo datoteke (podatkovne baze niso bile del tega načrtovanega orpavila)"
 
-#: backup.php:654
+#: backup.php:664
 msgid "Database (files backup has not completed)"
 msgstr "Podatkovna baza (varnostna kopija datotek ni bila narejena)"
 
-#: backup.php:654
+#: backup.php:664
 msgid "Database only (files were not part of this particular schedule)"
 msgstr "Samo podatkovna baza (datoteke niso bile del tega načrtovanega opravila)"
 
-#: options.php:173
+#: options.php:175
 msgid "This is a WordPress multi-site (a.k.a. network) installation."
 msgstr "To je namestitev Worpress multi-site (network)."
 
-#: options.php:173
+#: options.php:175
 msgid "WordPress Multisite is supported, with extra features, by UpdraftPlus Premium, or the Multisite add-on."
 msgstr "Wordpress Multisite je podprta z dodatnimi funkcijami UpdraftPlus Premium ali Multisite dodatkom."
 
-#: options.php:173
+#: options.php:175
 msgid "Without upgrading, UpdraftPlus allows <strong>every</strong> blog admin who can modify plugin settings to back up (and hence access the data, including passwords, from) and restore (including with customised modifications, e.g. changed passwords) <strong>the entire network</strong>."
 msgstr "Brez nadgradnje UpdraftPlus omogoča varnostne kopije <strong>celotnega omrežja</strong>  <strong>vsakemu</strong> skrbniku bloga, ki lahko spreminja nastavitve (in dostopa do podatkov, vključno z gesli), prav tako pa tudi obnovo (vključno s spremembami po meri, npr. spremenjenimi gesli)."
 
-#: options.php:173
+#: options.php:175
 msgid "(This applies to all WordPress backup plugins unless they have been explicitly coded for multisite compatibility)."
 msgstr "(To se nanaša na vse Wordpressove vtičnike za varnostno kopiranje, razen če so bili posebej programirani za združljivost z omrežji)."
 
-#: options.php:173
+#: options.php:175
 msgid "UpdraftPlus warning:"
 msgstr "Opozorilo UpdraftPlus:"
 
@@ -2621,35 +2685,35 @@ msgstr "Za UpdraftPlus je na voljo posodobitev - prosimo, da za prejem sledite p
 msgid "We failed to successfully connect to UpdraftPlus.Com"
 msgstr "Nismo se uspeli povezati z UpdraftPlus.Com"
 
-#: admin.php:3431 methods/email.php:74
+#: admin.php:3699 methods/email.php:74
 msgid "Reporting"
 msgstr "Poročanje"
 
-#: admin.php:1387
+#: admin.php:1620
 msgid "Options (raw)"
 msgstr "Možnosti (neobdelane)"
 
-#: addons/reporting.php:457 admin.php:253
+#: addons/reporting.php:458 admin.php:368
 msgid "Send a report only when there are warnings/errors"
 msgstr "Pošlji poročilo samo ob opozorilih/napakah"
 
-#: restorer.php:1311
+#: restorer.php:1490
 msgid "Content URL:"
 msgstr "URL vsebine:"
 
-#: restorer.php:72
+#: restorer.php:78
 msgid "You should check the file permissions in your WordPress installation"
 msgstr "Preveriti bi bilo potrebno dovoljenja datoteke v vaši Wordpress namestitvi"
 
-#: admin.php:3351
+#: admin.php:3619
 msgid "See also the \"More Files\" add-on from our shop."
 msgstr "Oglejte si tudi dodatek \"Več datotek\" v naši trgovini."
 
-#: backup.php:2547 class-updraftplus.php:506
+#: backup.php:2598 class-updraftplus.php:518
 msgid "Your free space in your hosting account is very low - only %s Mb remain"
 msgstr "Na vašem računu spletnega gostovanja je le še malo razpoložljivega prostora - ostaja samo %s Mb"
 
-#: class-updraftplus.php:483
+#: class-updraftplus.php:495
 msgid "The amount of memory (RAM) allowed for PHP is very low (%s Mb) - you should increase it to avoid failures due to insufficient memory (consult your web hosting company for more help)"
 msgstr "Količina dovoljenega pomnilnika (RAM) za PHP je zelo nizka (%s Mb) - v izzogib neuspehom zaradi nezadostnega pomnilnika bi ga morali povečati (za več pomoči se posvetujte z vašim ponudnikom spletnega gostovanja)"
 
@@ -2781,67 +2845,67 @@ msgstr "Vaš strežnik nima nameščenega %s modula."
 msgid "Without it, encryption will be a lot slower."
 msgstr "Brez njega bo šifriranje precej počasnejše."
 
-#: admin.php:2551
+#: admin.php:2786
 msgid "Drop backup files here"
 msgstr "Podatke varnostne kopije spustite sem"
 
-#: methods/googledrive.php:936
+#: methods/googledrive.php:944
 msgid "<strong>(You appear to be already authenticated,</strong> though you can authenticate again to refresh your access if you've had a problem)."
 msgstr "<strong>(Videti je, da ste že avtentificirani,</strong> čeprav se lahko v primeru težav avtentificirate znova, da osvežite vaš dostop)."
 
-#: class-updraftplus.php:3021
+#: class-updraftplus.php:3037
 msgid "Want more features or paid, guaranteed support? Check out UpdraftPlus.Com"
 msgstr "Želite več funkcij ali plačljivo, garantirano podporo? Preverite UpdraftPlus.Com"
 
-#: class-updraftplus.php:3031
+#: class-updraftplus.php:3047
 msgid "Check out WordShell"
 msgstr "Preverite WordShell"
 
-#: class-updraftplus.php:3031
+#: class-updraftplus.php:3047
 msgid "manage WordPress from the command line - huge time-saver"
 msgstr "upravljaj Wordpress iz ukazne vrstice - velik prihranek časa"
 
-#: admin.php:2243
+#: admin.php:2478
 msgid "Does nothing happen when you attempt backups?"
 msgstr "Se pri poskusu varnostnega kopiranja ni zgodilo nič?"
 
-#: admin.php:2437
+#: admin.php:2672
 msgid "Don't include the database in the backup"
 msgstr "V varnostno kopijo ne vključi podatkovne baze"
 
-#: admin.php:2438
+#: admin.php:2673
 msgid "Don't include any files in the backup"
 msgstr "V varnostno kopijo ne vključi nobenih podatkov"
 
-#: admin.php:2521
+#: admin.php:2756
 msgid "Restoring:"
 msgstr "Obnavljanje:"
 
-#: admin.php:2521
+#: admin.php:2756
 msgid "Press the Restore button next to the chosen backup set."
 msgstr "Pritisnite gumb Obnovitev ob izbrani varnostni kopiji."
 
-#: admin.php:260
+#: admin.php:375
 msgid "The restore operation has begun. Do not press stop or close your browser until it reports itself as having finished."
 msgstr "Obnovitev se je pričela. Ne ustavljaj ali zapiraj brskalnika dokler se ne pojavi sporočilo o koncu."
 
-#: admin.php:262
+#: admin.php:377
 msgid "The web server returned an error code (try again, or check your web server logs)"
 msgstr "Strežnik je vrnil kodo napake (poskusite znova ali preverite poročilo vašega strežnika)"
 
-#: admin.php:259
+#: admin.php:374
 msgid "If you exclude both the database and the files, then you have excluded everything!"
 msgstr "Če izvzamete tako podatkovne baze kot podatke, potem ste izvzeli vse!"
 
-#: restorer.php:1305
+#: restorer.php:1484
 msgid "Site home:"
 msgstr "Spletno mesto:"
 
-#: addons/morestorage.php:125
+#: addons/morestorage.php:139
 msgid "Remote Storage Options"
 msgstr "Možnosti oddaljene shrambe"
 
-#: addons/autobackup.php:188 addons/autobackup.php:856
+#: addons/autobackup.php:188 addons/autobackup.php:859
 msgid "Remember this choice for next time (you will still have the chance to change it)"
 msgstr "Zapomni si to odločitev za naslednjič (še vedno boste imeli možnost za spremembo)"
 
@@ -2853,31 +2917,31 @@ msgstr "(kot ponavadi lahko poročilo najdete na UpdraftPlus strani nastavitev).
 msgid "Upload failed"
 msgstr "Nalaganje ni uspelo"
 
-#: admin.php:3489
+#: admin.php:3757
 msgid "You can send a backup to more than one destination with an add-on."
 msgstr "Z dodatkom lahko pošljete varnostno kopijo na več kot en cilj."
 
-#: admin.php:3018
+#: admin.php:3263
 msgid "Note: the progress bar below is based on stages, NOT time. Do not stop the backup simply because it seems to have remained in the same place for a while - that is normal."
 msgstr "Opomba: spodnja vrstica napredka temelji na fazah, NE času. Ne prekinjajte varnostnega kopiranja samo zato, ker je videti, da je za nekaj časa obstala - to je normalno."
 
-#: admin.php:2916
+#: admin.php:3161
 msgid "(%s%%, file %s of %s)"
 msgstr "(%s%%, datoteka %s od %s)"
 
-#: addons/sftp.php:509
+#: addons/sftp.php:512
 msgid "Failed: We were able to log in and move to the indicated directory, but failed to successfully create a file in that location."
 msgstr "Neuspeh: Uspeli smo se prijaviti in premakniti na izbrani direktorij, a na tej lokaciji nismo uspeli  ustvariti datoteke."
 
-#: addons/sftp.php:511
+#: addons/sftp.php:514
 msgid "Failed: We were able to log in, but failed to successfully create a file in that location."
 msgstr "Neuspeh: Uspeli smo se prijaviti, a na tej lokaciji nismo uspeli ustvariti datoteke."
 
-#: addons/autobackup.php:188 addons/autobackup.php:860 addons/lockadmin.php:132
+#: addons/autobackup.php:188 addons/autobackup.php:863 addons/lockadmin.php:132
 msgid "Read more about how this works..."
 msgstr "Preberi več o delovanju..."
 
-#: addons/sftp.php:398
+#: addons/sftp.php:401
 msgid "Use SCP instead of SFTP"
 msgstr "Uporabi SCP namesto SFTP"
 
@@ -2897,148 +2961,148 @@ msgstr "Varnostna kopija je od: %s."
 msgid "The attempt to send the backup via email failed (probably the backup was too large for this method)"
 msgstr "Poskus pošiljanja varnostne kopije preko e-pošte ni uspel (najbrž je kopija  prevelika za to metodo)"
 
-#: addons/sftp.php:432 addons/sftp.php:434 methods/addon-base.php:266
+#: addons/sftp.php:435 addons/sftp.php:437 methods/addon-base.php:266
 #: methods/cloudfiles.php:449 methods/ftp.php:273
 #: methods/openstack-base.php:289 methods/s3.php:657
 #: methods/stream-base.php:218
 msgid "%s settings test result:"
 msgstr "%s testni rezultat nastavitev:"
 
-#: admin.php:4106
+#: admin.php:4374
 msgid "If you are seeing more backups than you expect, then it is probably because the deletion of old backup sets does not happen until a fresh backup completes."
 msgstr "Če vidite več varnostnih kopij, kot ste jih pričakovali, je to najbrž posledica neizbrisa starih varnostnih kopij preden se konča novo varnostno kopiranje."
 
-#: admin.php:4104 admin.php:4106
+#: admin.php:4372 admin.php:4374
 msgid "(Not finished)"
 msgstr "(Ni končano)"
 
-#: admin.php:3595
+#: admin.php:3863
 msgid "This is where UpdraftPlus will write the zip files it creates initially.  This directory must be writable by your web server. It is relative to your content directory (which by default is called wp-content)."
 msgstr "UpdraftPlus bo na tem mestu zapisal zip dateke, ki jih najprej naredi. V ta direktorij vašega strežnika mora biti možno zapisovati. Je relativen vašemu direktoriju z vsebino (ki je privzeto imenovan wp-content)."
 
-#: admin.php:3595
+#: admin.php:3863
 msgid "<b>Do not</b> place it inside your uploads or plugins directory, as that will cause recursion (backups of backups of backups of...)."
 msgstr "<b>Ne</b> postavite je v vaš direktorij za nalaganje ali vtičnike, saj bo to povzročilo rekurzijo (varnostno kopijo varnostne kopije od varnostne kopije...)."
 
-#: admin.php:2925
+#: admin.php:3170
 msgid "Waiting until scheduled time to retry because of errors"
 msgstr "Čakam, dokler načrtovalec zaradi napak ne poskusi znova"
 
-#: admin.php:2930
+#: admin.php:3175
 msgid "Backup finished"
 msgstr "Varnostno kopiranje je končano"
 
-#: admin.php:2980 methods/updraftvault.php:317 methods/updraftvault.php:375
+#: admin.php:3225 methods/updraftvault.php:317 methods/updraftvault.php:375
 msgid "Unknown"
 msgstr "Nepoznano"
 
-#: admin.php:2997
+#: admin.php:3242
 msgid "next resumption: %d (after %ss)"
 msgstr "Naslednje nadaljevanje: %d (po %ss)"
 
-#: admin.php:2998
+#: admin.php:3243
 msgid "last activity: %ss ago"
 msgstr "Zadnja aktivnost: %ss nazaj"
 
-#: admin.php:3013
+#: admin.php:3258
 msgid "Job ID: %s"
 msgstr "ID opravila: %s"
 
-#: admin.php:2957
+#: admin.php:3202
 msgid "table: %s"
 msgstr "tabela: %s"
 
-#: admin.php:2944
+#: admin.php:3189
 msgid "Created database backup"
 msgstr "Ustvarjena varnostna kopija podatkovne baze"
 
-#: admin.php:2970
+#: admin.php:3215
 msgid "Encrypting database"
 msgstr "Šifriranje podatkovne baze"
 
-#: admin.php:2978
+#: admin.php:3223
 msgid "Encrypted database"
 msgstr "Šifrirana podatkovna baza"
 
-#: admin.php:2909
+#: admin.php:3154
 msgid "Uploading files to remote storage"
 msgstr "Nalagam datoteke na oddaljeno shrambo"
 
-#: admin.php:2921
+#: admin.php:3166
 msgid "Pruning old backup sets"
 msgstr "Obrezovanje starih varnostnih kopij"
 
-#: admin.php:2890
+#: admin.php:3135
 msgid "Creating file backup zips"
 msgstr "Ustvarjamo zip datoteke varnostne kopije"
 
-#: admin.php:2903
+#: admin.php:3148
 msgid "Created file backup zips"
 msgstr "Ustvarjena je zip datoteke varnostne kopije"
 
-#: admin.php:2955
+#: admin.php:3200
 msgid "Creating database backup"
 msgstr "Ustvarjanje varnostne kopije podatkovne baze"
 
-#: admin.php:2885
+#: admin.php:3130
 msgid "Backup begun"
 msgstr "Varnostno kopiranje se je pričelo"
 
-#: admin.php:2462
+#: admin.php:2697
 msgid "Backups in progress:"
 msgstr "Varnostno kopiranje v teku:"
 
-#: admin.php:687
+#: admin.php:899
 msgid "The scheduler is disabled in your WordPress install, via the DISABLE_WP_CRON setting. No backups can run (even &quot;Backup Now&quot;) unless either you have set up a facility to call the scheduler manually, or until it is enabled."
 msgstr "V vaši namestitvi Wordpressa je preko nastavitve DISABLE_WP_CRON  onemogočen razporejevalnik. Varnostno kopiranje se ne more začeti (niti &quot;Kopiraj zdaj&quot;) dokler ročno ne nastavite objekta za priklic razporejevalnika ali dokler ni omogočen."
 
-#: restorer.php:542 restorer.php:549
+#: restorer.php:548 restorer.php:555
 msgid "UpdraftPlus needed to create a %s in your content directory, but failed - please check your file permissions and enable the access (%s)"
 msgstr "UpdraftPlus bi moral ustvariti %s v vašem vsebinskem direktoriju, vendar ni uspel - prosimo, preverite dovoljenja vaših datotek in omogočite dostop (%s)"
 
-#: restorer.php:542
+#: restorer.php:548
 msgid "folder"
 msgstr "mapa"
 
-#: restorer.php:549
+#: restorer.php:555
 msgid "file"
 msgstr "datoteka"
 
-#: backup.php:1749
+#: backup.php:1765
 msgid "Failed to open directory (check the file permissions): %s"
 msgstr "Neuspelo odpiranje direktorija (preverite dovoljenja datoteke): %s"
 
-#: backup.php:1735
+#: backup.php:1751
 msgid "%s: unreadable file - could not be backed up (check the file permissions)"
 msgstr "%s: neberljiva datoteka - ne more biti varnostno kopirana (preverite dovoljenja datoteke)"
 
-#: class-updraftplus.php:2198
+#: class-updraftplus.php:2213
 msgid "The backup has not finished; a resumption is scheduled"
 msgstr "Varnostno kopiranje se ni končalo; nadaljevanje je načrtovano"
 
-#: class-updraftplus.php:1314
+#: class-updraftplus.php:1326
 msgid "Your website is visited infrequently and UpdraftPlus is not getting the resources it hoped for; please read this page:"
 msgstr "Vaša spletna stran ni pogosto obiskana in UpdraftPlus ne dobiva dovolj sredstev, ki si jih želi; prosimo, preberite to stran:"
 
 #: addons/copycom.php:489 addons/onedrive.php:600
-#: includes/Dropbox/OAuth/Consumer/ConsumerAbstract.php:89
+#: includes/Dropbox/OAuth/Consumer/ConsumerAbstract.php:95
 #: methods/googledrive.php:239
 msgid "The %s authentication could not go ahead, because something else on your site is breaking it. Try disabling your other plugins and switching to a default theme. (Specifically, you are looking for the component that sends output (most likely PHP warnings/errors) before the page begins. Turning off any debugging settings may also help)."
 msgstr "%s avtentifikacija se ne more nadaljevati, ker ji nekaj na vašem spletnem mestu to onemogoča. Poskusite onemogočiti druge vaše vtičnike in preklopiti na privzeto temo. (Še posebno iščite komponento, ki pošilja output preden se stran zažene (najveretneje PHP opozorila/napake. Pomaga lahko tudi onemogočanje katerekoli razhroščevalne nastavitve)."
 
-#: admin.php:2067
+#: admin.php:2302
 msgid "Your PHP memory limit (set by your web hosting company) is very low. UpdraftPlus attempted to raise it but was unsuccessful. This plugin may struggle with a memory limit of less than 64 Mb  - especially if you have very large files uploaded (though on the other hand, many sites will be successful with a 32Mb limit - your experience may vary)."
 msgstr "Vaš limit pomnilnika PHP (določen s strani vašega ponudnika spletnega gostovanja) je zelo nizek. UpdraftPlus ga je poskusil dvigniti, a brez uspeha. Vtičnik lahko ima težave, če je limit pomnilnika nižji od 64 Mb - še posebej če nalagate zelo velike datoteke (čeprav je po drugi strani mnogo spletnih mest uspešnih z 32 Mb limita - vaša izkušnja se lahko spreminja)."
 
-#: addons/autobackup.php:68 addons/autobackup.php:843
+#: addons/autobackup.php:68 addons/autobackup.php:846
 msgid "UpdraftPlus Automatic Backups"
 msgstr "Samodejne varnostne kopije UpdraftPlus"
 
-#: addons/autobackup.php:864
+#: addons/autobackup.php:867
 msgid "Do not abort after pressing Proceed below - wait for the backup to complete."
 msgstr "Ne prekinjajte po pritisku na Nadaljuj spodaj - počakajte, da se varnostno kopiranje zaključi."
 
-#: addons/autobackup.php:865 admin.php:302
+#: addons/autobackup.php:868 admin.php:417
 msgid "Proceed with update"
 msgstr "Nadaljuj s posodobitvijo"
 
@@ -3099,107 +3163,107 @@ msgstr "To ni videti veljavna Wordpressova temeljna varnostna kopija - manjkala 
 msgid "If you are not sure then you should stop; otherwise you may destroy this WordPress installation."
 msgstr "Če niste prepričani, se raje ustavite; v nasprotnem primeru lahko uničite namestitev Wordpressa."
 
-#: admin.php:1908 admin.php:2295
+#: admin.php:2141 admin.php:2530
 msgid "Support"
 msgstr "Podpora"
 
-#: admin.php:1911
+#: admin.php:2144
 msgid "More plugins"
 msgstr "Več vtičnikov"
 
-#: class-updraftplus.php:3183
+#: class-updraftplus.php:3203
 msgid "You are importing from a newer version of WordPress (%s) into an older one (%s). There are no guarantees that WordPress can handle this."
 msgstr "Uvažete iz novejše različice Wordpressa (%s) v starejšo (%s). Ne moremo zagotoviti, da bo Worpressu to uspelo."
 
-#: class-updraftplus.php:3283
+#: class-updraftplus.php:3304
 msgid "This database backup is missing core WordPress tables: %s"
 msgstr "Tej varnostni kopiji podatkovne baze manjka jedro Wordpressovih tabel: %s"
 
-#: class-updraftplus.php:3288
+#: class-updraftplus.php:3309
 msgid "UpdraftPlus was unable to find the table prefix when scanning the database backup."
 msgstr "UpdraftPlus med iskanjem varnostne kopije podatkovne baze ni mogel najti predpone tabele."
 
-#: class-updraftplus.php:3114
+#: class-updraftplus.php:3130
 msgid "The database is too small to be a valid WordPress database (size: %s Kb)."
 msgstr "Podatkovna baza je premajhna, da bi bila veljavna Wordpressova podatkovna baza (velikost: %s Kb)."
 
-#: admin.php:347 admin.php:668
+#: admin.php:471 admin.php:880
 msgid "UpdraftPlus Premium can  <strong>automatically</strong> take a backup of your plugins or themes and database before you update."
 msgstr "UpdraftPlus Premium lahko pred posodobitvijo <strong>samodejno</strong> izvede varnostno kopijo vaših vtičnikov ali tem in podatkovnih baz."
 
-#: admin.php:347 admin.php:668
+#: admin.php:471 admin.php:880
 msgid "Be safe every time, without needing to remember - follow this link to learn more."
 msgstr "Brez, da bi si zapomnili, bodite vedno zavarovani - za več informacij sledite tej povezavi."
 
-#: addons/autobackup.php:447 admin.php:653
+#: addons/autobackup.php:447 admin.php:865
 msgid "Update Plugin"
 msgstr "Posodobi vtičnik"
 
-#: addons/autobackup.php:498 admin.php:657
+#: addons/autobackup.php:498 admin.php:869
 msgid "Update Theme"
 msgstr "Posodobi temo"
 
-#: admin.php:345 admin.php:666
+#: admin.php:469 admin.php:878
 msgid "Dismiss (for %s weeks)"
 msgstr "Zavrzi (za %s tednov)"
 
-#: addons/autobackup.php:846 admin.php:346 admin.php:667
+#: addons/autobackup.php:849 admin.php:470 admin.php:879
 msgid "Be safe with an automatic backup"
 msgstr "Zavarujte se s samodejnim varnostnim kopiranjem"
 
-#: restorer.php:1783
+#: restorer.php:1961
 msgid "Uploads path (%s) does not exist - resetting (%s)"
 msgstr "Pot (%s) za nalaganje ne obstaja - resetiram (%s)"
 
-#: admin.php:2032
+#: admin.php:2267
 msgid "If you can still read these words after the page finishes loading, then there is a JavaScript or jQuery problem in the site."
 msgstr "Če še vedno lahko berete te besede, ko se stran neha nalagati, potem je na spletnem mestu Javascript ali jQuery napaka."
 
-#: admin.php:292
+#: admin.php:407
 msgid "Follow this link to attempt decryption and download the database file to your computer."
 msgstr "Sledite tej povezavi za poskus dešifriranja in prenosa podatkovne baze na vaš računalnik."
 
-#: admin.php:293
+#: admin.php:408
 msgid "This decryption key will be attempted:"
 msgstr "Ta dešifrirni ključ bo doživel poskus:"
 
-#: admin.php:294
+#: admin.php:409
 msgid "Unknown server response:"
 msgstr "Neznan odgovor strežnika:"
 
-#: admin.php:295
+#: admin.php:410
 msgid "Unknown server response status:"
 msgstr "Status neznanega odgovora strežnika:"
 
-#: admin.php:296
+#: admin.php:411
 msgid "The file was uploaded."
 msgstr "Datoteka je naložena."
 
-#: admin.php:288
+#: admin.php:403
 msgid "(make sure that you were trying to upload a zip file previously created by UpdraftPlus)"
 msgstr "(preverite, da ste poskusili naložiti zip datoteko, ki je bila predhodno ustvarjena z UpdraftPlus)"
 
-#: admin.php:289
+#: admin.php:404
 msgid "Upload error:"
 msgstr "Napaka nalaganja:"
 
-#: admin.php:290
+#: admin.php:405
 msgid "This file does not appear to be an UpdraftPlus encrypted database archive (such files are .gz.crypt files which have a name like: backup_(time)_(site name)_(code)_db.crypt.gz)."
 msgstr "Ta datoteka ni videti šifriran arhiv UpdraftPlus (takšne datoteke so .gz.crypt datoteke, ki imajo imena kot: backup_(time)_(site name)_(code)_db.crypt.gz)."
 
-#: admin.php:291
+#: admin.php:406
 msgid "Upload error"
 msgstr "Napaka nalaganja"
 
-#: admin.php:278
+#: admin.php:393
 msgid "Delete from your web server"
 msgstr "Brisanje iz vašega strežnika"
 
-#: admin.php:279
+#: admin.php:394
 msgid "Download to your computer"
 msgstr "Prenesi na vaš računalnik"
 
-#: admin.php:280
+#: admin.php:395
 msgid "and then, if you wish,"
 msgstr "in potem, če želite,"
 
@@ -3211,91 +3275,91 @@ msgstr "Primeri S3 združljivih ponudnikov gostovanja:"
 msgid "Upload expected to fail: the %s limit for any single file is %s, whereas this file is %s Gb (%d bytes)"
 msgstr "Nalaganje najbrž en bo uspelo: %s limit za katerokoli posamično datoteko je %s, ta datoteka pa ima %s Gb (%d bajtov)"
 
-#: backup.php:1194
+#: backup.php:1208
 msgid "The backup directory is not writable - the database backup is expected to shortly fail."
 msgstr "Ta direktorij za varnostno kopijo ni zapisljiv - varnostna kopija podatkovne baze najbrž ne bo uspela."
 
-#: admin.php:4423
+#: admin.php:4692
 msgid "Will not delete any archives after unpacking them, because there was no cloud storage for this backup"
 msgstr "Po razširitvi kateregakoli arhiva ne bo prišlo do izbrisa, ker ni bilo oblačne shrambe za to varnostno kopijo"
 
-#: admin.php:4070
+#: admin.php:4338
 msgid "(%d archive(s) in set)."
 msgstr "(%d arhiv(ov) v seriji)."
 
-#: admin.php:4073
+#: admin.php:4341
 msgid "You appear to be missing one or more archives from this multi-archive set."
 msgstr "Videti je, da v seriji več arhivov manjka eden ali več arhivov."
 
-#: admin.php:3567
+#: admin.php:3835
 msgid "Split archives every:"
 msgstr "Razdeli arhiv vsakih:"
 
-#: admin.php:269
+#: admin.php:384
 msgid "Error: the server sent an empty response."
 msgstr "Napaka: strežnik je poslal prazen odgovor."
 
-#: admin.php:270
+#: admin.php:385
 msgid "Warnings:"
 msgstr "Opozorila:"
 
-#: addons/moredatabase.php:222 admin.php:272
+#: addons/moredatabase.php:222 admin.php:387
 msgid "Error: the server sent us a response (JSON) which we did not understand."
 msgstr "Napaka: strežnik nam je poslal nerazumljiv odgovor (JSON)."
 
-#: admin.php:1803
+#: admin.php:2036
 msgid "This looks like a file created by UpdraftPlus, but this install does not know about this type of object: %s. Perhaps you need to install an add-on?"
 msgstr "Ta datoteka je videti kot, da bi bila ustvarjena z UpdraftPlus, a namestitev ne pozna objektov te vrste: %s. Morate morda namestiti dodatek?"
 
-#: admin.php:1233
+#: admin.php:1445
 msgid "The backup archive files have been successfully processed. Now press Restore again to proceed."
 msgstr "Datoteke arhiva varnostne kopije so bile uspešno procesirane. Za nadaljevanje ponovno pritisnite Obnovi."
 
-#: admin.php:1235
+#: admin.php:1447
 msgid "The backup archive files have been processed, but with some warnings. If all is well, then now press Restore again to proceed. Otherwise, cancel and correct any problems first."
 msgstr "Datoteke arhiva varnostne kopije so bile procesirane, vendar se je pojavilo nekaj opozoril. Če je vse v redu, potem za nadaljevanje ponovno pritisnite Obnovi. V nasprotnem primeru prekličite in najprej popravite probleme."
 
-#: admin.php:1237
+#: admin.php:1449
 msgid "The backup archive files have been processed, but with some errors. You will need to cancel and correct any problems before retrying."
 msgstr "Datoteke arhiva varnostne kopije so bile procesirane, vendar se je pojavilo nekaj napak. Preden boste ponovno poskusili, najprej prekličite in popravite probleme."
 
-#: admin.php:907
+#: admin.php:1119
 msgid "The backup archive for this file could not be found. The remote storage method in use (%s) does not allow us to retrieve files. To perform any restoration using UpdraftPlus, you will need to obtain a copy of this file and place it inside UpdraftPlus's working folder"
 msgstr "Ne najdemo arhiva varnostne kopije za to datoteko. Vrsta oddaljene shrambe v uporabi (%s) nam ne dovoljuje pridobivanje datotek. Za obnovitev z uporabo UpdraftPlus bo potrebno pridobiti kopijo te datoteke in jo umestiti v delovno mapo UpdraftPlus."
 
-#: admin.php:1138
+#: admin.php:1350
 msgid "No such backup set exists"
 msgstr "Ne obstaja nobena takšna serija varnostne kopije."
 
-#: admin.php:1206
+#: admin.php:1418
 msgid "File not found (you need to upload it): %s"
 msgstr "Ne najdemo datoteke (potrebno jo je naložiti) %s"
 
-#: admin.php:1208
+#: admin.php:1420
 msgid "File was found, but is zero-sized (you need to re-upload it): %s"
 msgstr "Datoteko smo našli, vendar je nične velikosti (potrebno jo je ponovno naložiti): %s"
 
-#: admin.php:1213
+#: admin.php:1425
 msgid "File (%s) was found, but has a different size (%s) from what was expected (%s) - it may be corrupt."
 msgstr "Datoteko (%s) smo našli, vendar je drugačne velikoste (%s) od pričakovane (%s) - morda je poškodovana."
 
-#: admin.php:1228
+#: admin.php:1440
 msgid "This multi-archive backup set appears to have the following archives missing: %s"
 msgstr "Tej seriji varnostne kopije iz več arhivov manjkajo naslednji arhivi: %s"
 
-#: restorer.php:491
+#: restorer.php:497
 msgid "Failed to move directory (check your file permissions and disk quota): %s"
 msgstr "Neuspeh pri premikanju direktorija (preverite dovoljenja vaše datoteke in kvoto diska): %s"
 
-#: restorer.php:482
+#: restorer.php:488
 msgid "Failed to move file (check your file permissions and disk quota): %s"
 msgstr "Neuspeh pri premikanju datoteke (preverite dovoljenja vaše datoteke in kvoto diska): %s"
 
-#: restorer.php:69
+#: restorer.php:75
 msgid "Moving unpacked backup into place..."
 msgstr "Premikamo razpakirano varnostno kopijo na svoje mesto..."
 
-#: backup.php:2261 backup.php:2507
+#: backup.php:2312 backup.php:2558
 msgid "Failed to open the zip file (%s) - %s"
 msgstr "Neuspeh pri odpiranju zip datoteke (%s) - %s"
 
@@ -3311,7 +3375,7 @@ msgstr "... in veliko več!"
 msgid "%s end-point"
 msgstr "%s končna točka"
 
-#: admin.php:4348
+#: admin.php:4617
 msgid "File is not locally present - needs retrieving from remote storage"
 msgstr "Datoteka lokalno ni na voljo - potrebno jo je pridobiti iz oddaljene shrambe"
 
@@ -3319,75 +3383,75 @@ msgstr "Datoteka lokalno ni na voljo - potrebno jo je pridobiti iz oddaljene shr
 msgid "S3 (Compatible)"
 msgstr "S3 (združljivo)"
 
-#: admin.php:4304
+#: admin.php:4573
 msgid "Final checks"
 msgstr "Zadnje preverbe"
 
-#: admin.php:4342
+#: admin.php:4611
 msgid "Looking for %s archive: file name: %s"
 msgstr "Iskanje %s arhiva: ime datoteke: %s"
 
-#: admin.php:3573
+#: admin.php:3841
 msgid "Check this to delete any superfluous backup files from your server after the backup run finishes (i.e. if you uncheck, then any files despatched remotely will also remain locally, and any files being kept locally will not be subject to the retention limits)."
 msgstr "Izberite za brisanje odvečnih datotek varnostne kopije iz vašega strežnika, potem ko se varnostno kopiranje zaključi (če ne izberete, potem odposlane datoteke ostanejo na voljo tudi lokalno, te datoteke pa niso del limitov hrambe)."
 
-#: admin.php:3391
+#: admin.php:3659
 msgid "Drop encrypted database files (db.gz.crypt files) here to upload them for decryption"
 msgstr "Spustite šifrirane datoteke (db.gz.crypt datoteke) podatkovne baze na to mesto, da jih naložite na dešifriranje"
 
-#: admin.php:3652
+#: admin.php:3920
 msgid "Your wp-content directory server path: %s"
 msgstr "Strežniška pot do vašega direktorija wp-content: %s"
 
-#: admin.php:285
+#: admin.php:400
 msgid "Raw backup history"
 msgstr "Neobdelana zgodovina varnostnih kopij"
 
-#: admin.php:2741
+#: admin.php:2986
 msgid "Show raw backup and file list"
 msgstr "Pokaži neobdelano varnostno kopijo in seznam datoteke"
 
-#: admin.php:268
+#: admin.php:383
 msgid "Processing files - please wait..."
 msgstr "Procesiram datoteke - prosimo, počakajte..."
 
-#: admin.php:2514
+#: admin.php:2749
 msgid "Your WordPress installation has a problem with outputting extra whitespace. This can corrupt backups that you download from here."
 msgstr "Vaša Wordpress namestitev ima težave s prikazovanjem dodatnih presledkov. To lahko okvari varnostne kopije, ki jih prenesete iz tega mesta. "
 
-#: admin.php:2514 admin.php:4457
+#: admin.php:2749 admin.php:4726
 msgid "Please consult this FAQ for help on what to do about it."
 msgstr "Prosimo, obrnite se na pogosto uporabljena vprašanja za pomoč v zvezi s tem."
 
-#: class-updraftplus.php:3122
+#: class-updraftplus.php:3138
 msgid "Failed to open database file."
 msgstr "Neuspeh pri odpiranju datoteke podatkovne baze."
 
-#: class-updraftplus.php:3102
+#: class-updraftplus.php:3118
 msgid "Failed to write out the decrypted database to the filesystem."
 msgstr "Neuspeh pri zapisovanju dešifrirane podatkovne baze v datotečni sistem."
 
-#: admin.php:1359
+#: admin.php:1592
 msgid "Known backups (raw)"
 msgstr "Poznane varnostne kopije (neobdelane)"
 
-#: restorer.php:1063
+#: restorer.php:1242
 msgid "Using directory from backup: %s"
 msgstr "Uporaba direktorija iz varnostne kopije: %s"
 
-#: restorer.php:878
+#: restorer.php:930
 msgid "Files found:"
 msgstr "Najdene datoteke:"
 
-#: restorer.php:884
+#: restorer.php:936
 msgid "Unable to enumerate files in that directory."
 msgstr "Ne moremo oštevilčiti datoteke v tem direktoriju."
 
-#: restorer.php:1487
+#: restorer.php:1666
 msgid "Requested table engine (%s) is not present - changing to MyISAM."
 msgstr "Zahtevan pogon (%s) tabele ni prisoten - spreminjam v MyISAM."
 
-#: restorer.php:1498
+#: restorer.php:1677
 msgid "Restoring table (%s)"
 msgstr "Obnavljam tabelo (%s)"
 
@@ -3395,19 +3459,20 @@ msgstr "Obnavljam tabelo (%s)"
 msgid "This looks like a migration (the backup is from a site with a different address/URL), but you did not check the option to search-and-replace the database. That is usually a mistake."
 msgstr "To je videti kot selitev (varnostna kopija iz spletnega mesta z drugim naslovom/URL), vendar niste izbrali možnosti za iskanje in zamenjavo podatkovnih baz. To je ponavadi napaka."
 
-#: admin.php:4370
+#: admin.php:4639
 msgid "file is size:"
 msgstr "Datoteka velikosti:"
 
-#: admin.php:687 admin.php:2037 admin.php:2766 backup.php:2554
+#: admin.php:899 admin.php:2272 admin.php:3011 backup.php:2605
+#: updraftplus.php:127
 msgid "Go here for more information."
 msgstr "Pojdite sem za več informacij."
 
-#: admin.php:267
+#: admin.php:382
 msgid "Some files are still downloading or being processed - please wait."
 msgstr "Nekatere datoteke se še vedno prenašajo ali se procesirajo - prosimo, počakajte."
 
-#: class-updraftplus.php:3167 class-updraftplus.php:3175
+#: class-updraftplus.php:3185 class-updraftplus.php:3193
 msgid "This backup set is from a different site - this is not a restoration, but a migration. You need the Migrator add-on in order to make this work."
 msgstr "Ta serija varnostne kopije je iz drugega spletnega mesta - to ni obnova, ampak selitev. Da vam to uspe, potrebujete dodatek Selivec."
 
@@ -3419,11 +3484,11 @@ msgstr "Neuspela prijava %s"
 msgid "%s upload failed"
 msgstr "Neuspelo nalaganje %s"
 
-#: addons/fixtime.php:125 addons/fixtime.php:134
+#: addons/fixtime.php:377
 msgid "Enter in format HH:MM (e.g. 14:22)."
 msgstr "Vnesite v obliki UU:MM (npr. 14:22)."
 
-#: addons/fixtime.php:125 addons/fixtime.php:134
+#: addons/fixtime.php:377
 msgid "The time zone used is that from your WordPress settings, in Settings -> General."
 msgstr "Uporabljeni časovni pas je tisti iz nastavitev Wordpress, v Nastavitve -> Splošno"
 
@@ -3456,7 +3521,7 @@ msgid "%s error - failed to upload file"
 msgstr "%s napaka - neuspeh pri nalaganju datoteke"
 
 #: methods/addon-base.php:208 methods/cloudfiles.php:392
-#: methods/cloudfiles.php:409 methods/googledrive.php:808
+#: methods/cloudfiles.php:409 methods/googledrive.php:816
 #: methods/openstack-base.php:343 methods/stream-base.php:281
 #: methods/stream-base.php:288 methods/stream-base.php:301
 msgid "%s Error"
@@ -3472,60 +3537,60 @@ msgstr "%s napaka"
 msgid "%s authentication failed"
 msgstr "%s avtentifikacija ni uspela"
 
-#: class-updraftplus.php:761 methods/cloudfiles.php:211
+#: class-updraftplus.php:773 methods/cloudfiles.php:211
 msgid "%s error - failed to re-assemble chunks"
 msgstr "%s napaka - neuspelo ponovno sestavljanje delčkov"
 
-#: admin.php:1748 admin.php:1795 admin.php:1803 class-updraftplus.php:609
-#: class-updraftplus.php:615 class-updraftplus.php:3090
-#: class-updraftplus.php:3092 class-updraftplus.php:3206
-#: class-updraftplus.php:3211 class-updraftplus.php:3243
-#: methods/googledrive.php:299 restorer.php:872
+#: admin.php:1981 admin.php:2028 admin.php:2036 class-updraftplus.php:621
+#: class-updraftplus.php:627 class-updraftplus.php:3106
+#: class-updraftplus.php:3108 class-updraftplus.php:3226
+#: class-updraftplus.php:3231 class-updraftplus.php:3264
+#: methods/googledrive.php:299 restorer.php:924
 msgid "Error: %s"
 msgstr "Napaka: %s"
 
-#: admin.php:3590
+#: admin.php:3858
 msgid "Backup directory specified exists, but is <b>not</b> writable."
 msgstr "Direktorij varnostne kopije obstaja, a <b>ni</b> zapisljiv."
 
-#: admin.php:3588
+#: admin.php:3856
 msgid "Backup directory specified does <b>not</b> exist."
 msgstr "Direktorij varnostne kopije <b>ne</b> obstaja."
 
-#: admin.php:3025 admin.php:3244 class-updraftplus.php:3167
-#: class-updraftplus.php:3175
+#: admin.php:3270 admin.php:3489 class-updraftplus.php:3185
+#: class-updraftplus.php:3193
 msgid "Warning: %s"
 msgstr "Opozorilo: %s"
 
-#: admin.php:2214
+#: admin.php:2449
 msgid "Last backup job run:"
 msgstr "Zadnje varnostno kopiranje:"
 
-#: backup.php:1775 backup.php:1797
+#: backup.php:1793 backup.php:1817
 msgid "%s: unreadable file - could not be backed up"
 msgstr "%s neberljiva datoteka - ni je mogoče varnostno kopirati"
 
-#: backup.php:2280
+#: backup.php:2331
 msgid "A very large file was encountered: %s (size: %s Mb)"
 msgstr "Naleteli smo na zelo veliko datoteko: %s (velikost: %s Mb)"
 
-#: backup.php:1250
+#: backup.php:1264
 msgid "Table %s has very many rows (%s) - we hope your web hosting company gives you enough resources to dump out that table in the backup"
 msgstr "Tabela %s ima zelo veliko vrstic (%s) - upamo, da vam je vaš ponudnik spletnega gostovanja dal na voljo dovolj sredstev za varnostno kopiranje"
 
-#: backup.php:1353
+#: backup.php:1367
 msgid "An error occurred whilst closing the final database file"
 msgstr "Pripetila se je napaka ob zapiranju zaključne datoteke podatkovne baze."
 
-#: backup.php:684
+#: backup.php:694
 msgid "Warnings encountered:"
 msgstr "Pripetena opozorila:"
 
-#: class-updraftplus.php:2187
+#: class-updraftplus.php:2202
 msgid "The backup apparently succeeded (with warnings) and is now complete"
 msgstr "Varnostno kopiranje je očitno uspelo (z opozorili) in je sedaj končano"
 
-#: class-updraftplus.php:519
+#: class-updraftplus.php:531
 msgid "Your free disk space is very low - only %s Mb remain"
 msgstr "Razpoložljivega prostora na disku je zelo malo - ostaja le %s Mb"
 
@@ -3589,78 +3654,78 @@ msgstr "Prosimo, preverite poverilnice dostopa."
 msgid "The error reported by %s was:"
 msgstr "Napaka, sporočena z %s, je bila:"
 
-#: restorer.php:1079
+#: restorer.php:1258
 msgid "Please supply the requested information, and then continue."
 msgstr "Prosimo, priskrbite zahtevane informacije in nato nadaljujte."
 
-#: restorer.php:1630
+#: restorer.php:1808
 msgid "Cannot drop tables, so deleting instead (%s)"
 msgstr "Ne moremo spustiti tabel, zato jih namesto tega brišemo (%s)"
 
-#: class-updraftplus.php:3211 restorer.php:1331
+#: class-updraftplus.php:3231 restorer.php:1510
 msgid "To import an ordinary WordPress site into a multisite installation requires both the multisite and migrator add-ons."
 msgstr "Za uvoz običajne namestitve spletnega mesta Wordpress v omrežno namestitev sta potrebna tako omrežni kot selitveni dodatek."
 
-#: class-updraftplus.php:3221 restorer.php:1337
+#: class-updraftplus.php:3242 restorer.php:1516
 msgid "Site information:"
 msgstr "Informacije o spletnem mestu:"
 
-#: restorer.php:1613
+#: restorer.php:1792
 msgid "Cannot create new tables, so skipping this command (%s)"
 msgstr "Ne moremo ustvariti novih table, zato preskakujemo ta ukaz (%s)"
 
-#: addons/migrator.php:208 admin.php:2032 class-updraftplus.php:3215
-#: restorer.php:1228 restorer.php:1248 restorer.php:1602
+#: addons/migrator.php:208 admin.php:2267 class-updraftplus.php:3235
+#: restorer.php:1407 restorer.php:1427 restorer.php:1781
 msgid "Warning:"
 msgstr "Opozorilo:"
 
-#: restorer.php:1229
+#: restorer.php:1408
 msgid "Your database user does not have permission to create tables. We will attempt to restore by simply emptying the tables; this should work as long as a) you are restoring from a WordPress version with the same database structure, and b) Your imported database does not contain any tables which are not already present on the importing site."
 msgstr "Vaš uporabnik podatkovne baze nima dovoljenja za ustvarjanje tabel.  Poskusili bomo obnovitev s preprostim praznjenjem tabel; to bi moralo delovati, če a) obnavljate Wordpressovo različico z enako strukturo podatkovne baze in b) vaša uvožena podatkovna baza ne vsebuje tabel, ki niso že prisotne  v uvažanem spletnem mestu."
 
-#: class-updraftplus.php:3206 restorer.php:77
+#: class-updraftplus.php:3226 restorer.php:83
 msgid "You are running on WordPress multisite - but your backup is not of a multisite site."
 msgstr "Uporabljate Wordpress omrežje - vendar vaša varnostna kopija ni takšne vrste."
 
-#: admin.php:4331
+#: admin.php:4600
 msgid "Skipping restoration of WordPress core when importing a single site into a multisite installation. If you had anything necessary in your WordPress directory then you will need to re-add it manually from the zip file."
 msgstr "Preskakovanje obnove jedra Wordpress ob uvažanju samostojnega spletnega mesta v omrežno namestitev. Če imate kaj nujnega v vašem Wordpress direktoriju, potem boste morali te vsebine dodati ročno iz zip datoteke."
 
-#: admin.php:3706
+#: admin.php:3974
 msgid "Your web server's PHP installation does not included a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it."
 msgstr "PHP namestitev vašega strežnika ni vsebovala <strong>zahtevanih</strong> (za %s) modul (%s). Prosimo, kontaktirajte podporo vašega ponudnika spletnega gostovanja, da ga omogoči."
 
-#: admin.php:3706
+#: admin.php:3974
 msgid "Your options are 1) Install/enable %s or 2) Change web hosting companies - %s is a standard PHP component, and required by all cloud backup plugins that we know of."
 msgstr "Na voljo imate 1) Namestitev/omogočanje %s ali 2) Sprememba ponudnika spletnega gostovanja - %s je običajna komponenta PHP, ki jo potrebujejo vsi poznani vtičniki varnostnega kopiranja v oblak."
 
-#: admin.php:303
+#: admin.php:418
 msgid "Close"
 msgstr "Zapri"
 
-#: addons/autobackup.php:233 addons/autobackup.php:324 admin.php:261
-#: methods/remotesend.php:68 methods/remotesend.php:76
-#: methods/remotesend.php:192 methods/remotesend.php:200
+#: addons/autobackup.php:233 addons/autobackup.php:324 admin.php:376
+#: methods/remotesend.php:70 methods/remotesend.php:78
+#: methods/remotesend.php:194 methods/remotesend.php:202
 msgid "Unexpected response:"
 msgstr "Nepričakovan odgovor:"
 
-#: addons/reporting.php:455 admin.php:258
+#: addons/reporting.php:456 admin.php:373
 msgid "To send to more than one address, separate each address with a comma."
 msgstr "Za pošiljanje na več naslovov, vsak naslov ločite z vejico."
 
-#: admin.php:283
+#: admin.php:398
 msgid "PHP information"
 msgstr "PHP informacija"
 
-#: admin.php:2711
+#: admin.php:2956
 msgid "show PHP information (phpinfo)"
 msgstr "prikaži PHP informacijo (phpinfo)"
 
-#: admin.php:2728
+#: admin.php:2973
 msgid "zip executable found:"
 msgstr "najden izvršilni zip:"
 
-#: admin.php:2223
+#: admin.php:2458
 msgid "Migrate Site"
 msgstr "Preseli spletno mesto"
 
@@ -3668,100 +3733,96 @@ msgstr "Preseli spletno mesto"
 msgid "<a href=\"%s\">Read this article to see step-by-step how it's done.</a>"
 msgstr "<a href=\"%s\">Preberite ta članek, da korak za korakom vidite, kako je narejeno.</a>"
 
-#: admin.php:2228
+#: admin.php:2463
 msgid "Do you want to migrate or clone/duplicate a site?"
 msgstr "Ali želite seliti ali klonirati/podvojiti spletno mesto?"
 
-#: admin.php:2228
+#: admin.php:2463
 msgid "Then, try out our \"Migrator\" add-on. After using it once, you'll have saved the purchase price compared to the time needed to copy a site by hand."
 msgstr "Potem poskusite dodatek Selivec. Ko ga boste enkrat uporabili, boste prihranili ceno nakupa glede na čas, ki bi ga porabili, če bi to delali ročno."
 
-#: admin.php:2228
+#: admin.php:2463
 msgid "Get it here."
 msgstr "Pridobite ga tukaj."
 
-#: admin.php:2590
+#: admin.php:2834
 msgid "Deleting... please allow time for the communications with the remote storage to complete."
 msgstr "Brišem... prosimo počakajte, da se komunikacija z oddaljeno shrambo konča."
 
-#: admin.php:2589
+#: admin.php:2833
 msgid "Also delete from remote storage"
 msgstr "Izbriši tudi iz oddaljene shrambe"
 
-#: admin.php:2489
+#: admin.php:2724
 msgid "Latest UpdraftPlus.com news:"
 msgstr "Zadnje UpdraftPlus.com novice:"
 
-#: admin.php:2147
+#: admin.php:2382
 msgid "Clone/Migrate"
 msgstr "Kloniraj/preseli"
 
-#: admin.php:1906
+#: admin.php:2139
 msgid "News"
 msgstr "Novice"
 
-#: admin.php:1905
+#: admin.php:2138
 msgid "Premium"
 msgstr "Premium"
 
-#: admin.php:1344
+#: admin.php:1577
 msgid "Local archives deleted: %d"
 msgstr "Izbrisani lokalni arhivi: %d"
 
-#: admin.php:1345
+#: admin.php:1578
 msgid "Remote archives deleted: %d"
 msgstr "Izbrisani oddaljeni arhivi: %d"
 
-#: backup.php:151
+#: backup.php:152
 msgid "%s - could not back this entity up; the corresponding directory does not exist (%s)"
 msgstr "%s - ne moremo varnostno kopirati tega subjekta; ustrezen direktorij ne obstaja (%s)"
 
-#: admin.php:1257
+#: admin.php:1503
 msgid "Backup set not found"
 msgstr "Najdena je serija varnostne kopije"
 
-#: admin.php:1343
-msgid "The backup set has been removed."
-msgstr "Serija varnostne kopije je bila premaknjena."
-
-#: class-updraftplus.php:3048
+#: class-updraftplus.php:3064
 msgid "Subscribe to the UpdraftPlus blog to get up-to-date news and offers"
 msgstr "Naročite se na blog UpdraftPlus, da dobite zadnje novice in ponudbe"
 
-#: class-updraftplus.php:3048
+#: class-updraftplus.php:3064
 msgid "Blog link"
 msgstr "Povezava do bloga"
 
-#: class-updraftplus.php:3048
+#: class-updraftplus.php:3064
 msgid "RSS link"
 msgstr "Povezava do RSS"
 
-#: addons/sftp.php:413 methods/addon-base.php:256 methods/ftp.php:256
+#: addons/sftp.php:416 methods/addon-base.php:256 methods/ftp.php:256
 #: methods/s3.php:640 methods/stream-base.php:208
 msgid "Testing %s Settings..."
 msgstr "Preizkušamo %s nastavitve..."
 
-#: admin.php:2541
+#: admin.php:2776
 msgid "Or, you can place them manually into your UpdraftPlus directory (usually wp-content/updraft), e.g. via FTP, and then use the \"rescan\" link above."
 msgstr "Ali jih lahko ročno prenesete v vaš UpdraftPlus direktorij (običajno wp-content/updraft), npr. preko FTP, in nato uporabite zgornjo povezavo \"ponovno iskanje\"."
 
-#: admin.php:703
+#: admin.php:915
 msgid "Notice"
 msgstr "Obvestilo"
 
-#: admin.php:703
+#: admin.php:915
 msgid "UpdraftPlus's debug mode is on. You may see debugging notices on this page not just from UpdraftPlus, but from any other plugin installed. Please try to make sure that the notice you are seeing is from UpdraftPlus before you raise a support request."
 msgstr "Vklopljen je razhroščealni način UpdraftPlus. Morda boste na tej strani videli UpdraftPlus obvestila o razhroščevanju, pa tudi od drugih nameščenih vtičnikov. Prosimo, prepričajte se, da so opažena obvestila od UpdraftPlus, preden se odločite za podporo."
 
-#: backup.php:666
+#: backup.php:676
 msgid "Errors encountered:"
 msgstr "Pripetene napake:"
 
-#: admin.php:256
+#: admin.php:371
 msgid "Rescanning (looking for backups that you have uploaded manually into the internal backup store)..."
 msgstr "Ponovno iskanje (varnostnih kopij, ki ste jih ročno naložili v interno hrambo)..."
 
-#: admin.php:266
+#: admin.php:381
 msgid "Begun looking for this entity"
 msgstr "Začeli smo iskati ta subjekt"
 
@@ -3769,7 +3830,7 @@ msgstr "Začeli smo iskati ta subjekt"
 msgid "SQL update commands run:"
 msgstr "Poteka SQL posodobitev ukazov:"
 
-#: addons/migrator.php:839 admin.php:271
+#: addons/migrator.php:839 admin.php:386
 msgid "Errors:"
 msgstr "Napake:"
 
@@ -3817,37 +3878,37 @@ msgstr "Preučene vrstice:"
 msgid "Changes made:"
 msgstr "Narejene spremembe:"
 
-#: addons/sftp.php:276
+#: addons/sftp.php:279
 msgid "%s Error: Failed to download"
 msgstr "%s Napaka: Neuspel prenos"
 
-#: addons/moredatabase.php:185 addons/sftp.php:343
+#: addons/moredatabase.php:185 addons/sftp.php:346
 msgid "Host"
 msgstr "Gostitelj"
 
-#: addons/sftp.php:350
+#: addons/sftp.php:353
 msgid "Port"
 msgstr "Vrata"
 
-#: addons/lockadmin.php:141 addons/moredatabase.php:187 addons/sftp.php:364
+#: addons/lockadmin.php:141 addons/moredatabase.php:187 addons/sftp.php:367
 #: methods/openstack2.php:127 methods/updraftvault.php:273
 #: udaddons/options.php:145
 msgid "Password"
 msgstr "Geslo"
 
-#: addons/sftp.php:389
+#: addons/sftp.php:392
 msgid "Directory path"
 msgstr "Pot direktorija"
 
-#: addons/sftp.php:391
+#: addons/sftp.php:394
 msgid "Where to change directory to after logging in - often this is relative to your home directory."
 msgstr "Na katero mesto spremeniti direktorij po prijavi - to je pogosto relativno glede na vaš domači direktorij."
 
-#: addons/sftp.php:443
+#: addons/sftp.php:446
 msgid "host name"
 msgstr "ime gostitelja"
 
-#: addons/sftp.php:447 methods/openstack2.php:147
+#: addons/sftp.php:450 methods/openstack2.php:147
 msgid "username"
 msgstr "uporabniško ime"
 
@@ -3855,31 +3916,31 @@ msgstr "uporabniško ime"
 msgid "password"
 msgstr "geslo"
 
-#: addons/sftp.php:456
+#: addons/sftp.php:459
 msgid "Failure: Port must be an integer."
 msgstr "Neuspeh: Vrata morajo biti število."
 
-#: addons/fixtime.php:125 addons/fixtime.php:134
+#: addons/fixtime.php:377
 msgid "starting from next time it is"
 msgstr "začenjati iz naslednjič je"
 
-#: addons/multisite.php:165
+#: addons/multisite.php:166
 msgid "Multisite Install"
 msgstr "Omrežna namestitev"
 
-#: addons/multisite.php:171 udaddons/options.php:224
+#: addons/multisite.php:172 udaddons/options.php:224
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Nimate zadostnih dovoljenj za dostop do te strani."
 
-#: addons/multisite.php:190
+#: addons/multisite.php:191
 msgid "You do not have permission to access this page."
 msgstr "Nimate dovoljenja za dostop do te strani."
 
-#: addons/multisite.php:284
+#: addons/multisite.php:285
 msgid "Must-use plugins"
 msgstr "Nujni vtičniki"
 
-#: addons/multisite.php:291
+#: addons/multisite.php:292
 msgid "Blog uploads"
 msgstr "Nalaganje na blog"
 
@@ -3944,7 +4005,7 @@ msgstr "Če jo uporabljate, vnesite absolutno pot (ni relativna vaši Wordpress 
 msgid "Be careful what you enter - if you enter / then it really will try to create a zip containing your entire webserver."
 msgstr "Pri vnosu bodite previdni - če vnesete / potem bo res poskušalo narediti zip vašega celotnega strežnika."
 
-#: addons/morefiles.php:444
+#: addons/morefiles.php:454
 msgid "No backup of %s directories: there was nothing found to back up"
 msgstr "Ni varnostnih kopij %s direktorijev: nič ni bilo najdeno za kopiranje"
 
@@ -3960,7 +4021,7 @@ msgstr "Privzeto v uporabi je eksplicitno šifriranje. Za vsiljenje implicitnega
 msgid "No %s found"
 msgstr "Ni najdenih %s"
 
-#: addons/sftp.php:486
+#: addons/sftp.php:489
 msgid "Check your file permissions: Could not successfully create and enter:"
 msgstr "Preverite dovoljenja za vašo datoteko: Nismo mogli uspešno ustvariti in vnesti:"
 
@@ -4016,7 +4077,7 @@ msgstr "WebDAV URL"
 msgid "Enter a complete URL, beginning with webdav:// or webdavs:// and including path, username, password and port as required - e.g.%s"
 msgstr "Vnesite celoten URL, ki se začenja z webdav:// ali webdavs:// in vključuje pot, uporabniško ime, geslo in potrebna vrata - npr. %s"
 
-#: addons/sftp.php:473 admin.php:3078 admin.php:3113 admin.php:3122
+#: addons/sftp.php:476 admin.php:3323 admin.php:3358 admin.php:3367
 #: methods/addon-base.php:299 methods/stream-base.php:317
 msgid "Failed"
 msgstr "Neuspelo"
@@ -4025,7 +4086,7 @@ msgstr "Neuspelo"
 msgid "Failed: We were not able to place a file in that directory - please check your credentials."
 msgstr "Neuspeh: v ta direktorij nismo uspeli umestiti datoteke - prosimo, preverite svoje poverilnice."
 
-#: addons/morefiles.php:63 addons/morefiles.php:444
+#: addons/morefiles.php:63 addons/morefiles.php:454
 msgid "WordPress Core"
 msgstr "Jedro Wordpress"
 
@@ -4176,9 +4237,9 @@ msgstr "Cloud Files kontejner"
 msgid "UpdraftPlus's %s module <strong>requires</strong> %s. Please do not file any support requests; there is no alternative."
 msgstr "%s modul UpdraftPlus's <strong>zahteva</strong> %s. Prosimo, ne vlagajte zahtev po podpori, saj ne obstajajo alternative."
 
-#: addons/migrator.php:168 addons/migrator.php:1558 addons/moredatabase.php:47
-#: addons/moredatabase.php:49 addons/moredatabase.php:51 addons/sftp.php:443
-#: addons/sftp.php:447 addons/sftp.php:451 addons/webdav.php:55 admin.php:322
+#: addons/migrator.php:168 addons/migrator.php:1560 addons/moredatabase.php:47
+#: addons/moredatabase.php:49 addons/moredatabase.php:51 addons/sftp.php:446
+#: addons/sftp.php:450 addons/sftp.php:454 addons/webdav.php:55 admin.php:437
 #: methods/addon-base.php:292 methods/cloudfiles-new.php:147
 #: methods/cloudfiles-new.php:152 methods/cloudfiles.php:529
 #: methods/cloudfiles.php:534 methods/ftp.php:378 methods/ftp.php:382
@@ -4192,7 +4253,7 @@ msgstr "Neuspeh: Ni danih %s."
 msgid "API key"
 msgstr "API ključ"
 
-#: addons/moredatabase.php:186 addons/sftp.php:357
+#: addons/moredatabase.php:186 addons/sftp.php:360
 #: methods/cloudfiles-new.php:152 methods/cloudfiles.php:534
 #: methods/openstack2.php:121
 msgid "Username"
@@ -4242,35 +4303,35 @@ msgstr "%s napaka ponovnega sestavljanja (%s): (oglejte si poročilo za več pod
 msgid "%s Error: Failed to create bucket %s. Check your permissions and credentials."
 msgstr "%s Napaka: Ustvarjanje prenosnih podatkov ni uspelo %s: Preverite svoja dovoljenja in poverilnice."
 
-#: methods/googledrive.php:889
+#: methods/googledrive.php:897
 msgid "For longer help, including screenshots, follow this link. The description below is sufficient for more expert users."
 msgstr "Za obsežnejšo pomoč, vključno s posnetki zaslona, sledi tej povezavi. Spodnji opis zadošča naprednejšim uporabnikom."
 
-#: methods/googledrive.php:891
+#: methods/googledrive.php:899
 msgid "Select 'Web Application' as the application type."
 msgstr "Kot vrsto aplikacije, izberite \"Spletne aplikacije\"."
 
-#: methods/googledrive.php:891
+#: methods/googledrive.php:899
 msgid "You must add the following as the authorised redirect URI (under \"More Options\") when asked"
 msgstr "Ko ste pozvani je potrebno kot avtoriziran preusmeritveni URI dodati naslednje (pod \"Več možnosti\")"
 
-#: addons/onedrive.php:664 methods/googledrive.php:901
+#: addons/onedrive.php:664 methods/googledrive.php:909
 msgid "Client ID"
 msgstr "ID klienta"
 
-#: methods/googledrive.php:902
+#: methods/googledrive.php:910
 msgid "If Google later shows you the message \"invalid_client\", then you did not enter a valid client ID here."
 msgstr "Če Google kasneje prikaže sporočilo \"invalid_client\", potem tukaj niste vnesli veljavnega ID klienta."
 
-#: addons/onedrive.php:668 methods/googledrive.php:905
+#: addons/onedrive.php:668 methods/googledrive.php:913
 msgid "Client Secret"
 msgstr "Skrivni klient"
 
-#: methods/googledrive.php:935
+#: methods/googledrive.php:943
 msgid "Authenticate with Google"
 msgstr "Avtentifikacija z Googlom"
 
-#: methods/googledrive.php:946
+#: methods/googledrive.php:954
 msgid "<strong>After</strong> you have saved your settings (by clicking 'Save Changes' below), then come back here once and click this link to complete authentication with Google."
 msgstr "<strong>Potem</strong> ko ste shranili vaše nastavitve (s klikom na \"Shrani spremembe\" spodaj), pridite nazaj in kliknite to povezavo, da dokončate avtentifikacijo z Googlom."
 
@@ -4285,8 +4346,8 @@ msgstr "Cloud Files avtentifikacija ni uspela."
 msgid "Cloud Files error - failed to create and access the container"
 msgstr "Cloud Files napaka - neuspelo ustvarjanje in dostop do kontejnerja"
 
-#: class-updraftplus.php:715 methods/cloudfiles.php:130
-#: methods/googledrive.php:726 methods/googledrive.php:731
+#: class-updraftplus.php:727 methods/cloudfiles.php:130
+#: methods/googledrive.php:734 methods/googledrive.php:739
 msgid "%s Error: Failed to open local file"
 msgstr "%s Napaka: Neuspelo odpiranje lokalne datoteke"
 
@@ -4301,7 +4362,7 @@ msgstr "%s Napaka: Neuspelo nalaganje"
 msgid "Cloud Files error - failed to upload file"
 msgstr "Cloud Files napaka - neuspelo nalaganje datoteke"
 
-#: class-updraftplus.php:790 methods/cloudfiles.php:392
+#: class-updraftplus.php:802 methods/cloudfiles.php:392
 #: methods/stream-base.php:281
 msgid "Error opening local file: Failed to download"
 msgstr "Napaka pri odpiranju lokalne datoteke: Neuspel prenos"
@@ -4314,7 +4375,7 @@ msgstr "Napaka pri prenosu oddaljene datoteke: Neuspel prenos ("
 msgid "Testing - Please Wait..."
 msgstr "Preizkušanje - Prosimo, počakajte..."
 
-#: addons/sftp.php:404 addons/sftp.php:430 methods/addon-base.php:242
+#: addons/sftp.php:407 addons/sftp.php:433 methods/addon-base.php:242
 #: methods/addon-base.php:265 methods/cloudfiles.php:448
 #: methods/cloudfiles.php:521 methods/ftp.php:272 methods/ftp.php:352
 #: methods/openstack-base.php:288 methods/openstack-base.php:464
@@ -4348,34 +4409,34 @@ msgid "Account is not authorized."
 msgstr "Račun ni avtoriziran."
 
 #: methods/addon-base.php:230 methods/cloudfiles.php:463
-#: methods/dropbox.php:389 methods/ftp.php:321 methods/googledrive.php:874
+#: methods/dropbox.php:389 methods/ftp.php:321 methods/googledrive.php:882
 #: methods/openstack-base.php:443 methods/s3.php:676
 #: methods/stream-base.php:232
 msgid "%s is a great choice, because UpdraftPlus supports chunked uploads - no matter how big your site is, UpdraftPlus can upload it a little at a time, and not get thwarted by timeouts."
 msgstr "%s je dobra izbira, saj UpdraftPlus podpira nalaganje v delčkih - ne glede na to, kako veliko je vaše spletno mesto, ga UpdraftPlus lahko postopoma naloži, tega pa mu ne preprečujejo izteki časa."
 
-#: restorer.php:1501
+#: restorer.php:1680
 msgid "will restore as:"
 msgstr "se bo obnovilo kot:"
 
-#: addons/migrator.php:871 restorer.php:1666
+#: addons/migrator.php:871 restorer.php:1844
 msgid "the database query being run was:"
 msgstr "Poizvedba podatkovne baze, ki je tekla, je bila:"
 
-#: restorer.php:1554
+#: restorer.php:1733
 msgid "Finished: lines processed: %d in %.2f seconds"
 msgstr "Končano: procesirane vrstice: %d v %.2f sekundah"
 
-#: restorer.php:1761 restorer.php:1836
+#: restorer.php:1939 restorer.php:2014
 msgid "Table prefix has changed: changing %s table field(s) accordingly:"
 msgstr "Predpona tabele se je spremenila: v skladu s tem spreminjamo %s polje(a) tabele:"
 
-#: addons/migrator.php:1461 admin.php:3081 admin.php:3115 admin.php:3119
-#: admin.php:4354 admin.php:4368 restorer.php:1767 restorer.php:1872
+#: addons/migrator.php:1463 admin.php:3326 admin.php:3360 admin.php:3364
+#: admin.php:4623 admin.php:4637 restorer.php:1945 restorer.php:2050
 msgid "OK"
 msgstr "OK"
 
-#: includes/Dropbox/OAuth/Consumer/ConsumerAbstract.php:99
+#: includes/Dropbox/OAuth/Consumer/ConsumerAbstract.php:105
 msgid "You need to re-authenticate with %s, as your existing credentials are not working."
 msgstr "Potrebno je ponovno avtentificirati z %s, saj obstoječe poverilnice ne delujejo."
 
@@ -4405,7 +4466,7 @@ msgstr "Avtorizacija ni uspela"
 msgid "Your %s quota usage: %s %% used, %s available"
 msgstr "Vaša %s kvota uporabe: %s %% uporabljeno, %s na voljo"
 
-#: addons/onedrive.php:525 addons/sftp.php:506 methods/addon-base.php:306
+#: addons/onedrive.php:525 addons/sftp.php:509 methods/addon-base.php:306
 #: methods/cloudfiles.php:585 methods/googledrive.php:358
 #: methods/openstack-base.php:416 methods/s3.php:878
 #: methods/stream-base.php:328
@@ -4416,112 +4477,112 @@ msgstr "Uspeh"
 msgid "you have authenticated your %s account."
 msgstr "avtentificirali ste vaš %s račun."
 
-#: methods/googledrive.php:498
+#: methods/googledrive.php:503
 msgid "Have not yet obtained an access token from Google - you need to authorise or re-authorise your connection to Google Drive."
 msgstr "Nismo še prejeli Googlovega žetona za dostop - potrebno je avtorizirati ali ponovno avtorizirati vašo povezavo z Google Drive."
 
-#: restorer.php:395
+#: restorer.php:401
 msgid "wp-config.php from backup: restoring (as per user's request)"
 msgstr "wp-config.php iz varnostne kopije: obnavljanje (na zahtevo uporabnika)"
 
-#: restorer.php:1120
+#: restorer.php:1299
 msgid "Warning: PHP safe_mode is active on your server. Timeouts are much more likely. If these happen, then you will need to manually restore the file via phpMyAdmin or another method."
 msgstr "Opozorilo: na vašem strežniku je aktiven PHP safe_mode. Izteki časa so precej bolj verjetni. Če se to zgodi, boste morali datoteko ročno obnoviti preko phpMyAdmin ali druge metode."
 
-#: restorer.php:1144
+#: restorer.php:1323
 msgid "Failed to find database file"
 msgstr "Neuspešno iskanje datoteke podatkovne baze"
 
-#: restorer.php:1165
+#: restorer.php:1344
 msgid "Failed to open database file"
 msgstr "Neuspešno odpiranje datoteke podatkovne baze"
 
-#: addons/migrator.php:393 restorer.php:1170
+#: addons/migrator.php:393 restorer.php:1349
 msgid "Database access: Direct MySQL access is not available, so we are falling back to wpdb (this will be considerably slower)"
 msgstr "Dostop do podatkovne baze: direkten MySQL dostop ni na voljo, zato se vračamo nazaj na wpdb (to bo znatno počasneje)"
 
-#: addons/reporting.php:64 addons/reporting.php:146 backup.php:733
-#: class-updraftplus.php:3163
+#: addons/reporting.php:65 addons/reporting.php:147 backup.php:743
+#: class-updraftplus.php:3181
 msgid "Backup of:"
 msgstr "Varnostna kopija od:"
 
-#: restorer.php:1318 restorer.php:1411 restorer.php:1431
+#: restorer.php:1497 restorer.php:1590 restorer.php:1610
 msgid "Old table prefix:"
 msgstr "Stara predpona tabele:"
 
-#: admin.php:4365
+#: admin.php:4634
 msgid "Archive is expected to be size:"
 msgstr "Pričakovana velikost arhiva:"
 
-#: admin.php:4373
+#: admin.php:4642
 msgid "The backup records do not contain information about the proper size of this file."
 msgstr "Podatki varnostne kopije ne vsebujejo informacije o ustrezni velikosti te datoteke."
 
-#: admin.php:4447
+#: admin.php:4716
 msgid "Error message"
 msgstr "Sporočilo o napaki"
 
-#: admin.php:4376 admin.php:4377
+#: admin.php:4645 admin.php:4646
 msgid "Could not find one of the files for restoration"
 msgstr "Ne najdem ene datoteke za obnovitev"
 
-#: restorer.php:62
+#: restorer.php:68
 msgid "UpdraftPlus is not able to directly restore this kind of entity. It must be restored manually."
 msgstr "UpdraftPlus ne more neposredno obnoviti subjekta te vrste. Potrebno ga je ročno obnoviti."
 
-#: restorer.php:63
+#: restorer.php:69
 msgid "Backup file not available."
 msgstr "Datoteka varnostne kopije ni na voljo."
 
-#: restorer.php:64
+#: restorer.php:70
 msgid "Copying this entity failed."
 msgstr "Kopiranje tega subjekta ni uspelo."
 
-#: restorer.php:65
+#: restorer.php:71
 msgid "Unpacking backup..."
 msgstr "Razpakiravam varnostno kopijo..."
 
-#: restorer.php:66
+#: restorer.php:72
 msgid "Decrypting database (can take a while)..."
 msgstr "Dešifriram podatkovno bazo (lahko traja nekaj časa)..."
 
-#: restorer.php:67
+#: restorer.php:73
 msgid "Database successfully decrypted."
 msgstr "Podatkovna baza je uspešno dešifrirana."
 
-#: restorer.php:70
+#: restorer.php:76
 msgid "Restoring the database (on a large site this can take a long time - if it times out (which can happen if your web hosting company has configured your hosting to limit resources) then you should use a different method, such as phpMyAdmin)..."
 msgstr "Obnovitev podatkovne baze (na velikih spletnih mestih lahko vzame veliko časa  - če se čas izteče (kar se dogaja, če je vaš ponudnik spletnega gostovanja nastavil gostovanje z omejenimi sredstvi), potem bo potrebna druga metoda, kot npr. phpMyAdmin)..."
 
-#: restorer.php:71
+#: restorer.php:77
 msgid "Cleaning up rubbish..."
 msgstr "Čiščenje odvečnih datotek..."
 
-#: restorer.php:73
+#: restorer.php:79
 msgid "Could not delete old directory."
 msgstr "Ne moremo izbrisati starega direktorija."
 
-#: restorer.php:76
+#: restorer.php:82
 msgid "Failed to delete working directory after restoring."
 msgstr "Neuspešno brisanje delovnega direktorija po obnovitvi."
 
-#: restorer.php:272
+#: restorer.php:278
 msgid "Failed to create a temporary directory"
 msgstr "Neuspešno ustvarjanje začasnega direktorija"
 
-#: restorer.php:287
+#: restorer.php:293
 msgid "Failed to write out the decrypted database to the filesystem"
 msgstr "Neuspešno izpisovanje dešifrirane podatkovne baze v datotečni sistem"
 
-#: restorer.php:390
+#: restorer.php:396
 msgid "wp-config.php from backup: will restore as wp-config-backup.php"
 msgstr "wp-config.php iz varnostne kopije: obnovil se bo kot wp-config-backup.php"
 
-#: admin.php:3610
+#: admin.php:3878
 msgid "Choosing this option lowers your security by stopping UpdraftPlus from using SSL for authentication and encrypted transport at all, where possible. Note that some cloud storage providers do not allow this (e.g. Dropbox), so with those providers this setting will have no effect."
 msgstr "Izbira te možnosti zmanjša vašo zaščito s preprečitvijo, da bi UpdraftPlus uporabljal SSL za avtentifikacijo in šifrirani prenos, kjer je to na voljo. Imejte v mislih, da nekateri ponudniki oblačne shrambe tega ne dovoljujejo (npr. Dropbox), tako da pri teh ponudnikih nastavitve ne bodo imele učinka."
 
-#: admin.php:3634
+#: admin.php:3902
 msgid "Save Changes"
 msgstr "Shrani spremembe"
 
@@ -4530,433 +4591,433 @@ msgstr "Shrani spremembe"
 msgid "Your web server's PHP installation does not included a required module (%s). Please contact your web hosting provider's support."
 msgstr "PHP namestitev na vašem strežniku ni vsebovala potrebnega modula (%s). Prosimo, kontaktirajte podporo vašega ponudnika spletnega gostovanja."
 
-#: admin.php:3713
+#: admin.php:3981
 msgid "Your web server's PHP/Curl installation does not support https access. Communications with %s will be unencrypted. ask your web host to install Curl/SSL in order to gain the ability for encryption (via an add-on)."
 msgstr "PHP/Curl namestitev na vašem strežniku ne podpira https dostopa. Komunikacija z %s ne bo šifrirana. Prosite vašega ponudnika spletnega gostovanja, da namesti Curl/SSL, saj bo s tem povezava postala šifrirana (preko dodatka)."
 
-#: admin.php:3715
+#: admin.php:3983
 msgid "Your web server's PHP/Curl installation does not support https access. We cannot access %s without this support. Please contact your web hosting provider's support. %s <strong>requires</strong> Curl+https. Please do not file any support requests; there is no alternative."
 msgstr "PHP/Curl namestitev na vašem strežniku ne podpira https dostopa. Ne moremo dostopati do %s brez te podpore. Prosimo, kontaktirajte podporo vašega ponudnika spletnega gostovanja. %s <strong>zahteva</strong> Curl+https. Prosimo, ne postavljajte zahtev po podpori, saj ne obstajajo nobene alternative."
 
-#: admin.php:3718
+#: admin.php:3986
 msgid "Good news: Your site's communications with %s can be encrypted. If you see any errors to do with encryption, then look in the 'Expert Settings' for more help."
 msgstr "Dobre novice: Komunikacija vašega spletnega mesta z %s je lahko šifrirana. Če vidite kakšne napake, povezane s šifriranjem, potem poglejte v \"Napredne nastavitve\" za več pomoči."
 
-#: admin.php:4155
+#: admin.php:4423
 msgid "Delete this backup set"
 msgstr "Izbriši to serijo varnostne kopije"
 
-#: admin.php:4064
+#: admin.php:4332
 msgid "Press here to download"
 msgstr "Za prenos pritisni tukaj"
 
-#: admin.php:4141
+#: admin.php:4409
 msgid "After pressing this button, you will be given the option to choose which components you wish to restore"
 msgstr "Po pritisku na ta gumb, se bo pojavila možnost izbire komponent, ki jih želite obnoviti"
 
-#: admin.php:4190
+#: admin.php:4458
 msgid "This backup does not exist in the backup history - restoration aborted. Timestamp:"
 msgstr "Ta varnostna kopija ne obstaja v zgodovini varnostnih kopij - obnovitev je preklicana. Časovni žig:"
 
-#: admin.php:4230
+#: admin.php:4497
 msgid "UpdraftPlus Restoration: Progress"
 msgstr "UpdraftPlus Obnovitev: Napredek"
 
-#: admin.php:4276
+#: admin.php:4543
 msgid "ABORT: Could not find the information on which entities to restore."
 msgstr "PREKINITEV: Ne najdemo informacij o subjektu za obnovo."
 
-#: admin.php:4277
+#: admin.php:4544
 msgid "If making a request for support, please include this information:"
 msgstr "Če boste zahtevali podporo, prosimo, vključite te informacija:"
 
-#: admin.php:3604
+#: admin.php:3872
 msgid "Do not verify SSL certificates"
 msgstr "Ne preveri SSL certifikata"
 
-#: admin.php:3605
+#: admin.php:3873
 msgid "Choosing this option lowers your security by stopping UpdraftPlus from verifying the identity of encrypted sites that it connects to (e.g. Dropbox, Google Drive). It means that UpdraftPlus will be using SSL only for encryption of traffic, and not for authentication."
 msgstr "Izbira te možnost zmanjša vašo varnost z onemogočanjem UpdraftPlud, da bi preveril identiteto šifriranih strani, na katere se povezuje (npr. Dropbox, Google Drive). To pomeni, da bo UpdraftPlus uporabil SSL samo pri šifriranju prometa, ne pa za avtentifikacijo."
 
-#: admin.php:3605
+#: admin.php:3873
 msgid "Note that not all cloud backup methods are necessarily using SSL authentication."
 msgstr "Imejte v mislih, da pri uporabi SSL avtentifikacije niso nujne vse oblačne metode varnostnega kopiranja."
 
-#: admin.php:3609
+#: admin.php:3877
 msgid "Disable SSL entirely where possible"
 msgstr "Povsem onemogoči SSL, kjer je to mogoče"
 
-#: admin.php:3551
+#: admin.php:3819
 msgid "Expert settings"
 msgstr "Napredne nastavitve"
 
-#: admin.php:3552
+#: admin.php:3820
 msgid "Show expert settings"
 msgstr "Prikaži napredne nastavitve"
 
-#: admin.php:3552
+#: admin.php:3820
 msgid "click this to show some further options; don't bother with this unless you have a problem or are curious."
 msgstr "klikni za prikaz nekaj nadaljnjih možnosti; prezrite to, razen, če imate problem ali ste radovedni."
 
-#: admin.php:3572
+#: admin.php:3840
 msgid "Delete local backup"
 msgstr "Izbriši lokalno varnostno kopijo"
 
-#: admin.php:3577
+#: admin.php:3845
 msgid "Backup directory"
 msgstr "Direktorij varnostne kopije"
 
-#: admin.php:3584
+#: admin.php:3852
 msgid "Backup directory specified is writable, which is good."
 msgstr "Izbran direktorij varnostne kopije je zapisljiv, kar je v redu."
 
-#: admin.php:3592
+#: admin.php:3860
 msgid "Click here to attempt to create the directory and set the permissions"
 msgstr "Kliknite tukaj za poskus ustvarjanja direktorija in nastavitve dovoljenj"
 
-#: admin.php:3592
+#: admin.php:3860
 msgid "or, to reset this option"
 msgstr "ali za resetiranje te možnosti"
 
-#: admin.php:3592
+#: admin.php:3860
 msgid "click here"
 msgstr "klikni tukaj"
 
-#: admin.php:3592
+#: admin.php:3860
 msgid "If that is unsuccessful check the permissions on your server or change it to another directory that is writable by your web server process."
 msgstr "Če to ne bo uspelo, preverite dovoljenja na vašem strežniki ali jih spremenite v drug direktorij, ki ga bo proces vašega strežnika lahko zapisal."
 
-#: admin.php:3599
+#: admin.php:3867
 msgid "Use the server's SSL certificates"
 msgstr "Uporabite SSL certifikate strežnika"
 
-#: admin.php:3600
+#: admin.php:3868
 msgid "By default UpdraftPlus uses its own store of SSL certificates to verify the identity of remote sites (i.e. to make sure it is talking to the real Dropbox, Amazon S3, etc., and not an attacker). We keep these up to date. However, if you get an SSL error, then choosing this option (which causes UpdraftPlus to use your web server's collection instead) may help."
 msgstr "Privzeto UpdraftPlus uporablja lastno shrambo SSL certifikatov za preverjanje identite oddaljenih spletnih mest (da se prepriča, da komunicira z resničnim Dropboxom, Amazonom S3, idr., ne pa napadalcem). Skrbimo za posodobitev. Kakorkoli, če vam prikaže SSL napako, potem lahko pomaga izbira te možnosti (UpdraftPlus bo namesto tega uporabil zbirko vašega strežnika)."
 
-#: admin.php:3352
+#: admin.php:3620
 msgid "Use WordShell for automatic backup, version control and patching"
 msgstr "Uporabite WordShell za samodejne varnostne kopije, kontrolo različic in nameščanje popravkov"
 
-#: admin.php:3443 udaddons/options.php:143
+#: admin.php:3711 udaddons/options.php:143
 msgid "Email"
 msgstr "E-pošta"
 
-#: admin.php:3363
+#: admin.php:3631
 msgid "Database encryption phrase"
 msgstr "Fraza za šifriranje podatkovne baze"
 
-#: admin.php:3379
+#: admin.php:3647
 msgid "Manually decrypt a database backup file"
 msgstr "Ročno dešifriraj datoteko varnostne kopije podatkovne baze"
 
-#: admin.php:3459
+#: admin.php:3727
 msgid "Copying Your Backup To Remote Storage"
 msgstr "Kopiram vašo varnostno kopijo na oddaljeno shrambo"
 
-#: admin.php:3469
+#: admin.php:3737
 msgid "Choose your remote storage"
 msgstr "Izberite oddaljeno shrambo"
 
-#: addons/reporting.php:200 admin.php:3478
+#: addons/reporting.php:201 admin.php:3746
 msgid "None"
 msgstr "Noben"
 
-#: admin.php:298
+#: admin.php:413
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: admin.php:282
+#: admin.php:397
 msgid "Requesting start of backup..."
 msgstr "Zahtevam začetek varnostnega kopiranja..."
 
-#: admin.php:3547
+#: admin.php:3815
 msgid "Advanced / Debugging Settings"
 msgstr "Napredne / Razhroščevalne nastavitve"
 
-#: admin.php:3562
+#: admin.php:3830
 msgid "Debug mode"
 msgstr "Način razhroščevanja"
 
-#: admin.php:3351
+#: admin.php:3619
 msgid "The above directories are everything, except for WordPress core itself which you can download afresh from WordPress.org."
 msgstr "Zgornji direktoriji so vse, razen jedra Wordpress, ki ga lahko prenesete na novo z WordPress.org."
 
-#: admin.php:3275
+#: admin.php:3520
 msgid "Daily"
 msgstr "Dnevno"
 
-#: admin.php:3276
+#: admin.php:3521
 msgid "Weekly"
 msgstr "Tedensko"
 
-#: admin.php:3277
+#: admin.php:3522
 msgid "Fortnightly"
 msgstr "Vsakih štirinajst dni"
 
-#: admin.php:3278
+#: admin.php:3523
 msgid "Monthly"
 msgstr "Mesečno"
 
-#: admin.php:3323
+#: admin.php:3579
 msgid "Database backup intervals"
 msgstr "Intervali varnostnega kopiranje podatkovne baze"
 
-#: admin.php:3342
+#: admin.php:3609
 msgid "To fix the time at which a backup should take place,"
 msgstr "Za določitev časa, ob katerem se bo izvedla varnostna kopija,"
 
-#: admin.php:3342
+#: admin.php:3609
 msgid "e.g. if your server is busy at day and you want to run overnight"
 msgstr "npr. če je vaš strežnik čez dan obremenjen in bi želeli izvesti ponoči"
 
-#: admin.php:3346
+#: admin.php:3614
 msgid "Include in files backup"
 msgstr "Vključi v varnostno kopijo datotek"
 
-#: admin.php:3652
+#: admin.php:3920
 msgid "Any other directories found inside wp-content"
 msgstr "Katerikoli drugi direktoriji, najdeni znotraj wp-content"
 
-#: addons/morefiles.php:259 admin.php:3661
+#: addons/morefiles.php:259 admin.php:3929
 msgid "Exclude these:"
 msgstr "Izvzemi te:"
 
-#: admin.php:2779
+#: admin.php:3024
 msgid "Debug Database Backup"
 msgstr "Razhrošči varnostno kopijo podatkovne baze"
 
-#: admin.php:2779
+#: admin.php:3024
 msgid "This will cause an immediate DB backup. The page will stall loading until it finishes (ie, unscheduled). The backup may well run out of time; really this button is only helpful for checking that the backup is able to get through the initial stages, or for small WordPress sites.."
 msgstr "To bo povzročilo takojšnjo kopijo podatkovne baze. Stran se bo nalagala, dokler se ne konča (t.j. nenačrtovano). Varnostna kopija se lahko izteče; ta gumb je v pomoč le za preverjanje, če varnostna kopija lahko pride skozi začetne korake, ali pa na majhnih Wordpress spletnih mestih... "
 
-#: admin.php:2785
+#: admin.php:3030
 msgid "Wipe Settings"
 msgstr "Čiščenje nastavitev"
 
-#: admin.php:2786
+#: admin.php:3031
 msgid "This button will delete all UpdraftPlus settings (but not any of your existing backups from your cloud storage). You will then need to enter all your settings again. You can also do this before deactivating/deinstalling UpdraftPlus if you wish."
 msgstr "Ta gumb bo izbrisal vse nastavitve UpdraftPlus (vendar nobenega od vaših obstoječih varnostnih kopij na oblačni shrambi). Zatem boste morali ponovno vnesti vse nastavitve. Če želite, lahko to naredite tudi pred deaktivacijo/odstranitvijo UpdraftPlus."
 
-#: admin.php:2789
+#: admin.php:3034
 msgid "Wipe All Settings"
 msgstr "Očisti vse nastavitve"
 
-#: admin.php:2789
+#: admin.php:3034
 msgid "This will delete all your UpdraftPlus settings - are you sure you want to do this?"
 msgstr "To bo izbrisalo vse vaše UpdraftPlus nastavitve - ali ste prepričani, da želite to storiti?"
 
-#: admin.php:3016
+#: admin.php:3261
 msgid "show log"
 msgstr "prikaži poročilo"
 
-#: admin.php:3018
+#: admin.php:3263
 msgid "delete schedule"
 msgstr "izbriši razpored"
 
-#: addons/migrator.php:1904 admin.php:299 admin.php:3075 admin.php:3108
-#: admin.php:4155
+#: addons/migrator.php:1910 admin.php:414 admin.php:2803 admin.php:3320
+#: admin.php:3353 admin.php:4423
 msgid "Delete"
 msgstr "Izbriši"
 
-#: admin.php:3159
+#: admin.php:3404
 msgid "The request to the filesystem to create the directory failed."
 msgstr "Zahteva datotečnemu sistemu za ustvarjanje direktorija ni uspela."
 
-#: admin.php:3173
+#: admin.php:3418
 msgid "The folder was created, but we had to change its file permissions to 777 (world-writable) to be able to write to it. You should check with your hosting provider that this will not cause any problems"
 msgstr "Mapa je bila ustvarjena, vendar smo morali za možnost zapisovanja spremeniti dovoljenja njenih datotek na 777 (svetovno-zapisljiv). Preverite pri ponudniku spletnega gostovanja, da to ne bo povzročilo kakšnih problemov."
 
-#: admin.php:3178
+#: admin.php:3423
 msgid "The folder exists, but your webserver does not have permission to write to it."
 msgstr "Mapa obstaja, vendar vaš spletni strežnik nima dovoljenja za pisanje vanjo."
 
-#: admin.php:305 admin.php:3258
+#: admin.php:420 admin.php:3503
 msgid "Download log file"
 msgstr "Prenašam poročilo"
 
-#: admin.php:3291
+#: admin.php:3536
 msgid "File backup intervals"
 msgstr "Intervali varnostnega kopiranja datotek"
 
-#: admin.php:2243
+#: admin.php:2478
 msgid "Go here for help."
 msgstr "Pojdite sem za pomoč."
 
-#: admin.php:2250
+#: admin.php:2485
 msgid "Multisite"
 msgstr "Multisite"
 
-#: admin.php:2254
+#: admin.php:2489
 msgid "Do you need WordPress Multisite support?"
 msgstr "Ali potrebujete podporo za Wordpress Multisite?"
 
-#: admin.php:2254
+#: admin.php:2489
 msgid "Please check out UpdraftPlus Premium, or the stand-alone Multisite add-on."
 msgstr "Prosimo, preverite UpdraftPlus Premium ali samostojen dodatek Multisite."
 
-#: admin.php:2267
+#: admin.php:2502
 msgid "Configure Backup Contents And Schedule"
 msgstr "Nastavite vsebino varnostne kopijo in razpored"
 
-#: admin.php:2700
+#: admin.php:2945
 msgid "Web server:"
 msgstr "Spletni strežnik:"
 
-#: admin.php:2708
+#: admin.php:2953
 msgid "Peak memory usage"
 msgstr "Maksimalna uporaba pomnilnika"
 
-#: admin.php:2709
+#: admin.php:2954
 msgid "Current memory usage"
 msgstr "Trenutna uporaba pomnilnika"
 
-#: admin.php:2711 admin.php:2712 admin.php:2719
+#: admin.php:2956 admin.php:2957 admin.php:2964
 msgid "%s version:"
 msgstr "%s različica:"
 
-#: admin.php:2721 admin.php:2724 admin.php:2728
+#: admin.php:2966 admin.php:2969 admin.php:2973
 msgid "Yes"
 msgstr "Da"
 
-#: admin.php:2724 admin.php:2728
+#: admin.php:2969 admin.php:2973
 msgid "No"
 msgstr "Ne"
 
-#: admin.php:2751
+#: admin.php:2996
 msgid "Total (uncompressed) on-disk data:"
 msgstr "Skupni (nestisnjeni) podatki na disku:"
 
-#: admin.php:2752
+#: admin.php:2997
 msgid "N.B. This count is based upon what was, or was not, excluded the last time you saved the options."
 msgstr "Imejte v mislih, da to štetje temelji na tem, kaj je bilo ali ni bilo izvzeto ob zadnji shranitvi možnosti."
 
-#: admin.php:2760
+#: admin.php:3005
 msgid "count"
 msgstr "štejte"
 
-#: admin.php:2774
+#: admin.php:3019
 msgid "Debug Full Backup"
 msgstr "Razhrošči celotno varnostno kopijo"
 
-#: admin.php:2774
+#: admin.php:3019
 msgid "This will cause an immediate backup. The page will stall loading until it finishes (ie, unscheduled)."
 msgstr "To bo povzročilo takojšnjo varnostno kopijo. Stran se no nalagala, dokler ne bo končano (t.j. nerazporejeno)."
 
-#: admin.php:2540
+#: admin.php:2775
 msgid "UpdraftPlus - Upload backup files"
 msgstr "UpdraftPlus - Naložite daoteke varnostne kopije"
 
-#: admin.php:265 admin.php:2525
+#: admin.php:380 admin.php:2760
 msgid "calculating..."
 msgstr "izračunavam..."
 
 #: addons/cloudfiles-enhanced.php:88 addons/migrator.php:302
 #: addons/migrator.php:536 addons/migrator.php:737 addons/migrator.php:801
-#: addons/migrator.php:871 addons/migrator.php:1090 addons/migrator.php:1417
-#: addons/migrator.php:1430 addons/migrator.php:1436 addons/migrator.php:1496
-#: addons/migrator.php:1529 addons/migrator.php:1566 addons/migrator.php:1576
-#: addons/migrator.php:1581 addons/s3-enhanced.php:100
-#: addons/s3-enhanced.php:106 addons/s3-enhanced.php:111 addons/sftp.php:763
-#: admin.php:274 admin.php:4370 admin.php:4400 methods/remotesend.php:73
-#: methods/remotesend.php:197 methods/updraftvault.php:373 restorer.php:1082
+#: addons/migrator.php:871 addons/migrator.php:1090 addons/migrator.php:1419
+#: addons/migrator.php:1432 addons/migrator.php:1438 addons/migrator.php:1498
+#: addons/migrator.php:1531 addons/migrator.php:1568 addons/migrator.php:1578
+#: addons/migrator.php:1583 addons/s3-enhanced.php:100
+#: addons/s3-enhanced.php:106 addons/s3-enhanced.php:111 addons/sftp.php:766
+#: admin.php:389 admin.php:4639 admin.php:4669 methods/remotesend.php:75
+#: methods/remotesend.php:199 methods/updraftvault.php:373 restorer.php:1261
 msgid "Error:"
 msgstr "Napaka:"
 
-#: admin.php:277
+#: admin.php:392
 msgid "You should:"
 msgstr "Morali bi:"
 
-#: admin.php:281
+#: admin.php:396
 msgid "Download error: the server sent us a response which we did not understand."
 msgstr "Napak pri prenosu: strežnik nam je poslal odgovor, ki ga nismo razumeli."
 
-#: admin.php:2578
+#: admin.php:2819
 msgid "Delete backup set"
 msgstr "Izbriši serijo varnostne kopije"
 
-#: admin.php:2596
+#: admin.php:2840
 msgid "Restore backup"
 msgstr "Obnovi varnostno kopijo"
 
-#: admin.php:2597
+#: admin.php:2841
 msgid "Restore backup from"
 msgstr "Obnovi varnostno kopijo iz"
 
-#: admin.php:2609
+#: admin.php:2853
 msgid "Restoring will replace this site's themes, plugins, uploads, database and/or other content directories (according to what is contained in the backup set, and your selection)."
 msgstr "Obnovitev bo zamenjala teme, vtičniki, naložene datoteke, podatkovne baze in/ali druge direktorije tega spletnega mesta (v skladu s tem, kar vsebuje serija varnostne kopije in vaša izbira)."
 
-#: admin.php:2609
+#: admin.php:2853
 msgid "Choose the components to restore"
 msgstr "Izberite komponente za obnovitev"
 
-#: admin.php:2619
+#: admin.php:2864
 msgid "Your web server has PHP's so-called safe_mode active."
 msgstr "Vaš spletni strežnik deluje v t.i. aktivnem načinu PHP safe_mode."
 
-#: admin.php:2632
+#: admin.php:2877
 msgid "The following entity cannot be restored automatically: \"%s\"."
 msgstr "Naslednjega subjekta ne moremo samodejno obnoviti: \"%s\"."
 
-#: admin.php:2632
+#: admin.php:2877
 msgid "You will need to restore it manually."
 msgstr "Morali ga boste ročno obnoviti."
 
-#: addons/morefiles.php:63 admin.php:2639
+#: addons/morefiles.php:63 admin.php:2884
 msgid "%s restoration options:"
 msgstr "%s možnosti obnovitve:"
 
-#: admin.php:2647
+#: admin.php:2892
 msgid "You can search and replace your database (for migrating a website to a new location/URL) with the Migrator add-on - follow this link for more information"
 msgstr "Z dodatkom Selitelj Lahko poiščete in zamenjate vašo podatkovno bazo (za selitev spletne strani na novo lokacijo/URL - sledite tej povezavi za več informacij"
 
-#: admin.php:2658
+#: admin.php:2903
 msgid "Do read this helpful article of useful things to know before restoring."
 msgstr "Pred obnovitvijo preberite ta koristen članek o uporabnih stvareh."
 
-#: admin.php:2238
+#: admin.php:2473
 msgid "Perform a one-time backup"
 msgstr "Izvedite enkratno varnostno kopiranje"
 
-#: admin.php:2208
+#: admin.php:2443
 msgid "Time now"
 msgstr "Trenutni čas"
 
-#: admin.php:153 admin.php:297 admin.php:2141
+#: admin.php:242 admin.php:412 admin.php:2376
 msgid "Backup Now"
 msgstr "Kopiraj zdaj"
 
-#: addons/migrator.php:117 admin.php:304 admin.php:2144 admin.php:4144
+#: addons/migrator.php:117 admin.php:419 admin.php:2379 admin.php:4412
 msgid "Restore"
 msgstr "Obnovitev"
 
-#: addons/autobackup.php:228 addons/autobackup.php:322 admin.php:2471
-#: admin.php:2476
+#: addons/autobackup.php:228 addons/autobackup.php:322 admin.php:2706
+#: admin.php:2711
 msgid "Last log message"
 msgstr "Sporočilo zadnjega poročila"
 
-#: admin.php:2472 admin.php:2478
+#: admin.php:2707 admin.php:2713
 msgid "(Nothing yet logged)"
 msgstr "(nič še ni za poročati)"
 
-#: admin.php:2473 admin.php:2479
+#: admin.php:2708 admin.php:2714
 msgid "Download most recently modified log file"
 msgstr "Prenesite nazadnje spremenjeno poročilo"
 
-#: admin.php:2519
+#: admin.php:2754
 msgid "Downloading"
 msgstr "Prenašam"
 
-#: admin.php:2528
+#: admin.php:2763
 msgid "More tasks:"
 msgstr "Več opravil:"
 
-#: admin.php:2535
+#: admin.php:2770
 msgid "Opera web browser"
 msgstr "Spletni brskalnik Opera"
 
-#: admin.php:2535
+#: admin.php:2770
 msgid "If you are using this, then turn Turbo/Road mode off."
 msgstr "Če to uporabljate, potem izklopite način Turbo/Road."
 
@@ -4964,282 +5025,282 @@ msgstr "Če to uporabljate, potem izklopite način Turbo/Road."
 #: methods/googledrive.php:358 methods/googledrive.php:381
 #: methods/googledrive.php:410 methods/googledrive.php:417
 #: methods/googledrive.php:427 methods/googledrive.php:433
-#: methods/googledrive.php:435 methods/googledrive.php:873
-#: methods/googledrive.php:885 methods/googledrive.php:901
-#: methods/googledrive.php:905 methods/googledrive.php:916
-#: methods/googledrive.php:926
+#: methods/googledrive.php:435 methods/googledrive.php:881
+#: methods/googledrive.php:893 methods/googledrive.php:909
+#: methods/googledrive.php:913 methods/googledrive.php:924
+#: methods/googledrive.php:934
 msgid "Google Drive"
 msgstr "Google Drive"
 
-#: admin.php:2525
+#: admin.php:2760
 msgid "This is a count of the contents of your Updraft directory"
 msgstr "To je štetje vsebine vašega Updraft direktorija"
 
-#: admin.php:2525
+#: admin.php:2760
 msgid "Web-server disk space in use by UpdraftPlus"
 msgstr "Prostor na spletnem strežniku, ki ga uporablja UpdraftPlus"
 
-#: admin.php:2525
+#: admin.php:2760
 msgid "refresh"
 msgstr "osveži"
 
-#: admin.php:1910
+#: admin.php:2143
 msgid "Lead developer's homepage"
 msgstr "Domača stran glavnega razvijalca"
 
-#: admin.php:1911
+#: admin.php:2144
 msgid "Version"
 msgstr "Različica"
 
-#: admin.php:2050
+#: admin.php:2285
 msgid "Your backup has been restored."
 msgstr "Vaša varnostna kopija je obnovljena."
 
-#: admin.php:2067
+#: admin.php:2302
 msgid "Current limit is:"
 msgstr "Trenuten limit je:"
 
-#: admin.php:284 admin.php:2806
+#: admin.php:399 admin.php:3051
 msgid "Delete Old Directories"
 msgstr "Izbriši stare direktorije"
 
-#: admin.php:2125
+#: admin.php:2360
 msgid "JavaScript warning"
 msgstr "Opozorilo JavaScript"
 
-#: admin.php:2126
+#: admin.php:2361
 msgid "This admin interface uses JavaScript heavily. You either need to activate it within your browser, or to use a JavaScript-capable browser."
 msgstr "To skrbniško okolje zelo uporablja JavaScript. Potrebno ga je aktivirati v vašem brskalniku ali pa uporabiti JavaScript združljiv brskalnik."
 
-#: admin.php:2161 admin.php:2180 admin.php:2200
+#: admin.php:2396 admin.php:2415 admin.php:2435
 msgid "Nothing currently scheduled"
 msgstr "Nobeno opravilo trenutno ni razporejeno"
 
-#: admin.php:2171
+#: admin.php:2406
 msgid "At the same time as the files backup"
 msgstr "V času, ko se datotek varnostno kopirajo"
 
-#: admin.php:2193
+#: admin.php:2428
 msgid "All the times shown in this section are using WordPress's configured time zone, which you can set in Settings -> General"
 msgstr "Vsi časi, prikazani v tej sekciji uporabljajo časovni pas iz nastavitev Wordpressa, ki jih lahko nastavite v Nastavitve -> Splošno"
 
-#: admin.php:2193
+#: admin.php:2428
 msgid "Next scheduled backups"
 msgstr "Naslednje razporejene varnostne kopije"
 
-#: admin.php:2204
+#: admin.php:2439
 msgid "Files"
 msgstr "Datoteke"
 
-#: addons/migrator.php:1466 addons/moredatabase.php:188
-#: addons/reporting.php:212 admin.php:1180 admin.php:2206 admin.php:2637
-#: admin.php:2639 admin.php:3982 admin.php:4435
+#: addons/migrator.php:1468 addons/moredatabase.php:188
+#: addons/reporting.php:213 admin.php:1392 admin.php:2441 admin.php:2882
+#: admin.php:2884 admin.php:4250 admin.php:4704
 msgid "Database"
 msgstr "Baza podatkov"
 
-#: admin.php:699
+#: admin.php:911
 msgid "Your website is hosted using the %s web server."
 msgstr "Vaša spletna stran je gostovana na %s spletnem strežniku."
 
-#: admin.php:699
+#: admin.php:911
 msgid "Please consult this FAQ if you have problems backing up."
 msgstr "Prosimo, preberite ta pogosto vprašanja in odgovore, če imate težave pri varnostne kopiranju."
 
-#: admin.php:714 admin.php:718 admin.php:722 admin.php:726 admin.php:734
+#: admin.php:926 admin.php:930 admin.php:934 admin.php:938 admin.php:946
 msgid "Click here to authenticate your %s account (you will not be able to back up to %s without it)."
 msgstr "Kliknite tukaj za avtentifikacijo vašega %s računa (brez tega %s ne boste mogli varnostno kopirati). "
 
-#: admin.php:932 admin.php:991
+#: admin.php:1144 admin.php:1203
 msgid "Nothing yet logged"
 msgstr "Nič še ni za poročati"
 
-#: admin.php:1437
+#: admin.php:1670
 msgid "OK. You should soon see activity in the \"Last log message\" field below."
 msgstr "OK. Kmalu bi morali videti aktivnost v spodnjem polju \"Zadnje poročilo\"."
 
-#: admin.php:1476
+#: admin.php:1709
 msgid "Job deleted"
 msgstr "Opravilo izbrisano"
 
-#: admin.php:1483
+#: admin.php:1716
 msgid "Could not find that job - perhaps it has already finished?"
 msgstr "Nismo mogli najti opravila - morda se je že končalo?"
 
-#: admin.php:275 admin.php:1506 admin.php:4352 class-updraftplus.php:790
+#: admin.php:390 admin.php:1739 admin.php:4621 class-updraftplus.php:802
 #: methods/addon-base.php:75 methods/addon-base.php:80
 #: methods/addon-base.php:194 methods/addon-base.php:214
-#: methods/stream-base.php:197 restorer.php:1763 restorer.php:1788
-#: restorer.php:1869
+#: methods/stream-base.php:197 restorer.php:1941 restorer.php:1966
+#: restorer.php:2047 updraftplus.php:127
 msgid "Error"
 msgstr "Napaka"
 
-#: admin.php:1645
+#: admin.php:1878
 msgid "Download failed"
 msgstr "Prenos ni uspel"
 
-#: admin.php:276 admin.php:1663
+#: admin.php:391 admin.php:1896
 msgid "File ready."
 msgstr "Datoteka je pripravljena."
 
-#: admin.php:1673
+#: admin.php:1906
 msgid "Download in progress"
 msgstr "Prenos v teku"
 
-#: admin.php:1676
+#: admin.php:1909
 msgid "No local copy present."
 msgstr "Lokalne kopije ni na voljo."
 
-#: admin.php:1795
+#: admin.php:2028
 msgid "Bad filename format - this does not look like a file created by UpdraftPlus"
 msgstr "Neprepoznavna oblika zapisa datoteke - ni videti kot datoteka, ustvarjena z UpdraftPlus"
 
-#: admin.php:1885
+#: admin.php:2118
 msgid "Bad filename format - this does not look like an encrypted database file created by UpdraftPlus"
 msgstr "Neprepoznavna oblika zapisa datoteke - ni videti kot šifrirana podatkovna baza, ustvarjena z UpdraftPlus"
 
-#: admin.php:1938
+#: admin.php:2173
 msgid "Restore successful!"
 msgstr "Obnovitev je uspela!"
 
-#: admin.php:1948 admin.php:1957 admin.php:2002 admin.php:2131 admin.php:3049
-#: admin.php:3846
+#: admin.php:2183 admin.php:2192 admin.php:2237 admin.php:2366 admin.php:3294
+#: admin.php:4114
 msgid "Actions"
 msgstr "Dejanja"
 
-#: addons/migrator.php:169 addons/migrator.php:181 admin.php:1948
-#: admin.php:1957 admin.php:2002 admin.php:3049
+#: addons/migrator.php:169 addons/migrator.php:181 admin.php:2183
+#: admin.php:2192 admin.php:2237 admin.php:3294
 msgid "Return to UpdraftPlus Configuration"
 msgstr "Vrnite se na nastavitev UpdraftPlus"
 
-#: admin.php:3042
+#: admin.php:3287
 msgid "Remove old directories"
 msgstr "Odstranite stare direktorije"
 
-#: admin.php:3045
+#: admin.php:3290
 msgid "Old directories successfully removed."
 msgstr "Stari direktoriji so uspešno odstranjeni."
 
-#: admin.php:3047
+#: admin.php:3292
 msgid "Old directory removal failed for some reason. You may want to do this manually."
 msgstr "Odstranjevanje starega direktorija zaradi nečesa ni uspelo. Morda želite to narediti ročno."
 
-#: admin.php:1993
+#: admin.php:2228
 msgid "Backup directory could not be created"
 msgstr "Nismo mogli ustvariti direktorija varnostne kopije"
 
-#: admin.php:2000
+#: admin.php:2235
 msgid "Backup directory successfully created."
 msgstr "Ustvarili smo direktorij varnostne kopije."
 
-#: admin.php:2023
+#: admin.php:2258
 msgid "Your settings have been wiped."
 msgstr "Počistili smo vaše nastavitve."
 
-#: class-updraftplus.php:3034
+#: class-updraftplus.php:3050
 msgid "Please help UpdraftPlus by giving a positive review at wordpress.org"
 msgstr "Prosimo, pomagajte UpdraftPlus s pozitivno oceno na wordpress.org"
 
-#: class-updraftplus.php:3041
+#: class-updraftplus.php:3057
 msgid "Need even more features and support? Check out UpdraftPlus Premium"
 msgstr "Potrebujete več funkcij ali podporo? Preverite UpdraftPlus Premium"
 
-#: class-updraftplus.php:3051
+#: class-updraftplus.php:3067
 msgid "Check out UpdraftPlus.Com for help, add-ons and support"
 msgstr "Preverite UpdraftPlus.Com za pomoč, dodatke ali podporo"
 
-#: backup.php:1708
+#: backup.php:1722
 msgid "Infinite recursion: consult your log for more information"
 msgstr "Neskončna rekurzija: oglejte si vaše poročilo za več informacij"
 
-#: backup.php:223
+#: backup.php:224
 msgid "Could not create %s zip. Consult the log file for more information."
 msgstr "Ne moremo ustvariti %s zip. Oglejte si vaše poročilo za več informacij."
 
-#: admin.php:420
+#: admin.php:544
 msgid "Allowed Files"
 msgstr "Dovoljene datoteke"
 
-#: admin.php:169 admin.php:629 admin.php:2103
+#: admin.php:258 admin.php:841 admin.php:2338
 msgid "Settings"
 msgstr "Nastavitve"
 
-#: admin.php:633
+#: admin.php:845
 msgid "Add-Ons / Pro Support"
 msgstr "Dodatki / Pro podpora"
 
-#: admin.php:683 admin.php:687 admin.php:691 admin.php:695 admin.php:699
-#: admin.php:708 admin.php:2514 admin.php:3706 admin.php:3713 admin.php:3715
+#: admin.php:895 admin.php:899 admin.php:903 admin.php:907 admin.php:911
+#: admin.php:920 admin.php:2749 admin.php:3974 admin.php:3981 admin.php:3983
 #: methods/cloudfiles.php:473 methods/ftp.php:307
 #: methods/openstack-base.php:453 methods/s3.php:701 methods/s3.php:705
 #: methods/updraftvault.php:296 udaddons/updraftplus-addons.php:177
 msgid "Warning"
 msgstr "Opozorilo"
 
-#: admin.php:691
+#: admin.php:903
 msgid "You have less than %s of free disk space on the disk which UpdraftPlus is configured to use to create backups. UpdraftPlus could well run out of space. Contact your the operator of your server (e.g. your web hosting company) to resolve this issue."
 msgstr "Na voljo imate manj kot %s prostora na disku, ki ste ga za UpdraftPlus nastavili za uporabo pri ustvarjanju varnostnih kopij. UpdraftPlusu lahko kmalu zmanjka prostora. Za razrešitev teh težav kontaktirajte vzdrževalca vašega strežnika (npr. vašega ponudnika spletnega gostovanja)."
 
-#: admin.php:695
+#: admin.php:907
 msgid "UpdraftPlus does not officially support versions of WordPress before %s. It may work for you, but if it does not, then please be aware that no support is available until you upgrade WordPress."
 msgstr "UpdraftPlus uradno ne podpira različic Wordpressa pred %s. Morda lahko delujejo, vendar imejte v mislih, da ni na voljo podpore v primeru težav, dokler ne nadgradite Wordpressa."
 
-#: backup.php:734
+#: backup.php:744
 msgid "WordPress backup is complete"
 msgstr "Varnostna kopija Wordpressa je končana"
 
-#: admin.php:1713 backup.php:911 restorer.php:140
+#: admin.php:1946 backup.php:925 restorer.php:146
 msgid "Backup directory (%s) is not writable, or does not exist."
 msgstr "Direktorij (%s) varnostne kopije ni zapisljiv ali ne obstaja."
 
-#: class-updraftplus.php:2595
+#: class-updraftplus.php:2610
 msgid "Could not read the directory"
 msgstr "Direktorija nismo mogli brati."
 
-#: class-updraftplus.php:2616
+#: class-updraftplus.php:2633
 msgid "Could not save backup history because we have no backup array. Backup probably failed."
 msgstr "Nismo mogli shraniti zgodovine varnostnih kopij, ker nimamo matrike varnostne kopije. Varnostna kopija najbrž ni uspela."
 
-#: backup.php:1615
+#: backup.php:1629
 msgid "Could not open the backup file for writing"
 msgstr "Nismo mogli odpreti datoteke varnostne kopije za zapisovanje"
 
-#: class-updraftplus.php:2875 class-updraftplus.php:3090 restorer.php:280
+#: class-updraftplus.php:2891 class-updraftplus.php:3106 restorer.php:286
 msgid "Decryption failed. The database file is encrypted, but you have no encryption key entered."
 msgstr "Dešifriranje ni uspelo. Datoteka podatkovne baze je šifrirana, vendar niste vnesli šifrirnega ključa."
 
-#: class-updraftplus.php:2886 class-updraftplus.php:3107 restorer.php:290
+#: class-updraftplus.php:2902 class-updraftplus.php:3123 restorer.php:296
 msgid "Decryption failed. The most likely cause is that you used the wrong key."
 msgstr "Dešifriranje ni uspelo. Razlog je najbrž v uporabi napačnega ključa."
 
-#: class-updraftplus.php:2886
+#: class-updraftplus.php:2902
 msgid "The decryption key used:"
 msgstr "Uporabljen dešifrirni ključ:"
 
-#: class-updraftplus.php:2926 methods/googledrive.php:808
+#: class-updraftplus.php:2942 methods/googledrive.php:816
 msgid "File not found"
 msgstr "Ne najdemo datoteke"
 
-#: class-updraftplus.php:3026
+#: class-updraftplus.php:3042
 msgid "Can you translate? Want to improve UpdraftPlus for speakers of your language?"
 msgstr "Znate prevajati? Želite izboljšati UpdraftPlus za govorce vašega jezika?"
 
-#: class-updraftplus.php:3034
+#: class-updraftplus.php:3050
 msgid "Like UpdraftPlus and can spare one minute?"
 msgstr "Vam je všeč UpdraftPlus in si lahko vzamete eno minuto?"
 
-#: class-updraftplus.php:1125
+#: class-updraftplus.php:1137
 msgid "Themes"
 msgstr "Teme"
 
-#: class-updraftplus.php:1126
+#: class-updraftplus.php:1138
 msgid "Uploads"
 msgstr "Naložene vsebine"
 
-#: class-updraftplus.php:1141
+#: class-updraftplus.php:1153
 msgid "Others"
 msgstr "Drugo"
 
-#: class-updraftplus.php:1702
+#: class-updraftplus.php:1714
 msgid "Could not create files in the backup directory. Backup aborted - check your UpdraftPlus settings."
 msgstr "Nismo mogli ustvariti datotek v direktoriju varnostne kopije. Kopiranje je preklicano - preverite vaše UpdraftPlus nastavitve."
 
@@ -5247,36 +5308,36 @@ msgstr "Nismo mogli ustvariti datotek v direktoriju varnostne kopije. Kopiranje 
 msgid "Encryption error occurred when encrypting database. Encryption aborted."
 msgstr "Pri šifriranju podatkovne baze se je pojavila napaka šifriranja. Šifriranje preklicano."
 
-#: admin.php:2856 class-updraftplus.php:2181
+#: admin.php:3101 class-updraftplus.php:2196
 msgid "The backup apparently succeeded and is now complete"
 msgstr "Varnostna kopija je očitno uspela in je sedaj končana"
 
-#: class-updraftplus.php:2195
+#: class-updraftplus.php:2210
 msgid "The backup attempt has finished, apparently unsuccessfully"
 msgstr "Poskus varnostne kopije se očitno ni uspešno končal."
 
-#: addons/multisite.php:66 addons/multisite.php:319 options.php:41
+#: addons/multisite.php:66 addons/multisite.php:320 options.php:41
 msgid "UpdraftPlus Backups"
 msgstr "Varnostne kopije UpdradtPlus"
 
-#: admin.php:714 admin.php:718 admin.php:722 admin.php:726 admin.php:730
-#: admin.php:734 class-updraftplus.php:329 class-updraftplus.php:334
-#: class-updraftplus.php:339
+#: admin.php:926 admin.php:930 admin.php:934 admin.php:938 admin.php:942
+#: admin.php:946 class-updraftplus.php:341 class-updraftplus.php:346
+#: class-updraftplus.php:351
 msgid "UpdraftPlus notice:"
 msgstr "UpdraftPlus opombe:"
 
-#: admin.php:1599 admin.php:1603 class-updraftplus.php:329
+#: admin.php:1832 admin.php:1836 class-updraftplus.php:341
 msgid "The log file could not be read."
 msgstr "Poročila ne moremo brati."
 
-#: class-updraftplus.php:334
+#: class-updraftplus.php:346
 msgid "No log files were found."
 msgstr "Na najdemo poročil."
 
-#: class-updraftplus.php:339
+#: class-updraftplus.php:351
 msgid "The given file could not be read."
 msgstr "Dane datoteke ne moremo brati."
 
-#: class-updraftplus.php:1124
+#: class-updraftplus.php:1136
 msgid "Plugins"
 msgstr "Vtičniki"

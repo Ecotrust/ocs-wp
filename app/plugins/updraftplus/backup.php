@@ -31,6 +31,8 @@ class UpdraftPlus_Backup {
 	# Time for the current entity
 	private $makezip_if_altered_since = -1;
 
+	private $excluded_extensions = false;
+
 	private $use_zip_object = 'UpdraftPlus_ZipArchive';
 	public $debug = false;
 
@@ -124,7 +126,6 @@ class UpdraftPlus_Backup {
 	public function create_zip($create_from_dir, $whichone, $backup_file_basename, $index, $first_linked_index = false) {
 		// Note: $create_from_dir can be an array or a string
 		@set_time_limit(900);
-
 		$original_index = $index;
 		$this->index = $index;
 		$this->first_linked_index = (false === $first_linked_index) ? 0 : $first_linked_index;
@@ -472,7 +473,8 @@ class UpdraftPlus_Backup {
 					$updraftplus->log("$backup_datestamp: $key: was sent to remote site; will remove from local record (only)");
 				} else {
 
-					$database_backups_found[$key] = (empty($database_backups_found[$key])) ? 1 : $database_backups_found[$key] + 1;
+					if (empty($database_backups_found[$key])) $database_backups_found[$key] = 0;
+					$database_backups_found[$key] = $database_backups_found[$key] + 1;
 
 					if ($database_backups_found[$key] > $updraft_retain_db) {
 						$prune_it = true;
@@ -488,19 +490,25 @@ class UpdraftPlus_Backup {
 					// This should only be able to happen if you import backups with a future timestamp
 					if (!empty($backup_to_examine['nonce']) && $backup_to_examine['nonce'] == $updraftplus->nonce) {
 						$updraftplus->log("This backup set ($backup_datestamp) is the backup set just made, so will not be deleted.");
-					} else {
-
-						if (!empty($data)) {
-							$size_key = $key.'-size';
-							$size = isset($backup_to_examine[$size_key]) ? $backup_to_examine[$size_key] : null;
-							foreach ($services as $service => $sd) {
-								$this->prune_file($service, $data, $sd[0], $sd[1], array($size));
-							}
-						}
-						unset($backup_to_examine[$key]);
-						$updraftplus->record_still_alive();
+						$prune_it = false;
 					}
 				}
+
+				// All backups must be run through this filter (in date order) regardless of the current state of $prune_it - so that filters are able to track state.
+				$prune_it = apply_filters('updraftplus_prune_or_not', $prune_it, 'db', $backup_datestamp, $database_backups_found[$key], $key, $data, $updraft_retain_db);
+
+				if ($prune_it) {
+					if (!empty($data)) {
+						$size_key = $key.'-size';
+						$size = isset($backup_to_examine[$size_key]) ? $backup_to_examine[$size_key] : null;
+						foreach ($services as $service => $sd) {
+							$this->prune_file($service, $data, $sd[0], $sd[1], array($size));
+						}
+					}
+					unset($backup_to_examine[$key]);
+					$updraftplus->record_still_alive();
+				}
+
 			}
 
 			$file_sizes = array();
@@ -519,12 +527,14 @@ class UpdraftPlus_Backup {
 					if ($remote_sent) {
 						$prune_it = true;
 					} else {
-
 						$file_entities_backups_found[$entity]++;
 						if ($file_entities_backups_found[$entity] > $updraft_retain) {
 							$prune_it = true;
 						}
 					}
+
+					// All backups must be run through this filter (in date order) regardless of the current state of $prune_it - so that filters are able to track state.
+					$prune_it = apply_filters('updraftplus_prune_or_not', $prune_it, 'files', $backup_datestamp, $file_entities_backups_found[$entity], $entity, $data, $updraft_retain);
 
 					if ($prune_it) {
 						$prune_this = $backup_to_examine[$entity];
@@ -885,17 +895,21 @@ class UpdraftPlus_Backup {
 		$possible_backups = $updraftplus->get_backupable_file_entities(true);
 
 		// Was there a check-in last time? If not, then reduce the amount of data attempted
-		if ($job_status != 'finished' && $updraftplus->current_resumption >= 2 && $updraftplus->current_resumption<=10) {
-			$maxzipbatch = $updraftplus->jobdata_get('maxzipbatch', 26214400);
-			if ((int)$maxzipbatch < 1) $maxzipbatch = 26214400;
+		if ($job_status != 'finished' && $updraftplus->current_resumption >= 2) {
 
 			# NOTYET: Possible amendment to original algorithm; not just no check-in, but if the check in was very early (can happen if we get a very early checkin for some trivial operation, then attempt something too big)
+			
 
-			if (!empty($updraftplus->no_checkin_last_time)) {
+			// 03-Sep-2015 - came across a case (HS#2052) where there apparently was a check-in 'last time', but no resumption was scheduled because the 'useful_checkin' jobdata was *not* last time - which must indicate dying at a very unfortunate/unlikely point in the code. As a result, the split was not auto-reduced. Consequently, we've added !$updraftplus->newresumption_scheduled as a condition on the first check here (it was already on the second), as if no resumption is scheduled then whatever checkin there was last time was only partial. This was on GoDaddy, for which a number of curious I/O event combinations have been seen in recent months - their platform appears to have some odd behaviour when PHP is killed off.
+			// 04-Sep-2015 - move the '$updraftplus->current_resumption<=10' check to the inner loop (instead of applying to this whole section), as I see no reason for that restriction (case seen in HS#2064 where it was required on resumption 15)
+			if (!empty($updraftplus->no_checkin_last_time) || !$updraftplus->newresumption_scheduled) {
 				// Apr 2015: !$updraftplus->newresumption_scheduled added after seeing a log where there was no activity on resumption 9, and extra resumption 10 then tried the same operation.
 				if ($updraftplus->current_resumption - $updraftplus->last_successful_resumption > 2 || !$updraftplus->newresumption_scheduled) {
 					$this->try_split = true;
-				} else {
+				} elseif ($updraftplus->current_resumption<=10) {
+					$maxzipbatch = $updraftplus->jobdata_get('maxzipbatch', 26214400);
+					if ((int)$maxzipbatch < 1) $maxzipbatch = 26214400;
+
 					$new_maxzipbatch = max(floor($maxzipbatch * 0.75), 20971520);
 					if ($new_maxzipbatch < $maxzipbatch) {
 						$updraftplus->log("No check-in was detected on the previous run - as a result, we are reducing the batch amount (old=$maxzipbatch, new=$new_maxzipbatch)");
@@ -1219,7 +1233,7 @@ class UpdraftPlus_Backup {
 			// The table file may already exist if we have produced it on a previous run
 			$table_file_prefix = $file_base.'-db'.$this->whichdb_suffix.'-table-'.$table.'.table';
 
-			if ('wp' == $whichdb && (strtolower($this->table_prefix_raw.'options') == strtolower($table) || ($is_multisite && strtolower($this->table_prefix_raw.'1_options') == strtolower($table)))) $found_options_table = true;
+			if ('wp' == $whichdb && (strtolower($this->table_prefix_raw.'options') == strtolower($table) || ($is_multisite && (strtolower($this->table_prefix_raw.'sitemeta') == strtolower($table) || strtolower($this->table_prefix_raw.'1_options') == strtolower($table))))) $found_options_table = true;
 
 			if (file_exists($this->updraft_dir.'/'.$table_file_prefix.'.gz')) {
 				$updraftplus->log("Table $table: corresponding file already exists; moving on");
@@ -1288,7 +1302,11 @@ class UpdraftPlus_Backup {
 
 		if ('wp' == $whichdb) {
 			if (!$found_options_table) {
-				$updraftplus->log(__('The database backup appears to have failed - the options table was not found', 'updraftplus'), 'warning', 'optstablenotfound');
+				if ($is_multisite) {
+					$updraftplus->log(__('The database backup appears to have failed', 'updraftplus').' - '.__('no options or sitemeta table was found', 'updraftplus'), 'warning', 'optstablenotfound');
+				} else {
+					$updraftplus->log(__('The database backup appears to have failed', 'updraftplus').' - '.__('the options table was not found', 'updraftplus'), 'warning', 'optstablenotfound');
+				}
 				$time_this_run = time()-$updraftplus->opened_log_time;
 				if ($time_this_run > 2000) {
 					# Have seen this happen; not sure how, but it was apparently deterministic; if the current process had been running for a long time, then apparently all database commands silently failed.
@@ -1720,7 +1738,9 @@ class UpdraftPlus_Backup {
 		$if_altered_since = $this->makezip_if_altered_since;
 
 		if (is_file($fullpath)) {
-			if (is_readable($fullpath)) {
+			if (!empty($this->excluded_extensions) && $this->is_entity_excluded_by_extension($fullpath)) {
+				$updraftplus->log("Entity excluded by configuration option (extension): ".basename($fullpath));
+			} elseif (is_readable($fullpath)) {
 				$mtime = filemtime($fullpath);
 				$key = ($fullpath == $original_fullpath) ? ((2 == $startlevels) ? $use_path_when_storing : $this->basename($fullpath)) : $use_path_when_storing.'/'.$this->basename($fullpath);
 				if ($mtime > 0 && $mtime > $if_altered_since) {
@@ -1760,6 +1780,8 @@ class UpdraftPlus_Backup {
 							if (false !== ($fkey = array_search($use_stripped, $exclude))) {
 								$updraftplus->log("Entity excluded by configuration option: $use_stripped");
 								unset($exclude[$fkey]);
+							} elseif (!empty($this->excluded_extensions) && $this->is_entity_excluded_by_extension($e)) {
+								$updraftplus->log("Entity excluded by configuration option (extension): $use_stripped");
 							} else {
 								$mtime = filemtime($deref);
 								if ($mtime > 0 && $mtime > $if_altered_since) {
@@ -1783,6 +1805,8 @@ class UpdraftPlus_Backup {
 						if (false !== ($fkey = array_search($use_stripped, $exclude))) {
 							$updraftplus->log("Entity excluded by configuration option: $use_stripped");
 							unset($exclude[$fkey]);
+						} elseif (!empty($this->excluded_extensions) && $this->is_entity_excluded_by_extension($e)) {
+							$updraftplus->log("Entity excluded by configuration option (extension): $use_stripped");
 						} else {
 							$mtime = filemtime($fullpath.'/'.$e);
 							if ($mtime > 0 && $mtime > $if_altered_since) {
@@ -1808,6 +1832,34 @@ class UpdraftPlus_Backup {
 
 		return true;
 
+	}
+
+	private function get_excluded_extensions($exclude) {
+		if (!is_array($exclude)) $exclude = array();
+		$exclude_extensions = array();
+		foreach ($exclude as $ex) {
+			if (preg_match('/^ext:(.+)$/i', $ex, $matches)) {
+				$exclude_extensions[] = strtolower($matches[1]);
+			}
+		}
+
+		if (defined('UPDRAFTPLUS_EXCLUDE_EXTENSIONS')) {
+			$exclude_from_define = explode(',', UPDRAFTPLUS_EXCLUDE_EXTENSIONS);
+			foreach ($exclude_from_define as $ex) {
+				$exclude_extensions[] = strtolower(trim($ex));
+			}
+		}
+
+		return $exclude_extensions;
+	}
+
+	private function is_entity_excluded_by_extension($entity) {
+		foreach ($this->excluded_extensions as $ext) {
+			if (!$ext) continue;
+			$eln = strlen($ext);
+			if (strtolower(substr($entity, -$eln, $eln)) == $ext) return true;
+		}
+		return false;
 	}
 
 	private function unserialize_gz_cache_file($file) {
@@ -1913,6 +1965,7 @@ class UpdraftPlus_Backup {
 					if (filesize($examine_zip) > 50*1048576) {
 						# We could, as a future enhancement, save this back to the job data, if we see a case that needs it
 						$this->zip_split_every = max((int)$this->zip_split_every/2, UPDRAFTPLUS_SPLIT_MIN*1048576, filesize($examine_zip));
+						$updraftplus->jobdata_set('split_every', (int)($this->zip_split_every/1048576));
 						$updraftplus->log("No check-in on last two runs; bumping index and reducing zip split for this job to: ".round($this->zip_split_every/1048576, 1)." Mb");
 						$do_bump_index = true;
 					}
@@ -2013,6 +2066,8 @@ class UpdraftPlus_Backup {
 		}
 
 		$time_counting_began = time();
+
+		$this->excluded_extensions = $this->get_excluded_extensions($exclude);
 
 		foreach ($source as $element) {
 			#makezip_recursive_add($fullpath, $use_path_when_storing, $original_fullpath, $startlevels = 1, $exclude_array)
