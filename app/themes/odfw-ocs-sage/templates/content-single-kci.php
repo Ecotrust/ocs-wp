@@ -31,8 +31,9 @@ endif;
 	<?php endif; ?>
 
     </div>
-  </article>
 
-<?php get_template_part('templates/content', 'success-story'); ?>
+	<?php get_template_part('templates/content', 'success-story'); ?>
+
+  </article>
 
 <?php endwhile; ?>

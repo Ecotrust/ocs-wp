@@ -3,10 +3,10 @@
   if ($success_story_post_id) {
     $success_story = get_post($success_story_post_id);
 ?>
-    <div class="success-story">
+    <aside class="success-story">
     <h3><?php echo $success_story->post_title; ?></h3>
       <div class="success-story-content">
         <?php echo wpautop($success_story->post_content); ?>
       </div>
-    </div>
+    </aside>
 <?php } ?>
