@@ -457,24 +457,29 @@ class UpdraftPlus_BackupModule_googledrive {
 			}
 		}
 
-		$included_paths = explode(PATH_SEPARATOR, get_include_path());
-		if (!in_array(UPDRAFTPLUS_DIR.'/includes', $included_paths)) {
-			set_include_path(UPDRAFTPLUS_DIR.'/includes'.PATH_SEPARATOR.get_include_path());
-		}
+// 		$included_paths = explode(PATH_SEPARATOR, get_include_path());
+// 		if (!in_array(UPDRAFTPLUS_DIR.'/includes', $included_paths)) {
+// 			set_include_path(UPDRAFTPLUS_DIR.'/includes'.PATH_SEPARATOR.get_include_path());
+// 		}
 
 		
 		$spl = spl_autoload_functions();
 		if (is_array($spl)) {
 			// Workaround for Google Drive CDN plugin's autoloader
 			if (in_array('wpbgdc_autoloader', $spl)) spl_autoload_unregister('wpbgdc_autoloader');
-			// http://www.wpdownloadmanager.com/download/google-drive-explorer/
+			// http://www.wpdownloadmanager.com/download/google-drive-explorer/ - but also others, since this is the default function name used by the Google SDK
 			if (in_array('google_api_php_client_autoload', $spl)) spl_autoload_unregister('google_api_php_client_autoload');
 		}
 
+/*
 		if (!class_exists('Google_Config')) require_once 'Google/Config.php';
 		if (!class_exists('Google_Client')) require_once 'Google/Client.php';
 		if (!class_exists('Google_Service_Drive')) require_once 'Google/Service/Drive.php';
 		if (!class_exists('Google_Http_Request')) require_once 'Google/Http/Request.php';
+*/
+		if ((!class_exists('Google_Config') || !class_exists('Google_Client') || !class_exists('Google_Service_Drive') || !class_exists('Google_Http_Request')) && !function_exists('google_api_php_client_autoload_updraftplus')) {
+			require_once(UPDRAFTPLUS_DIR.'/includes/Google/autoload.php'); 
+		}
 
 		$config = new Google_Config();
 		$config->setClassConfig('Google_IO_Abstract', 'request_timeout_seconds', 15);
@@ -510,9 +515,12 @@ class UpdraftPlus_BackupModule_googledrive {
 		if (is_a($io, 'Google_IO_Curl')) {
 			$setopts[CURLOPT_SSL_VERIFYPEER] = UpdraftPlus_Options::get_updraft_option('updraft_ssl_disableverify') ? false : true;
 			if (!UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts')) $setopts[CURLOPT_CAINFO] = UPDRAFTPLUS_DIR.'/includes/cacert.pem';
+			// Raise the timeout from the default of 15
+			$setopts[CURLOPT_TIMEOUT] = 60;
+			$setopts[CURLOPT_CONNECTTIMEOUT] = 15;
 			if (defined('UPDRAFTPLUS_IPV4_ONLY') && UPDRAFTPLUS_IPV4_ONLY) $setopts[CURLOPT_IPRESOLVE] = CURL_IPRESOLVE_V4;
 		} elseif (is_a($io, 'Google_IO_Stream')) {
-			$setopts['timeout'] = 15;
+			$setopts['timeout'] = 20;
 			# We had to modify the SDK to support this
 			# https://wiki.php.net/rfc/tls-peer-verification - before PHP 5.6, there is no default CA file
 			if (!UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts') || (version_compare(PHP_VERSION, '5.6.0', '<'))) $setopts['cafile'] = UPDRAFTPLUS_DIR.'/includes/cacert.pem';
@@ -740,8 +748,8 @@ class UpdraftPlus_BackupModule_googledrive {
 				# Error handling??
 				$pointer += strlen($chunk);
 				$status = $media->nextChunk($chunk);
-				$updraftplus->jobdata_set($transkey, array($media->resumeUri, $media->progress));
-				$updraftplus->record_uploaded_chunk(round(100*$pointer/$local_size, 1), $media->progress, $file);
+				$updraftplus->jobdata_set($transkey, array($media->resumeUri, $media->getProgress()));
+				$updraftplus->record_uploaded_chunk(round(100*$pointer/$local_size, 1), $media->getProgress(), $file);
 			}
 			
 		} catch (Google_Service_Exception $e) {

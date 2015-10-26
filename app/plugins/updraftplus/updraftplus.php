@@ -4,7 +4,7 @@ Plugin Name: UpdraftPlus - Backup/Restore
 Plugin URI: https://updraftplus.com
 Description: Backup and restore: take backups locally, or backup to Amazon S3, Dropbox, Google Drive, Rackspace, (S)FTP, WebDAV & email, on automatic schedules.
 Author: UpdraftPlus.Com, DavidAnderson
-Version: 1.11.5
+Version: 1.11.12
 Donate link: http://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
 Text Domain: updraftplus
@@ -36,7 +36,7 @@ if (!defined('ABSPATH')) die('No direct access allowed');
 
 define('UPDRAFTPLUS_DIR', dirname(__FILE__));
 define('UPDRAFTPLUS_URL', plugins_url('', __FILE__));
-define('UPDRAFT_DEFAULT_OTHERS_EXCLUDE','upgrade,cache,updraft,backup*,*backups');
+define('UPDRAFT_DEFAULT_OTHERS_EXCLUDE','upgrade,cache,updraft,backup*,*backups,mysql.sql');
 define('UPDRAFT_DEFAULT_UPLOADS_EXCLUDE','backup*,*backups,backwpup*,wp-clone');
 
 // The following can go in your wp-config.php
@@ -88,7 +88,7 @@ if (!is_admin() && (!defined('DOING_CRON') || !DOING_CRON) && (!defined('XMLRPC_
 	$gmt_time = microtime( true );
 	$lock = get_transient('doing_cron');
 	if ( $lock > $gmt_time + 10 * 60 ) $lock = 0;
-	if ((defined(WP_CRON_LOCK_TIMEOUT) && $lock + WP_CRON_LOCK_TIMEOUT > $gmt_time) || (!defined(WP_CRON_LOCK_TIMEOUT) && $lock + 60 > $gmt_time)) return;
+	if ((defined('WP_CRON_LOCK_TIMEOUT') && $lock + WP_CRON_LOCK_TIMEOUT > $gmt_time) || (!defined('WP_CRON_LOCK_TIMEOUT') && $lock + 60 > $gmt_time)) return;
 	if (function_exists('_get_cron_array')) {
 		$crons = _get_cron_array();
 	} else {
@@ -121,19 +121,30 @@ if (is_dir(UPDRAFTPLUS_DIR.'/addons') && $dir_handle = opendir(UPDRAFTPLUS_DIR.'
 
 if (is_file(UPDRAFTPLUS_DIR.'/udaddons/updraftplus-addons.php')) include_once(UPDRAFTPLUS_DIR.'/udaddons/updraftplus-addons.php');
 
-require_once(UPDRAFTPLUS_DIR.'/class-updraftplus.php');
-$updraftplus = new UpdraftPlus();
-$updraftplus->have_addons = $updraftplus_have_addons;
+if (!file_exists(UPDRAFTPLUS_DIR.'/class-updraftplus.php') || !file_exists(UPDRAFTPLUS_DIR.'/options.php')) {
+	// Warn if they've not got the whole plugin - can happen if WP crashes (e.g. out of disk space) when upgrading the plugin
+	function updraftplus_incomplete_install_warning() {
+		echo '<div class="updraftmessage error"><p><strong>'.__('Error','updraftplus').':</strong> '.__("You do not have UpdraftPlus completely installed - please de-install and install it again. Most likely, WordPress malfunctioned when copying the plugin files.", 'updraftplus').' <a href="https://updraftplus.com/faqs/wordpress-crashed-when-updating-updraftplus-what-can-i-do/">'.__('Go here for more information.','updraftplus').'</a></p></div>';
+	}
+	add_action('all_admin_notices', 'updraftplus_incomplete_install_warning');
+} else {
 
-if (!$updraftplus->memory_check(192)) {
-// Experience appears to show that the memory limit is only likely to be hit (unless it is very low) by single files that are larger than available memory (when compressed)
-	# Add sanity checks - found someone who'd set WP_MAX_MEMORY_LIMIT to 256K !
-	if (!$updraftplus->memory_check($updraftplus->memory_check_current(WP_MAX_MEMORY_LIMIT))) {
-		$new = absint($updraftplus->memory_check_current(WP_MAX_MEMORY_LIMIT));
-		if ($new>32 && $new<100000) {
-			@ini_set('memory_limit', $new.'M');
+	require_once(UPDRAFTPLUS_DIR.'/class-updraftplus.php');
+	$updraftplus = new UpdraftPlus();
+	$updraftplus->have_addons = $updraftplus_have_addons;
+
+	if (!$updraftplus->memory_check(192)) {
+	// Experience appears to show that the memory limit is only likely to be hit (unless it is very low) by single files that are larger than available memory (when compressed)
+		# Add sanity checks - found someone who'd set WP_MAX_MEMORY_LIMIT to 256K !
+		if (!$updraftplus->memory_check($updraftplus->memory_check_current(WP_MAX_MEMORY_LIMIT))) {
+			$new = absint($updraftplus->memory_check_current(WP_MAX_MEMORY_LIMIT));
+			if ($new>32 && $new<100000) {
+				@ini_set('memory_limit', $new.'M');
+			}
 		}
 	}
+
 }
 
-if (!class_exists('UpdraftPlus_Options')) require_once(UPDRAFTPLUS_DIR.'/options.php');
+// Do this even if the missing files detection above fired, as the "missing files" detection above has a greater chance of showing the user useful info
+if (!class_exists('UpdraftPlus_Options')) include_once(UPDRAFTPLUS_DIR.'/options.php');

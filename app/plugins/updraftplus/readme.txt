@@ -1,9 +1,9 @@
 === UpdraftPlus Backup and Restoration ===
-Contributors: Backup with UpdraftPlus, DavidAnderson
+Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, LCahill
 Tags: backup, backups, restore, amazon backup, s3 backup, dropbox backup, google drive backup, rackspace cloud files, rackspace backup, dreamhost, dreamobjects backup, ftp backup, webdav backup, google cloud storage, onedrive, microsoft one drive, back up, multisite, restoration, sftp backup, ftps, scp backup, migrate, duplicate, copy, mysql backup, database backup, db backups, website backup, wordpress backup, full backup, openstack backup, sicherung
 Requires at least: 3.2
 Tested up to: 4.3
-Stable tag: 1.11.5
+Stable tag: 1.11.12
 Author URI: https://updraftplus.com
 Donate link: http://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -16,7 +16,7 @@ Backup and restoration made easy. Complete backups; manual or scheduled (backup 
 
 <strong>Top-quality:</strong> UpdraftPlus is the <a href="http://rankwp.com/plugins/updraftplus">highest-ranking backup plugin on wordpress.org</a> (ranks in the top 40 out of over 30,000 WordPress plugins for quality on rankwp.com).
 
-<strong>Over half a million currently active installs:</strong> widely tested and reliable (over 2.7 million downloads). The #1 most installed scheduled backup plugin, according to wordpress.org. Millions of backups completed!
+<strong>Over half a million currently active installs:</strong> widely tested and reliable (over 3 million downloads). The #1 most installed scheduled backup plugin, according to wordpress.org. Millions of backups completed!
 
 * Supports WordPress backups to UpdraftPlus Vault, Amazon S3 (or compatible), Dropbox, Rackspace Cloud Files, Google Drive, Google Cloud Storage, DreamHost DreamObjects, FTP, OpenStack (Swift) and email. Also (via a paid add-on) backup to Microsoft OneDrive, Copy.Com, FTP over SSL, SFTP, SCP, and WebDAV (and compatible services, e.g. Yandex, Cubby). Examples of S3-compatible providers: Cloudian, Connectria, Constant, Eucalyptus, Nifty, Nimbula, Cloudn.
 * Quick restore (both file and database backups)
@@ -33,7 +33,7 @@ Backup and restoration made easy. Complete backups; manual or scheduled (backup 
 * Debug mode - full logging of the backup
 * Internationalised (translations welcome - see below)
 * <a href="https://updraftplus.com">Premium version and support available (including free remote backup storage) - https://updraftplus.com</a>
-* Supported on all current PHP versions (5.2 - 5.6)
+* Supported on all current PHP versions (5.2 - 7.0)
 
 From our <a href="https://www.youtube.com/user/UpdraftPlus/videos">YouTube channel</a>, here's how to install:
 
@@ -118,11 +118,47 @@ Thanks for asking; yes, we've got a few. Check out this profile page - https://p
 
 The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
 
-N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.11.4 of the free version correspond to changes made in 2.11.4.x of the paid version.
+N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.11.12 of the free version correspond to changes made in 2.11.12.x of the paid version.
 
-= 1.11.5 - 22/Aug/2015 =
+= 1.11.12 - 29/Sep/2015 =
 
-* FIX: phpseclib fix relating to generation of random numbers on some systems (affecting SFTP on some systems)
+* FEATURE: More sophisticated rules for retention/deletion (UpdraftPlus Premium) - https://updraftplus.com/more-sophisticated-backup-retention/
+* FEATURE: Delete multiple backups at once - https://updraftplus.com/deleting-multiple-backups/
+* FEATURE: When choosing a monthly backup, you can now choose the starting date (e.g. choose 17th, not just choose the next week-day, e.g. next Monday)
+* FEATURE: You can exclude files with any particular extension by using the constant UPDRAFTPLUS_EXCLUDE_EXTENSIONS (comma-separate different extensions), or by inputting (for example) ext:.zip,ext:.mp4 in your exclusion settings.
+* FEATURE: Tested and supported on the forthcoming PHP 7.0
+* FIX: SFTP uploads could hang after finishing, if more than one attempt was needed to upload the file
+* FIX: Stop causing JavaScript errors on WordPress 3.2 on the plugins page
+* TWEAK: UI improvement when choosing multiple storage options - https://updraftplus.com/a-prettier-way-to-choose-remote-storage-options/
+* TWEAK: The storage selection drop-down (free version) now has icons to make it easier on the eye
+* TWEAK: Use UpdraftPlus Vault logo
+* TWEAK: Replace target="_new" with target="_blank" when opening new browser ports, to be more standards-compliant
+* TWEAK: Tweak the auto-split algorithm again to catch another case where it would have been better to split in a low-resource situation
+* TWEAK: When checking the backup integrity, allow for a multisite to not have a root options table; check sitemeta instead (unlikely, but theoretically possible)
+* TWEAK: Raise default Google Drive network timeout from 15 seconds - it's too possible to hit this on a slow uplink (e.g. congested ADSL)
+* TWEAK: Upgrade the bundled Google SDK to the most recent release (1.1.4)
+* TWEAK: Add previously-untranslated string
+* TWEAK: Suppress a PHP notice relating to a constant that needed quoting
+* TWEAK: Turn off reporting of PHP deprecation conditions if using phpseclib on PHP 7 (can break communications - phpseclib uses PHP4-style constructors)
+* TRANSLATIONS: Various updated translations
+
+= 1.11.9 - 04/Sep/2015 =
+
+* FIX: Dropbox introduced an un-documented, un-announced change to their server, which caused new site authentications in UpdraftPlus to no longer work. Now fixed with this release.
+* FIX: If backing up multiple extra directories under "more files", if large directories required a resumption, then inclusion of the files multiple times in the backup was possible.
+* TWEAK: Tweak the auto-split algorithm to not avoid firing in a particular case (that relies on a sequence of unlikely I/O events, seen on GoDaddy) if there's no resumption scheduled
+* TWEAK: Add mysql.sql to the (changeable) default configuration for excludes from wp-content - on WP Engine this is an unreadable file that they create that thus produces a backup warning
+* TWEAK: Add a dashboard warning (+ link to documentation) if UD appears to be incompletely installed
+* TWEAK: Add UPDRAFTPLUS_WEBDAV_NEVER_CHUNK constant for WebDAV servers that return the wrong error code when chunking fails
+* TWEAK: Introduce a UPDRAFTPLUS_REMOTESEND_DEFAULT_CHUNK_BYTES constant allowing the over-riding of the remote-send (Migrator) starting chunk size in wp-config.php (expert users)
+* TWEAK: Add CSS classes to dashboard updates notices, so that people can hide them more easily if they wish
+* TWEAK: If gzopen() is disabled, then test binzip without trying to use PclZip to verify the results
+* TWEAK: Add work-around for PHP bug https://bugs.php.net/bug.php?id=62852
+
+= 1.11.6 - 22/Aug/2015 =
+
+* FIX: SFTP was not working in 1.11.4 for some servers (related to phpseclib library update and sources of random data)
+* FIX: 1.11.5 release had wrong version number in header for paying users; corrected with fresh release
 
 = 1.11.4 - 19/Aug/2015 =
 
@@ -1621,4 +1657,4 @@ We recognise and thank the following for code and/or libraries used and/or modif
 
 
 == Upgrade Notice ==
-* 1.11.5 : Random number generation was halting on some systems due to phpseclib issue in 1.11.4
+* 1.11.12: Delete multiple backups; more flexibility for deleting/retaining (Premium); more options for excluding files; tested on PHP 7.0; various small tweaks + fixes.

@@ -217,7 +217,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		?>
 
 		<tr class="updraftplusmethod updraftvault">
-			<th><img style="padding-left: 40px;" src="<?php echo esc_attr(UPDRAFTPLUS_URL.'/images/ud-logo-150.png');?>" alt="UpdraftPlus Vault" width="150" height="150"></th>
+			<th><img style="padding-left: 40px;" src="<?php echo esc_attr(UPDRAFTPLUS_URL.'/images/updraftvault-150.png');?>" alt="UpdraftPlus Vault" width="150" height="116"></th>
 			<td valign="top" id="updraftvault_settings_cell">
 				<div id="updraftvault_settings_default"<?php if ($connected) echo ' style="display:none;"';?>>
 					<p style="padding-bottom:20px;">
