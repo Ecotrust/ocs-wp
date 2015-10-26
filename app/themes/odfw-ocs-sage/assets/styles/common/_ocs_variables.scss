@@ -30,14 +30,15 @@ $body-font-bolder:			"HelveticaNeue-75Lt", "Helvetica Neue", Helvetica, Arial, s
 $headings-font-family:			"TradeGothicBold", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $headings-font-family-lighter:	  "TradeGothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-$font-size-base:        13px; // 12px in comps but wrong font
+$font-size-base:        12px; // 12px in comps but wrong font
 $line-height-base:      1.5333; // 20/14
+$line-height-px:		20px; // 20/14
 $headings-color:		$greyDark;
 
-$font-size-h1:            floor(($font-size-base * 2.4)) !default; // ~18px
-$font-size-h2:            floor(($font-size-base * 1.4)) !default; // ~18px
-$font-size-h3:            ceil(($font-size-base * 1.7)) !default; // ~24px
-$font-size-h4:            ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-h1:            floor(($font-size-base * 2  )) !default; // ~24px
+$font-size-h2:            floor(($font-size-base * 1.5)) !default; // ~18px
+$font-size-h3:            ceil(($font-size-base * 1.17)) !default; // ~14px
+$font-size-h4:            $font-size-base !default; // ~13px
 $font-size-h5:            $font-size-base !default;
 $font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
 

@@ -17,8 +17,8 @@
 			width: 100%;
 
 			&.active > a, > a:hover {
-				background-color: #ffffff;
-				color: #000000;
+				background-color: darken($greyDark, 10%);
+				text-decoration: none;
 			}
 
 			> a {
