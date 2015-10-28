@@ -44,6 +44,9 @@
 		get_template_part('templates/content', 'page');
 
 	endif;
+
+	wp_reset_postdata();
+
 ?>
 
 </section>
