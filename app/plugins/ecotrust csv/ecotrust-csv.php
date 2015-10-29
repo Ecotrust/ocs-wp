@@ -55,6 +55,17 @@
 		
 	}
 	
+	function get_category_id($cat_name) {
+		$term = get_term_by('name', $cat_name, 'category');
+		
+		if($term->term_id){
+			return $term->term_id;
+		}else{
+			return false;
+		}
+		
+	}
+	
 	
 	function ls_csv_admin_page() { 
 		?>
@@ -78,6 +89,14 @@
 						// For each item in the line
 						for ($c=0; $c < $num; $c++) {
 							
+// 							Set (reset) Variables for each row
+							$WP_ID = '';
+							$coaName = '';
+							$post_ID = '';
+							$cat_ID = '';
+							
+							
+							
 							// IF there is an item
 							if($data[$c]!= ''){
 								
@@ -87,7 +106,7 @@
 								}else{
 									
 									// each Number represent a column in the file
-// 									add_post_meta($post_id, $meta_key, $meta_value, $unique);
+// 									update_post_meta($post_id, $meta_key, $meta_value, $unique);
 									
 									
 									switch($c) {
@@ -100,7 +119,7 @@
 											// COAID Column
 											// Get the post id by searching on the COAID meta field
 											$args = array(
-												'post_type'   => 'page',
+												'post_type'   => 'coa',
 												'meta_query'  => array(
 													array(
 														'coa_meta_id' => $data[$c]
@@ -112,32 +131,66 @@
 // 											Verify there is only record, and store the ID
 											if($coa_query->post_count == 1){
 												$post_ID = $coa_query->post->ID;
+												update_post_meta($post_ID, 'coa_meta_coaid', $data[$c], true);
 											}											
 											break;
 										case 3:
 											// WordpressID Column
-											if($data[$c])
+												$WP_ID = $data[$c]
 											break;
 										case 4:
 											// Wordpress Import Notes
 											break;
 										case 5:
 											// Category Column
+											
+											// Search for Category by name, get the ID's and set
+											$cat_ID= get_category_id($data[$c]);
+											if($cat_ID != false){
+												$set_category = wp_set_object_terms($post_ID, $cat_ID, 'category');
+											}else{
+												// Create category if one is not found
+												$cat_ID = wp_create_category($data[$c]);
+												$set_category = wp_set_object_terms($post_ID, $cat_ID, 'category');
+											}
+											
 											break;
 										case 6:
 											// Sub Category Column
+											
+											// Check for existance of Sub Category
+											if(!empty($data[$c])) {
+												$subCat_ID = get_category_id($data[$c]);
+												
+												if($subCat_ID !=false){
+													// Set the sub category
+													$set_category = wp_set_object_terms($post_ID, $subCat_ID, 'category');
+												}else{
+													// Setup a sub category
+													$subCat_ID=wp_insert_term($data[$c], 'category', array('parent' => $cat_ID));
+													// Set the sub category
+													$set_category = wp_set_object_terms($post_ID, $subCat_ID['term_taxonomy_id'], 'category');
+												}
+												
+											}
 											break;
 										case 7:
 											// Item Column
+											
+											if($WP_ID != ''){
+												
+											}
 											break;
 										case 8:
 											// Link Column
+											update_post_meta($post_ID, 'coa_meta_compass-link', $data[$c], true);
 											break;
 										case 9:
 											// SpeciesType Column
 											break;
 										case 10:
-											// DataSourse Column
+											// DataSource Column
+											update_post_meta($post_ID, 'coa_meta_data-source', $data[$c], true);
 											break;
 										case 11:
 											break;
