@@ -5,9 +5,9 @@
  */
 
 // Load CSS tweaks for the Admin
-function odfw_load_global_admin_tweaks() {
-	//wp_enqueue_style('odfw_admin_custom_style', plugins_url('assets/odfw_global_admin_custom_style.css', __FILE__));
-	wp_enqueue_style('odfw_admin_custom_style', ODFW_CUSTOMIZATIONS_PLUGIN_URL + 'assets/odfw_global_admin_custom_style.css');
+function odfw_load_global_admin_tweaks($hook) {
+	wp_enqueue_style('odfw_admin_custom_style', plugins_url('../assets/odfw_global_admin_custom_style.css', __FILE__));
+	//wp_enqueue_style('odfw_admin_custom_style', ODFW_CUSTOMIZATIONS_PLUGIN_URL + 'assets/odfw_global_admin_custom_style.css', false, null);
 }
 add_action('admin_enqueue_scripts', 'odfw_load_global_admin_tweaks');
 add_action('login_enqueue_scripts', 'odfw_load_global_admin_tweaks');

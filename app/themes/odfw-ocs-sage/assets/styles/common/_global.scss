@@ -1,14 +1,21 @@
 
 body {
-	//clear the fixed footer
-	padding-bottom: 40px;
-}
-.sidebar-primary main.main {
-	padding-left: 30px;
-}
+	// space for the fixed header
+	padding-top: 62px;
 
 
-// TEMP #2 until table styles are sorted.
+}
+
+// make the bs .table styles the default for all tables
 table {
-	max-width: 80% !important;
+	@extend .table;
+	@extend .table-striped;
+	@extend .table-bordered;
+	margin-top: 15px;
+	margin-bottom: 15px;
+
+	> thead > th {
+		background-color: $grey;
+		color: #ffffff;
+	}
 }

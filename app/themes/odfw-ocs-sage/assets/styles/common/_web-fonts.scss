@@ -1,3 +1,6 @@
+@import url("//hello.myfonts.net/count/2efc46"); /* <--- For Trade Gothic from MyFonts. JS required as well */
+/* @import must be at top of file, otherwise CSS will not work */
+
 /**
  * @license
  * MyFonts Webfont Build ID 3079238, 2015-08-21T15:04:15-0400
@@ -23,8 +26,6 @@
 */
 
 
-/* @import must be at top of file, otherwise CSS will not work */
-@import url("//hello.myfonts.net/count/2efc46"); /* <--- For Trade Gothic from MyFonts. JS required as well */
 
 @font-face {
   font-family: 'TradeGothic'; //18

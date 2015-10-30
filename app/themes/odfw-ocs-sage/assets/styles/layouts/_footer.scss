@@ -1,17 +1,23 @@
 .draft-message {
-	background-color: $greyDark;
+	background-color: $greenLighter;
+	border-top: 1px solid #C1E1BE;
 	bottom: 0;
-	color: #fff;
+	color: $text-color;
+	font-family: $body-font-bolder;
+	font-size: 11px;
 	margin-left: -15px;
 	margin-right: 15px;
 	padding: 10px;
-	padding-left: 15%;
+	/*padding-left: 15%;*/
 	position: fixed;
 	width: 100%;
 
+
 	strong {
-		background-color: $greenLight;
-		color: $text-color;
+		background-color: $green;
+		color: #fff;
+        font-weight: normal;
+        letter-spacing: 0.07em;
 		padding: 1px 3px;
 	}
 	small {

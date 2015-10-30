@@ -1,5 +1,22 @@
+::-webkit-input-placeholder {
+   color: $greyDark;
+}
+:-moz-placeholder {
+   color: $greyDark;
+}
+:-ms-input-placeholder {
+   color: $greyDark;
+}
+
+
+
 #header {
 	background-color: $greenLight;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1040;
 
 	.brand {
 		background-color: $green;
@@ -11,19 +28,28 @@
 		line-height: 63px;
 		text-align: center;
 		text-transform: uppercase;
-		width: 16.6667%;
+		//width: 16.6667%;
+		@include make-sm-column($sidebar-sm-columns);
 
 		&:hover {
 			background-color: $greenLight;
+			color: $green;
 			text-decoration: none;
 		}
 	}
+
+	.header-inner {
+		@include make-sm-column($main-sm-columns - $sidebar-sm-columns);
+	}
+
 	.search-wrap {
+		border-bottom: 1px solid $greenMid;
 		display: inline-block;
-		width: 70%;
+		@include make-sm-column(9);
+
 		form, input {
 			display: inline-block;
-			width: 80%;
+			width: 100%;
 		}
 		input {
 			@include h1Styles;
@@ -32,8 +58,9 @@
 			/* font-weight is still tbd */
 			/*font-family: $headings-font-family-lighter;*/
 			outline: none;
-			padding: 1px 15px 1px 41px;
+			padding: 1px 10px;
 			text-transform: uppercase;
+			width: 90%;
 			/*
 			&.focused {
 				font-family: $headings-font-family;
@@ -41,20 +68,57 @@
 			*/
 		}
 		button {
-			display: inline-block;
-			margin-top: -12px;
+			@include top-button;
+			background: $greenLight url($nav-sprite) 0 -806px no-repeat;
+			display: block;
+			float: right;
+			padding: 0 15px;
+			margin-right: -15px;
+			text-indent: -999em;
+			width: 66px;
+			&:hover {
+				background: darken($greenLight, 5) url($nav-sprite) -62px -806px no-repeat;
+			}
+
 		}
 	}
 }
 
-::-webkit-input-placeholder {
-   color: $greyDark;
-}
-:-moz-placeholder {
-   color: $greyDark;
-}
-:-ms-input-placeholder {
-   color: $greyDark;
+
+.view-switcher {
+	@include make-sm-column(3);
+
+        // @TODO these should be on the LIs once we sort out which can be used.
+        background-color: $greenLighter;
+		border-bottom: 1px solid #C1E1BE;
+
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+
+	}
+	li {
+		display: none; // for now.
+		border-bottom: 1px solid #C1E1BE;
+		float: left;
+
+		&.active {
+			border-bottom: 1px solid $greenMid;
+		}
+	}
+	span, button {
+		@include top-button;
+		@include make-sm-column(4);
+		&.my-ocs {
+			background: $green url($nav-sprite) 0 -871px no-repeat;
+			float: right;
+			margin-right: -15px;
+			text-indent: -999em;
+			max-width: 66px;
+		}
+	}
 }
 
 .page-header {

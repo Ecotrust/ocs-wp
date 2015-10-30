@@ -15,8 +15,9 @@
  * limitations under the License.
  */
  
-require_once 'Google/Auth/Exception.php';
-require_once 'Google/Verifier/Abstract.php';
+if (!class_exists('Google_Client')) {
+  require_once dirname(__FILE__) . '/../autoload.php';
+}
 
 /**
  * Verifies signatures using PEM encoded certificates.
@@ -64,7 +65,8 @@ class Google_Verifier_Pem extends Google_Verifier_Abstract
    */
   public function verify($data, $signature)
   {
-    $status = openssl_verify($data, $signature, $this->publicKey, "sha256");
+    $hash = defined("OPENSSL_ALGO_SHA256") ? OPENSSL_ALGO_SHA256 : "sha256";
+    $status = openssl_verify($data, $signature, $this->publicKey, $hash);
     if ($status === -1) {
       throw new Google_Auth_Exception('Signature verification error: ' . openssl_error_string());
     }

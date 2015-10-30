@@ -79,6 +79,16 @@ function setupCustomPostTypes () {
 	)));
 	$strategy_species->menu_icon('dashicons-id');
 
+	$success_story = new CPT(array(
+		'post_type_name' => 'success_story',
+		'singular'       => 'Success Story',
+		'plural'         => 'Success Stories',
+		'slug'           => 'success-story'
+	), array_merge($global_cpt_args, array(
+		'menu_position'  => 9,
+		//'supports'       => array( 'title', 'author', 'revisions' )
+	)));
+	$success_story->menu_icon('dashicons-format-chat');
 
 }
 

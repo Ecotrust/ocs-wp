@@ -97,6 +97,8 @@ class UpdraftPlus_Options {
 		register_setting('updraft-options-group', 'updraft_interval_increments');
 		register_setting('updraft-options-group', 'updraft_retain', array($updraftplus, 'retain_range') );
 		register_setting('updraft-options-group', 'updraft_retain_db', array($updraftplus, 'retain_range') );
+		register_setting('updraft-options-group', 'updraft_retain_extrarules' );
+
 		register_setting('updraft-options-group', 'updraft_encryptionphrase');
 		register_setting('updraft-options-group', 'updraft_service', array($updraftplus, 'just_one'));
 
@@ -148,8 +150,8 @@ class UpdraftPlus_Options {
 		register_setting('updraft-options-group', 'updraft_starttime_files', array('UpdraftPlus_Options', 'hourminute') );
 		register_setting('updraft-options-group', 'updraft_starttime_db', array('UpdraftPlus_Options', 'hourminute') );
 
-		register_setting('updraft-options-group', 'updraft_startday_files', array('UpdraftPlus_Options', 'weekday') );
-		register_setting('updraft-options-group', 'updraft_startday_db', array('UpdraftPlus_Options', 'weekday') );
+		register_setting('updraft-options-group', 'updraft_startday_files', array('UpdraftPlus_Options', 'week_or_month_day') );
+		register_setting('updraft-options-group', 'updraft_startday_db', array('UpdraftPlus_Options', 'week_or_month_day') );
 
 		global $pagenow;
 		if (is_multisite() && $pagenow == 'options-general.php' && isset($_REQUEST['page']) && 'updraftplus' == substr($_REQUEST['page'], 0, 11)) {
@@ -163,9 +165,9 @@ class UpdraftPlus_Options {
 		return '00:00';
 	}
 
-	public static function weekday($pot) {
+	public static function week_or_month_day($pot) {
 		$pot = absint($pot);
-		return ($pot>6) ? 0 : $pot;
+		return ($pot>28) ? 1 : $pot;
 	}
 
 	public static function show_admin_warning_multisite() {

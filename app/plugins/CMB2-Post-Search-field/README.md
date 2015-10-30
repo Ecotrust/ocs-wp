@@ -22,9 +22,12 @@ $cmb->add_field( array(
 	'type'        => 'post_search_text', // This field type
 	// post type also as array
 	'post_type'   => 'post',
-	// or checkbox, used in the modal view to select the post type
-	'select_type' => 'radio'
+	// Default is 'checkbox', used in the modal view to select the post type
+	'select_type' => 'radio',
+	// Will replace any selection with selection from modal. Default is 'add'
+	'select_behavior' => 'replace',
 ) );
 ```
 
 If you're looking for a more general way to attach posts (or other custom post types) with a drag and drop interface, you might consider [CMB2 Attached Posts Field](https://github.com/WebDevStudios/cmb2-attached-posts) instead.
+

@@ -136,7 +136,10 @@
 
 
 
+		<?php get_template_part('templates/content', 'success-story'); ?>
 
     </div>
   </article>
+
+
 <?php endwhile; ?>

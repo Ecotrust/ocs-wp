@@ -5,19 +5,38 @@ Plugin URI: http://webdevstudios.com
 Description: Custom field for CMB2 which adds a post-search dialog for searching/attaching other post IDs
 Author: WebDevStudios
 Author URI: http://webdevstudios.com
-Version: 0.2.0
+Version: 0.2.3
 License: GPLv2
 */
 
 function cmb2_post_search_render_field( $field, $escaped_value, $object_id, $object_type, $field_type ) {
-	$select_type = $field->args( 'select_type' );
-
 	echo $field_type->input( array(
-		'data-posttype'   => $field->args( 'post_type' ),
-		'data-selecttype' => 'radio' == $select_type ? 'radio' : 'checkbox',
+		'data-search' => json_encode( array(
+			'posttype'   => $field->args( 'post_type' ),
+			'selecttype' => 'radio' == $field->args( 'select_type' ) ? 'radio' : 'checkbox',
+			'selectbehavior' => 'replace' == $field->args( 'select_behavior' ) ? 'replace' : 'add',
+			'errortxt'   => esc_attr( $field_type->_text( 'error_text', __( 'An error has occurred. Please reload the page and try again.' ) ) ),
+			'findtxt'    => esc_attr( $field_type->_text( 'find_text', __( 'Find Posts or Pages' ) ) ),
+		) ),
 	) );
 }
 add_action( 'cmb2_render_post_search_text', 'cmb2_post_search_render_field', 10, 5 );
+
+function cmb2_has_post_search_text_field( $fields ) {
+
+	foreach ( $fields as $field ) {
+		if ( isset( $field['fields'] ) ) {
+			if ( cmb2_has_post_search_text_field( $field['fields'] ) ) {
+				return true;
+			}
+		}
+		if ( 'post_search_text' == $field['type'] ) {
+			return true;
+		}
+	}
+
+	return false;
+}
 
 function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) {
 	static $rendered;
@@ -32,13 +51,7 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 		return;
 	}
 
-	$has_post_search_field = false;
-	foreach ( $fields as $field ) {
-		if ( 'post_search_text' == $field['type'] ) {
-			$has_post_search_field = true;
-			break;
-		}
-	}
+	$has_post_search_field = cmb2_has_post_search_text_field( $fields );
 
 	if ( ! $has_post_search_field ) {
 		return;
@@ -59,20 +72,11 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 	// markup needed for modal
 	add_action( 'admin_footer', 'find_posts_div' );
 
-	$error = __( 'An error has occurred. Please reload the page and try again.' );
-	$find  = __( 'Find Posts or Pages' );
-
 	// @TODO this should really be in its own JS file.
 	?>
 	<script type="text/javascript">
 	jQuery(document).ready(function($){
 		'use strict';
-
-		var l10n = {
-			'error' : '<?php echo esc_js( $error ); ?>',
-			'find' : '<?php echo esc_js( $find ) ?>'
-		};
-
 
 		var SearchView = window.Backbone.View.extend({
 			el         : '#find-posts',
@@ -113,7 +117,8 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 			open: function() {
 				this.$response.html('');
 
-				this.$el.show();
+				// WP, why you so dumb? (why isn't text in its own dom node?)
+				this.$el.show().find( '#find-posts-head' ).html( this.findtxt + '<div id="find-posts-close"></div>' );
 
 				this.$input.focus();
 
@@ -140,7 +145,7 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 			send: function() {
 
 				var search = this;
-				search.$spinner.show();
+				search.$spinner.addClass('is-active');
 
 				$.ajax( ajaxurl, {
 					type     : 'POST',
@@ -149,36 +154,36 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 						ps               : search.$input.val(),
 						action           : 'find_posts',
 						cmb2_post_search : true,
-						post_search_cpt  : search.postType,
-						_ajax_nonce      : $('#_ajax_nonce').val()
+						post_search_cpt  : search.posttype,
+						_ajax_nonce      : $('#find-posts #_ajax_nonce').val()
 					}
 				}).always( function() {
 
-					search.$spinner.hide();
+					search.$spinner.removeClass('is-active');
 
 				}).done( function( response ) {
 
 					if ( ! response.success ) {
-						search.$response.text( l10n.error );
+						search.$response.text( search.errortxt );
 					}
 
 					var data = response.data;
 
-					if ( 'checkbox' === search.selectType ) {
+					if ( 'checkbox' === search.selecttype ) {
 						data = data.replace( /type="radio"/gi, 'type="checkbox"' );
 					}
 
 					search.$response.html( data );
 
 				}).fail( function() {
-					search.$response.text( l10n.error );
+					search.$response.text( search.errortxt );
 				});
 			},
 
 			selectPost: function( evt ) {
 				evt.preventDefault();
 
-				this.$checked = $( '#find-posts-response input[type="' + this.selectType + '"]:checked' );
+				this.$checked = $( '#find-posts-response input[type="' + this.selecttype + '"]:checked' );
 
 				var checked = this.$checked.map(function() { return this.value; }).get();
 
@@ -191,10 +196,16 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 			},
 
 			handleSelected: function( checked ) {
-				var existing = this.$idInput.val();
-				existing = existing ? existing + ', ' : '';
-				this.$idInput.val( existing + checked.join( ', ' ) );
+				checked = checked.join( ', ' );
 
+				if ( 'add' === this.selectbehavior ) {
+					var existing = this.$idInput.val();
+					if ( existing ) {
+						checked = existing + ', ' + checked;
+					}
+				}
+
+				this.$idInput.val( checked );
 				this.close();
 			}
 
@@ -202,22 +213,40 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 
 		window.cmb2_post_search = new SearchView();
 
-		$( '.cmb-type-post-search-text .cmb-td input[type="text"]' ).after( '<div title="'+ l10n.find +'" style="color: #999;margin: .3em 0 0 2px; cursor: pointer;" class="dashicons dashicons-search"></div>');
+		window.cmb2_post_search.closeSearch = function() {
+			window.cmb2_post_search.trigger( 'close' );
+		};
 
-		$( '.cmb-type-post-search-text .cmb-td .dashicons-search' ).on( 'click', openSearch );
-
-		function openSearch( evt ) {
+		window.cmb2_post_search.openSearch = function( evt ) {
 			var search = window.cmb2_post_search;
-			search.$idInput   = $( evt.currentTarget ).parents( '.cmb-type-post-search-text' ).find( '.cmb-td input[type="text"]' );
-			search.postType   = search.$idInput.data( 'posttype' );
-			search.selectType = 'radio' == search.$idInput.data( 'selecttype' ) ? 'radio' : 'checkbox';
+
+			search.$idInput = $( evt.currentTarget ).parents( '.cmb-type-post-search-text' ).find( '.cmb-td input[type="text"]' );
+			// Setup our variables from the field data
+			$.extend( search, search.$idInput.data( 'search' ) );
 
 			search.trigger( 'open' );
-		}
+		};
 
+		window.cmb2_post_search.addSearchButtons = function() {
+			var $this = $( this );
+			var data = $this.data( 'search' );
+			$this.after( '<div title="'+ data.findtxt +'" class="dashicons dashicons-search cmb2-post-search-button"></div>');
+		};
+
+		$( '.cmb-type-post-search-text .cmb-td input[type="text"]' ).each( window.cmb2_post_search.addSearchButtons );
+
+		$( '.cmb2-wrap' ).on( 'click', '.cmb-type-post-search-text .cmb-td .dashicons-search', window.cmb2_post_search.openSearch );
+		$( 'body' ).on( 'click', '.ui-find-overlay', window.cmb2_post_search.closeSearch );
 
 	});
 	</script>
+	<style type="text/css" media="screen">
+		.cmb2-post-search-button {
+			color: #999;
+			margin: .3em 0 0 2px;
+			cursor: pointer;
+		}
+	</style>
 	<?php
 
 	$rendered = true;
@@ -237,7 +266,9 @@ add_action( 'cmb2_post_search_field_add_find_posts_div', 'cmb2_post_search_field
  * @param  array $query  The query instance
  */
 function cmb2_post_search_set_post_type( $query ) {
-	$query->set( 'post_type', esc_attr( $_POST['post_search_cpt'] ) );
+	$types = $_POST['post_search_cpt'];
+	$types = is_array( $types ) ? array_map( 'esc_attr', $types ) : esc_attr( $types );
+	$query->set( 'post_type', $types );
 }
 
 /**
@@ -256,3 +287,4 @@ function cmb2_post_search_wp_ajax_find_posts() {
 	}
 }
 add_action( 'admin_init', 'cmb2_post_search_wp_ajax_find_posts' );
+

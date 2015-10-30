@@ -129,6 +129,8 @@ class UpdraftPlus {
 
 		if (false === strpos(get_include_path(), UPDRAFTPLUS_DIR.'/includes/phpseclib')) set_include_path(get_include_path().PATH_SEPARATOR.UPDRAFTPLUS_DIR.'/includes/phpseclib');
 
+		$this->no_deprecation_warnings_on_php7();
+
 		if ($classes) {
 			$any_missing = false;
 			if (is_string($classes)) $classes = array($classes);
@@ -143,6 +145,17 @@ class UpdraftPlus {
 			foreach ($class_paths as $cp) {
 				require_once(UPDRAFTPLUS_DIR.'/includes/phpseclib/'.$cp.'.php');
 			}
+		}
+	}
+
+	// Ugly, but necessary to prevent debug output breaking the conversation when the user has debug turned on
+	private function no_deprecation_warnings_on_php7() {
+		// PHP_MAJOR_VERSION is defined in PHP 5.2.7+
+		// We don't test for PHP > 7 because the specific deprecated element will be removed in PHP 8 - and so no warning should come anyway (and we shouldn't suppress other stuff until we know we need to).
+		if (defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION == 7) {
+			$old_level = error_reporting();
+			$new_level = $old_level & ~E_DEPRECATED;
+			if ($old_level != $new_level) error_reporting($new_level);
 		}
 	}
 
@@ -630,7 +643,7 @@ class UpdraftPlus {
 	}
 
 	public function get_max_packet_size() {
-		global $wpdb, $updraftplus;
+		global $wpdb;
 		$mp = (int)$wpdb->get_var("SELECT @@session.max_allowed_packet");
 		# Default to 1Mb
 		$mp = (is_numeric($mp) && $mp > 0) ? $mp : 1048576;
@@ -639,12 +652,12 @@ class UpdraftPlus {
 			$save = $wpdb->show_errors(false);
 			$req = @$wpdb->query("SET GLOBAL max_allowed_packet=33554432");
 			$wpdb->show_errors($save);
-			if (!$req) $updraftplus->log("Tried to raise max_allowed_packet from ".round($mp/1048576,1)." Mb to 32 Mb, but failed (".$wpdb->last_error.", ".serialize($req).")");
+			if (!$req) $this->log("Tried to raise max_allowed_packet from ".round($mp/1048576,1)." Mb to 32 Mb, but failed (".$wpdb->last_error.", ".serialize($req).")");
 			$mp = (int)$wpdb->get_var("SELECT @@session.max_allowed_packet");
 			# Default to 1Mb
 			$mp = (is_numeric($mp) && $mp > 0) ? $mp : 1048576;
 		}
-		$updraftplus->log("Max packet size: ".round($mp/1048576, 1)." Mb");
+		$this->log("Max packet size: ".round($mp/1048576, 1)." Mb");
 		return $mp;
 	}
 
@@ -1019,7 +1032,7 @@ class UpdraftPlus {
 					} else {
 						// PclZip will die() if gzopen is not found
 						// Obviously, this is a kludge - we assume it's working. We could, of course, just return false - but since we already know now that PclZip can't work, that only leaves ZipArchive
-						$updraftplus->log("gzopen function not found; PclZip cannot be invoked; will assume that binary zip works if we have a non-zero file");
+						$this->log("gzopen function not found; PclZip cannot be invoked; will assume that binary zip works if we have a non-zero file");
 						if (filesize($updraft_dir.'/binziptest/test.zip') > 0) {
 							$found_first = true;
 							$found_second = true;
@@ -1721,7 +1734,7 @@ class UpdraftPlus {
 		$this->ensure_semaphore_exists($semaphore);
 
 		if (false == apply_filters('updraftplus_boot_backup', true, $backup_files, $backup_database, $one_shot)) {
-			$updraftplus->log("Backup aborted (via filter)");
+			$this->log("Backup aborted (via filter)");
 			return false;
 		}
 
@@ -2031,6 +2044,9 @@ class UpdraftPlus {
 					list ($mess, $warn, $err, $info) = $this->analyse_db_file(false, array(), $updraft_dir.'/'.$entry, true);
 					if (!empty($info['label'])) {
 						$backup_history[$btime]['label'] = $info['label'];
+					}
+					if (!empty($info['created_by_version'])) {
+						$backup_history[$btime]['created_by_version'] = $info['created_by_version'];
 					}
 				}
 			}
@@ -2345,7 +2361,7 @@ class UpdraftPlus {
 
 		# Really, we could do this immediately when we realise the DB has gone away. This is just for the probably-impossible case that a DB write really can still succeed. But, we must abort before calling delete_local(), as the removal of the local file can cause it to be recreated if the DB is out of sync with the fact that it really is already uploaded
 		if (false === $db_connected) {
-			$updraftplus->record_still_alive();
+			$this->record_still_alive();
 			die;
 		}
 
@@ -2606,6 +2622,8 @@ class UpdraftPlus {
 			$backup_array['nonce'] = $this->nonce;
 			$backup_array['service'] = $this->jobdata_get('service');
 			if ('' != ($label = $this->jobdata_get('label', ''))) $backup_array['label'] = $label;
+			$backup_array['created_by_version'] = $this->version;
+			$backup_array['is_multisite'] = is_multisite() ? true : false;
 			$remotesend_info = $this->jobdata_get('remotesend_info');
 			if (is_array($remotesend_info) && !empty($remotesend_info['url'])) $backup_array['remotesend_url'] = $remotesend_info['url'];
 			if (false != ($autobackup = $this->jobdata_get('is_autobackup', false))) $backup_array['autobackup'] = true;
@@ -2623,8 +2641,7 @@ class UpdraftPlus {
 
 	public function get_backup_history($timestamp = false) {
 		$backup_history = UpdraftPlus_Options::get_updraft_option('updraft_backup_history');
-		// In fact, it looks like the line below actually *introduces* a race condition
-		//by doing a raw DB query to get the most up-to-date data from this option we slightly narrow the window for the multiple-cron race condition
+		// The line below actually *introduces* a race condition
 // 		global $wpdb;
 // 		$backup_history = @unserialize($wpdb->get_var($wpdb->prepare("SELECT option_value from $wpdb->options WHERE option_name='updraft_backup_history'")));
 		if (is_array($backup_history)) {
@@ -3123,6 +3140,8 @@ class UpdraftPlus {
 			return array($mess, $warn, $err, $info);
 		}
 
+		$info['timestamp'] = $timestamp;
+
 		# Analyse the file, print the results.
 
 		$line = 0;
@@ -3175,6 +3194,8 @@ class UpdraftPlus {
 						$powarn = apply_filters('updraftplus_dbscan_urlchange', sprintf(__('Warning: %s', 'updraftplus'), '<a href="https://updraftplus.com/shop/migrator/">'.__('This backup set is from a different site - this is not a restoration, but a migration. You need the Migrator add-on in order to make this work.', 'updraftplus').'</a>'), $old_home, $res);
 						if (!empty($powarn)) $warn[] = $powarn;
 					}
+				} elseif (!isset($info['created_by_version']) && preg_match('/^\# Created by UpdraftPlus version ([\d\.]+)/', $buffer, $matches)) {
+					$info['created_by_version'] = trim($matches[1]);
 				} elseif ('' == $old_wp_version && preg_match('/^\# WordPress Version: ([0-9]+(\.[0-9]+)+)(-[-a-z0-9]+,)?(.*)$/', $buffer, $matches)) {
 					$old_wp_version = $matches[1];
 					if (!empty($matches[3])) $old_wp_version .= substr($matches[3], 0, strlen($matches[3])-1);
@@ -3218,7 +3239,8 @@ class UpdraftPlus {
 						$key = $kvmatches[1];
 						$val = $kvmatches[2];
 						if ('multisite' == $key && $val) {
-							$mess[] = '<strong>'.__('Site information:','updraftplus').'</strong>'.' is a WordPress Network';
+							$info['multisite'] = true;
+							$mess[] = '<strong>'.__('Site information:', 'updraftplus').'</strong> '.'backup is of a WordPress Network';
 						}
 						$old_siteinfo[$key]=$val;
 					}
@@ -3365,7 +3387,7 @@ CREATE TABLE $wpdb->signups (
 	public function get_settings_keys() {
 	// N.B. updraft_backup_history is not included here, as we don't want that wiped
 		return array('updraft_autobackup_default', 'updraft_dropbox', 'updraft_googledrive', 'updraftplus_tmp_googledrive_access_token', 'updraftplus_dismissedautobackup', 'updraftplus_dismissedexpiry', 'updraftplus_dismisseddashnotice', 'updraft_interval', 'updraft_interval_increments', 'updraft_interval_database', 'updraft_retain', 'updraft_retain_db', 'updraft_encryptionphrase', 'updraft_service', 'updraft_dropbox_appkey', 'updraft_dropbox_secret', 'updraft_googledrive_clientid', 'updraft_googledrive_secret', 'updraft_googledrive_remotepath', 'updraft_ftp_login', 'updraft_ftp_pass', 'updraft_ftp_remote_path', 'updraft_server_address', 'updraft_dir', 'updraft_email', 'updraft_delete_local', 'updraft_debug_mode', 'updraft_include_plugins', 'updraft_include_themes', 'updraft_include_uploads', 'updraft_include_others', 'updraft_include_wpcore', 'updraft_include_wpcore_exclude', 'updraft_include_more', 'updraft_include_blogs', 'updraft_include_mu-plugins',
-		'updraft_include_others_exclude', 'updraft_include_uploads_exclude', 'updraft_lastmessage', 'updraft_googledrive_token', 'updraft_dropboxtk_request_token', 'updraft_dropboxtk_access_token', 'updraft_dropbox_folder', 'updraft_adminlocking', 'updraft_updraftvault', 'updraft_remotesites', 'updraft_migrator_localkeys',
+		'updraft_include_others_exclude', 'updraft_include_uploads_exclude', 'updraft_lastmessage', 'updraft_googledrive_token', 'updraft_dropboxtk_request_token', 'updraft_dropboxtk_access_token', 'updraft_dropbox_folder', 'updraft_adminlocking', 'updraft_updraftvault', 'updraft_remotesites', 'updraft_migrator_localkeys', 'updraft_retain_extrarules',
 		'updraft_last_backup', 'updraft_starttime_files', 'updraft_starttime_db', 'updraft_startday_db', 'updraft_startday_files', 'updraft_sftp_settings', 'updraft_s3', 'updraft_s3generic', 'updraft_dreamhost', 'updraft_s3generic_login', 'updraft_s3generic_pass', 'updraft_s3generic_remote_path', 'updraft_s3generic_endpoint', 'updraft_webdav_settings', 'updraft_openstack', 'updraft_bitcasa', 'updraft_copycom', 'updraft_onedrive', 'updraft_cloudfiles', 'updraft_cloudfiles_user', 'updraft_cloudfiles_apikey', 'updraft_cloudfiles_path', 'updraft_cloudfiles_authurl', 'updraft_ssl_useservercerts', 'updraft_ssl_disableverify', 'updraft_s3_login', 'updraft_s3_pass', 'updraft_s3_remote_path', 'updraft_dreamobjects_login', 'updraft_dreamobjects_pass', 'updraft_dreamobjects_remote_path', 'updraft_report_warningsonly', 'updraft_report_wholebackup', 'updraft_log_syslog', 'updraft_extradatabases');
 	}
 

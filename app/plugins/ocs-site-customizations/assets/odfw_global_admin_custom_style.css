@@ -1,14 +1,16 @@
+/*
 #adminmenu #menu-posts-ecoregion {
-	border-top: 9px solid #aaaaaa;
+	border-top: 9px solid #f1f1f1;
 	margin-top: 15px;
 }
 #adminmenu #menu-posts-strategy_species {
-	border-bottom: 9px solid #aaaaaa;
+	border-bottom: 9px solid #f1f1f1;
 	margin-bottom: 15px;
 }
 .cmb2-text-url {
 	width: 95%;
 }
+*/
 
 .cmb-field-list > .cmb-row.cmb-type-title {
     padding-bottom: 0.5em !important;
@@ -31,4 +33,16 @@
 
 #poststuff .cmb-repeatable-group h2 {
     white-space: nowrap;
+}
+
+/*
+ * Hopeful hack for displaying the post_id in the Find Posts modal
+ * CMB2 field only displays IDs in the eventual box. Hopefully this helps
+ * with association.
+ */
+.found-posts label::after {
+    content: attr(for);
+    display: block;
+    overflow: hidden;
+    text-indent: -3em;
 }

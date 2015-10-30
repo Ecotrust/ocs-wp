@@ -47,11 +47,17 @@ abstract class Dropbox_ConsumerAbstract
         if (empty($access_token) || !isset($access_token->oauth_token)) {
             try {
                 $this->getAccessToken();
-            } catch(Dropbox_Exception $e) {
-                global $updraftplus;
-                $updraftplus->log($e->getMessage().' - need to reauthenticate this site with Dropbox (if this fails, then you can also try wiping your settings from the Expert Settings section)');
-                $this->getRequestToken();
-                $this->authorise();
+            } catch(Exception $e) {
+                $excep_class = get_class($e);
+                // 04-Sep-2015 - Dropbox started throwing a 400, which caused a Dropbox_BadRequestException which previously wasn't being caught
+                if ('Dropbox_BadRequestException' == $excep_class || 'Dropbox_Exception' == $excep_class) {
+                    global $updraftplus;
+                    $updraftplus->log($e->getMessage().' - need to reauthenticate this site with Dropbox (if this fails, then you can also try wiping your settings from the Expert Settings section)');
+                    $this->getRequestToken();
+                    $this->authorise();
+                } else {
+                    throw $e;
+                }
             }
         }
     }

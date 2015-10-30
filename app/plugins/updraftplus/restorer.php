@@ -5,22 +5,23 @@ if (!class_exists('WP_Upgrader')) require_once(ABSPATH.'wp-admin/includes/class-
 
 class Updraft_Restorer extends WP_Upgrader {
 
-	public $ud_backup_is_multisite = -1;
-
 	private $is_multisite;
 
 	// This is just used so far for detecting whether we're on the second run for an entity or not.
 	public $been_restored = array();
 	private $tables_been_dropped = array();
 
+	// Public: it is manipulated by the caller after the caller gets the object
 	public $delete = false;
 
 	private $created_by_version = false;
+	// This one can be set externally, if the information is available
+	public $ud_backup_is_multisite = -1;
 
 	private $ud_backup_info;
 	public $ud_foreign;
 
-	# The default of false means "use the global $wpdb"
+	// The default of false means "use the global $wpdb"
 	private $wpdb_obj = false;
 
 	private $line_last_logged = 0;
@@ -28,10 +29,12 @@ class Updraft_Restorer extends WP_Upgrader {
 
 	private $configuration_bundle;
 
+	private $ajax_restore_auth_code;
+
 	public function __construct($skin = null, $info = null, $shortinit = false) {
 
 		global $wpdb;
-		// Line up a wpdb-like object to use
+		// Line up a wpdb-like object
 		$this->use_wpdb = ((!function_exists('mysql_query') && !function_exists('mysqli_query')) || !$wpdb->is_mysql || !$wpdb->ready) ? true : false;
 
 		$this->our_siteurl = untrailingslashit(site_url());
@@ -52,6 +55,9 @@ class Updraft_Restorer extends WP_Upgrader {
 		if ($shortinit) return;
 		$this->ud_backup_info = $info;
 		$this->ud_foreign = (empty($info['meta_foreign'])) ? false : $info['meta_foreign'];
+		if (isset($info['multisite'])) $this->ud_backup_is_multisite = $info['multisite'];
+		if (isset($info['created_by_version'])) $this->created_by_version = $info['created_by_version'];
+
 		parent::__construct($skin);
 		$this->init();
 		$this->backup_strings();
@@ -617,6 +623,11 @@ class Updraft_Restorer extends WP_Upgrader {
 		return untrailingslashit($wp_filesystem_dir);
 	}
 
+	private function can_version_ajax_restore($version) {
+		if (!defined('UPDRAFTPLUS_EXPERIMENTAL_AJAX_RESTORE') || !UPDRAFTPLUS_EXPERIMENTAL_AJAX_RESTORE) return false;
+		return ((version_compare($version, '2.0', '<') && version_compare($version, '1.11.10', '>=')) || (version_compare($version, '2.0', '>=') && version_compare($version, '2.11.10', '>='))) ? true : false;
+	}
+
 	// $backup_file is just the basename, and must be a string; we expect the caller to deal with looping over an array (multi-archive sets). We do, however, record whether we have already unpacked an entity of the same type - so that we know to add (not replace).
 	public function restore_backup($backup_file, $type, $info, $last_one = false) {
 
@@ -639,9 +650,50 @@ class Updraft_Restorer extends WP_Upgrader {
 
 		@set_time_limit(1800);
 
+		/*
+		TODO:
+		- The backup set may no longer be in the DB - a restore may have over-written it.
+		- UD might be installed, but not active. Test that too. (All combinations need testing - new/old UD vers, logged-in/not, etc.).
+		- logging
+		- authorisation on the AJAX call, given that our login may not even be valid any more.
+		- pass on the WP filesystem credentials somehow - they have been POSTed, and should be included in what's POSTed back.
+		- the restore function wants to know the UD version the backup set came from
+		- the restore function wants to know whether we're restoring an individual blog into a multisite
+		- the restore function has some things only done the first time, which isn't directly tracked (uses internal state instead, which won't work over AJAX)
+		- how to handle/set this->delete
+		- how to show the final result
+		- how to do the clear-up of restored stuff in the restore function
+		- remember, we need to do unauthenticated AJAX, as the authentication is happening via a different means. Use a separate procedure from the usual one (and no nonce, as login status may have changed).
+		*/
+		if (defined('UPDRAFTPLUS_EXPERIMENTAL_AJAX_RESTORE') && UPDRAFTPLUS_EXPERIMENTAL_AJAX_RESTORE && 'uploads' == $type) {
+			// Read this each time, as we don't know what might have been done in the mean-time (specifically with UD being replaced by a different UD from a backup). Of course, we know what the currently running process is capable of.
+			if (file_exists(UPDRAFTPLUS_DIR.'/updraftplus.php') && $fp = fopen(UPDRAFTPLUS_DIR.'/updraftplus.php', 'r')) {
+				$file_data = fread($fp, 1024);
+				if (preg_match("/Version: ([\d\.]+)(\r|\n)/", $file_data, $matches)) {
+					$ud_version = $matches[1];
+				}
+				fclose($fp);
+			}
+			if (!empty($ud_version) && $this->can_version_ajax_restore($ud_version) && !empty($this->ud_backup_info['timestamp'])) {
+				$nonce = $updraftplus->nonce;
+				if (!function_exists('crypt_random_string')) $updraftplus->ensure_phpseclib('Crypt_Random', 'Crypt/Random');
+				$this->ajax_restore_auth_code = bin2hex(crypt_random_string(32));
+// TODO: Delete this when done, to prevent abuse
+				update_site_option('updraft_ajax_restore_'.$nonce, $this->ajax_restore_auth_code.':'.time());
+				$this->add_ajax_restore_admin_footer();
+				$print_last_one = ($last_one) ? "1" : "0";
+// TODO: Also want the timestamp
+				// We don't bother to include info, as that is backup-independent information that can be re-created when needed
+				echo '<p style="margin: 0px 0px;" class="updraft-ajaxrestore" data-type="'.$type.'" data-lastone="'.$print_last_one.'" data-backupfile="'.esc_attr($backup_file).'">'."\n";
+				$updraftplus->log("Deferring handling of uploads ($backup_file)");
+				echo "$backup_file: ".'<span class="deferprogress">'.__('Deferring...', 'updraftplus').'</span>';
+				echo '</p>';
+				return true;
+			}
+		}
+
 		// This returns the wp_filesystem path
 		$working_dir = $this->unpack_package($backup_file, $this->delete, $type);
-
 		if (is_wp_error($working_dir)) return $working_dir;
 
 		$working_dir_localpath = WP_CONTENT_DIR.'/upgrade/'.basename($working_dir);
@@ -886,7 +938,7 @@ class Updraft_Restorer extends WP_Upgrader {
 			}
 		}
 
-		# Permissions changes (at the top level - i.e. this does not reply if using recursion) are now *additive* - i.e. there's no danger of permissions being removed from what's on-disk
+		# Permissions changes (at the top level - i.e. this does not apply if using recursion) are now *additive* - i.e. there's no danger of permissions being removed from what's on-disk
 		switch($type) {
 			case 'wpcore':
 				$this->chmod_if_needed($wp_filesystem_dir, FS_CHMOD_DIR, false, $wp_filesystem);
@@ -900,9 +952,11 @@ class Updraft_Restorer extends WP_Upgrader {
 				// Cherry Framework needs its cache files removing after migration
 				if ((empty($this->old_siteurl) || ($this->old_siteurl != $this->our_siteurl)) && function_exists('glob')) {
 					$cherry_child = glob(WP_CONTENT_DIR.'/themes/theme*');
-					foreach ($cherry_child as $theme) {
-						if (file_exists($theme.'/style.less.cache')) unlink($theme.'/style.less.cache');
-						if (file_exists($theme.'/bootstrap/less/bootstrap.less.cache')) unlink($theme.'/bootstrap/less/bootstrap.less.cache');
+					if (is_array($cherry_child)) {
+						foreach ($cherry_child as $theme) {
+							if (file_exists($theme.'/style.less.cache')) unlink($theme.'/style.less.cache');
+							if (file_exists($theme.'/bootstrap/less/bootstrap.less.cache')) unlink($theme.'/bootstrap/less/bootstrap.less.cache');
+						}
 					}
 				}
 			break;
@@ -935,6 +989,131 @@ class Updraft_Restorer extends WP_Upgrader {
 
 		return true;
 
+	}
+
+	private function add_ajax_restore_admin_footer() {
+		static $already = false;
+		if (!$already) {
+			$already = true;
+			add_action('admin_footer', array($this, 'admin_footer_ajax_restore'));
+		}
+	}
+
+	public function admin_footer_ajax_restore() {
+// TODO: The timestamp parameter is mandatory - we should abort (earlier) if there isn't one.
+
+		global $updraftplus;
+		$nonce = $updraftplus->nonce;
+// TODO: Apparently empty
+		$auth_code = esc_js($this->ajax_restore_auth_code);
+error_log("AC: $auth_code ... ".serialize($this->ajax_restore_auth_code));
+
+		echo <<<ENDHERE
+		<script>
+			jQuery(document).ready(function() {
+
+			backupinfo = {
+				action: 'updraft_ajaxrestore',
+				subaction: 'restore',
+				restorenonce: '$nonce',
+				ajaxauth: '$auth_code'
+			};
+
+ENDHERE;
+		$multisite = 0;
+		$timestamp = $this->ud_backup_info['timestamp'];
+		if (!empty($_REQUEST['updraft_restorer_backup_info'])) {
+			// wp_unslash() does not exist until after WP 3.5
+			if (function_exists('wp_unslash')) {
+				$backup_info = wp_unslash( $_REQUEST['updraft_restorer_backup_info'] );
+			} else {
+				$backup_info = stripslashes_deep( $_REQUEST['updraft_restorer_backup_info'] );
+			}
+			if (false != ($backup_info = json_decode($backup_info, true))) {
+				if (!empty($backup_info['timestamp'])) echo "\t\tbackupinfo.timestamp = '".esc_js($backup_info['timestamp'])."';\n";
+				if (!empty($backup_info['created_by_version'])) echo "\t\tbackupinfo.created_by_version = '".esc_js($backup_info['created_by_version'])."';\n";
+				echo "\t\tbackupinfo.multisite = ".((!empty($backup_info['multisite'])) ? '1' : '0').";\n";
+			}
+			
+		}
+
+		echo <<<ENDHERE
+
+				// This is not just a list, but a queue
+				var restore_these = [];
+
+				function do_ajax_restore(restore_this) {
+
+					var output = jQuery(restore_this.jqobject).find('.deferprogress');
+					jQuery(output).html(updraftlion.processing);
+
+					
+
+					alert("AJAX RESTORE: "+timestamp+" "+restore_this.type+" "+restore_this.backupfile);
+
+					backupinfo.type = restore_this.type;
+					backupinfo.backupfile = restore_this.backupfile;
+					backupinfo.lastone = restore_this.lastone
+
+					jQuery.post(ajaxurl, backupinfo, function(response) {
+						console.log(response);
+						try {
+							var resp = jQuery.parseJSON(response);
+							console.log(resp);
+							// TODO: Do something
+						} catch (err) {
+							console.log(err);
+							// TODO: Report error to user
+						}
+						// This recurses, but won't exhaust memory as there can only be a small number
+						do_ajax_restore_queue();
+					});
+
+
+				}
+
+				function do_ajax_restore_queue() {
+					if (restore_these.length < 1) { return; }
+ 					// Shift gets the *first* element of the array
+					restore_this = restore_these.shift();
+					// This call is asychronous - i.e. the fact it returns doesn't indicate what has or hasn't now been done
+					do_ajax_restore(restore_this);
+				}
+
+				var multisite = $multisite;
+				var timestamp = $timestamp;
+
+				// What follows is a slightly crude way of ensuring that the one marked 'lastone' actually does go last
+				jQuery('.updraft-ajaxrestore').each(function(ind){
+					var lastone = jQuery(this).data('lastone');
+					if (!lastone) {
+						var thing_to_restore = {};
+						thing_to_restore.type = jQuery(this).data('type');
+						thing_to_restore.backupfile = jQuery(this).data('backupfile');
+						thing_to_restore.jqobject = this;
+						thing_to_restore.lastone = 0;
+						restore_these.push(thing_to_restore);
+					}
+				});
+				jQuery('.updraft-ajaxrestore').each(function(ind){
+					var lastone = jQuery(this).data('lastone');
+					if (lastone) {
+						var thing_to_restore = {};
+						thing_to_restore.type = jQuery(this).data('type');
+						thing_to_restore.backupfile = jQuery(this).data('backupfile');
+						thing_to_restore.jqobject = this;
+						restore_these.push(thing_to_restore);
+						thing_to_restore.lastone = 1;
+					}
+				});
+				
+				if (restore_these.length > 0) {
+					do_ajax_restore_queue();
+				}
+
+			});
+		</script>
+ENDHERE;
 	}
 
 	// First added in UD 1.9.47. We have only ever had reports of cached stuff from WP Super Cache being retained, so, being cautious, we will only clear that for now
@@ -1338,7 +1517,7 @@ class Updraft_Restorer extends WP_Upgrader {
 						$updraftplus->log("Site information: ".$key."=".$val);
 						$old_siteinfo[$key]=$val;
 						if ('multisite' == $key) {
-							if ($val) { $this->ud_backup_is_multisite=1; } else { $this->ud_backup_is_multisite = 0;}
+							$this->ud_backup_is_multisite = ($val) ? 1 : 0;
 						}
 					}
 				}
@@ -1618,7 +1797,6 @@ class Updraft_Restorer extends WP_Upgrader {
 				# We choose, for now, to be very conservative - we only do the apparently-missing drop if we have never seen any drop - i.e. assume that in SQL dumps with missing DROPs, that it's because there are no DROPs at all
 				if (!in_array($this->new_table_name, $this->tables_been_dropped)) {
 					$updraftplus->log_e('Table to be implicitly dropped: %s', $this->new_table_name);
-					# TODO: Actually drop
 					$this->sql_exec('DROP TABLE IF EXISTS '.esc_sql($this->new_table_name), 1);
 					$this->tables_been_dropped[] = $this->new_table_name;
 				}

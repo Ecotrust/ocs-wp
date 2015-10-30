@@ -12,7 +12,7 @@
 		</a>
 		<?php endif; ?>
 		
-		<?php if ( current_user_can('publish_pages') && $this->post_type->name == 'page' && !$this->isSearch() ) : ?>
+		<?php if ( current_user_can('publish_pages') && $this->post_type->name == 'page' && !$this->isSearch() && !$this->settings->menusDisabled() ) : ?>
 		<a href="#" class="add-new-h2 open-redirect-modal" title="<?php _e('Add Link', 'nestedpages'); ?>" data-parentid="0">
 			<?php _e('Add Link', 'nestedpages'); ?>
 		</a>
@@ -29,7 +29,7 @@
 		<a href="#" class="np-btn nestedpages-toggleall" data-toggle="closed"><?php _e('Expand All', 'nestedpages'); ?></a>
 		<?php endif; ?>
 
-		<?php if ( $this->user->canSortPages() && $this->post_type->name == 'page' && !$this->isSearch() && !$this->settings->hideMenuSync() ) : ?>
+		<?php if ( $this->user->canSortPages() && $this->post_type->name == 'page' && !$this->isSearch() && !$this->settings->hideMenuSync() && !$this->isFiltered() && !$this->settings->menusDisabled() ) : ?>
 		<div class="np-sync-menu-cont" <?php if ( $this->confirmation->getMessage() ) echo 'style="margin-top:2px;"';?>>
 			<label>
 				<input type="checkbox" name="np_sync_menu" class="np-sync-menu" value="sync" <?php if ( get_option('nestedpages_menusync') == 'sync' ) echo 'checked'; ?>/> <?php _e('Sync Menu', 'nestedpages'); ?>
@@ -37,7 +37,7 @@
 		</div>
 		<?php endif; ?>
 
-		<img src="<?php echo plugins_url(); ?>/wp-nested-pages/assets/images/spinner-2x.gif" alt="loading" id="nested-loading" />
+		<img src="<?php echo NestedPages\Helpers::plugin_url(); ?>/assets/images/spinner-2x.gif" alt="loading" id="nested-loading" />
 	</div><!-- .nestedpages-top-toggles -->
 
 	<?php include(NestedPages\Helpers::view('partials/tool-list')); ?>
@@ -65,7 +65,9 @@
 
 </div><!-- .wrap -->
 
-<?php include( NestedPages\Helpers::view('forms/empty-trash-modal') ); ?>
-<?php include( NestedPages\Helpers::view('forms/clone-form') ); ?>
-<?php include( NestedPages\Helpers::view('forms/link-form') ); ?>
-<?php include( NestedPages\Helpers::view('forms/bulk-add') ); ?>
+<?php 
+include( NestedPages\Helpers::view('forms/empty-trash-modal') );
+include( NestedPages\Helpers::view('forms/clone-form') );
+include( NestedPages\Helpers::view('forms/link-form') );
+include( NestedPages\Helpers::view('forms/bulk-add') );
+include( NestedPages\Helpers::view('forms/delete-confirmation-modal') ); 

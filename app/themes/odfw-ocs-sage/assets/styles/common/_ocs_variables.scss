@@ -8,13 +8,17 @@ $sidebar-sm-columns:    2;
 // Colors
 $text-color:			#111111;
 $brand-primary:         #27ae60;
-$greyLight:				lighten(#58594B, 10%);
+$off-white:             #f1f1f2;
+$greyLighter:           #E6E7E8;
+$greyLight:				darken($greyLighter, 10%);
 $grey:					#58595B;
 $gray:					$grey;
-$greyDark:				#404041;
+$greyDark:				#414041;
 $grayDark:				$greyDark;
 $green:					#005130;
+$greenLighter:			#EFF7ED;
 $greenLight:			#D3E9D1;
+$greenMid:              #7FA797;
 $greenDark:				#00371a;
 $link-color:            $green;
 $link-hover-color:      darken($link-color, 15%);
@@ -42,8 +46,22 @@ $font-size-h4:            $font-size-base !default; // ~13px
 $font-size-h5:            $font-size-base !default;
 $font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
 
+// SPACING
+$basePadding:          14px;
+$sidebarPadding:       $basePadding;
+$innerContentPadding:  $basePadding * 2;
+
+
 // FORMS
 $input-color:			$greyDark;
+
+// TABLES
+$table-bg-accent:               $off-white;
+$table-border-color:            #77787B;
+$table-cell-padding:            12px;
+
+// OTHER BITZ
+$nav-sprite: "../images/icons-nav@2x.png";
 
 
 // Leave tablets alone.

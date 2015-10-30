@@ -1,66 +1,145 @@
-/* Temp Menu Styles */
+// Faux Columns
+// @TODO: fix for smaller sizes
 
 .sidebar {
-	background-color: $greyDark;
 	line-height: 1.2;
 	padding: 0;
 
-	> nav > ul {
+	ul, ol {
 		padding: 0;
 		/* top level nav items */
 		> li {
 			position: relative;
 
-			/* for vertical centering on the <a>s */
-			display: table;
-			min-height: 60px;
-			width: 100%;
 
-			&.active > a, > a:hover {
-				background-color: #ffffff;
-				color: #000000;
-			}
+
+
 
 			> a {
 				/*background: url(../images/icons-nav@2x.png) 0 -4px no-repeat;*/
-				color: #fff;
 				display: block;
-				padding: 14px 14px 14px 60px;
-				font-family: $headings-font-family;
 				font-size: 14px;
 				font-weight: 500;
 				letter-spacing: 0.02em;
 				text-transform: uppercase;
 
-				height: 60px;
-
-				vertical-align: middle;
-				display: table-cell;
 				width: 100%;
 			}
-			> a:before{
-				content: " ";
-				display: block;
-				height: 62px;
-				margin-left: -62px;
-				position: absolute;
-				top: -4px;
-				width: 62px;
+
+
+		}
+
+		//
+		// Main Site Left Nav
+		//
+		// generate sprite positions
+
+
+		&.main-ocs-navigation {
+
+			background-color: $greyDark;
+
+
+			@for $i from 0 through 9 {
+				>li:nth-child(#{$i+1}) > a:before{
+					background: url($nav-sprite) 0 $i*-62px no-repeat;
+				}
+				//>li:nth-child(#{$i+1}) > a:hover:before,
+				>li:nth-child(#{$i+1}).active > a:before,
+				{
+					background: url($nav-sprite) -62px $i*-62px no-repeat;
+				}
+
+			}
+			> li {
+				/* for vertical centering on the <a>s */
+				display: table;
+				min-height: 60px;
+				width: 100%;
+				> ul {
+					display: none;
+				}
+				&.active > a {
+					background-color: #fff;
+					color: #000000;
+				}
+				> a:hover {
+					background-color: darken($greyDark, 10%);
+					text-decoration: none;
+				}
+				> a {
+					/*background: url(../images/icons-nav@2x.png) 0 -4px no-repeat;*/
+					color: #fff;
+					display: table-cell;
+					font-family: $headings-font-family;
+					height: 60px;
+					padding: 14px 14px 14px 60px;
+					vertical-align: middle;
+				}
+
+				> a:before {
+					content: " ";
+					display: block;
+					height: 62px;
+					margin-left: -62px;
+					position: absolute;
+					top: -4px;
+					width: 62px;
+				}
+
 			}
 
 		}
-		// generate sprite positions
-		$nav-sprite: "../images/icons-nav@2x.png";
-		@for $i from 0 through 9 {
-			>li:nth-child(#{$i+1}) > a:before{
-				background: url($nav-sprite) 0 $i*-62px no-repeat;
+
+
+		&.sub-page-navigation, &.scroll-nav__list {
+
+			background-color: $greyLighter;
+
+			> li {
+				/*margin: 3px -15px;*/
+
+				> a {
+					color: $greyDark;
+					font-family: $headings-font-family-lighter;
+					font-weight: normal;
+					padding: 10px $sidebarPadding;
+				}
+				&.current_page_item > a,
+				> a:hover {
+					background-color: $grey;
+					color: #fff;
+					text-decoration: none;
+				}
 			}
-			>li:nth-child(#{$i+1}) > a:hover:before,
-			>li:nth-child(#{$i+1}).active > a:before,
-			{
-				background: url($nav-sprite) -62px $i*-62px no-repeat;
+			.children {
+				display: none;
+			}
+			>.current_page_item .children {
+				display: block;
+			}
+			.sub-menu a, .children a {
+				color: $grey;
+				display: block;
+				font-family: $headings-font-family-lighter;
+				min-height: auto;
+				padding: 6px 8px 8px 24px;
+				/*text-transform: none;*/
+				font-size: 14px;
+			}
+			.active .sub-menu { display: table-row; }
+		}
+
+		/*
+		&.scroll-nav__list {
+			> li {
+				&.current_page_item > a,
+				> a:hover {
+					background-color: $greyLight;
+				}
 			}
 		}
+		*/
 
 	}
 
@@ -74,20 +153,7 @@
 		margin: 0;
 		padding: 0;
 	}
-	.sub-menu a {
-		color: #ffffff;
-		display: block;
-		font-family: $headings-font-family-lighter;
-		min-height: auto;
-		padding: 8px 8px 10px 24px;
-		text-transform: none;
-		font-size: 11px;
-	}
-	.sub-menu .sub-menu a {
-		padding-left: 37px;
-	}
-	.sub-menu { display: none; }
-	.active .sub-menu { display: table-row; }
+
 
 
 	.active a {
@@ -108,15 +174,27 @@
 		background-repeat: no-repeat;
 	}
 
+}
 
-}
-/* @TODO a class should be added to pages with an inner sidebar
- * this is just blanketed for now
- */
-.single main article {
-	@include make-sm-column(9);
-}
 .inner-sidebar {
-	background-color: #E6E7E8;
-	@include make-sm-column(3);
+	background-color: $greyLighter;
+
+	h2, .scroll-nav__heading {
+		padding-left: $sidebarPadding;
+	}
+}
+.sub-page-navigation+.on-page-nav {
+	border-top: 1px solid $greyLight;
+	padding-top: $basePadding;
+	margin-top: $basePadding;
+}
+.scroll-nav__heading {
+	@extend h2;
+	display: block;
+}
+/*.scroll-nav.fixed .scroll-nav__wrapper {*/
+.scroll-nav.fixed {
+  position: fixed;
+  top: 60px;
+  width: inherit;
 }
