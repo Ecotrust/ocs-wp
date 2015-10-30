@@ -18,6 +18,10 @@
 	right: 0;
 	z-index: 1040;
 
+    .admin-bar & {
+      padding-top: 31px;
+    }
+
 	.brand {
 		background-color: $green;
 		display: inline-block;

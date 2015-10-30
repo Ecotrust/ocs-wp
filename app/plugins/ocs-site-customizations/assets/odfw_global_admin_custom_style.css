@@ -46,3 +46,13 @@
     overflow: hidden;
     text-indent: -3em;
 }
+
+
+/*
+.toplevel_page_tablepress #edit-form-body textarea {
+	min-width: 200px;
+}
+*/
+.toplevel_page_tablepress #edit-form-body .focus td {
+	height: 200px;
+}
