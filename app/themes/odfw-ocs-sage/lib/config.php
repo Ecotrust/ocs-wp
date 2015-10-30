@@ -54,10 +54,11 @@ function display_sidebar() {
        */
       [
         'is_404',
+		'is_front_page',
+		//['is_page',  [99, 101, 102, 105, 109] ],
         ['is_page_template', 'template-custom.php']
       ]
     );
-
     $display = apply_filters('sage/display_sidebar', $conditionalCheck->result);
   }
 

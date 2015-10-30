@@ -1,12 +1,13 @@
-p, li, td, dt, dl, caption {
-	font-weight: 300;
-	max-width: 600px;
+.main-content {
+	p, li, dt, dl, caption {
+		font-weight: 300;
+		max-width: 600px;
 
-	//quick fix. @TODO set with bootstrap vars/computation
-	margin-top: $line-height-px;
-	margin-bottom: 0;
+		//quick fix. @TODO set with bootstrap vars/computation
+		margin-top: $line-height-px;
+		margin-bottom: 0;
+	}
 }
-
 h1, h2 {
 	text-transform: uppercase;
 }

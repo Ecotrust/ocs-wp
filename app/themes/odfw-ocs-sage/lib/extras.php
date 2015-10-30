@@ -17,7 +17,7 @@ function body_class($classes) {
 
   // Add class if sidebar is active
   if (Config\display_sidebar()) {
-    $classes[] = 'sidebar-primary';
+    $classes[] = 'has-sidebar';
   }
 
   return $classes;
