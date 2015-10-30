@@ -1,5 +1,10 @@
 {
   "dependencies": {
+	"plugins.js": {
+	  "files": [
+        "scripts/jquery.scrollNav.js"
+      ]
+	},
 	"main.js": {
 	  "files": [
 		"scripts/main.js",
@@ -23,6 +28,11 @@
 		"styles/editor-style.scss"
 	  ]
 	},
+	/*
+	"anchor.js": {
+	  "bower": ["anchor-js"]
+	},
+	*/
 	"jquery.js": {
 	  "bower": ["jquery"]
 	},

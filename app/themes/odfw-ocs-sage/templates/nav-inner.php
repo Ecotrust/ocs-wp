@@ -37,12 +37,13 @@ if ($pType != "post" && $pType != "page" && $pType != "attachment"){
 	endif;
 }
 
+// Still More UX Work TODO. For now, "In This Section"
+$title = "In This Section";
 ?>
 <?php
 $page_list = wp_list_pages("title_li=&child_of=" . $menuParent . "&echo=0");
 if ($page_list) { ?>
 
-	<nav>
 		<?php if ( !empty( $title ) ): ?>
 		<h2><?= $title; ?></h2>
 		<?php endif; ?>
@@ -50,14 +51,11 @@ if ($page_list) { ?>
 	//TODO? if (cpt) echo "<a>See all {post_type}</a>";
 	// Could list them all but not species?
 ?>
+<nav>
 		<ul class="sub-page-navigation">
 			<?php echo $page_list; ?>
 		</ul>
-
-		<!-- @TODO? Generic "On This Page"?  "Explore more $post_title"? -->
-		<ul class="on-page-nav sub-page-navigation">
-
-		</ul>
-	</nav>
+<nav>
 
 <?php } ?>
+<div class="on-page-nav"></div>

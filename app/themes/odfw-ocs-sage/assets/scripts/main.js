@@ -38,10 +38,26 @@
 	  finalize: function() {
 	  }
 	},
-	// About us page, note the change from about-us to about_us.
-	'about_us': {
+  // pages with a sidebar
+	'has_sidebar': {
 	  init: function() {
-	  }
+      $('.entry-content').scrollNav({
+        sections: 'h2, .toc-item',
+        subSections: false,
+        sectionElem: 'section',
+        className: 'scroll-nav',
+        headlineText: 'On This Page',
+        showTopLink: false,
+        fixedMargin: 60,
+        scrollOffset: 80,
+        animated: true,
+        speed: 300,
+        insertTarget: '.on-page-nav',
+        insertLocation: 'prependTo',
+        activeClass: 'current_page_item',
+        scrollToHash: true
+      });
+    }
 	}
   };
 

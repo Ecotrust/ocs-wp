@@ -8,14 +8,17 @@ $sidebar-sm-columns:    2;
 // Colors
 $text-color:			#111111;
 $brand-primary:         #27ae60;
+$off-white:             #f1f1f2;
 $greyLighter:           #E6E7E8;
-$greyLight:				lighten(#58594B, 10%);
+$greyLight:				darken($greyLighter, 10%);
 $grey:					#58595B;
 $gray:					$grey;
 $greyDark:				#414041;
 $grayDark:				$greyDark;
 $green:					#005130;
+$greenLighter:			#EFF7ED;
 $greenLight:			#D3E9D1;
+$greenMid:              #7FA797;
 $greenDark:				#00371a;
 $link-color:            $green;
 $link-hover-color:      darken($link-color, 15%);
@@ -56,6 +59,10 @@ $input-color:			$greyDark;
 $table-bg-accent:               $off-white;
 $table-border-color:            #77787B;
 $table-cell-padding:            12px;
+
+// OTHER BITZ
+$nav-sprite: "../images/icons-nav@2x.png";
+
 
 // Leave tablets alone.
 $screen-sm:                  560px !default;

@@ -1,21 +1,36 @@
 // Grid system
 .main {
-  @include make-sm-column($main-sm-columns - $sidebar-sm-columns);
-  .has-sidebar & {
-	padding: 0;
-	// Right sidebar
-	&::after {
-		background-color: $greyLighter;
-		bottom: 0;
-		content: "";
-		left: 75%;
-		left: $main-sm-columns - $sidebar-sm-columns;
-		position: absolute;
-		right: 0;
-		top: 0;
-		z-index: -1;
+	@include make-sm-column($main-sm-columns - $sidebar-sm-columns);
+	min-height: 100vh;
+
+	// clear the fixed footer
+	// @TODO MQs. 47px is the default for two lines but as the screen shrinks...
+	padding-bottom: 87px;
+
+	.has-sidebar & {
+		padding: 0;
+		// Right sidebar
+		&::before, &::after{
+			background-color: $greyDark;
+			left: -33%;
+			bottom: 0;
+			content: "";
+			position: absolute;
+			right: 0;
+			top: 0;
+			z-index: -1;
+		}
+		&::before {
+			background-color: $greyDark;
+			width: 33%;
+			left: -33%;
+		}
+		&::after {
+			background-color: $greyLighter;
+			left: 75%;
+			left: $main-sm-columns - $sidebar-sm-columns;
+		}
 	}
-  }
 }
 
 .sidebar {
@@ -23,7 +38,7 @@
 }
 .main-content {
 	@include make-sm-column(9);
-	padding: 0 $innerContentPadding;
+	padding: 0 $innerContentPadding 150px $innerContentPadding;
 }
 .inner-sidebar {
 	@include make-sm-column(3);

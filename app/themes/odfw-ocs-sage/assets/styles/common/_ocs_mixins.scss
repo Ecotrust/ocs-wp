@@ -39,4 +39,16 @@ $retina: "(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)";
 	line-height: 62px;
 }
 
+.list-reset {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+@mixin top-button () {
+	background-color: $greenLighter;
+	border: none;
+	display: inline-block;
+	line-height: 62px;
+	text-align: center;
+}
 
