@@ -24,7 +24,7 @@
     */
 
     //temp hack until HTML is updated!
-    $('table').attr('border', 0).addClass('table');
+    $('table').attr('border', 0);
 
 	  },
 	  finalize: function() {
