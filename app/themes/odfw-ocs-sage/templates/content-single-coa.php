@@ -9,7 +9,7 @@
 
 
 <section class="cmb2-wrap-text coa_meta_id">
-    <h3>COA ID</h3>
+    <h2>COA ID</h2>
 
     <p class="cmb2-text">
         <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_id', true );
@@ -20,7 +20,7 @@
 
 
 <section class="cmb2-wrap-custom_attached_posts coa_meta_attached_ecoregions">
-    <h3>Associated Ecoregions</h3>
+    <h2>Associated Ecoregions</h2>
 
     <p class="cmb2-custom_attached_posts">
         <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_attached_ecoregions', true );
@@ -31,7 +31,7 @@
 
 
 <section class="cmb2-wrap-textarea coa_meta_name-Description">
-    <h3>COA Description</h3>
+    <h2>COA Description</h2>
 
     <p class="cmb2-textarea">
         <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_name-Description', true );
@@ -42,7 +42,7 @@
 
 
 <section class="cmb2-wrap-text coa_meta_key-habitats">
-    <h3>Key Habitats</h3>
+    <h2>Key Habitats</h2>
 
     <p class="cmb2-text">
         <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_key-habitats', true );
@@ -53,7 +53,7 @@
 
 
 <section class="cmb2-wrap-text coa_meta_key-species">
-    <h3>Key Species</h3>
+    <h2>Key Species</h2>
 
     <p class="cmb2-text">
         <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_key-species', true );
@@ -64,7 +64,7 @@
 
 
 <section class="cmb2-wrap-text coa_meta_kci-connections">
-    <h3>KCI Connections</h3>
+    <h2>KCI Connections</h2>
 
     <p class="cmb2-text">
         <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_kci-connections', true );
@@ -75,7 +75,7 @@
 
 
 <section class="cmb2-wrap-pw_multiselect coa_meta_species">
-    <h3>Select Species</h3>
+    <h2>Select Species</h2>
 
     <p class="cmb2-pw_multiselect">
         <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_species', true );
@@ -86,7 +86,7 @@
 
 
 <section class="cmb2-wrap-custom_attached_posts coa_meta_attached_habitats">
-    <h3>Associated Strategy Habitats</h3>
+    <h2>Associated Strategy Habitats</h2>
 
     <p class="cmb2-custom_attached_posts">
         <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_attached_habitats', true );
@@ -97,7 +97,7 @@
 
 
 <section class="cmb2-wrap-textarea_small coa_meta_recommended-conservation-actions">
-    <h3>Recommended Conservation Actions</h3>
+    <h2>Recommended Conservation Actions</h2>
 
     <p class="cmb2-textarea_small">
         <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended-conservation-actions', true );
