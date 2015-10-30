@@ -1,4 +1,4 @@
-<article <?php post_class(); ?>>
+<section <?php post_class(); ?>>
 
 
 <?php
@@ -36,3 +36,4 @@
 
 ?>
 </section>
+
