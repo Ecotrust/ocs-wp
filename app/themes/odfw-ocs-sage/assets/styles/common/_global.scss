@@ -2,20 +2,54 @@
 body {
 	// space for the fixed header
 	padding-top: 62px;
-
+    
 
 }
 
 // make the bs .table styles the default for all tables
-table {
+table, .tablepress  {
 	@extend .table;
 	@extend .table-striped;
 	@extend .table-bordered;
 	margin-top: 15px;
 	margin-bottom: 15px;
 
-	> thead > th {
+	> thead th, tfoot th {
 		background-color: $grey;
 		color: #ffffff;
+        a {
+            color: #fff;
+            text-decoration: underline;
+
+            &:hover {
+                color: $greenLight;
+            }
+
+        }
 	}
+	th {
+		font-family: $body-font-bolder;
+        tfoot & {
+            font-family: $body-font;
+        }
+    }
+
+    &.table-centered-header {
+        th {
+          text-align: center;
+        }
+    }
+    
+    &.table-row-headers {
+        tbody>tr>td:first-child {
+    		font-family: $body-font-bolder;
+        }
+    }
+
+    &.table-second-header-row  {
+
+    }
+    &.table-x-table {
+
+    }
 }

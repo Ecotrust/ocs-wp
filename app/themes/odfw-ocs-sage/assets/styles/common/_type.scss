@@ -1,5 +1,5 @@
 .main-content {
-	p, li, dt, dl, caption {
+	p, li, caption {
 		font-weight: 300;
 		max-width: 600px;
 
@@ -60,4 +60,34 @@ p, li, dt, td {
 	> strong {
 		font-family: $body-font-bolder;
 	}
+}
+.citation-list {
+    > br {
+        display: none;
+    }
+    li {
+        margin-top: 5px;
+    }
+}
+dt {
+  //margin-top: 1em;
+  font: 14px $body-font-bold;
+}
+dd {
+  margin-bottom: 1em;
+}
+
+// Specialized and Local Habitats
+.page-id-108 {
+    h3 {
+      border-bottom: 1px solid #ccc;
+      font-size: $font-size-h2;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    dl {
+      @extend .dl-horizontal;
+    }
+
 }
