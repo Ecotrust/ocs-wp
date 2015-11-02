@@ -23,10 +23,16 @@ PHP requirement is in order to run the site. Node, gulp and Bower requirements a
 3. `$ git submodule init` # Get WordPress
 4. `$ git submodule update`.
 
-### Environment
+### Install/Setup
+1. Create a database
+2. Import the existing database however you like. Easist, particularly with a large DB + MAMP is with [WP-CLI](http://wp-cli.org/): `$ wp db import /path/to/data.sql`
 1. Copy `local-config-sample.php` to `local-config.php`
 2. Edit `local-config.php` and add you database connection details
 3. If this is a production environment, change the `WP_ENV` constant to `production`
+4. [optional pt 1] Add an entry to /etc/hosts for ocs
+5. [optional pt 1] Create a vhost for OCS (for MAMP that's in `/Applications/MAMP/conf/apache/extra/httpd-vhosts.conf`)
+6. Restart Apache 
+4. Wordpress Admin is at /wordpress/wp-admin.php
 
 ## Development
 Custom code for the OCS currently lives in two places:  
@@ -67,9 +73,9 @@ The OCS theme is built on top of the [Sage](https://github.com/roots/sage) start
 7. `$ git commit -m "Update Wordpress to 4.3.1"`
 
 ### Update Plugins
-Either use the admin panel or use [WP-CLI](http://wp-cli.org/). With WP-CLI installed, navigate to the `/wordpress` folder and run:
+Either use the admin panel or use [WP-CLI](http://wp-cli.org/). With WP-CLI installed, navigate to the `/wordpress` folder and run (eg):
 
-`$ wp plugin update soil`
+`$ wp plugin update hello-dolly`
 
 or
 
