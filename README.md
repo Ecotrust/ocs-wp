@@ -49,7 +49,7 @@ The OCS theme is built on top of the [Sage](https://github.com/roots/sage) start
 3. From the theme folder `$ cd app/themes/odfw-ocs-sage`
 	* run `$ npm install` to have npm install additional theme dependencies
 	* run `$ bower install` to install frontend dependencies  
-4. All set! From the theme folder run `$ gulp serve` to work on theme. gulp will start a server at http://localhost:3000/ and will watch all of the files in the theme. Any changes you make will be compiled automatically (from sass/js/php...) and your browser will automatically update to reflect the changes. Note that while the gulp server will serve assets and refresh PHP you still need to run a LAMP stack (or equivalent server).
+4. All set! From the theme folder run `$ gulp watch` to work on theme. gulp will start a server at http://localhost:3000/ and will watch all of the files in the theme. Any changes you make will be compiled automatically (from sass/js/php...) and your browser will automatically update to reflect the changes. Note that while the gulp server will serve assets and refresh PHP you still need to run a LAMP stack (or equivalent server).
 
 #### Available gulp commands
 * `gulp` — Compile and optimize the files in the assets directory
