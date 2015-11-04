@@ -11,7 +11,7 @@
     </header>
     <div class="entry-content">
 
-	<figure class="species-hero">
+	<figure class="hero">
 		<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_image', true ); ?>
 		<?php if ( !empty($the_field) ): ?>
 			<img src="<?php echo esc_html( $the_field ); ?>">
