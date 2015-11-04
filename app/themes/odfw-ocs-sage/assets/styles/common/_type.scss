@@ -83,6 +83,10 @@ dd {
       border-bottom: 1px solid #ccc;
       font-size: $font-size-h2;
       margin-bottom: 10px;
+	  margin-top: 0;
+	  padding-bottom: 4px;
+	  // deal with the top bar when #linking
+	  padding-top: 70px;
       text-transform: uppercase;
     }
 
@@ -90,4 +94,10 @@ dd {
       @extend .dl-horizontal;
     }
 
+}
+
+abbr[title], acronym[title] {
+	cursor: help;
+    text-decoration: none;
+	border-bottom: 1px dotted $grey;
 }

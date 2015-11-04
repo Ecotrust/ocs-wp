@@ -28,11 +28,6 @@
 		"styles/editor-style.scss"
 	  ]
 	},
-	/*
-	"anchor.js": {
-	  "bower": ["anchor-js"]
-	},
-	*/
 	"jquery.js": {
 	  "bower": ["jquery"]
 	},
