@@ -97,7 +97,7 @@ dd {
 }
 
 abbr[title], acronym[title] {
+	border-bottom: 1px dotted $grey;
 	cursor: help;
     text-decoration: none;
-	border-bottom: 1px dotted $grey;
 }

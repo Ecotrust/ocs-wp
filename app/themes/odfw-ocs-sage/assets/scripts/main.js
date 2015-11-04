@@ -13,11 +13,16 @@
 (function($) {
 
   var OCS = {
+    $body : $('body'),
 	// All pages
 	'common': {
 	  init: function() {
 		// JavaScript to be fired on all pages
+
+
     /*
+     * Image Attribution
+     * Check https://github.com/Ecotrust/commonplace-magazine/search?utf8=%E2%9C%93&q=photo-info
 		CP.$body.on('click touchstart', '.photo-info', function () {
 			$(this).toggleClass('visible');
 		});
@@ -29,6 +34,8 @@
 	  },
 	  finalize: function() {
 		// JavaScript to be fired on all pages, after page specific JS is fired
+
+      // BootStrap ToolTips
       $('[title]').tooltip();
 	  }
 	},
@@ -39,6 +46,13 @@
 	  finalize: function() {
 	  }
 	},
+  'conservation_opportunity_areas': {
+	  init: function() {
+		// JavaScript to be fired on COA pages
+	  },
+	  finalize: function() {
+	  }
+  },
   // pages with a sidebar
 	'has_sidebar': {
 	  init: function() {
