@@ -14,9 +14,10 @@ table, .tablepress  {
 	margin-top: 15px;
 	margin-bottom: 15px;
 
-	> thead th, tfoot th {
+	> thead th {
 		background-color: $grey;
 		color: #ffffff;
+		font-family: $body-font-bolder;
         a {
             color: #fff;
             text-decoration: underline;
@@ -27,17 +28,22 @@ table, .tablepress  {
 
         }
 	}
-	th {
-		font-family: $body-font-bolder;
-        tfoot & {
-            font-family: $body-font;
-        }
-    }
+	> tfoot th {
+		background-color: $greyLighter;
+		font-family: $body-font;
+		font-weight: normal;
+		text-align: left;
+		br {
+			margin-bottom: 1em;
+		}
+	}
 
     &.table-centered-header {
-        th {
+        thead th {
           text-align: center;
         }
+		// @TODO
+		//td not==1 text-align: center;
     }
     
     &.table-row-headers {
