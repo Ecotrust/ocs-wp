@@ -32,10 +32,12 @@
         $('[title]').tooltip();
 
         //Toggle method for switching between compass iframes
-        $("li.view-map").click(function(){
-          $compass.toggle();
-          $("main").toggle();
-        });
+        if ($compass.length) {
+            $("li.view-map").click(function(){
+              $compass.toggle();
+              $("main").toggle();
+            });
+        }
 	  }
 	},
 	'home': {

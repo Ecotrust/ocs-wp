@@ -1,6 +1,5 @@
 <article <?php post_class(); ?>>
 
-
 <?php
 	$args = array(
 		'post_type' => 'ecoregion',
