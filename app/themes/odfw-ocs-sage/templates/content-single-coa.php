@@ -6,9 +6,11 @@
 
     <?php $the_compass_field = get_post_meta( get_the_ID(), 'coa_meta_compass-link', true );
         if ( ! empty($the_compass_field) ): ?>
-           <div class="compass main">
+            <div class="compass main">
                 <div class="compass-frame">
-                    <span class="compass-close"></span>
+                    <span class="compass-close">
+                        <i class="glyphicon glyphicon-remove-sign"></i>
+                    </span>
                     <?php the_odfw_compass_iframe($the_compass_field); ?>
                 </div>
             </div>

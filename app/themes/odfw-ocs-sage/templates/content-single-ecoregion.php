@@ -6,12 +6,14 @@
 
     <?php $the_compass_field = get_post_meta( get_the_ID(), 'ecoregion_meta_compass-link', true );
         if ( ! empty($the_compass_field) ): ?>
-           <div class="compass main">
-                <div class="compass-frame">
-                    <span class="compass-close"></span>
-                    <?php the_odfw_compass_iframe($the_compass_field); ?>
-                </div>
-            </div>
+            <div class="compass main">
+            	<div class="compass-frame">
+            		<span class="compass-close">
+            			<i class="glyphicon glyphicon-remove-sign"></i>
+            		</span>
+        			<?php the_odfw_compass_iframe($the_compass_field); ?>
+        		</div>
+        	</div>
     <?php endif; ?>
 
     <div class="entry-content">
