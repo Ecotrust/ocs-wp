@@ -3,6 +3,14 @@
     <header>
       <h1 class="entry-title"><?php the_title(); ?></h1>
     </header>
+
+	<?php $the_compass_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_compass-link', true );
+		if ( ! empty($the_compass_field) ): ?>
+		    <div class="compass-frame main">
+				<?php the_odfw_compass_iframe($the_compass_field); ?>
+			</div>
+	<?php endif; ?>
+
     <div class="entry-content">
 
       <?php the_content(); ?>
@@ -100,15 +108,6 @@
 				echo wpautop( $the_field ); ?>
 			</div>
 		</section>
-
-
-
-		<?php $the_compass_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_compass-link', true );
-			if ( ! empty($the_compass_field) ): ?>
-				<?php the_odfw_compass_iframe($the_compass_field); ?>
-		<?php endif; ?>
-
-
 
     </div>
 

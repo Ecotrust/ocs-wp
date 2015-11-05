@@ -11,25 +11,31 @@
  * ======================================================================== */
 
 (function($) {
-
+  var $compass = $(".compass-frame.main"); //iframe element
   var OCS = {
 	// All pages
 	'common': {
 	  init: function() {
 		// JavaScript to be fired on all pages
+        if ($compass.length) $compass.insertBefore("main");
     /*
 		CP.$body.on('click touchstart', '.photo-info', function () {
 			$(this).toggleClass('visible');
 		});
     */
 
-    //temp hack until HTML is updated!
-    $('table').attr('border', 0);
-
+        //temp hack until HTML is updated!
+        $('table').attr('border', 0);
 	  },
 	  finalize: function() {
 		// JavaScript to be fired on all pages, after page specific JS is fired
-      $('[title]').tooltip();
+        $('[title]').tooltip();
+
+        //Toggle method for switching between compass iframes
+        $("li.view-map").click(function(){
+          $compass.toggle();
+          $("main").toggle();
+        });
 	  }
 	},
 	'home': {
