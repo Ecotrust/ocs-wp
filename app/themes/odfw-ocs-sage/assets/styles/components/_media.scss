@@ -14,10 +14,10 @@
 
 }
 
-.compass-frame.main {
+.compass.main {
 	display: none;
-	& .compass-wrap {
-		height: 100vh;
+	> .compass-frame {
+		position: relative;
 	}
 }
 
@@ -35,6 +35,17 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
+	}
+}
+
+.compass-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+
+	::before {
+		content: 'X';
 	}
 }
 

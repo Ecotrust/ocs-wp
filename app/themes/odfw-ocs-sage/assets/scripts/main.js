@@ -11,7 +11,7 @@
  * ======================================================================== */
 
 (function($) {
-  var $compass = $(".compass-frame.main"); //iframe element
+  var $compass = $(".compass.main"); //iframe element
   var OCS = {
 	// All pages
 	'common': {

@@ -4,6 +4,16 @@
       <h1 class="entry-title"><?php the_title(); ?></h1>
     </header>
 
+    <?php $the_compass_field = get_post_meta( get_the_ID(), 'ecoregion_meta_compass-link', true );
+        if ( ! empty($the_compass_field) ): ?>
+           <div class="compass main">
+                <div class="compass-frame">
+                    <span class="compass-close"></span>
+                    <?php the_odfw_compass_iframe($the_compass_field); ?>
+                </div>
+            </div>
+    <?php endif; ?>
+
     <div class="entry-content">
 
 		<?php the_content(); ?>
