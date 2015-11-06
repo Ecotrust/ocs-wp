@@ -1572,9 +1572,13 @@ tfoot .tablepress th,tfoot table th{font-family:HelveticaNeue-45Lt,"Helvetica Ne
 .compass.main>.compass-frame{position:relative}
 .compass-wrap{position:relative;padding-bottom:56.25%;padding-bottom:75%;height:0;overflow:hidden}
 .compass-wrap>iframe{position:absolute;top:0;left:0;width:100%;height:100%}
-.compass-close{position:absolute;top:20px;right:15px;cursor:pointer;z-index:1000000}
+.compass-close{position:absolute;top:20px;right:15px;cursor:pointer;z-index:1000}
 .compass-close>.glyphicon-remove-sign{font-size:2.25em;color:#58595B}
 .compass-close>.glyphicon-remove-sign:hover{color:#414041}
+.view-compass{position:absolute;bottom:300px;right:15px;border:1.5px solid #27ae60;font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:18px;background-color:#f1f1f2;padding:6px;z-index:1000}
+.view-compass:hover{background-color:#E6E7E8}
+.view-compass .glyphicon{color:#005130}
+.view-compass a{color:#414041;text-decoration:none}
 .photo-info{background:transparent url(../img/sprite-icons.png) -100px -144px no-repeat;cursor:pointer;height:40px;overflow:hidden;position:absolute;bottom:10px;right:10px;width:40px;z-index:1000}
 @media (min-width:560px){.photo-info{bottom:30px;left:40px}
 }

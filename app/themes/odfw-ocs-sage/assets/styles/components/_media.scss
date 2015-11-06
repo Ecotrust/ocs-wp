@@ -16,6 +16,7 @@
 
 .compass.main {
 	display: none;
+
 	> .compass-frame {
 		position: relative;
 	}
@@ -43,7 +44,7 @@
 	top: 20px;
 	right: 15px;
 	cursor: pointer;
-	z-index: 1000000;
+	z-index: 1000;
 
 	> .glyphicon-remove-sign {
 		font-size: 2.25em;
@@ -52,6 +53,32 @@
 		&:hover {
 			color: $greyDark;
 		}
+	}
+}
+
+.view-compass {
+	position: absolute;
+	bottom: 300px;
+	right: 15px;
+	border: 1.5px solid $brand-primary;
+	font-family: $headings-font-family-lighter;
+	font-size: 18px;
+	background-color: $off-white;
+	padding: 6px;
+	z-index: 1000;
+
+	&:hover {
+		background-color: $greyLighter;
+	}
+
+
+	.glyphicon {
+		color: $link-color;
+	}
+
+	a {
+		color: $greyDark;
+		text-decoration: none;
 	}
 }
 
