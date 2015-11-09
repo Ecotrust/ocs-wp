@@ -1558,8 +1558,6 @@ dt{font:14px HelveticaNeue-65Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
 dd{margin-bottom:1em}
 .page-id-108 h3{border-bottom:1px solid #ccc;font-size:18px;margin-bottom:10px;text-transform:uppercase}
 body{padding-top:62px}
-body main{display:block}
-body .compass{display:none}
 .tablepress,table{margin-top:15px;margin-bottom:15px}
 .tablepress tfoot th,.tablepress>thead th,table tfoot th,table>thead th{background-color:#58595B;color:#fff}
 .tablepress tfoot th a,.tablepress>thead th a,table tfoot th a,table>thead th a{color:#fff;text-decoration:underline}
@@ -1601,20 +1599,20 @@ tfoot .tablepress th,tfoot table th{font-family:HelveticaNeue-45Lt,"Helvetica Ne
 .alignright{float:right;margin-left:9px}
 }
 .wp-caption-text{padding:9px}
-body li.view-map{display:none}
+body .compass,body li.view-map{display:none}
+body main{display:block}
 body.map-visible main{display:none}
-body.map-visible .compass{display:block}
+body.map-visible .compass{display:block;position:relative}
 body.map-available li.view-map{display:block}
-.compass-frame{position:relative}
 .compass-wrap{position:relative;padding-bottom:56.25%;padding-bottom:75%;overflow:hidden}
-.compass-wrap>iframe{position:absolute;top:0;left:0;width:100%;min-height:100vh}
+.compass-wrap>iframe{position:absolute;top:0;left:0;width:100%;height:calc(100vh - 62px)}
 .compass-close{position:absolute;top:20px;right:15px;cursor:pointer;z-index:1000}
 .compass-close>.glyphicon-remove-sign{font-size:2.25em;color:#58595B}
 .compass-close>.glyphicon-remove-sign:hover{color:#414041}
-.view-compass{position:absolute;bottom:300px;right:15px;font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:18px;border:1.5px solid #27ae60;background-color:#f1f1f2;padding:6px;z-index:1000}
-.view-compass:hover{background-color:#E6E7E8}
-.view-compass .glyphicon{color:#005130}
-.view-compass a{color:#414041;text-decoration:none}
+.view-external-compass{position:absolute;bottom:35px;right:15px;font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:18px;border:1.5px solid #27ae60;background-color:#f1f1f2;padding:6px;z-index:1000}
+.view-external-compass:hover{background-color:#E6E7E8}
+.view-external-compass .glyphicon{color:#005130}
+.view-external-compass a{color:#414041;text-decoration:none}
 ::-webkit-input-placeholder{color:#414041}
 :-moz-placeholder{color:#414041}
 :-ms-input-placeholder{color:#414041}
