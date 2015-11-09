@@ -12,7 +12,7 @@
                         <i class="glyphicon glyphicon-remove-sign"></i>
                     </span>
                     <div class="view-compass">
-                        <a href="#">
+                        <a href="<?php echo external_odfw_compass_url($the_compass_field) ?>"  target="_blank">
                             <i class="glyphicon glyphicon-dashboard"></i> 
                             VIEW DATA LAYERS IN COMPASS
                         </a>

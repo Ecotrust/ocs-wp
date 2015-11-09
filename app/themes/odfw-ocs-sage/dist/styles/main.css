@@ -1605,10 +1605,9 @@ body li.view-map{display:none}
 body.map-visible main{display:none}
 body.map-visible .compass{display:block}
 body.map-available li.view-map{display:block}
-.compass.main{height:100vh}
-.compass.main>.compass-frame{position:relative}
-.compass-wrap{position:relative;padding-bottom:56.25%;padding-bottom:75%;height:0;overflow:hidden}
-.compass-wrap>iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+.compass-frame{position:relative}
+.compass-wrap{position:relative;padding-bottom:56.25%;padding-bottom:75%;overflow:hidden}
+.compass-wrap>iframe{position:absolute;top:0;left:0;width:100%;min-height:100vh}
 .compass-close{position:absolute;top:20px;right:15px;cursor:pointer;z-index:1000}
 .compass-close>.glyphicon-remove-sign{font-size:2.25em;color:#58595B}
 .compass-close>.glyphicon-remove-sign:hover{color:#414041}
