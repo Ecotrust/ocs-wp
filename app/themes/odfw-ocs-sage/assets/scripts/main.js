@@ -17,7 +17,10 @@
 	'common': {
 	  init: function() {
 		// JavaScript to be fired on all pages
-        if ($compass.length) $compass.insertBefore("main");
+        if ($compass.length) {
+            $compass.insertBefore("main");
+            $('body').toggleClass('map-available');
+        }
     /*
 		CP.$body.on('click touchstart', '.photo-info', function () {
 			$(this).toggleClass('visible');
@@ -31,17 +34,10 @@
 		// JavaScript to be fired on all pages, after page specific JS is fired
         $('[title]').tooltip();
 
-        //Toggle method for switching between compass iframes
-        $("li.view-map").click(function(){
-          $compass.toggle();
-          $("main").toggle();
-        });
-
-        //iframe 'X' close-out
-        $("span.compass-close").click(function() {
-          $compass.hide();
-          $("main").show();
-        });
+        //Toggle class for switching between compass and main content
+        $('li.view-map, span.compass-close').click(function(){
+            $('body').toggleClass('map-visible')
+        })
 	  }
 	},
 	'home': {

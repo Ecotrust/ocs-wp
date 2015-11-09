@@ -14,16 +14,8 @@
 
 				<nav class="view-switcher">
 					<ul>
-						<?php   
-						$coa = get_post_meta( get_the_ID(), 'coa_meta_compass-link', true );
-						$ecoregion = get_post_meta( get_the_ID(), 'ecoregion_meta_compass-link', true);
-						$habitat = get_post_meta( get_the_ID(), '_strategy_habitat_meta_compass-link', true);
-						$species = get_post_meta( get_the_ID(), 'species_meta_compass-link', true );
 
-  						if ( ! empty($coa) || ! empty($ecoregion) || ! empty($habitat) || ! empty($species) ) : ?>
-							<li class="view-map"><button>M</button></li>
-						<?php endif; ?>
-						
+						<li class="view-map"><button>M</button></li>
 						<li class="view-grid"><button>G</button></li>
 						<li class="view-list"><button>L</button></li>
 					</ul>
