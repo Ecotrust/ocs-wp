@@ -11,7 +11,8 @@
  * ======================================================================== */
 
 (function($) {
-  var $compass = $(".compass.main"); //iframe element
+  var $compass = $(".compass.main"); //compass component
+  var $iframe = $("iframe.compass-iframe"); //iframe element
   var OCS = {
 	// All pages
 	'common': {
@@ -20,6 +21,12 @@
         if ($compass.length) {
             $compass.insertBefore("main");
             $('body').toggleClass('map-available');
+
+            /*
+            without completely removing the iframe, instead of hiding on page load, 
+            the iframe view of Oregon renders to an inappropriate screen size.
+            */
+            $iframe.remove();
         }
     /*
 		CP.$body.on('click touchstart', '.photo-info', function () {
@@ -36,7 +43,9 @@
 
         //Toggle class for switching between compass and main content
         $('li.view-map, span.compass-close').click(function(){
-            $('body').toggleClass('map-visible')
+            $('body').toggleClass('map-visible');
+            $('.compass-wrap').append($iframe);
+
         })
 	  }
 	},
