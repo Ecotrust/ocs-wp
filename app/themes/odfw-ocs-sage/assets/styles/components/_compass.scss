@@ -20,10 +20,24 @@ body {
     }
 }
 
+.compass.main {
+    min-height: 0px;
+    height: calc(100vh - 100px);
+}
+
+.compass-container,
+.compass-wrap,
+.compass-iframe {
+    height: 100%;
+    width: 100%;
+}
+
+.compass-container {
+    position: absolute;
+}
+
 .compass-wrap {
     position: relative;
-    padding-bottom: 56.25%; //16*9
-    padding-bottom: 75%; //4*3
     /*padding-top: 35px; //for any chrome*/
     overflow: hidden;
 
@@ -31,8 +45,6 @@ body {
         position: absolute;
         top:0;
         left: 0;
-        width: 100%;
-        height: calc(100vh - 62px); /*padding currently on body*/
     }
 }
 
@@ -43,8 +55,8 @@ body {
     cursor: pointer;
     z-index: 1000;
 
-    > .glyphicon-remove-sign {
-        font-size: 2.25em;
+    > .glyphicon {
+        font-size: 3.25em;
         color: $grey;
 
         &:hover {
@@ -55,8 +67,8 @@ body {
 
 .view-external-compass {
     position: absolute;
-    bottom: 35px;
-    right: 15px;
+    top: 20px;
+    right: 75px;
     font-family: $headings-font-family-lighter;
     font-size: 18px;
     border: 1.5px solid $brand-primary;

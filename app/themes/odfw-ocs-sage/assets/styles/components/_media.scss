@@ -13,6 +13,15 @@
 	}
 }
 
+.ecoregion-svg {
+	> img, object {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+}
+
 // not used yet
 .photo-info {
 	background: transparent url('../img/sprite-icons.png') -100px -144px no-repeat;
