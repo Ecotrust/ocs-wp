@@ -44,7 +44,7 @@
         //Toggle class for switching between compass and main content
         $('li.view-map, span.compass-close').click(function(){
             $('body').toggleClass('map-visible');
-            $('.compass-wrap').append($iframe);
+            if ($iframe.length) $('.compass-wrap').append($iframe);
 
         })
 	  }

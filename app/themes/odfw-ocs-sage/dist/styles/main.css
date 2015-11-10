@@ -1568,7 +1568,8 @@ tfoot .tablepress th,tfoot table th{font-family:HelveticaNeue-45Lt,"Helvetica Ne
 .tablepress.table-row-headers tbody>tr>td:first-child,table.table-row-headers tbody>tr>td:first-child{font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
 .species-hero{position:relative;width:492px}
 .species-hero figcaption{background-color:rgba(0,0,0,.7);bottom:0;color:#fff;font-size:12px;left:0;padding:10px 20px;position:absolute;width:100%}
-.ecoregion-svg object,.ecoregion-svg>img{position:absolute;top:0;left:0;width:100%}
+.ecoregion-svg{position:relative;height:100%;width:100%;padding:58.44% 0 0 0}
+.ecoregion-svg object,.ecoregion-svg>img{display:block;max-width:98%;max-height:98%;position:absolute;top:0;bottom:0;left:0;right:0}
 .photo-info{background:transparent url(../img/sprite-icons.png) -100px -144px no-repeat;cursor:pointer;height:40px;overflow:hidden;position:absolute;bottom:10px;right:10px;width:40px;z-index:1000}
 @media (min-width:560px){.photo-info{bottom:30px;left:40px}
 }
@@ -1605,7 +1606,7 @@ body main{display:block}
 body.map-visible main{display:none}
 body.map-visible .compass{display:block;position:relative}
 body.map-available li.view-map{display:block}
-.compass.main{min-height:0;height:calc(100vh - 100px)}
+.compass.main{min-height:0;height:calc(100vh - 100px);background-color:#fff}
 .compass-container,.compass-iframe,.compass-wrap{height:100%;width:100%}
 .compass-container{position:absolute}
 .compass-wrap{position:relative;overflow:hidden}

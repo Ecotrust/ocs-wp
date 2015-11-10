@@ -14,11 +14,20 @@
 }
 
 .ecoregion-svg {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	padding: 58.44% 0 0 0; /* ecoregion png aspect ratio */
+
 	> img, object {
+		display: block;
+		max-width: 98%;
+		max-height: 98%;
 		position: absolute;
 		top: 0;
+		bottom: 0;
 		left: 0;
-		width: 100%;
+		right: 0;
 	}
 }
 

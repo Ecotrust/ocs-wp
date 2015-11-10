@@ -1,9 +1,9 @@
 <article <?php post_class(); ?>>
 <div class="compass main">
-	<div class="ecoregion-svg">
-		<img src="https://rawgit.com/Ecotrust/ocs-wp/master/app/themes/odfw-ocs-sage/assets/images/ODFW_ecoregion_final_base.png"/>
-		<object style="opacity: 0" data="https://rawgit.com/Ecotrust/ocs-wp/master/app/themes/odfw-ocs-sage/assets/images/ODFW_ecoregion_final_clean.svg" type="image/svg+xml"></object>
-	</div>
+		<div class="ecoregion-svg">
+			<img src="https://rawgit.com/Ecotrust/ocs-wp/master/app/themes/odfw-ocs-sage/assets/images/ODFW_ecoregion_final_base.png"/>
+			<object style="opacity: 0" data="https://rawgit.com/Ecotrust/ocs-wp/master/app/themes/odfw-ocs-sage/assets/images/ODFW_ecoregion_final_clean.svg" type="image/svg+xml"></object>
+		</div>
 </div>
 <?php
 	$args = array(
