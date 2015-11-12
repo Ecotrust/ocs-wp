@@ -44,9 +44,10 @@
         //Toggle class for switching between compass and main content
         $('li.view-map, span.compass-close').click(function(){
             $('body').toggleClass('map-visible');
-            if ($iframe.length) $('.compass-wrap').append($iframe);
-
-        })
+            if ($iframe.length) {
+                $('.compass-wrap').append($iframe);
+            }
+        });
 	  }
 	},
 	'home': {
@@ -56,6 +57,22 @@
 	  finalize: function() {
 	  }
 	},
+    'ecoregions': {
+      init: function() {
+        // JavaScript to be fired on the home page
+      },
+      finalize: function() {
+        if (!$('.map-visible').length) {
+           $('li.view-map').click(function(){
+               var svg = document.getElementById("regions");
+               var svgDoc = svg.contentDocument;
+           
+               $(svgDoc).find('a').attr('data-toggle', 'tooltip');
+               $(svgDoc).find('[data-toggle="tooltip"]').tooltip(); 
+           });
+        }
+      }
+    },
   // pages with a sidebar
 	'has_sidebar': {
 	  init: function() {
