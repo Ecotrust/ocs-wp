@@ -1,7 +1,7 @@
 /*moved all body compass/map-related 'stuff' here - hopefully more coherent*/
 
 body {
-    li.view-map,
+    button.view-map,
     .compass { 
         display: none;
     }
@@ -16,13 +16,13 @@ body {
     }
 
     &.map-available {
-       li.view-map { display: block;} 
+       button.view-map { display: block;} 
     }
 }
 
 .compass.main {
     min-height: 0px;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 120px);
     background-color: #fff;
 }
 

@@ -1615,12 +1615,12 @@ dl,footer,ol,ul{page-break-before:avoid}
 .alignright{float:right;margin-left:9px}
 }
 .wp-caption-text{padding:9px}
-body .compass,body li.view-map{display:none}
+body .compass,body button.view-map{display:none}
 body main{display:block}
 body.map-visible main{display:none}
 body.map-visible .compass{display:block;position:relative}
-body.map-available li.view-map{display:block}
-.compass.main{min-height:0;height:calc(100vh - 100px);background-color:#fff}
+body.map-available button.view-map{display:block}
+.compass.main{min-height:0;height:calc(100vh - 120px);background-color:#fff}
 .compass-container,.compass-iframe,.compass-wrap{height:100%;width:100%}
 .compass-container{position:absolute}
 .compass-wrap{position:relative;overflow:hidden}
@@ -1656,11 +1656,19 @@ body.map-available li.view-map{display:block}
 }
 .view-switcher ul{list-style-type:none;margin:0;padding:0}
 .view-switcher li{border-bottom:1px solid #C1E1BE;float:left}
-.view-switcher li.active{border-bottom:1px solid #7FA797}
+.view-switcher li:hover{border-bottom:1px solid #7FA797}
 .view-switcher button,.view-switcher span{background-color:#EFF7ED;border:none;display:inline-block;line-height:62px;text-align:center;position:relative;min-height:1px;padding-left:15px;padding-right:15px}
 @media (min-width:560px){.view-switcher button,.view-switcher span{float:left;width:33.33333%}
 }
 .view-switcher button.my-ocs,.view-switcher span.my-ocs{background:#005130 url(../images/icons-nav@2x.png) 0 -871px no-repeat;float:right;margin-right:-15px;text-indent:-999em;max-width:66px}
+.view-switcher button.view-grid,.view-switcher button.view-list,.view-switcher button.view-map,.view-switcher span.view-grid,.view-switcher span.view-list,.view-switcher span.view-map{float:right;margin-right:-15px;text-indent:-999em;background:#EFF7ED url(../images/icons-nav@2x.png);width:75px}
+.view-switcher button.view-map,.view-switcher span.view-map{background-position:-61px -621px}
+.view-switcher button.view-map:active,.view-switcher button.view-map:hover,.view-switcher span.view-map:active,.view-switcher span.view-map:hover{background-position:0 -621px}
+.view-switcher button.view-grid,.view-switcher span.view-grid{background-position:-62px -680px}
+.view-switcher button.view-grid:active,.view-switcher button.view-grid:hover,.view-switcher span.view-grid:active,.view-switcher span.view-grid:hover{background-position:0 -680px}
+.view-switcher button.view-list,.view-switcher span.view-list{background-position:-62px -742px}
+.view-switcher button.view-list:active,.view-switcher button.view-list:hover,.view-switcher span.view-list:active,.view-switcher span.view-list:hover{background-position:0 -742px}
+body.map-visible button.view-map{background-position:0 -621px}
 .page-header{border-bottom:0}
 .sidebar{line-height:1.2;padding:0}
 .sidebar ol,.sidebar ul{padding:0}

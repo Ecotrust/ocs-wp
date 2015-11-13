@@ -9,7 +9,6 @@
 }
 
 
-
 #header {
 	background-color: $greenLight;
 	position: fixed;
@@ -108,13 +107,14 @@
 		border-bottom: 1px solid #C1E1BE;
 		float: left;
 
-		&.active {
+		&:hover {
 			border-bottom: 1px solid $greenMid;
 		}
 	}
 	span, button {
 		@include top-button;
 		@include make-sm-column(4);
+
 		&.my-ocs {
 			background: $green url($nav-sprite) 0 -871px no-repeat;
 			float: right;
@@ -122,6 +122,49 @@
 			text-indent: -999em;
 			max-width: 66px;
 		}
+
+		&.view-map,
+		&.view-grid,
+		&.view-list {
+			float: right;
+			margin-right: -15px;
+			text-indent: -999em;
+			background: $greenLighter url($nav-sprite);
+			width: 75px;
+		}
+
+		&.view-map {
+			background-position: -61px -621px;
+
+			&:hover,
+			&:active {
+				background-position: 0px -621px;
+			}
+		}
+
+		&.view-grid {
+			background-position: -62px -680px;
+
+			&:hover,
+			&:active {
+				background-position: 0px -680px;
+			}
+		}
+
+		&.view-list {
+			background-position: -62px -742px;
+
+			&:hover,
+			&:active {
+				background-position: 0px -742px;
+			}
+		}
+	}
+}
+
+body.map-visible {
+	button.view-map {
+		background-position: 0px -621px;
 	}
 }
 

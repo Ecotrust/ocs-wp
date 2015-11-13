@@ -39,7 +39,7 @@
 		// JavaScript to be fired on all pages, after page specific JS is fired
 
         //Toggle class for switching between compass and main content
-        $('li.view-map, span.compass-close').click(function(){
+        $('button.view-map, span.compass-close').click(function(){
             $('body').toggleClass('map-visible');
             if ($iframe.length) {
                 //$iframe has to be added, not just hidden for fullscreen view of oregon
@@ -64,7 +64,7 @@
       },
       finalize: function() {
         if (!$('.map-visible').length) {
-           $('li.view-map').click(function(){
+           $('button.view-map').click(function(){
                var svg = document.getElementById("regions");
                var svgDoc = svg.contentDocument;
            
