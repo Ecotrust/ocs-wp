@@ -21,12 +21,6 @@
         if ($compass.length) {
             $compass.insertBefore("main");
             $('body').toggleClass('map-available');
-
-            /*
-            without completely removing the iframe, instead of hiding on page load, 
-            the iframe view of Oregon renders to an inappropriate screen size.
-            */
-            $iframe.remove();
         }
     /*
 		CP.$body.on('click touchstart', '.photo-info', function () {

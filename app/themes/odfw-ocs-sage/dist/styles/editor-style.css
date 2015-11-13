@@ -1577,6 +1577,18 @@ tfoot .tablepress th,tfoot table th{font-family:HelveticaNeue-45Lt,"Helvetica Ne
 .photo-info>.caption-content{background:0 0;background-color:rgba(255,255,255,.6);-webkit-box-sizing:border-box;box-sizing:border-box;font-family:HelveticaNeue-45Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:.8em;height:38px;line-height:1.1em;margin-left:40px;margin-top:1px;padding:5px;width:180px;zoom:1}
 .photo-info:hover{width:55px}
 .photo-info.visible,.photo-info:focus{width:220px}
+@media print{body{margin:0 25mm 25mm 0}
+.wrap.container-fluid{margin-left:0;float:none;width:auto}
+header.page-header>h1,header>.entry-title{display:block!important}
+.ecoregion-svg>object,.view-external-compass,aside.sidebar,header#header,span.compass-close{display:none}
+div.draft-message{position:absolute;bottom:0}
+a[href]:after{content:" (" attr(href) ")";font-size:80%}
+.scroll-nav__heading,h1,h2,h3,h4,h5,h6,header,img{page-break-after:avoid;page-break-inside:avoid}
+blockquote,pre,table{page-break-inside:avoid}
+dl,footer,ol,ul{page-break-before:avoid}
+.compass.main{display:block!important}
+.compass-container,.compass-wrap>iframe,.compass.main,.ecoregion-svg>img{position:relative;max-height:3in;max-width:3in;padding:0}
+}
 .comment-list{padding-left:0;list-style:none}
 .comment-list ol{list-style:none}
 .main{position:relative;min-height:1px;padding-left:15px;padding-right:15px;min-height:100vh;padding-bottom:87px}
