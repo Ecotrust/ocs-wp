@@ -1,0 +1,64 @@
+@media print {
+
+    body {
+        padding-top: 0 !important;
+    }
+
+    .wrap.container-fluid {
+        margin-left: 0; 
+        float: none; 
+        width: auto;
+    }
+    
+    /* display hidden title within main content*/ 
+    header.page-header > h1,
+    header > .entry-title {
+        display: block !important;
+        position: inherit; 
+        top: 0;
+    } 
+
+    aside.sidebar,
+    header#header,
+    span.compass-close,
+    .view-external-compass,
+    .ecoregion-svg > object {
+        display: none;
+    }
+
+    /* display footer on the last page*/ 
+    div.draft-message {
+        position: inherit;
+        bottom: 0;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 80%;
+    }
+    h1, h2, h3, h4, h5, h6, header, img { 
+        page-break-after:avoid; 
+        page-break-inside:avoid;
+    }
+
+    blockquote, table, pre { 
+        page-break-inside:avoid;
+    }
+
+    ul, ol, dl, footer  { 
+        page-break-before:avoid; 
+    }
+
+    .compass.main {
+        display: block !important;
+        position: relative;
+        max-height: 4in;
+        max-width: 100%;
+        margin: 15px 0 15px 25px;
+    }
+
+    .main-content {
+        padding-bottom: 15px !important;
+    }
+ 
+}

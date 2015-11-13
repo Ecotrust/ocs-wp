@@ -21,7 +21,7 @@
 		// JavaScript to be fired on all pages
 
         if ($compass.length) {
-            $compass.insertBefore("main");
+            $compass.insertAfter("main");
             $('body').toggleClass('map-available');
         }
     /*
