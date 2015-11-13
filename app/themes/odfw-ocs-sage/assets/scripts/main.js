@@ -14,15 +14,19 @@
   var $compass = $(".compass.main"); //compass component
   var $iframe = $("iframe.compass-iframe"); //iframe element
   var OCS = {
+    $body : $('body'),
 	// All pages
 	'common': {
 	  init: function() {
 		// JavaScript to be fired on all pages
+
         if ($compass.length) {
             $compass.insertBefore("main");
             $('body').toggleClass('map-available');
         }
     /*
+     * Image Attribution
+     * Check https://github.com/Ecotrust/commonplace-magazine/search?utf8=%E2%9C%93&q=photo-info
 		CP.$body.on('click touchstart', '.photo-info', function () {
 			$(this).toggleClass('visible');
 		});
@@ -33,15 +37,18 @@
 	  },
 	  finalize: function() {
 		// JavaScript to be fired on all pages, after page specific JS is fired
-        $('[title]').tooltip();
 
         //Toggle class for switching between compass and main content
         $('li.view-map, span.compass-close').click(function(){
             $('body').toggleClass('map-visible');
             if ($iframe.length) {
+                //$iframe has to be added, not just hidden for fullscreen view of oregon
                 $('.compass-wrap').append($iframe);
             }
         });
+
+        // BootStrap ToolTips
+        $('[title]').tooltip();
 	  }
 	},
 	'home': {
@@ -67,7 +74,14 @@
         }
       }
     },
-  // pages with a sidebar
+    'conservation_opportunity_areas': {
+	  init: function() {
+		// JavaScript to be fired on COA pages
+	  },
+	  finalize: function() {
+	  }
+    },
+    // pages with a sidebar
 	'has_sidebar': {
 	  init: function() {
       $('.entry-content').scrollNav({

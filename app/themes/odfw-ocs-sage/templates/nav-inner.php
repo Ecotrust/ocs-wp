@@ -1,6 +1,7 @@
 
 <?php
 
+if($post):
 $pType = $post->post_type;
 $pParent = $post->post_parent;
 $menuParent = 9999999;
@@ -38,7 +39,7 @@ if ($pType != "post" && $pType != "page" && $pType != "attachment"){
 }
 
 // Still More UX Work TODO. For now, "In This Section"
-$title = "In This Section";
+//$title = "In This Section";
 ?>
 <?php
 $page_list = wp_list_pages("title_li=&child_of=" . $menuParent . "&echo=0");
@@ -57,5 +58,7 @@ if ($page_list) { ?>
 		</ul>
 <nav>
 
-<?php } ?>
+<?php }
+
+endif; //if($post) ?>
 <div class="on-page-nav"></div>

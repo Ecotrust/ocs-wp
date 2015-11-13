@@ -1,3 +1,21 @@
+function checkSearchBoxLength (){
+/*
+ * TODO
+ * We'll want to call this on page load and on keydown.
+ *
+ * Should either dynamically resize the text with js [1]
+ * or
+ * We can set a few ranges for CSS styles. Say, default, over-30, over-45, over-60... setup a few cascading font
+ * sizes in the css and hope for the best
+ *
+ *
+ * [1] https://github.com/STRML/textFit
+ * [1] http://fittextjs.com/
+ * [1] http://stackoverflow.com/questions/687998/auto-size-dynamic-text-to-fill-fixed-size-container )
+ */
+}
+
+
 $(document).ready(function() {
   // We only want to change the contents of the search box if we're on
   // a device bigger than a phone
@@ -32,21 +50,5 @@ $(document).ready(function() {
     });
   }
 
-  function checkSearchBoxLength (){
-    /*
-     * TODO
-     * We'll want to call this on page load and on keydown.
-     *
-     * Should either dynamically resize the text with js [1]
-     * or
-     * We can set a few ranges for CSS styles. Say, default, over-30, over-45, over-60... setup a few cascading font
-     * sizes in the css and hope for the best
-     *
-     *
-     * [1] https://github.com/STRML/textFit
-     * [1] http://fittextjs.com/
-     * [1] http://stackoverflow.com/questions/687998/auto-size-dynamic-text-to-fill-fixed-size-container )
-     */
-  };
 
 });

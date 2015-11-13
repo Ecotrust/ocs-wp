@@ -1556,15 +1556,16 @@ dt>strong,li>strong,p>strong,td>strong{font-family:HelveticaNeue-75Lt,"Helvetica
 .citation-list li{margin-top:5px}
 dt{font:14px HelveticaNeue-65Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
 dd{margin-bottom:1em}
-.page-id-108 h3{border-bottom:1px solid #ccc;font-size:18px;margin-bottom:10px;text-transform:uppercase}
+.page-id-108 h3{border-bottom:1px solid #ccc;font-size:18px;margin-bottom:10px;margin-top:0;padding-bottom:4px;padding-top:70px;text-transform:uppercase}
+abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-decoration:none}
 body{padding-top:62px}
 .tablepress,table{margin-top:15px;margin-bottom:15px}
-.tablepress tfoot th,.tablepress>thead th,table tfoot th,table>thead th{background-color:#58595B;color:#fff}
-.tablepress tfoot th a,.tablepress>thead th a,table tfoot th a,table>thead th a{color:#fff;text-decoration:underline}
-.tablepress tfoot th a:hover,.tablepress>thead th a:hover,table tfoot th a:hover,table>thead th a:hover{color:#D3E9D1}
-.tablepress th,table th{font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
-tfoot .tablepress th,tfoot table th{font-family:HelveticaNeue-45Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
-.tablepress.table-centered-header th,table.table-centered-header th{text-align:center}
+.tablepress>thead th,table>thead th{background-color:#58595B;color:#fff;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
+.tablepress>thead th a,table>thead th a{color:#fff;text-decoration:underline}
+.tablepress>thead th a:hover,table>thead th a:hover{color:#D3E9D1}
+.tablepress>tfoot th,table>tfoot th{background-color:#E6E7E8;font-family:HelveticaNeue-45Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;text-align:left}
+.tablepress>tfoot th br,table>tfoot th br{margin-bottom:1em}
+.tablepress.table-centered-header thead th,table.table-centered-header thead th{text-align:center}
 .tablepress.table-row-headers tbody>tr>td:first-child,table.table-row-headers tbody>tr>td:first-child{font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
 .species-hero{position:relative;width:492px}
 .species-hero figcaption{background-color:rgba(0,0,0,.7);bottom:0;color:#fff;font-size:12px;left:0;padding:10px 20px;position:absolute;width:100%}
