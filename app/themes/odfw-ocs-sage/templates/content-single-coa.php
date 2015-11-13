@@ -3,6 +3,25 @@
     <header>
       <h1 class="entry-title"><?php the_title(); ?></h1>
     </header>
+
+    <?php $the_compass_field = get_post_meta( get_the_ID(), 'coa_meta_compass-link', true );
+        if ( ! empty($the_compass_field) ): ?>
+            <div class="compass main">
+                <div class="compass-container">                 
+                    <span class="compass-close">
+                        <i class="glyphicon glyphicon-remove-circle"></i>
+                    </span>
+                    <div class="view-external-compass">
+                        <a href="<?php echo external_odfw_compass_url($the_compass_field) ?>"  target="_blank">
+                            <i class="glyphicon glyphicon-dashboard"></i> 
+                            VIEW DATA LAYERS IN COMPASS
+                        </a>
+                    </div>
+                    <?php the_odfw_compass_iframe($the_compass_field); ?>
+                </div>
+            </div>
+    <?php endif; ?>
+    
     <div class="entry-content">
 
       <?php the_content(); ?>
@@ -104,14 +123,6 @@
         echo esc_html( $the_field ); ?>
     </p>
 </section>
-
-
-
-
-		<?php $the_compass_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_compass-link', true );
-			if ( ! empty($the_compass_field) ): ?>
-				<?php the_odfw_compass_iframe($the_compass_field); ?>
-		<?php endif; ?>
 
 
     </div>

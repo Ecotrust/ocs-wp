@@ -14,6 +14,7 @@
 
 				<nav class="view-switcher">
 					<ul>
+
 						<li class="view-map"><button>M</button></li>
 						<li class="view-grid"><button>G</button></li>
 						<li class="view-list"><button>L</button></li>

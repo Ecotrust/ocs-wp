@@ -1,0 +1,92 @@
+/*moved all body compass/map-related 'stuff' here - hopefully more coherent*/
+
+body {
+    li.view-map,
+    .compass { 
+        display: none;
+    }
+    main { display: block; }
+
+    &.map-visible {
+        main { display: none; }
+        .compass { 
+            display: block;
+            position: relative;
+        }
+    }
+
+    &.map-available {
+       li.view-map { display: block;} 
+    }
+}
+
+.compass.main {
+    min-height: 0px;
+    height: calc(100vh - 100px);
+    background-color: #fff;
+}
+
+.compass-container,
+.compass-wrap,
+.compass-iframe {
+    height: 100%;
+    width: 100%;
+}
+
+.compass-container {
+    position: absolute;
+}
+
+.compass-wrap {
+    position: relative;
+    /*padding-top: 35px; //for any chrome*/
+    overflow: hidden;
+
+    > iframe {
+        position: absolute;
+        top:0;
+        left: 0;
+    }
+}
+
+.compass-close {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    cursor: pointer;
+    z-index: 1000;
+
+    > .glyphicon {
+        font-size: 3.25em;
+        color: $grey;
+
+        &:hover {
+            color: $greyDark;
+        }
+    }
+}
+
+.view-external-compass {
+    position: absolute;
+    top: 20px;
+    right: 75px;
+    font-family: $headings-font-family-lighter;
+    font-size: 18px;
+    border: 1.5px solid $brand-primary;
+    background-color: $off-white;
+    padding: 6px;
+    z-index: 1000;
+
+    &:hover {
+        background-color: $greyLighter;
+    }
+
+    .glyphicon {
+        color: $link-color;
+    }
+
+    a {
+        color: $greyDark;
+        text-decoration: none;
+    }
+}

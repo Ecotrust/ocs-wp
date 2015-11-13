@@ -11,28 +11,27 @@
 		position: absolute;
 		width: 100%;
 	}
-
 }
 
-.compass-wrap {
-    position: relative;
-    padding-bottom: 56.25%; //16*9
-    padding-bottom: 75%; //4*3
-    /*padding-top: 35px; //for any chrome*/
-    height: 0;
-    overflow: hidden;
+.ecoregion-svg {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	padding: 58.44% 0 0 0; /* ecoregion png aspect ratio */
 
-	> iframe {
+	> img, object {
+		display: block;
+		max-width: 98%;
+		max-height: 98%;
 		position: absolute;
-		top:0;
+		top: 0;
+		bottom: 0;
 		left: 0;
-		width: 100%;
-		height: 100%;
+		right: 0;
 	}
+
+	object { opacity: 0;}
 }
-
-
-
 
 // not used yet
 .photo-info {
@@ -74,4 +73,68 @@
 	&.visible, &:focus {
 	  width: 220px;
 	}
+}
+
+@media print {
+
+	body {
+		margin: 0mm 25mm 25mm 0mm;
+	}
+
+	.wrap.container-fluid {
+		margin-left: 0; 
+		float: none; 
+		width: auto;
+	}
+	/* display hidden title within main content*/ 
+	header.page-header > h1,
+	header > .entry-title {
+		display: block !important; 
+	} 
+
+	aside.sidebar,
+	header#header,
+	span.compass-close,
+	.view-external-compass,
+	.ecoregion-svg > object {
+		display: none;
+	}
+
+	/* display footer on the last page*/ 
+	div.draft-message {
+		position: absolute;
+		bottom: 0;
+	}
+
+	a[href]:after {
+		content: " (" attr(href) ")";
+		font-size: 80%;
+	}
+	h1, h2, h3, h4, h5, h6, header, img { 
+		page-break-after:avoid; 
+		page-break-inside:avoid;
+	}
+
+	blockquote, table, pre { 
+		page-break-inside:avoid;
+	}
+
+	ul, ol, dl, footer  { 
+		page-break-before:avoid; 
+	}
+
+	.compass.main {
+		display: block !important;
+	}
+
+	.compass.main,
+	.compass-container,
+	.compass-wrap > iframe,
+	.ecoregion-svg>img {
+		position: relative;
+		max-height: 3in;
+		max-width: 3in;
+		padding: 0;
+	}
+ 
 }

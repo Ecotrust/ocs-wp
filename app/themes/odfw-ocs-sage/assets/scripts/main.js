@@ -11,7 +11,8 @@
  * ======================================================================== */
 
 (function($) {
-
+  var $compass = $(".compass.main"); //compass component
+  var $iframe = $("iframe.compass-iframe"); //iframe element
   var OCS = {
     $body : $('body'),
 	// All pages
@@ -19,7 +20,10 @@
 	  init: function() {
 		// JavaScript to be fired on all pages
 
-
+        if ($compass.length) {
+            $compass.insertBefore("main");
+            $('body').toggleClass('map-available');
+        }
     /*
      * Image Attribution
      * Check https://github.com/Ecotrust/commonplace-magazine/search?utf8=%E2%9C%93&q=photo-info
@@ -28,15 +32,23 @@
 		});
     */
 
-    //temp hack until HTML is updated!
-    $('table').attr('border', 0);
-
+        //temp hack until HTML is updated!
+        $('table').attr('border', 0);
 	  },
 	  finalize: function() {
 		// JavaScript to be fired on all pages, after page specific JS is fired
 
-      // BootStrap ToolTips
-      $('[title]').tooltip();
+        //Toggle class for switching between compass and main content
+        $('li.view-map, span.compass-close').click(function(){
+            $('body').toggleClass('map-visible');
+            if ($iframe.length) {
+                //$iframe has to be added, not just hidden for fullscreen view of oregon
+                $('.compass-wrap').append($iframe);
+            }
+        });
+
+        // BootStrap ToolTips
+        $('[title]').tooltip();
 	  }
 	},
 	'home': {
@@ -46,14 +58,30 @@
 	  finalize: function() {
 	  }
 	},
-  'conservation_opportunity_areas': {
+    'ecoregions': {
+      init: function() {
+        // JavaScript to be fired on the home page
+      },
+      finalize: function() {
+        if (!$('.map-visible').length) {
+           $('li.view-map').click(function(){
+               var svg = document.getElementById("regions");
+               var svgDoc = svg.contentDocument;
+           
+               $(svgDoc).find('a').attr('data-toggle', 'tooltip');
+               $(svgDoc).find('[data-toggle="tooltip"]').tooltip(); 
+           });
+        }
+      }
+    },
+    'conservation_opportunity_areas': {
 	  init: function() {
 		// JavaScript to be fired on COA pages
 	  },
 	  finalize: function() {
 	  }
-  },
-  // pages with a sidebar
+    },
+    // pages with a sidebar
 	'has_sidebar': {
 	  init: function() {
       $('.entry-content').scrollNav({
