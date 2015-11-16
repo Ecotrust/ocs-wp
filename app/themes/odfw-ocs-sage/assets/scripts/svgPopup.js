@@ -4,10 +4,13 @@ jQuery(document).ready(function($) {
             setTimeout(function() { 
                 var svg = document.getElementById("regions");
                 var svgDoc = svg.contentDocument;
-                $(svgDoc).find('a').attr({'data-toggle': 'popover', 'data-trigger': 'hover', "data-original-title": "blah"});
-                $(svgDoc).find('[data-toggle="popover"]').popover({'container':'compass'});
+
+                $.each(svg_popup_vars, function(key, value) {
+                    var str = key.replace(/\s+/g, '-').toLowerCase();
+                    $(svgDoc).find('a#'+str).attr({'data-toggle': 'popover', 'data-trigger': 'hover', "data-original-title": value});
+                });
+                $(svgDoc).find('[data-toggle="popover"]').popover({'container':'body'});
             }, 500) 
-            console.log( svg_popup_vars );
        });
     }
 });
