@@ -1,10 +1,5 @@
 <article <?php post_class(); ?>>
-<div class="compass main">
-		<div class="ecoregion-svg">
-			<img src="/wordpress//media/ODFW_ecoregion_final_base.png"/>
-			<object id="regions" data="/wordpress//media/ODFW_ecoregion_final_clean.svg" type="image/svg+xml"></object>
-		</div>
-</div>
+
 <?php
 	$args = array(
 		'post_type' => 'ecoregion',
@@ -17,8 +12,16 @@
 
 	$count = 0;
 
+	$popup_content_array = array();
+
+
 	if( $loop->have_posts() ):
 		while( $loop->have_posts() ): $loop->the_post();
+
+			//get content material for svg popup
+			$region_title = the_title('','',false);
+			$region_content = wp_trim_excerpt(get_the_excerpt());
+			$popup_content_array[$region_title] = $region_content;
 
 			global $post;
 
@@ -39,4 +42,18 @@
 	endif;
 
 ?>
+
+	<div class="compass main">
+
+		<?php 
+			wp_enqueue_script('svgPopup', get_template_directory_uri() . '/assets/scripts/svgPopup.js');
+			wp_localize_script('svgPopup', 'svg_popup_vars', $popup_content_array);
+		?>
+
+		<div class="ecoregion-svg">
+			<img src="/wordpress//media/ODFW_ecoregion_final_base.png"/>
+			<object id="regions" data="/wordpress//media/ODFW_ecoregion_final_clean.svg" type="image/svg+xml"></object>
+		</div>
+	</div>
+
 </section>

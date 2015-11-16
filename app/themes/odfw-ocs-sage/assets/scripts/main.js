@@ -24,6 +24,10 @@
             $compass.insertAfter("main");
             $('body').toggleClass('map-available');
         }
+
+        $('body').tooltip({
+            selector: '[data-toggle="tooltip"]'
+        });
     /*
      * Image Attribution
      * Check https://github.com/Ecotrust/commonplace-magazine/search?utf8=%E2%9C%93&q=photo-info
@@ -58,22 +62,6 @@
 	  finalize: function() {
 	  }
 	},
-    'ecoregions': {
-      init: function() {
-        // JavaScript to be fired on the home page
-      },
-      finalize: function() {
-        if (!$('.map-visible').length) {
-           $('button.view-map').click(function(){
-               var svg = document.getElementById("regions");
-               var svgDoc = svg.contentDocument;
-           
-               $(svgDoc).find('a').attr('data-toggle', 'tooltip');
-               $(svgDoc).find('[data-toggle="tooltip"]').tooltip(); 
-           });
-        }
-      }
-    },
     'conservation_opportunity_areas': {
 	  init: function() {
 		// JavaScript to be fired on COA pages
