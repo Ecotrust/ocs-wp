@@ -1568,14 +1568,19 @@ body{padding-top:62px}
 .tablepress.table-centered-header thead th,table.table-centered-header thead th{text-align:center}
 .tablepress.table-row-headers tbody>tr>td:first-child,table.table-row-headers tbody>tr>td:first-child{font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
 .species-hero{position:relative;width:492px}
-.species-hero figcaption{background-color:rgba(0,0,0,.7);bottom:0;color:#fff;font-size:12px;left:0;padding:10px 20px;position:absolute;width:100%}
+.species-hero figcaption{background-color:rgba(0,0,0,.7);bottom:0;color:#fff;font-size:12px;left:0;padding:10px 33px;position:absolute;width:100%;display:none}
+.species-hero.close-caption figcaption{display:block}
+.species-hero.close-caption figcaption .glyphicon{color:#FFF;text-shadow:none}
+.species-hero.close-caption .show-info{display:none}
 .ecoregion-svg{position:relative;height:100%;width:100%;cursor:pointer}
 .ecoregion-svg object,.ecoregion-svg>img{display:block;max-width:98%;max-height:98%;position:absolute;top:0;bottom:0;left:0;right:0}
 .ecoregion-svg object{opacity:0}
 .ecoregion-svg>.popover>.arrow{display:none}
-.photo-info{background:transparent url(../img/sprite-icons.png) -100px -144px no-repeat;cursor:pointer;height:40px;overflow:hidden;position:absolute;bottom:10px;right:10px;width:40px;z-index:1000}
-@media (min-width:560px){.photo-info{bottom:30px;left:40px}
-}
+.image-container{position:relative}
+.image-container>img{max-width:100%;display:block}
+.photo-info{position:absolute;cursor:pointer}
+.photo-info.glyphicon{bottom:11px;left:10px;top:auto;font-size:1.25em;text-shadow:-1px 0 #FFF,0 1px #FFF,1px 0 #FFF,0 -1px #FFF}
+.photo-info.glyphicon:hover{font-size:1.4em}
 .photo-info>.caption-content{background:0 0;background-color:rgba(255,255,255,.6);-webkit-box-sizing:border-box;box-sizing:border-box;font-family:HelveticaNeue-45Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:.8em;height:38px;line-height:1.1em;margin-left:40px;margin-top:1px;padding:5px;width:180px;zoom:1}
 .photo-info:hover{width:55px}
 .photo-info.visible,.photo-info:focus{width:220px}

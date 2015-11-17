@@ -51,6 +51,10 @@
             }
         });
 
+        $('.photo-info').click(function() {
+            $('.species-hero').toggleClass('close-caption');
+        });
+
         // BootStrap ToolTips
         $('[title]').tooltip();
 	  }

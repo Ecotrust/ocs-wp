@@ -4,9 +4,9 @@
 	  <h1 class="entry-title"><?php the_title(); ?> </h1>
 		<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-scientific-name', true ); ?>
 		<?php if ( !empty($the_field) ): ?>
-			<small>
+			<h2>
 				<?php echo esc_html( $the_field ); ?>
-			</small>
+			</h2>
 		<?php endif; ?>
     </header>
 
@@ -30,17 +30,33 @@
     
     <div class="entry-content">
 
-	<figure class="hero">
-		<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_image', true ); ?>
+	<figure class="species-hero">
+		<?php 
+            $the_field = get_post_meta( get_the_ID(), 'species_meta_image-url', true ); 
+            $the_field_thumbnail = get_post_meta( get_the_ID(), 'species_meta_image-thumb-url', true ); 
+        ?>
+
 		<?php if ( !empty($the_field) ): ?>
-			<img src="<?php echo esc_html( $the_field ); ?>">
+            <div class="image-container">
+                <span class="photo-info show-info glyphicon glyphicon-info-sign"></span>
+			    <img src="<?php echo esc_html( $the_field ); ?>">
+            </div>
+        <?php elseif ( !empty($the_field_thumbnail) ): ?>
+            <div class="image-container">
+                <span class="photo-info show-info glyphicon glyphicon-info-sign"></span>
+                <img src="<?php echo esc_html( $the_field_thumbnail ); ?>">
+            </div>
 		<?php else: ?>
-			<img src="http://placehold.it/492x354/58595B/ffffff?text=species+placeholder">
+            <div class="image-container">
+                <span class="photo-info"></span>
+			    <img src="http://placehold.it/492x354/58595B/ffffff?text=species+placeholder">
+            </div>
 		<?php endif; ?>
 
 		<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_image-attribution', true );?>
 		<?php if ( !empty($the_field) ): ?>
 			<figcaption>
+                <span class="photo-info glyphicon glyphicon-remove-circle"></span>
 				<?php echo esc_html( $the_field ); ?>
 			</figcaption>
 		<?php endif; ?>
