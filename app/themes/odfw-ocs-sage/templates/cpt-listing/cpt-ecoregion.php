@@ -51,7 +51,10 @@
 		?>
 
 		<div class="ecoregion-svg">
-			<img src="/wordpress//media/ODFW_ecoregion_final_base.png"/>
+			<span class="compass-close">
+			    <i class="glyphicon glyphicon-remove-circle"></i>
+			</span>
+			<img id="region-png" src="/wordpress//media/ODFW_ecoregion_final_base.png"/>
 			<object id="regions" data="/wordpress//media/ODFW_ecoregion_final_clean.svg" type="image/svg+xml"></object>
 		</div>
 	</div>
