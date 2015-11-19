@@ -114,3 +114,51 @@ function add_sortable_views_for_custom_post_types(){
 		add_filter( 'manage_edit-'.$post_type.'_sortable_columns', 'modified_column_register_sortable' );
 	}
 }
+
+
+// Adjust the way images are imported into the Admin area
+
+function filter_image_send_to_editor($html, $id, $caption, $title, $align, $url, $size, $alt) {
+	$meta = get_post_meta($id);
+	if ( !empty( $meta["odfw_attribution_name"] ) ) {
+		$html .= "<span class='photo-attribution'><span class='attr-name'>";
+		$html .= $meta["odfw_attribution_name"][0] . "</span>";
+
+		if ( !empty( $meta["odfw_attribution_url"] ) ) {
+			$html .= "<a href='" . $meta["odfw_attribution_url"][0] . "'>" . $meta["odfw_attribution_url"][0]  . "</a>";
+		}
+
+		$html .= "</span>";
+	}
+	return $html;
+}
+add_filter('image_send_to_editor', 'filter_image_send_to_editor', 10, 8);
+
+
+//relative urls for inserted images
+function image_to_relative($html, $id, $caption, $title, $align, $url, $size, $alt) {
+	$sp = strpos($html,"src=") + 5;
+	$ep = strpos($html,"\"",$sp);
+
+	$imageurl = substr($html,$sp,$ep-$sp);
+
+	$relativeurl = str_replace("http://","",$imageurl);
+	$sp = strpos($relativeurl,"/");
+	$relativeurl = substr($relativeurl,$sp);
+
+	$html = str_replace($imageurl,$relativeurl,$html);
+
+	return $html;
+}
+add_filter('image_send_to_editor', 'image_to_relative', 5, 8);
+
+// Convert absolute URLs in content to site relative ones
+// Inspired by http://thisismyurl.com/6166/replace-wordpress-static-urls-dynamic-urls/
+function sp_clean_static_url($content) {
+   $thisURL = get_bloginfo('url');
+   $stuff = str_replace(' src=\"'.$thisURL, ' src=\"', $content );
+   $stuff = str_replace(' href=\"'.$thisURL, ' href=\"', $stuff );
+	return $stuff;
+}
+//add_filter('content_save_pre','sp_clean_static_url','99');
+
