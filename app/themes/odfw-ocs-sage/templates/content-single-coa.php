@@ -23,8 +23,8 @@
     <?php endif; ?>
     
     <div class="entry-content">
-
-      <?php the_content(); ?>
+        <?php get_template_part('templates/featured-thumbnail'); ?>
+        <?php the_content(); ?>
 
 
 <section class="cmb2-wrap-text coa_meta_id">

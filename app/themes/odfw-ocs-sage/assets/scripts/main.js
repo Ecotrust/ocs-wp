@@ -52,7 +52,7 @@
         });
 
         $('.photo-info').click(function() {
-            $('.species-hero').toggleClass('close-caption');
+            $('.species-hero, .feature-thumb').toggleClass('close-caption');
         });
 
         // BootStrap ToolTips

@@ -1558,6 +1558,7 @@ dt{font:14px HelveticaNeue-65Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
 dd{margin-bottom:1em}
 .page-id-108 h3{border-bottom:1px solid #ccc;font-size:18px;margin-bottom:10px;margin-top:0;padding-bottom:4px;padding-top:70px;text-transform:uppercase}
 abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-decoration:none}
+h3.cpt-title{margin-top:25px}
 body{padding-top:62px}
 .tablepress,table{margin-top:15px;margin-bottom:15px}
 .tablepress>thead th,table>thead th{background-color:#58595B;color:#fff;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
@@ -1567,11 +1568,12 @@ body{padding-top:62px}
 .tablepress>tfoot th br,table>tfoot th br{margin-bottom:1em}
 .tablepress.table-centered-header thead th,table.table-centered-header thead th{text-align:center}
 .tablepress.table-row-headers tbody>tr>td:first-child,table.table-row-headers tbody>tr>td:first-child{font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
-.species-hero{position:relative;width:492px}
-.species-hero figcaption{background-color:rgba(0,0,0,.7);bottom:0;color:#fff;font-size:12px;left:0;padding:10px 33px;position:absolute;width:100%;display:none}
-.species-hero.close-caption figcaption{display:block}
-.species-hero.close-caption figcaption .glyphicon{color:#FFF;text-shadow:none}
-.species-hero.close-caption .show-info{display:none}
+.feature-thumb,.species-hero{position:relative;width:492px}
+.feature-thumb figcaption,.species-hero figcaption{background-color:rgba(0,0,0,.7);bottom:0;color:#fff;font-size:12px;left:0;padding:10px 33px;position:absolute;width:100%;display:none}
+.feature-thumb{padding-top:25px}
+.feature-thumb.close-caption figcaption,.species-hero.close-caption figcaption{display:block}
+.feature-thumb.close-caption figcaption .glyphicon,.species-hero.close-caption figcaption .glyphicon{color:#FFF;text-shadow:none}
+.feature-thumb.close-caption .show-info,.species-hero.close-caption .show-info{display:none}
 .ecoregion-svg{position:relative;height:100%;width:100%;cursor:pointer}
 .ecoregion-svg object,.ecoregion-svg>img{display:block;max-width:98%;max-height:98%;position:absolute;top:0;bottom:0;left:0;right:0}
 .ecoregion-svg object{opacity:0}
@@ -1654,6 +1656,7 @@ body.map-available button.view-map{display:block}
 .view-switcher button,.view-switcher span{background-color:#EFF7ED;border:none;display:inline-block;line-height:62px;text-align:center;position:relative;min-height:1px;padding-left:15px;padding-right:15px}
 @media (min-width:560px){.view-switcher button,.view-switcher span{float:left;width:33.33333%}
 }
+.view-switcher button:focus,.view-switcher span:focus{outline:0}
 .view-switcher button.my-ocs,.view-switcher span.my-ocs{background:#005130 url(../images/icons-nav@2x.png) 0 -871px no-repeat;float:right;margin-right:-15px;text-indent:-999em;max-width:66px}
 .view-switcher button.view-grid,.view-switcher button.view-list,.view-switcher button.view-map,.view-switcher span.view-grid,.view-switcher span.view-list,.view-switcher span.view-map{float:right;margin-right:-15px;text-indent:-999em;background:#EFF7ED url(../images/icons-nav@2x.png);width:75px}
 .view-switcher button.view-map,.view-switcher span.view-map{background-position:-61px -621px}

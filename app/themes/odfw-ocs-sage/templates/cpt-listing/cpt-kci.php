@@ -21,9 +21,9 @@
 ?>
 
 		<div id="kci-item-<?php echo $post->ID; ?>" class="">
+			<?php get_template_part('templates/featured-thumbnail'); ?>
 			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail('small'); ?>
-				<h3><?php the_title(); ?></h3>
+				<h3 class="cpt-title"><?php the_title(); ?></h3>
 				<p><?php the_excerpt(); ?></h3>
 			</a>
 		</div>

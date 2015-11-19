@@ -82,7 +82,6 @@
 			&:hover {
 				background: darken($greenLight, 5) url($nav-sprite) -62px -806px no-repeat;
 			}
-
 		}
 	}
 }
@@ -114,6 +113,8 @@
 	span, button {
 		@include top-button;
 		@include make-sm-column(4);
+		
+		&:focus { outline: none;}
 
 		&.my-ocs {
 			background: $green url($nav-sprite) 0 -871px no-repeat;
