@@ -33,8 +33,8 @@
     // Path to the build directory for front-end assets
     define('COMPASS_URL_PREFIX', 'http://52.25.124.64/visualize/');
     // Path to the build directory for front-end assets
-    define('COMPASS_URL_SUFFIX', '&print=true');
-
+    // Ensuring opacity is always set to 1.0 on OCS - Oregon Mask Layer
+    define('COMPASS_URL_SUFFIX', '&print=true&dls%5B%5D=true&dls%5B%5D=1.0&dls%5B%5D=549');
 
 /**
  *
