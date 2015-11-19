@@ -34,7 +34,42 @@
 #poststuff .cmb-repeatable-group h2 {
     white-space: nowrap;
 }
-
+/* Species Meta Boxes. Want to abstract
+ * to .table-row or 'inline-row' but couldn't get the class to take in CMB2 */
+#coa_meta_strategy_species_repeat .cmb-repeat-group-field {
+	border: 0 none;
+	float: left;
+	padding: 0.4em 0;
+	width: 50%;
+}
+#coa_meta_strategy_species_repeat .cmb-repeat-group-field + .cmb-repeat-group-field {
+	border-left: 1px solid #cccccc;
+    margin-left: 0;
+    padding-left: 3%;
+    width: 45%;
+}
+#coa_meta_strategy_species_repeat .cmb-th {
+	width: 100%;
+}
+#coa_meta_strategy_species_repeat .cmb-td {
+	width: 100%;
+}
+#coa_meta_strategy_species_repeat input {
+	display: none;
+	max-width: 85%;
+}
+#coa_meta_strategy_species_repeat .cmb-remove-field-row {
+	border-top: 1px solid #ccc;
+	clear: both;
+	padding-top: 10px;
+	padding-bottom: 0;
+}
+.attached-post-title {
+    display: inline-block;
+    max-width: 85%;
+    padding: 5px 0;
+    width: 25em;
+}
 /*
  * Hopeful hack for displaying the post_id in the Find Posts modal
  * CMB2 field only displays IDs in the eventual box. Hopefully this helps
