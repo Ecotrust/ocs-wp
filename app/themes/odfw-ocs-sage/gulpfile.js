@@ -217,7 +217,7 @@ gulp.task('fonts', function() {
 // `gulp images` - Run lossless compression on all the images.
 gulp.task('images', function() {
   return gulp.src(globs.images)
-  /*
+  /* choking on some PNG. gone for now.
     .pipe(imagemin({
       progressive: true,
       interlaced: true,
