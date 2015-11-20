@@ -5,34 +5,27 @@
 	line-height: 1.2;
 	padding: 0;
 
-	ul, ol {
+	ul,
+	ol { // @TODO OL is for on page scroll_nav_list only. Bloating CSS. Fix.
 		padding: 0;
 		/* top level nav items */
 		> li {
 			position: relative;
 
-
-
-
-
 			> a {
-				/*background: url(../images/icons-nav@2x.png) 0 -4px no-repeat;*/
 				display: block;
 				font-size: 14px;
 				font-weight: 500;
 				letter-spacing: 0.02em;
 				text-transform: uppercase;
-
 				width: 100%;
 			}
-
 
 		}
 
 		//
 		// Main Site Left Nav
 		//
-		// generate sprite positions
 
 
 		&.main-ocs-navigation {
@@ -40,12 +33,17 @@
 			background-color: $greyDark;
 
 
+			// generate sprite positions
 			@for $i from 0 through 9 {
-				>li:nth-child(#{$i+1}) > a:before{
+				>li:nth-child(#{$i+1}) > a:before
+				{
 					background: url($nav-sprite) 0 $i*-62px no-repeat;
 				}
 				//>li:nth-child(#{$i+1}) > a:hover:before,
-				>li:nth-child(#{$i+1}).active > a:before,
+				/*>li:nth-child(#{$i+1}).active > a:before,*/
+				>li:nth-child(#{$i+1}).current_page_item > a:before,
+				>li:nth-child(#{$i+1}).current_page_parent > a:before,
+				>li:nth-child(#{$i+1}).current_page_ancestor > a:before
 				{
 					background: url($nav-sprite) -62px $i*-62px no-repeat;
 				}
@@ -56,14 +54,100 @@
 				display: table;
 				min-height: 60px;
 				width: 100%;
-				> ul {
+
+				//
+				// Sub-Pages
+				//
+				> ul, > ul ul {
 					display: none;
+					background-color: $greyLighter;
+						> li {
+							/*margin: 3px -15px;*/
+
+							> a {
+								color: $greyDark;
+								font-family: $headings-font-family-lighter;
+								font-weight: normal;
+								/*padding: 10px $sidebarPadding;*/
+								padding: 10px 7px 10px 18px;
+							}
+							&:hover > a { //put the :hover on the LI so it stays highlighted when in sub menu flyouts
+								background-color: mix($grey, $greyLighter);
+								color: mix($greyDark, #000000);
+								text-decoration: none;
+							}
+							/*&.current_page_parent > a,*/
+							/*&.current_page_ancestor > a, {*/
+							&.current_page_item > a {
+								background-color: #fff;
+								border-left: 16px solid #d6d7d8;
+								color: mix($greyDark, #000000);
+								text-decoration: none;
+							}
+						}
 				}
+				> ul.children ul.children {
+					a { padding-left: 30px; font-size: 12px; }
+				}
+				// Show it
+				&.current_page_item,
+				&.current_page_parent,
+				&.current_page_ancestor {
+					> ul, > ul ul {
+						display: table-row;
+					}
+				}
+				// Show it on hover
+				// But not if it's already open.
+				&.page_item_has_children:not(.current_page_item):not(.current_page_parent):not(.current_page_ancestor):hover {
+					position: relative;
+
+					ul {
+						background-color: $greyDark;
+						display: block;
+						position: absolute;
+						left: 100%;
+						top: 1px;
+						width: 250px;
+						z-index: 1111;
+
+						// SUB SUB nav, ONS mostly
+						> .page_item_has_children {
+
+							> a:after {
+								content: "»";
+								font-family: serif;
+								font-size: 17px;
+								font-weight: normal;
+								position: absolute;
+								right: 6px;
+								top: 8px;
+							}
+							> ul { display: none;}
+							&:hover > ul { display: block;}
+							.children a { padding-left: 18px; font-size: 14px; }
+
+
+						}
+
+						a {
+							color: #ffffff;
+						}
+					}
+				}
+
+				&.current_page_item > a,
+				&.current_page_parent > a,
+				&.current_page_ancestor > a,
+				// make sure we don't go dark on hover
+				&.current_page_item:hover > a,
+				&.current_page_parent:hover > a,
+				&.current_page_ancestor:hover > a,
 				&.active > a {
 					background-color: #fff;
 					color: #000000;
 				}
-				> a:hover {
+				&:hover > a { //put the :hover on the LI so it stays highlighted when in sub menu flyouts
 					background-color: darken($greyDark, 10%);
 					text-decoration: none;
 				}
@@ -91,6 +175,10 @@
 
 		}
 
+
+		//
+		// Right Side Navigation
+		//
 
 		&.sub-page-navigation, &.scroll-nav__list {
 
