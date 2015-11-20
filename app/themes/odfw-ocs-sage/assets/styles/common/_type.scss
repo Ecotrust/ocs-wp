@@ -101,3 +101,6 @@ abbr[title], acronym[title] {
 	cursor: help;
     text-decoration: none;
 }
+
+//decrease margin spacing between featured image and h3 on cpt listings
+h3.cpt-title {margin-top: 25px}

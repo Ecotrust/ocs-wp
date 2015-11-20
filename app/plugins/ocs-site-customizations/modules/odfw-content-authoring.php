@@ -22,6 +22,10 @@
 	  define('COMPASS_URL_SUFFIX', '&print=true');
 	}
 
+function external_odfw_compass_url ($url) {
+    //external compass should always display 0.75 opacity with Oregon Mask Layer
+    return COMPASS_URL_PREFIX . $url . '&print=false&dls%5B%5D=true&dls%5B%5D=0.75&dls%5B%5D=549';
+}
 function get_the_odfw_compass_iframe ($url) {
 	//$cleanURL = esc_html( $url );
 	$fullURL = COMPASS_URL_PREFIX . $url . COMPASS_URL_SUFFIX;

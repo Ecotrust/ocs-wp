@@ -4,6 +4,7 @@
       <h1 class="entry-title"><?php the_title(); ?></h1>
     </header>
     <div class="entry-content">
+      <?php get_template_part('templates/featured-thumbnail'); ?>
       <?php the_content(); ?>
     </div>
     <footer>

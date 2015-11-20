@@ -14,9 +14,9 @@
 
 				<nav class="view-switcher">
 					<ul>
-						<li class="view-map"><button>M</button></li>
-						<li class="view-grid"><button>G</button></li>
-						<li class="view-list"><button>L</button></li>
+						<li><button class="view-map">M</button></li>
+						<li><button class="view-grid">G</button></li>
+						<li><button class="view-list">L</button></li>
 					</ul>
 					<span class="my-ocs">OR</span>
 				</nav>

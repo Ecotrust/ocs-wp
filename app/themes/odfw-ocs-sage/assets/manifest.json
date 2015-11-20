@@ -8,7 +8,8 @@
 	"main.js": {
 	  "files": [
 		"scripts/main.js",
-		"scripts/search-box.js"
+		"scripts/search-box.js",
+		"scripts/svgPopup.js"
 	  ],
 	  "main": true
 	},

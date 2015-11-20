@@ -4,7 +4,7 @@
       <h1 class="entry-title"><?php the_title(); ?></h1>
     </header>
     <div class="entry-content">
-
+      <?php get_template_part('templates/featured-thumbnail'); ?>
       <?php the_content(); ?>
 
 <section class="cmb2-wrap-group goals_and_actions_repeat_group">
