@@ -14,11 +14,11 @@
 
 				<nav class="view-switcher">
 					<ul>
-						<li><button class="view-map">M</button></li>
-						<li><button class="view-grid">G</button></li>
-						<li><button class="view-list">L</button></li>
+						<li><button class="view-map">Map</button></li>
+						<li><button class="view-grid">Grid View</button></li>
+						<li><button class="view-list">List View</button></li>
+						<li><button class="my-ocs">Oregon</button></li>
 					</ul>
-					<span class="my-ocs">OR</span>
 				</nav>
 			</div>
 		</div>
