@@ -4,7 +4,7 @@
 	.listings-wrap > article > div,
 	.listings-wrap > section > article { //not all are this way yet but orta be.
 		float: left;
-		margin: 0 30px 30px 0;
+		margin: 0 15px 15px 0;
 		min-height: 200px;
 		width: 250px;
 
@@ -24,8 +24,11 @@
 			}
 		}
 	}
+}
 
-
+section.post-109,
+section.post-112 {
+	padding-top: 25px;
 }
 
 // Temporary. No style guide yet.
@@ -33,4 +36,10 @@
     background: #eeeeee;
     border: 1px solid #dddddd;
     padding: 5px 22px 22px;
+}
+
+@media screen and (max-width: 1375) {
+	.parent-pageid-109 {
+
+	}
 }
