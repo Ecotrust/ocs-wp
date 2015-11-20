@@ -1580,13 +1580,15 @@ body{padding-top:62px}
 .ecoregion-svg>.popover>.arrow{display:none}
 .image-container{position:relative}
 .image-container>img{max-width:100%;display:block}
-.image-grid-container{height:175px}
+.image-grid-container{height:135px;overflow:hidden}
 .photo-info{position:absolute;cursor:pointer}
 .photo-info.glyphicon{bottom:11px;left:10px;top:auto;font-size:1.25em;text-shadow:-1px 0 #FFF,0 1px #FFF,1px 0 #FFF,0 -1px #FFF}
 .photo-info.glyphicon:hover{font-size:1.4em}
 .photo-info>.caption-content{background:0 0;background-color:rgba(255,255,255,.6);-webkit-box-sizing:border-box;box-sizing:border-box;font-family:HelveticaNeue-45Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:.8em;height:38px;line-height:1.1em;margin-left:40px;margin-top:1px;padding:5px;width:180px;zoom:1}
 .photo-info:hover{width:55px}
 .photo-info.visible,.photo-info:focus{width:220px}
+@media screen and (max-width:1120px){body.page-id-109 article.col-sm-6.col-md-4,body.page-id-112 article.col-sm-6.col-md-4{width:50%}
+}
 .comment-list{padding-left:0;list-style:none}
 .comment-list ol{list-style:none}
 .main{position:relative;min-height:1px;padding-left:15px;padding-right:15px;min-height:100vh;padding-bottom:87px}
@@ -1720,11 +1722,10 @@ body.map-visible button.view-map{background-position:0 -621px}
 .draft-message{background-color:#EFF7ED;border-top:1px solid #C1E1BE;bottom:0;color:#111;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:11px;margin-left:-15px;margin-right:15px;padding:10px;position:fixed;width:100%}
 .draft-message strong{background-color:#005130;color:#fff;font-weight:400;letter-spacing:.07em;padding:1px 3px}
 .draft-message small{font-size:10px}
-.ecoregions .listings-wrap>article>div,.ecoregions .listings-wrap>section>article,.ocs-strategy-species .listings-wrap>article>div,.ocs-strategy-species .listings-wrap>section>article,.parent-pageid-109 .listings-wrap>article>div,.parent-pageid-109 .listings-wrap>section>article{float:left;margin:0 15px 15px 0;min-height:200px;width:250px}
-.ecoregions .listings-wrap>article>div:nth-child(3n+1),.ecoregions .listings-wrap>section>article:nth-child(3n+1),.ocs-strategy-species .listings-wrap>article>div:nth-child(3n+1),.ocs-strategy-species .listings-wrap>section>article:nth-child(3n+1),.parent-pageid-109 .listings-wrap>article>div:nth-child(3n+1),.parent-pageid-109 .listings-wrap>section>article:nth-child(3n+1){clear:both}
+.ecoregions .listings-wrap>article>div,.ecoregions .listings-wrap>section>article,.ocs-strategy-species .listings-wrap>article>div,.ocs-strategy-species .listings-wrap>section>article,.parent-pageid-109 .listings-wrap>article>div,.parent-pageid-109 .listings-wrap>section>article{float:left;margin:0 0 15px 0;min-height:225px;max-width:325px}
 .ecoregions .listings-wrap>article>div a,.ecoregions .listings-wrap>section>article a,.ocs-strategy-species .listings-wrap>article>div a,.ocs-strategy-species .listings-wrap>section>article a,.parent-pageid-109 .listings-wrap>article>div a,.parent-pageid-109 .listings-wrap>section>article a{color:#111;display:block;padding:10px}
 .ecoregions .listings-wrap>article>div a:hover,.ecoregions .listings-wrap>section>article a:hover,.ocs-strategy-species .listings-wrap>article>div a:hover,.ocs-strategy-species .listings-wrap>section>article a:hover,.parent-pageid-109 .listings-wrap>article>div a:hover,.parent-pageid-109 .listings-wrap>section>article a:hover{background-color:#eee;text-decoration:none}
-section.post-109,section.post-112{padding-top:25px}
+body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}
 .success-story{background:#eee;border:1px solid #ddd;padding:5px 22px 22px}
 @media print{body{padding-top:0!important}
 .wrap.container-fluid{margin-left:0;float:none;width:auto}
@@ -1737,6 +1738,8 @@ blockquote,pre,table{page-break-inside:avoid}
 dl,footer,ol,ul{page-break-before:avoid}
 .compass.main{display:block!important;position:relative;max-height:4in;max-width:100%;margin:15px 0 15px 25px}
 .main-content{padding-bottom:15px!important}
+.image-grid-container{height:auto}
+body.page-id-112 .listings-wrap>section>article{height:300px;width:325px}
 }
 body{margin:12px!important}
 /*# sourceMappingURL=editor-style.css.map */

@@ -64,7 +64,10 @@
 	}
 }
 
-.image-grid-container { height: 175px;}
+.image-grid-container { 
+	height: 135px;
+	overflow: hidden;
+}
 
 .photo-info {
 	position: absolute;
@@ -109,3 +112,9 @@
 	}
 }
 
+@media screen and (max-width: 1120px) {
+	body.page-id-109,
+	body.page-id-112 {
+		article.col-sm-6.col-md-4 { width: 50%;}
+	}
+}

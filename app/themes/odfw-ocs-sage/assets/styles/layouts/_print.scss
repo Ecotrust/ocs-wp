@@ -60,5 +60,15 @@
     .main-content {
         padding-bottom: 15px !important;
     }
- 
+
+    .image-grid-container { 
+        height: auto;
+    } 
+
+    body.page-id-112 {
+        .listings-wrap>section>article { 
+            height: 300px;
+            width: 325px;
+        }
+    }
 }
