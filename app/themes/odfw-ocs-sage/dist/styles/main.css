@@ -1568,12 +1568,12 @@ body{padding-top:62px}
 .tablepress>tfoot th br,table>tfoot th br{margin-bottom:1em}
 .tablepress.table-centered-header thead th,table.table-centered-header thead th{text-align:center}
 .tablepress.table-row-headers tbody>tr>td:first-child,table.table-row-headers tbody>tr>td:first-child{font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
-.feature-thumb,.species-hero{position:relative;width:492px}
-.feature-thumb figcaption,.species-hero figcaption{background-color:rgba(0,0,0,.7);bottom:0;color:#fff;font-size:12px;left:0;padding:10px 33px;position:absolute;width:100%;display:none}
-.feature-thumb{padding-top:25px}
-.feature-thumb.close-caption figcaption,.species-hero.close-caption figcaption{display:block}
-.feature-thumb.close-caption figcaption .glyphicon,.species-hero.close-caption figcaption .glyphicon{color:#FFF;text-shadow:none}
-.feature-thumb.close-caption .show-info,.species-hero.close-caption .show-info{display:none}
+.feature-thumb,.species-hero,.wp-caption{padding:25px 0 0 0;position:relative;width:492px}
+.feature-thumb figcaption,.species-hero figcaption,.wp-caption figcaption{background-color:rgba(0,0,0,.7);bottom:0;color:#fff;font-size:12px;left:0;padding:10px 33px;position:absolute;width:100%;display:none}
+.wp-caption{border:none}
+.feature-thumb.close-caption figcaption,.species-hero.close-caption figcaption,.wp-caption.close-caption figcaption{display:block}
+.feature-thumb.close-caption figcaption .glyphicon,.species-hero.close-caption figcaption .glyphicon,.wp-caption.close-caption figcaption .glyphicon{color:#FFF;text-shadow:none}
+.feature-thumb.close-caption .show-info,.species-hero.close-caption .show-info,.wp-caption.close-caption .show-info{display:none}
 .ecoregion-svg{position:relative;height:100%;width:100%;cursor:pointer}
 .ecoregion-svg object,.ecoregion-svg>img{display:block;max-width:98%;max-height:98%;position:absolute;top:0;bottom:0;left:0;right:0}
 .ecoregion-svg object{opacity:0}

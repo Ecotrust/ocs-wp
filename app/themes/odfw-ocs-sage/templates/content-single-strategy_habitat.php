@@ -145,7 +145,8 @@
    	'post_type'   => 'attachment',
    	'numberposts' => -1,
    	'post_status' => 'published',
-   	'post_parent' => $post->ID
+   	'post_parent' => $post->ID,
+    'exclude' => get_post_thumbnail_id()
    );
 
    $attachments = get_posts( $args );
@@ -153,7 +154,8 @@
    // output example
    if ( $attachments ) {
    	foreach ( $attachments as $thumbnail ) {
-	   echo "<figure>" .wp_get_attachment_image( $thumbnail->ID, 'medium' ) ."</figure>";
+            
+        echo "<figure>" .wp_get_attachment_image( $content, 'medium' ) ."</figure>";
 	   echo $thumbnail->post_title . "<br>";
 	   echo $thumbnail->post_excerpt . "<br>";
 	   echo $thumbnail->post_content . "<br>";
@@ -168,16 +170,3 @@
 
 
 
-   // Slightly more real world output example
-   <figure>
-   <?php
-   //output the image
-   the_post_thumbnail('large');
-   $attrName = get_post_meta( get_post_thumbnail_id(), 'odfw-attribution-name', true );
-   if ( !empty($attrName) ):
-   ?>
-       <figcaption>
-           <?php echo $attrName; ?>
-       </figcaption>
-   <?php endif; ?>
-   </figure>

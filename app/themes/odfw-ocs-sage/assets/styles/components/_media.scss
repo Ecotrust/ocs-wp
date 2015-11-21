@@ -1,5 +1,7 @@
 .species-hero,
-.feature-thumb {
+.feature-thumb,
+.wp-caption {
+	padding: 25px 0 0 0;
 	position: relative;
 	width: 492px;
 	figcaption {
@@ -15,12 +17,13 @@
 	}
 }
 
-.feature-thumb {
-	padding-top: 25px;
+.wp-caption { 
+	border: none;
 }
 
 .species-hero.close-caption,
-.feature-thumb.close-caption {
+.feature-thumb.close-caption,
+.wp-caption.close-caption {
 	figcaption { 
 		display: block;
 		.glyphicon {
