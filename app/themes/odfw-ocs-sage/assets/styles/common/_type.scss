@@ -101,6 +101,16 @@ abbr[title], acronym[title] {
 	cursor: help;
     text-decoration: none;
 }
+// When h2s have tooltips it shows up far from the text because it
+// presumes them to be inline. BS positioning does not really help.
+h2 + .tooltip {
+	left: 10px !important;
+	margin-left: 50px;
+
+	.tooltip-arrow {
+		left: 25px !important;
+	}
+}
 
 //decrease margin spacing between featured image and h3 on cpt listings
 h3.cpt-title {margin-top: 25px}

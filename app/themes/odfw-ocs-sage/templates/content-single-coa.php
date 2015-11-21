@@ -7,13 +7,13 @@
     <?php $the_compass_field = get_post_meta( get_the_ID(), 'coa_meta_compass-link', true );
         if ( ! empty($the_compass_field) ): ?>
             <div class="compass main">
-                <div class="compass-container">                 
+                <div class="compass-container">
                     <span class="compass-close">
                         <i class="glyphicon glyphicon-remove-circle"></i>
                     </span>
                     <div class="view-external-compass">
                         <a href="<?php echo external_odfw_compass_url($the_compass_field) ?>"  target="_blank">
-                            <i class="glyphicon glyphicon-dashboard"></i> 
+                            <i class="glyphicon glyphicon-dashboard"></i>
                             VIEW DATA LAYERS IN COMPASS
                         </a>
                     </div>
@@ -21,14 +21,14 @@
                 </div>
             </div>
     <?php endif; ?>
-    
+
     <div class="entry-content">
         <?php get_template_part('templates/featured-thumbnail'); ?>
         <?php the_content(); ?>
 
 
 <section class="cmb2-wrap-text coa_meta_id">
-    <h2>COA ID</h2>
+    <h2 data-toggle="tooltip" title="Identification number, unique to each COA.">COA ID</h2>
 
     <p class="cmb2-text">
         <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_id', true );
