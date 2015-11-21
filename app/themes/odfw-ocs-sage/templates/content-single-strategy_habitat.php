@@ -7,13 +7,13 @@
 	<?php $the_compass_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_compass-link', true );
 		if ( ! empty($the_compass_field) ): ?>
 			<div class="compass main">
-				<div class="compass-container">                 
+				<div class="compass-container">
 				    <span class="compass-close">
 				        <i class="glyphicon glyphicon-remove-circle"></i>
 				    </span>
 				    <div class="view-external-compass">
 				        <a href="<?php echo external_odfw_compass_url($the_compass_field) ?>"  target="_blank">
-				            <i class="glyphicon glyphicon-dashboard"></i> 
+				            <i class="glyphicon glyphicon-dashboard"></i>
 				            VIEW DATA LAYERS IN COMPASS
 				        </a>
 				    </div>
@@ -23,7 +23,7 @@
 	<?php endif; ?>
 
     <div class="entry-content">
-		
+
 	  <?php get_template_part('templates/featured-thumbnail'); ?>
       <?php the_content(); ?>
 
@@ -130,54 +130,3 @@
 
 <?php endwhile; ?>
 
-<pre>
-   <?php
-   // WP makes posts with the type "attachment" for media objects
-   // name, description and caption are stored in the post object
-   // $att = get_post( get_post_thumbnail_id() );
-   // print_r($att);
-
-   // Alt, attribution name and attribution url are stored as meta for that attachement post object
-   // $meta = get_post_meta( get_post_thumbnail_id() );
-   // print_r($meta);
-
-   $args = array(
-   	'post_type'   => 'attachment',
-   	'numberposts' => -1,
-   	'post_status' => 'published',
-   	'post_parent' => $post->ID
-   );
-
-   $attachments = get_posts( $args );
-
-   // output example
-   if ( $attachments ) {
-   	foreach ( $attachments as $thumbnail ) {
-	   echo "<figure>" .wp_get_attachment_image( $thumbnail->ID, 'medium' ) ."</figure>";
-	   echo $thumbnail->post_title . "<br>";
-	   echo $thumbnail->post_excerpt . "<br>";
-	   echo $thumbnail->post_content . "<br>";
-	   echo get_post_meta( $thumbnail->ID, '_wp_attachment_image_alt', true ) . "<br>";
-	   echo get_post_meta( $thumbnail->ID, 'odfw-attribution-name', true ) . "<br>";
-	   echo get_post_meta( $thumbnail->ID, 'odfw-attribution-url', true ) . "<br>";
-	}
-}
-
-   ?>
-   </pre>
-
-
-
-   // Slightly more real world output example
-   <figure>
-   <?php
-   //output the image
-   the_post_thumbnail('large');
-   $attrName = get_post_meta( get_post_thumbnail_id(), 'odfw-attribution-name', true );
-   if ( !empty($attrName) ):
-   ?>
-       <figcaption>
-           <?php echo $attrName; ?>
-       </figcaption>
-   <?php endif; ?>
-   </figure>

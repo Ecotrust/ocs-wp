@@ -69,3 +69,38 @@ USE:
 	echo yourprefix_get_wysiwyg_output( 'wiki_test_wysiwyg', get_the_ID() );
 
 */
+
+
+function ocs_list_ecoregions ($ecorgions) {
+	$out = "";
+	$out .=	'<ul class="associated-ecoregions">';
+
+		// Get the associated ecoregion names
+		$args = array(
+			'post_type' => 'ecoregion',
+			'post__in' => $ecorgions,
+			'orderby' => 'date',
+			'order' => 'ASC',
+			'posts_per_page'=> '30', // -1 == show all
+		);
+
+		$loop = new WP_Query( $args );
+
+
+	if( $loop->have_posts() ):
+		while( $loop->have_posts() ): $loop->the_post();
+
+		global $post;
+		$out .= "<li><a id='$post->ID' href='/ecoregion/$post->post_name'>$post->post_title</a></li>";
+
+		endwhile;
+	endif;
+
+	$out .= '</ul>';
+	echo $out;
+
+	/* Restore original Post Data */
+	wp_reset_postdata();
+
+
+}

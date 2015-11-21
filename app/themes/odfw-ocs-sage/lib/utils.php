@@ -18,7 +18,6 @@ add_filter('get_search_form', __NAMESPACE__ . '\\get_search_form');
 
 <?php
 
-// couple of helper functions
 function tagMaker($tag, $close = false, $class="") {
 	$theTag = isset($tag) ? $tag : "div";
 
@@ -26,7 +25,7 @@ function tagMaker($tag, $close = false, $class="") {
 
 	if ( $close ) {
 		// formatting hackeries
-		$out = $tag != 'section' && $tag != 'h3'  ? $spcr : "";
+		$out = $tag != 'section' && $tag != 'h2'  ? $spcr : "";
 		$out .= "&lt;/" . $tag . "&gt;";
 		$out .= "<br />";
 	} else {
@@ -52,7 +51,8 @@ function cmbTagMaker($field, $group=false){
 	$fieldType = isset($field['type']) ? $field['type'] : "type-not-set";
 	$fieldName = isset($field['name']) ? $field['name'] : "no-name";
 
-
+	// don't need title fields showing up
+	// if ( $fieldType == "title" ) { return; }
 
 	switch ( $fieldType ) {
 		case "wysiwyg":
@@ -87,7 +87,7 @@ function cmbTagMaker($field, $group=false){
 
 	//start the output
 	$out .= tagMaker('section', false, 'cmb2-wrap-'.$fieldType . " " . $fieldID );
-	$out .= tagMaker('h3')  . $fieldName . tagMaker('h3', true);
+	$out .= tagMaker('h2')  . $fieldName . tagMaker('h2', true);
 	$out .= tagMaker($tag, false, 'cmb2-'.$fieldType);
 	$out .= $getString;
 
@@ -127,6 +127,7 @@ foreach($cmb_fields as $name=>$value) {
 	echo cmbTagMaker($value);
 }
 echo "</pre>";
+
 
 ?>
 

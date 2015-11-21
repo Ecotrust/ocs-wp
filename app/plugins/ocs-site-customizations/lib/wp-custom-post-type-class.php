@@ -427,11 +427,11 @@ class CPT {
         $this->options = $options;
 
         // Check that the post type doesn't already exist.
-        //if ( ! post_type_exists( $this->post_type_name ) ) {
+        if ( ! post_type_exists( $this->post_type_name ) ) {
 
             // Register the post type.
             register_post_type( $this->post_type_name, $options );
-        //}
+        }
     }
 
     /**
