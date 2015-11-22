@@ -1,7 +1,6 @@
 .species-hero,
 .feature-thumb {
 	position: relative;
-	width: 492px;
 	figcaption {
 		background-color: rgba(0,0,0,0.7);
 		bottom: 0;
@@ -18,15 +17,18 @@
 .feature-thumb {
 	padding-top: 25px;
 }
+.species-hero {
+	width: 492px;
+}
 
 .species-hero.close-caption,
 .feature-thumb.close-caption {
-	figcaption { 
+	figcaption {
 		display: block;
 		.glyphicon {
 			color: #FFF;
 			text-shadow: none;
-		} 
+		}
 	}
 	.show-info { display: none; }
 }
@@ -55,10 +57,11 @@
 
 }
 
-.image-container { 
+.image-container {
 	position: relative;
 
-	> img { 
+	> img {
+		height: auto;
 		max-width: 100%;
 		display: block;
 	}
