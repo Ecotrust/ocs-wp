@@ -1,16 +1,16 @@
-/*
-#adminmenu #menu-posts-ecoregion {
-	border-top: 9px solid #f1f1f1;
-	margin-top: 15px;
-}
-#adminmenu #menu-posts-strategy_species {
-	border-bottom: 9px solid #f1f1f1;
-	margin-bottom: 15px;
-}
-.cmb2-text-url {
+
+.cmb2-wrap .cmb-td input.regular-text,
+.cmb2-wrap .cmb-td input.cmb2-text-url {
 	width: 95%;
 }
-*/
+
+/* tighten up repeater fields */
+.cmb2-wrap .cmb-repeat-group-wrap .cmb-remove-field-row,
+.cmb2-wrap .cmb-repeat-group-wrap .cmb-repeat-group-field,
+.cmb2-wrap .postbox-container .cmb-remove-field-row,
+.cmb2-wrap .postbox-container .cmb-repeat-group-field {
+	padding: 0.5em 0 0.9em 0;
+}
 
 .cmb-field-list > .cmb-row.cmb-type-title {
     padding-bottom: 0.5em !important;
@@ -34,6 +34,11 @@
 #poststuff .cmb-repeatable-group h2 {
     white-space: nowrap;
 }
+
+.cmb-repeat-group-wrap .cmb-repeatable-group .cmb-th { width: 24%; }
+.cmb-repeat-group-wrap .cmb-repeatable-group .cmb-th + .cmb-td { width: 74%; }
+
+
 /* Species Meta Boxes. Want to abstract
  * to .table-row or 'inline-row' but couldn't get the class to take in CMB2 */
 #coa_meta_strategy_species_repeat .cmb-repeat-group-field {
@@ -82,6 +87,18 @@
     text-indent: -3em;
 }
 
+/* Make CMB Titles break up the box. Could trigger on separate class by passing it into CMB2 */
+.cmb2-wrap > .cmb-field-list .cmb-row.cmb-type-title::before {
+    background-color: #f1f1f1;
+	border: 1px solid #f1f1f1;
+	border-width: 0 1px;
+    box-shadow: 0 -2px 1px -1px rgba(0, 0, 0, 0.04) inset, 0 2px 1px 0 rgba(0, 0, 0, 0.04) inset;
+    content: "";
+    display: block;
+    height: 25px;
+    margin: 0.9em -14px;
+    top: 0;
+}
 
 /*
 .toplevel_page_tablepress #edit-form-body textarea {
@@ -138,4 +155,20 @@
     line-height: 1.4;
     max-height: none;
     padding: 4px 6px;
+}
+
+
+/* Keep the publish box on the screen */
+#major-publishing-actions.affix,
+#submitdiv.affix,
+#nav-menu-header.affix,
+#nav-menu-meta.affix {
+	border: 1px solid #cccccc;
+	-moz-box-shadow: 		0px 1px 3px rgba(0,0,0,.2);
+	-webkit-box-shadow: 	0px 1px 3px rgba(0,0,0,.2);
+	box-shadow: 			0px 1px 3px rgba(0,0,0,.2);
+	position: fixed;
+    top: 31px;
+	width: 259px;
+	z-index: 1000;
 }
