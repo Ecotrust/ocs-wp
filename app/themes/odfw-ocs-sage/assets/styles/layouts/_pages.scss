@@ -35,11 +35,20 @@ section.post-112 {
 .success-story {
     background: #eeeeee;
     border: 1px solid #dddddd;
+	clear: both;
     padding: 5px 22px 22px;
 }
 
 @media screen and (max-width: 1375) {
 	.parent-pageid-109 {
 
+	}
+}
+
+.coa-id {
+	margin-top: $line-height-px;
+	span {
+		font-family: $font-family-sans-serif;
+		font-weight: normal;
 	}
 }
