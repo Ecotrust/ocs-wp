@@ -83,7 +83,8 @@ function setupCustomPostTypes () {
 	$ss_options = array_merge($global_cpt_args, array(
 		'menu_position'  => 8,
 		'hierarchical'   => true,
-		'supports'       => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'page-attributes'),
+		'taxonomies'     => array( 'species' ),
+		'supports'       => array( 'title', 'editor', 'author', 'thumbnail', 'page-attributes'),
 	));
 	$strategy_species = new CPT(array(
 		'post_type_name' => 'strategy_species',

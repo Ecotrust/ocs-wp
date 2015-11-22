@@ -500,11 +500,57 @@ function setupCustomFields () {
 			'id'   => 'coa_special_features_title'
 		) );
 
+		$coa_cmb->add_field( array(
+			'name' => __( '2006 COAs', 'odfw' ),
+			'id' => $prefix . 'special_features_2006',
+			'type' => 'text',
+			'options' => array(
+				'add_row_text' => __( 'Add another 2006 COA', 'odfw' ),
+			),
+			'repeatable' => true
+		));
+
+
+		$special_features_protected_area_group_field = $coa_cmb->add_field( array(
+			'id' => $prefix . 'special_features_protected_area',
+			'type'        => 'group',
+			'options'     => array(
+				'group_title'   => __( 'Special Features: Protected Areas {#}', 'odfw' ),
+				'add_button'    => __( 'Add another Protected Area', 'odfw' ),
+				'remove_button' => __( 'Remove this Protected Area', 'odfw' ),
+				'sortable'      => true, // beta
+				)
+		) );
+
+		   $coa_cmb->add_group_field( $special_features_protected_area_group_field, array(
+				'name' => __( 'Protected Area Name', 'odfw' ),
+				'id' => $prefix . 'special_features_protected_area_title',
+				'type' => 'text'
+			) );
+
+		   $coa_cmb->add_group_field( $special_features_protected_area_group_field, array(
+				'name' => __( 'Protected Area Link', 'odfw' ),
+				'id' => $prefix . 'special_features_protected_area_link',
+				'type' => 'text_url'
+			) );
+
+		$coa_cmb->add_field( array(
+			'name' => __( 'KCI Connections', 'odfw' ),
+			'id' => $prefix . 'kci_connections',
+			'type' => 'text'
+		));
+
+		$coa_cmb->add_field( array(
+			'name' => 'General Special Features',
+			'type' => 'title',
+			'id'   => 'coa_general_special_features_title'
+		) );
+
 		$special_features_group_field = $coa_cmb->add_field( array(
 			'id' => $prefix . 'special_features',
 			'type'        => 'group',
 			'options'     => array(
-				'group_title'   => __( 'Special Features {#}', 'odfw' ),
+				'group_title'   => __( 'General Special Features {#}', 'odfw' ),
 				'add_button'    => __( 'Add another Special Feature', 'odfw' ),
 				'remove_button' => __( 'Remove this Special Feature', 'odfw' ),
 				'sortable'      => true, // beta
@@ -513,21 +559,31 @@ function setupCustomFields () {
 
 		   $coa_cmb->add_group_field( $special_features_group_field, array(
 				'name' => __( 'Special Feature Name', 'odfw' ),
-				'id' => $prefix . 'special_feature_title',
+				'id' => $prefix . 'special_features_title',
 				'type' => 'text'
 			) );
 
 		   $coa_cmb->add_group_field( $special_features_group_field, array(
-				'name' => __( 'Special Feature Value', 'odfw' ),
+				'name' => __( 'Special Feature Link', 'odfw' ),
 				'id' => $prefix . 'special_features_value',
 				'type' => 'text_url'
 			) );
 
 
+
+
+
+		$coa_cmb->add_field( array(
+			'name' => 'Habitats',
+			'type' => 'title',
+			'id'   => $prefix . 'habitats_title'
+		) );
+
+
 		$coa_cmb->add_field( array(
 			'name' => __( 'Specialized Local Habitats', 'odfw' ),
 			'id'=> $prefix . 'specialized_local_habitats',
-			'desc' => 'One habitat per box. Click the [Add Another Recommendation] button to add another.',
+			'desc' => 'One habitat per box. Click the [Add Another Specialized Local Habitat] button to add another.',
 			'type' => 'text',
 			'options' => array(
 				'add_row_text' => __( 'Add Another Specialized Local Habitat', 'odfw' ),
@@ -549,7 +605,11 @@ function setupCustomFields () {
 		));
 
 
-
+		$coa_cmb->add_field( array(
+			'name' => 'Species',
+			'type' => 'title',
+			'id'   => $prefix . 'species_title'
+		) );
 
 		$species_group_field = $coa_cmb->add_field( array(
 			'id' => $prefix . 'strategy_species',
@@ -566,7 +626,7 @@ function setupCustomFields () {
 		) );
 
 			$coa_cmb->add_group_field( $species_group_field, array(
-				'name' => __('Strategy Species ID', 'odfw'),
+				'name' => __('Strategy Species', 'odfw'),
 				'id'   => $prefix . 'strategy_species_id',
 				'desc' => __('Use the spyglass icon to select a strategy_species.', 'odfw'),
 				'type' => 'post_search_text',
@@ -575,13 +635,12 @@ function setupCustomFields () {
 				'select_behavior' => 'replace',
 				'find_text'     => 'Find Species',
 				'include_post_title'  => true,
-				'after_row'   => 'OCS_get_the_name'
 			) );
 
 			$coa_cmb->add_group_field( $species_group_field, array(
 				'name' => __('Strategy Species Type', 'odfw'),
 				'id'   => $prefix . 'strategy_species_association',
-				'desc' => __('Is this species Modeled, Observed or Documented?', 'odfw'),
+				'desc' => __('Is it Modeled, Observed or Documented?', 'odfw'),
 				'type' => 'select',
 				'select_type' => 'radio',
 				'default'     => 'modeled',
@@ -592,12 +651,6 @@ function setupCustomFields () {
 				),
 			) );
 
-		$coa_cmb->add_field( array(
-			'name' => __( 'KCI Connections', 'odfw' ),
-			'before_row'   => '<p>TBD if KCI Connections will be used here. They are currently a part of "Special Features"</p>',
-			'id' => $prefix . 'kci_connections',
-			'type' => 'text'
-		));
 
 
 

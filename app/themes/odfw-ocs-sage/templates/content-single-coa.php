@@ -32,16 +32,14 @@
 			<div class="col-sm-9">
 				<?php the_content(); ?>
 			</div>
-			<div class="col-sm-2 col-sm-offset-1 coa-id">
-				<aside class="panel panel-primary">
-					<header class="panel-heading">
-						<h2 class="panel-title" data-toggle="tooltip" data-placement="right" title="Identification number, unique to each COA.">COA ID</h2>
-					</header>
+			<div class="col-sm-2 coa-id">
+				<div class="btn btn-primary">
+					<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_coa_id', true );?>
 
-					<div class="panel-body">
-						<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_coa_id', true );
-						echo esc_html( $the_field ); ?>
-					</div>
+					<h3 class="panel-title" data-toggle="tooltip" data-placement="bottom" title="Identification number, unique to each COA.">
+						COA ID <span class="badge"><?=$the_field; ?></span>
+					</h3>
+				</div>
 			</div>
 		</div>
 
@@ -49,145 +47,183 @@
 
 
 
-<section class="cmb2-wrap-group coa_meta_special_features">
-	<h2 data-toggle="tooltip" data-placement="right" title="Unique attributes that might be found in this area, and may have contributed to the
-area being designated as a COA.">Special Features</h2>
+		<section class="cmb2-wrap-group coa_meta_special_features">
+			<h2 data-toggle="tooltip" data-placement="right" title="Unique attributes that might be found in this area, and may have contributed to the
+		area being designated as a COA.">Special Features</h2>
 
 
-    <div class="cmb2-group">
-        <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_special_features', true );
+			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_special_features', true );
+			if ( !empty ($the_field) ): ?>
+			<h3>General</h3>
+			<ul class="coa-detail-listing">
 
-        foreach($the_field as $entries => $entry ) { ?>
-            <p><?php echo $entry['coa_meta_special_feature_title'];?></p>
-            <p><?php echo $entry['coa_meta_special_features_value'];?></p>
-        <?php } ?>
-    </div>
-</section>
-
-
-
-<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_ecoregions">
-    <h2 data-toggle="tooltip" data-placement="right" title="Ecoregion(s) that contain this COA">Ecoregions</h2>
-
-	<?php
-			// Some of these were stored as a string(single), some as an array (on CSV import)
-			$the_ecoregions = get_post_meta( get_the_ID(), 'coa_meta_attached_ecoregions', true );
-			// so let's make sure it's an array
-			$the_ecoregions_array = is_array($the_ecoregions) ? $the_ecoregions : explode(",", $the_ecoregions);
-			ocs_list_ecoregions($the_ecoregions_array);
-?>
-</section>
-
-
-<section class="cmb2-wrap-group coa_meta_local_conservation_actions_and_plans">
-	<h2 data-toggle="tooltip" title="Current references to specific conservation planning efforts and/or
-	ongoing projects within this COA. List of references will be updated as needed.
-	Please contact ODFW if you would like to propose additional plans added to this area.">
-	Local Conservation Actions and Plans</h2>
-
-    <ul>
-	<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_local_conservation_actions_and_plans', true );
-
-		foreach($the_field as $entries => $entry ) {
-			if ( ! empty ( $entry['coa_meta_local_plan_link'] ) ) : ?>
-				<li><a href="<?= $entry['coa_meta_local_plan_link']; ?>"><?= $entry['coa_meta_local_plan_title']; ?></a></li>
-			<?php else: ?>
-				<li><?php echo $entry['coa_meta_local_plan_title'];?></li>
+				<?php foreach($the_field as $entries => $entry ) { ?>
+					<li><?php echo $entry['coa_meta_special_features_title'];?>
+					<?php if ( !empty($entry['coa_meta_special_features_value']) ): ?>
+						<a href="<?=$entry['coa_meta_special_features_value'];?>"><?=$entry['coa_meta_special_features_value'];?></a>
+					<?php endif; ?>
+					</li>
+				<?php } ?>
+			</ul>
 			<?php endif; ?>
 
-	<?php } ?>
-    </ul>
-</section>
 
 
-<section class="cmb2-wrap-group coa_meta_potential_partners">
-	<h2 data-toggle="tooltip" title="Organizations with a potential, or ongoing interest in this COA. Users are
-encouraged to contact these organizations if you are interested in more detailed information about this COA. If your
-organization would like to be listed, and is not currently, please contact ODFW. ">Potential Partners</h2>
-
-    <ul>
-	<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_potential_partners', true );
-
-		foreach($the_field as $entries => $entry ) {
-			if ( ! empty ( $entry['coa_meta_potential_partner_link'] ) ) : ?>
-				<li><a href="<?= $entry['coa_meta_potential_partner_link']; ?>"><?= $entry['coa_meta_potential_partner_title']; ?></a></li>
-			<?php else: ?>
-				<li><?php echo $entry['coa_meta_potential_partner_title'];?></li>
+			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_special_features_2006', true );
+			if ( !empty ($the_field) ): ?>
+			<h3>2006 <abbr class="c2c-text-hover" title="Oregon Department of Fish and Wildlife">ODFW</abbr> <abbr class="c2c-text-hover" title="Conservation Opportunity Area">COA</abbr></h3>
+			<ul class="coa-detail-listing">
+				<?php foreach($the_field as $entry ) { ?>
+					<li><?php echo esc_html( $entry ); ?></li>
+				<?php } ?>
+			</ul>
 			<?php endif; ?>
 
-	<?php } ?>
-    </ul>
-</section>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_special_features_protected_area', true );
+			$size = count($the_field) > 8 ? " long-list " : "";
+			if ( !empty ($the_field) ): ?>
+			<h3>Protected Areas</h3>
+			<ul class="coa-detail-listing <?=$size; ?>">
 
-<section class="cmb2-wrap-textarea_small coa_meta_recommended_conservation_actions">
-	<h2 data-toggle="tooltip" title="Priority conservation actions recommended for this COA. Conservation actions need
-to be compatible with local priorities, local comprehensive plans and land use ordinances, as well as other local,
-state, or federal laws. Actions on federal lands must undergo federal planning processes prior to implementation to
-ensure consistency with existing plans and management objectives for the area.">Recommended Conservation Actions</h2>
-
-	<ul class="coa-detail-listing">
-        <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended_conservation_actions', true );
-        foreach($the_field as $entry ) { ?>
-            <li><?php echo esc_html( $entry ); ?></li>
-        <?php } ?>
-	</ul>
-</section>
-
-
-
-
-
-<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_habitats">
-    <h2 data-toggle="tooltip" title="Strategy Habitats with documented distribution in this COA.">Strategy Habitats</h2>
-
-    <p class="cmb2-custom_attached_posts">
-        <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_attached_habitats', true );
-        echo esc_html( $the_field ); ?>
-    </p>
-</section>
-
-
-<section class="cmb2-wrap-text coa_meta_specialized_local_habitats">
-    <h2 data-toggle="tooltip" title="Smaller, localized habitats and habitat features that are important to Strategy Species and likely to be found in this COA.">Specialized Local Habitats</h2>
-
-	<ul class="coa-detail-listing">
-        <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_specialized_local_habitats', true );
-        foreach($the_field as $entry ) { ?>
-            <li><?php echo esc_html( $entry ); ?></li>
-        <?php } ?>
-	</ul>
-</section>
+				<?php foreach($the_field as $entries => $entry ) { ?>
+					<li><?php echo $entry['coa_meta_special_features_protected_area_title'];?>
+					<?php if ( !empty($entry['coa_meta_special_features_protected_area_link']) ): ?>
+						<a href="<?=$entry['coa_meta_special_features_protected_area_link'];?>">
+							<?=$entry['coa_meta_special_features_protected_area_link'];?>
+						</a>
+					<?php endif; ?>
+					</li>
+				<?php } ?>
+			</ul>
+			<?php endif; ?>
 
 
 
 
-<section class="cmb2-wrap-group coa_meta_strategy_species">
-    <h2 data-toggle="tooltip" title="">no-name</h2>
+			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_kci_connections', true );
+			if ( !empty ($the_field) ): ?>
+				<div class="cmb2-wrap-text coa_meta_kci_connections">
+					<h2 data-toggle="tooltip" title="">KCI Connections</h2>
 
-    <div class="cmb2-group">
-        <?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_strategy_species', true );
-
-        foreach($the_field as $entries => $entry ) { ?>
-            <p><?php echo $entry['coa_meta_strategy_species_id'];?></p>
-            <p><?php echo $entry['coa_meta_strategy_species_association'];?></p>
-
-        <?php } ?>
-    </div>
-</section>
+					<p class="cmb2-text">
+						<?php echo esc_html( $the_field ); ?>
+					</p>
+				</div>
+			<?php endif; ?>
 
 
-
-	<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_kci_connections', true );
-	if ( !empty ($the_field) ): ?>
-		<section class="cmb2-wrap-text coa_meta_kci_connections">
-			<h2 data-toggle="tooltip" title="">KCI Connections</h2>
-
-			<p class="cmb2-text">
-				<?php echo esc_html( $the_field ); ?>
-			</p>
 		</section>
-	<?php endif; ?>
+
+
+
+		<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_ecoregions">
+			<h2 data-toggle="tooltip" data-placement="right" title="Ecoregion(s) that contain this COA">Ecoregions</h2>
+
+			<?php
+					// Some of these were stored as a string(single), some as an array (on CSV import)
+					$the_ecoregions = get_post_meta( get_the_ID(), 'coa_meta_attached_ecoregions', true );
+					// so let's make sure it's an array
+					$the_ecoregions_array = is_array($the_ecoregions) ? $the_ecoregions : explode(",", $the_ecoregions);
+					ocs_list_ecoregions($the_ecoregions_array);
+		?>
+		</section>
+
+
+		<section class="cmb2-wrap-group coa_meta_local_conservation_actions_and_plans">
+			<h2 data-toggle="tooltip" title="Current references to specific conservation planning efforts and/or
+			ongoing projects within this COA. List of references will be updated as needed.
+			Please contact ODFW if you would like to propose additional plans added to this area.">
+			Local Conservation Actions and Plans</h2>
+
+			<ul>
+			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_local_conservation_actions_and_plans', true );
+
+				foreach($the_field as $entries => $entry ) {
+					if ( ! empty ( $entry['coa_meta_local_plan_link'] ) ) : ?>
+						<li><a href="<?= $entry['coa_meta_local_plan_link']; ?>"><?= $entry['coa_meta_local_plan_title']; ?></a></li>
+					<?php else: ?>
+						<li><?php echo $entry['coa_meta_local_plan_title'];?></li>
+					<?php endif; ?>
+
+			<?php } ?>
+			</ul>
+		</section>
+
+
+		<section class="cmb2-wrap-group coa_meta_potential_partners">
+			<h2 data-toggle="tooltip" title="Organizations with a potential, or ongoing interest in this COA. Users are
+		encouraged to contact these organizations if you are interested in more detailed information about this COA. If your
+		organization would like to be listed, and is not currently, please contact ODFW. ">Potential Partners</h2>
+
+			<ul>
+			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_potential_partners', true );
+
+				foreach($the_field as $entries => $entry ) {
+					if ( ! empty ( $entry['coa_meta_potential_partner_link'] ) ) : ?>
+						<li><a href="<?= $entry['coa_meta_potential_partner_link']; ?>"><?= $entry['coa_meta_potential_partner_title']; ?></a></li>
+					<?php else: ?>
+						<li><?php echo $entry['coa_meta_potential_partner_title'];?></li>
+					<?php endif; ?>
+
+			<?php } ?>
+			</ul>
+		</section>
+
+
+		<section class="cmb2-wrap-textarea_small coa_meta_recommended_conservation_actions">
+			<h2 data-toggle="tooltip" title="Priority conservation actions recommended for this COA. Conservation actions need
+		to be compatible with local priorities, local comprehensive plans and land use ordinances, as well as other local,
+		state, or federal laws. Actions on federal lands must undergo federal planning processes prior to implementation to
+		ensure consistency with existing plans and management objectives for the area.">Recommended Conservation Actions</h2>
+
+			<ul class="coa-detail-listing">
+				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended_conservation_actions', true );
+				foreach($the_field as $entry ) { ?>
+					<li><?php echo esc_html( $entry ); ?></li>
+				<?php } ?>
+			</ul>
+		</section>
+
+
+		<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_habitats">
+			<h2 data-toggle="tooltip" title="Strategy Habitat(s) with documented distribution in this COA.">Strategy Habitats</h2>
+
+				<?php
+					// Some of these were stored as a string(single), some as an array (on CSV import)
+					$the_habitats = get_post_meta( get_the_ID(), 'coa_meta_attached_habitats', true );
+					// so let's make sure it's an array
+					$the_habitats_array = is_array($the_habitats) ? $the_habitats : explode(",", $the_habitats);
+					ocs_list_strategy_habitats($the_habitats_array);
+
+				?>
+		</section>
+
+
+		<section class="cmb2-wrap-text coa_meta_specialized_local_habitats">
+			<h2 data-toggle="tooltip" title="Smaller, localized habitats and habitat features that are important to Strategy Species and likely to be found in this COA.">Specialized Local Habitats</h2>
+
+			<ul class="coa-detail-listing">
+				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_specialized_local_habitats', true );
+				foreach($the_field as $entry ) { ?>
+					<li><?php echo esc_html( $entry ); ?></li>
+				<?php } ?>
+			</ul>
+		</section>
+
+
+		<section class="cmb2-wrap-group coa_meta_strategy_species">
+			<h2 data-toggle="tooltip" title="">Strategy Species</h2>
+
+			<div class="cmb2-group">
+
+			<?php
+				$the_species = get_post_meta( get_the_ID(), 'coa_meta_strategy_species', true );
+				ocs_list_coa_strategy_species($the_species);
+			?>
+
+			</div>
+		</section>
 
     </div>
 

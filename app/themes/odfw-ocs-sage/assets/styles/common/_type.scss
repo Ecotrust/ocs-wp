@@ -43,8 +43,9 @@ h3, h4 {
 	font-family: $body-font-bolder;
 	font-size: $font-size-h3;
 	letter-spacing: -0.02em;
-    margin-bottom: $line-height-px;
-    margin-top: $line-height-px * 2;
+	/* off while testing COA layouts */
+    /*margin-bottom: $line-height-px;*/
+    /*margin-top: $line-height-px * 2;*/
 }
 h4 {
 	color: #222;
@@ -130,4 +131,12 @@ h2[data-toggle=tooltip]{
 	@include clearfix;
 }
 //decrease margin spacing between featured image and h3 on cpt listings
-h3.cpt-title {margin-top: 25px}
+h3.cpt-title { margin-top: 25px; }
+
+h3>.badge { margin-left: 3px; }
+
+.long-list, .long-list ul, .long-list ol {
+	-moz-column-count: 2;
+	-webkit-column-count: 2;
+	column-count: 2;
+}
