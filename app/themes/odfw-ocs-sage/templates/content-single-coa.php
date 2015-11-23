@@ -131,7 +131,7 @@
 
 
 		<section class="cmb2-wrap-group coa_meta_local_conservation_actions_and_plans">
-			<h2 data-toggle="tooltip" title="Current references to specific conservation planning efforts and/or
+			<h2 data-toggle="tooltip" data-placement="right"  title="Current references to specific conservation planning efforts and/or
 			ongoing projects within this COA. List of references will be updated as needed.
 			Please contact ODFW if you would like to propose additional plans added to this area.">
 			Local Conservation Actions and Plans</h2>
@@ -152,7 +152,7 @@
 
 
 		<section class="cmb2-wrap-group coa_meta_potential_partners">
-			<h2 data-toggle="tooltip" title="Organizations with a potential, or ongoing interest in this COA. Users are
+			<h2 data-toggle="tooltip"  data-placement="right" title="Organizations with a potential, or ongoing interest in this COA. Users are
 		encouraged to contact these organizations if you are interested in more detailed information about this COA. If your
 		organization would like to be listed, and is not currently, please contact ODFW. ">Potential Partners</h2>
 
@@ -172,7 +172,7 @@
 
 
 		<section class="cmb2-wrap-textarea_small coa_meta_recommended_conservation_actions">
-			<h2 data-toggle="tooltip" title="Priority conservation actions recommended for this COA. Conservation actions need
+			<h2 data-toggle="tooltip"  data-placement="right" title="Priority conservation actions recommended for this COA. Conservation actions need
 		to be compatible with local priorities, local comprehensive plans and land use ordinances, as well as other local,
 		state, or federal laws. Actions on federal lands must undergo federal planning processes prior to implementation to
 		ensure consistency with existing plans and management objectives for the area.">Recommended Conservation Actions</h2>
@@ -187,7 +187,7 @@
 
 
 		<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_habitats">
-			<h2 data-toggle="tooltip" title="Strategy Habitat(s) with documented distribution in this COA.">Strategy Habitats</h2>
+			<h2 data-toggle="tooltip"  data-placement="right" title="Strategy Habitat(s) with documented distribution in this COA.">Strategy Habitats</h2>
 
 				<?php
 					// Some of these were stored as a string(single), some as an array (on CSV import)
@@ -201,7 +201,7 @@
 
 
 		<section class="cmb2-wrap-text coa_meta_specialized_local_habitats">
-			<h2 data-toggle="tooltip" title="Smaller, localized habitats and habitat features that are important to Strategy Species and likely to be found in this COA.">Specialized Local Habitats</h2>
+			<h2 data-toggle="tooltip"  data-placement="right" title="Smaller, localized habitats and habitat features that are important to Strategy Species and likely to be found in this COA.">Specialized Local Habitats</h2>
 
 			<ul class="coa-detail-listing">
 				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_specialized_local_habitats', true );
@@ -213,7 +213,7 @@
 
 
 		<section class="cmb2-wrap-group coa_meta_strategy_species">
-			<h2 data-toggle="tooltip" title="">Strategy Species</h2>
+			<h2 data-toggle="tooltip"  data-placement="right" title="">Strategy Species</h2>
 
 			<div class="cmb2-group">
 
