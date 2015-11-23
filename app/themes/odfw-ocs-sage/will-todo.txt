@@ -1,0 +1,63 @@
+ACS => American Community Survey
+BLM => United States Bureau of Land Management
+BM => Blue Mountains
+BOEM => Bureau of Ocean Energy Management
+COA => Conservation Opportunity Area
+CP => Columbia Plateau
+CR => Coast Range
+DDT => dichloro-diphenyl-trichloroethane
+DEQ => Oregon Department of Environmental Quality
+DLCD => Oregon Department of Land Conservation and Development
+DOGAMI => Oregon Department of Geology and Mineral Industries
+DPS => Distinct Population Segment
+DSL => Oregon Department of State Lands
+EC => East Cascades
+EPA => United States Environmental Protection Agency
+ESA => Endangered Species Act
+ESU = Evolutionarily Significant Unity
+FAA => Federal Aviation Administration
+FERC => Federal Energy Regulatory Commission
+KCI => Key Conservation Issue
+KM => Klamath Mountains
+MHHW => Mean Higher High Water
+MHW => Mean High Water
+MLLW => Mean Lower Low Water
+MLW => Mean Low Water
+MMPA => Marine Mammal Protection Act
+NBR => Northern Basin and Range
+NMFS => Marine Fisheries Service (NOAA Fisheries)
+NOAA => National Oceanic and Atmospheric Administration
+NS => Nearshore
+OAR => Oregon Administrative Rules
+ODA => Oregon Department of Agriculture
+ODF => Oregon Department of Forestry
+ODFW => Oregon Department of Fish and Wildlife
+ODOT => Oregon Department of Transportation
+OHA => Oregon Health Authority
+ONS => Oregon Nearshore Strategy
+OPAC => Ocean Policy Advisory Council
+OPRD => Oregon Parks and Recreation Department
+ORS => Oregon Revised Statutes
+OSMB => Oregon State Marine Board
+OSP => Oregon State Police
+OSU => Oregon State University
+OWRD => Oregon Water Resources Department
+PFMC => Pacific Fishery Management Council
+PSMFC => Pacific States Marine Fisheries Commission
+ROV => Remotely Operated Vehicle
+SCUBA => Self Contained Underwater Breathing Apparatus
+SMU => Species Management Unit for Native Fish
+SWG => State Wildlife Grants
+USACE => United States Army Corps of Engineers
+USCG => United States Coast Guard
+USFS => United States Forest Service
+USFWS => United States Fish and Wildlife Service
+WC => West Cascades
+WV => Willamette Valley
+
+
+
+From manifest
+	"anchor.js": {
+	  "bower": ["anchor-js"]
+	},

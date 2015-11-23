@@ -51,7 +51,7 @@ body {
 
 .compass-close {
     position: absolute;
-    top: 20px;
+    top: 25px;
     right: 15px;
     cursor: pointer;
     z-index: 1000;
@@ -68,6 +68,7 @@ body {
 
 .view-external-compass {
     position: absolute;
+    height: 50px;
     top: 20px;
     right: 75px;
     font-family: $headings-font-family-lighter;
@@ -76,17 +77,30 @@ body {
     background-color: $off-white;
     padding: 6px;
     z-index: 1000;
+    -moz-box-shadow:    1.5px 1.5px 1px 1.5px $greyDark;
+    -webkit-box-shadow: 1.5px 1.5px 1px 1.5px $greyDark;
+    box-shadow:         1.5px 1.5px 1px 1.5px $greyDark;
 
     &:hover {
         background-color: $greyLighter;
     }
 
-    .glyphicon {
-        color: $link-color;
-    }
-
     a {
         color: $greyDark;
         text-decoration: none;
+    }
+   
+
+/*    .glyphicon {
+        color: $link-color;
+    }
+*/
+    span.compass-icon {
+        background: url($nav-sprite) no-repeat;
+        background-position: -78px -888px;
+        padding-left: 40px;
+        line-height: 35px;
+        display: inline-block;
+        margin: auto;
     }
 }

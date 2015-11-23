@@ -9,7 +9,24 @@ Version: 0.2.3
 License: GPLv2
 */
 
+
+
+/*
+ .attached-post-title { // place it over the input
+    background-color: #ffffff;
+    left: 2px;
+    line-height: 20px;
+    padding: 5px;
+    position: absolute;
+    top: 2px;
+    width: 25em;
+ }
+ */
 function cmb2_post_search_render_field( $field, $escaped_value, $object_id, $object_type, $field_type ) {
+	if ( $field->args('include_post_title') ) {
+		$title =  !empty($field->escaped_value) ?  get_the_title($field->escaped_value) : "";
+		echo "<label class='attached-post-title' for='" . $field->args('id') . "'>" . $title . "</label>";
+	}
 	echo $field_type->input( array(
 		'data-search' => json_encode( array(
 			'posttype'   => $field->args( 'post_type' ),
@@ -17,8 +34,11 @@ function cmb2_post_search_render_field( $field, $escaped_value, $object_id, $obj
 			'selectbehavior' => 'replace' == $field->args( 'select_behavior' ) ? 'replace' : 'add',
 			'errortxt'   => esc_attr( $field_type->_text( 'error_text', __( 'An error has occurred. Please reload the page and try again.' ) ) ),
 			'findtxt'    => esc_attr( $field_type->_text( 'find_text', __( 'Find Posts or Pages' ) ) ),
+			'includeposttitle'  => false == $field->args( 'include_post_title' ) ? false : true,
 		) ),
 	) );
+
+
 }
 add_action( 'cmb2_render_post_search_text', 'cmb2_post_search_render_field', 10, 5 );
 
@@ -84,6 +104,7 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 			$overlay   : false,
 			$idInput   : false,
 			$checked   : false,
+			$titleLabel: false,
 
 			events : {
 				'keypress .find-box-search :input' : 'maybeStartSearch',
@@ -186,17 +207,19 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 				this.$checked = $( '#find-posts-response input[type="' + this.selecttype + '"]:checked' );
 
 				var checked = this.$checked.map(function() { return this.value; }).get();
+				var title = this.$checked.parents('tr').find('label').text();
 
 				if ( ! checked.length ) {
 					this.close();
 					return;
 				}
 
-				this.handleSelected( checked );
+				this.handleSelected( checked, title );
 			},
 
-			handleSelected: function( checked ) {
+			handleSelected: function( checked, title ) {
 				checked = checked.join( ', ' );
+				title = title;
 
 				if ( 'add' === this.selectbehavior ) {
 					var existing = this.$idInput.val();
@@ -206,8 +229,22 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 				}
 
 				this.$idInput.val( checked );
+
+				if ( true === this.includeposttitle && title.length ) {
+
+					if ( 'add' === this.selectbehavior ) {
+						var existingTitle = this.$titleLabel.text();
+						if ( existingTitle ) {
+							title = existingTitle + ', ' + title;
+						}
+					}
+
+					this.$titleLabel.text(title);
+				}
+
 				this.close();
-			}
+			},
+
 
 		});
 
@@ -219,10 +256,14 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 
 		window.cmb2_post_search.openSearch = function( evt ) {
 			var search = window.cmb2_post_search;
-
 			search.$idInput = $( evt.currentTarget ).parents( '.cmb-type-post-search-text' ).find( '.cmb-td input[type="text"]' );
 			// Setup our variables from the field data
 			$.extend( search, search.$idInput.data( 'search' ) );
+
+			if ( true === search.includeposttitle ) {
+				search.$titleLabel = $( evt.currentTarget ).parents( '.cmb-type-post-search-text' ).find( '.cmb-td .attached-post-title' );
+			console.log('$titleLabel', search.$titleLabel);
+			}
 
 			search.trigger( 'open' );
 		};
@@ -236,6 +277,7 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 		$( '.cmb-type-post-search-text .cmb-td input[type="text"]' ).each( window.cmb2_post_search.addSearchButtons );
 
 		$( '.cmb2-wrap' ).on( 'click', '.cmb-type-post-search-text .cmb-td .dashicons-search', window.cmb2_post_search.openSearch );
+		$( '.cmb2-wrap' ).on( 'click', '.cmb-type-post-search-text .cmb-td .attached-post-title', window.cmb2_post_search.openSearch );
 		$( 'body' ).on( 'click', '.ui-find-overlay', window.cmb2_post_search.closeSearch );
 
 	});

@@ -38,11 +38,12 @@ if ($pType != "post" && $pType != "page" && $pType != "attachment"){
 	endif;
 }
 
-// Still More UX Work TODO. For now, "In This Section"
-//$title = "In This Section";
 ?>
 <?php
-$page_list = wp_list_pages("title_li=&child_of=" . $menuParent . "&echo=0");
+// Removing this onpage sectional nav and using the left sidebar.
+// Decision has switched a few times so leaving here just in case.
+//$page_list = wp_list_pages("title_li=&child_of=" . $menuParent . "&echo=0");
+$page_list = false;
 if ($page_list) { ?>
 
 		<?php if ( !empty( $title ) ): ?>

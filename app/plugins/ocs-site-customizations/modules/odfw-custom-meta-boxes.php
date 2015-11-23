@@ -393,16 +393,61 @@ function setupCustomFields () {
 		) );
 
 
-		/*
-		array(
-			'name' => __( 'COA Name', 'odfw' ),
-			'id' => $prefix . 'name',
-			'type' => 'text',
-		),*/
+		$species_group_field = $coa_cmb->add_field( array(
+			'id' => $prefix . 'strategy_species',
+			'type'        => 'group',
+			'options'     => array (
+				'group_title'   => __( 'Strategy Species {#}', 'odfw' ),
+				'add_button'    => __( 'Add another Strategy Species', 'odfw' ),
+				'remove_button' => __( 'Remove this Strategy Species', 'odfw' ),
+				'sortable'      => true, // beta
+				'attributes'  => array(
+					'data-row-type'    => 'cmb-inline-rows',
+				),
+			),
+		) );
+
+			$coa_cmb->add_group_field( $species_group_field, array(
+				'name' => __('Strategy Species ID', 'odfw'),
+				'id'   => $prefix . 'strategy_species_id',
+				'desc' => __('Use the spyglass icon to select a strategy_species.', 'odfw'),
+				'type' => 'post_search_text',
+				'post_type'   => 'strategy_species',
+				'select_type' => 'radio',
+				'select_behavior' => 'replace',
+				'find_text'     => 'Find Species',
+				'include_post_title'  => true,
+				'after_row'   => 'OCS_get_the_name'
+			) );
+
+			$coa_cmb->add_group_field( $species_group_field, array(
+				'name' => __('Strategy Species Association', 'odfw'),
+				'id'   => $prefix . 'strategy_species_association',
+				'desc' => __('Is the species modeled or observed?', 'odfw'),
+				'type' => 'select',
+				'select_type' => 'radio',
+				'default'     => 'modeled',
+				'options'     => array(
+					'Modeled'   => __( 'Modeled', 'cmb' ),
+					'Observed'  => __( 'Observed', 'cmb' ),
+				),
+			) );
+/**
+ * Conditionally displays a message if the $post_id is 2
+ *
+ * @param  array             $field_args Array of field parameters
+ * @param  CMB2_Field object $field      Field object
+ */
+function OCS_get_the_name( $field_args, $field ) {
+	//$title =  !empty($field->escaped_value) ?  get_the_title($field->escaped_value) : "";
+	//echo "<label class='attached-post-title' for='" . $field->args('id') . "'>" . $title . "</label>";
+
+}
+
 
 		$coa_cmb->add_field( array(
 			'name' => __( 'Compass Link', 'odfw' ),
-			'id' => $prefix . 'compass-link',
+			'id' => $prefix . 'compass_link',
 			'type' => 'textarea_small',
 			'desc' => get_compass_instructions()
 		));
@@ -410,15 +455,14 @@ function setupCustomFields () {
 
 		$coa_cmb->add_field( array(
 			'name' => __( 'COA ID', 'odfw' ),
-			'id' => $prefix . 'coaid',
+			'id' => $prefix . 'coa_id',
 			'type' => 'text',
 		));
 
 		$coa_cmb->add_field( array(
 			'name'    => __( 'Associated Ecoregions', 'cmb2' ),
-			'desc'    => __( 'Drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.', 'cmb2' ),
+			'desc'    => __( 'Click the + sign or drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.', 'cmb2' ),
 			'id'      =>  $prefix . 'attached_ecoregions',
-			'before_row'   => '<p> Click the (+) next to any item to associate it with this content</p>',
 			'type'    => 'custom_attached_posts',
 			//'post_type'   => 'coa',
 			'options' => array(
@@ -430,7 +474,7 @@ function setupCustomFields () {
 
 
 		$local_actions_group_field = $coa_cmb->add_field( array(
-			'id' => 'local_conservation_actions_and_plans',
+			'id' => $prefix . 'local_conservation_actions_and_plans',
 			'type'        => 'group',
 			//'description' => __( 'Local Conservation Action or Plan', 'odfw' ),
 			'options'     => array(
@@ -461,7 +505,7 @@ function setupCustomFields () {
 		));
 
 		$potential_partners_group_field = $coa_cmb->add_field( array(
-			'id' =>'potential_partners',
+			'id' => $prefix . 'potential_partners',
 			'type'        => 'group',
 			//'description' => __( 'Potential Partners', 'odfw' ),
 			'options'     => array(
@@ -494,7 +538,7 @@ function setupCustomFields () {
 
 		$coa_cmb->add_field( array(
 			'name' => __( 'Recommended Conservation Actions', 'odfw' ),
-			'id' => $prefix . 'recommended-conservation-actions',
+			'id' => $prefix . 'recommended_conservation_actions',
 			'desc' => 'One recommendation per box. Click the [Add Another Recommendation] button to add another recommendation.',
 			'type' => 'textarea_small',
 			'options' => array(
@@ -510,7 +554,7 @@ function setupCustomFields () {
 		) );
 
 		$special_features_group_field = $coa_cmb->add_field( array(
-			'id' => 'special_features',
+			'id' => $prefix . 'special_features',
 			'type'        => 'group',
 			'options'     => array(
 				'group_title'   => __( 'Special Features {#}', 'odfw' ),
@@ -546,9 +590,8 @@ function setupCustomFields () {
 
 		$coa_cmb->add_field( array(
 			'name'    => __( 'Associated Strategy Habitats', 'odfw' ),
-			'desc'    => __( 'Drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.', 'cmb2' ),
+			'desc'    => __( 'Click the + sign or drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.', 'cmb2' ),
 			'id'      =>  $prefix . 'attached_habitats',
-			'before_row'   => '<p> Click the (+) next to any item to associate it with this content</p>',
 			'type'    => 'custom_attached_posts',
 			//'post_type'   => 'coa',
 			'options' => array(
@@ -558,12 +601,14 @@ function setupCustomFields () {
 			)
 		));
 
-		// @TODO need to transform into a group with a single species association field
-		// and the metadata field for 'modeled' or 'observed'.
+
+
+
+		/*
 		$coa_cmb->add_field( array(
 			'name'    => __( 'Associated Strategy Species', 'odfw' ),
 			'desc'    => __( 'Drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.', 'cmb2' ),
-			'id'      =>  $prefix . 'key-species',
+			'id'      =>  $prefix . 'key_species',
 			'before_row'   => '<p> Click the (+) next to any item to associate it with this content</p>',
 			'type'    => 'custom_attached_posts',
 			//'post_type'   => 'coa',
@@ -573,62 +618,22 @@ function setupCustomFields () {
 				'query_args'      => array( 'post_type' => 'strategy_species', 'posts_per_page' => -1 ), // override the get_posts args
 			)
 		));
-
+		*/
 		$coa_cmb->add_field( array(
 			'name' => __( 'KCI Connections', 'odfw' ),
 			'before_row'   => '<p>TBD if KCI Connections will be used here. They are currently a part of "Special Features"</p>',
-			'id' => $prefix . 'kci-connections',
+			'id' => $prefix . 'kci_connections',
 			'type' => 'text'
 		));
 
 
-		/*
-		$coa_cmb->add_field( array(
-			'name' => __( 'Select Species', 'odfw' ),
-			'id' => $prefix . 'species',
-			'type' => 'taxonomy_multicheck',
-			'before_row'   => '<h2>Strategy Species</h2>',
-			'taxonomy' => 'species',
-		));
-		 */
 
 		// repeater field for each species. Each one needs to be associated
 		// with a binary 'observed' or 'modeled'
 
 
-
-
-
 	}
 
-
-
-	/*
-	function cmb2_attached_posts_field_metaboxes_example() {
-		$example_meta = new_cmb2_box( array(
-			'id'           => 'cmb2_attached_posts_field',
-			'title'        => __( 'Associated FOOBAR', 'cmb2' ),
-			'object_types' => array( 'kci' ), // Post type
-			'context'      => 'normal',
-			'priority'     => 'high',
-			'show_names'   => false, // Show field names on the left
-		) );
-		$example_meta->add_field( array(
-			'name'    => __( 'Attached Posts', 'cmb2' ),
-			'desc'    => __( 'Drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.', 'cmb2' ),
-			'id'      => 'attached_cmb2_attached_posts',
-			'before_row'   => '<p> Click the (+) next to any item to associate it with this content</p>',
-			'type'    => 'custom_attached_posts',
-			//'post_type'   => 'coa',
-			'options' => array(
-				'show_thumbnails' => true, // Show thumbnails on the left
-				'filter_boxes'    => true, // Show a text box for filtering the results
-				'query_args'      => array( 'post_type' => 'coa', 'posts_per_page' => 10 ), // override the get_posts args
-			)
-		) );
-	}
-	//add_action( 'cmb2_init', 'cmb2_attached_posts_field_metaboxes_example' );
-	 */
 
 
 

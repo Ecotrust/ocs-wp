@@ -80,7 +80,7 @@
 			text-indent: -999em;
 			width: 66px;
 			&:hover {
-				background: darken($greenLight, 5) url($nav-sprite) -62px -806px no-repeat;
+				background: darken($greenLight, 5) url($nav-sprite) -61px -806px no-repeat;
 			}
 		}
 	}
@@ -89,49 +89,42 @@
 
 .view-switcher {
 	@include make-sm-column(3);
+	padding: 0;
 
-        // @TODO these should be on the LIs once we sort out which can be used.
-        background-color: $greenLighter;
-		border-bottom: 1px solid #C1E1BE;
+	// @TODO these should be on the LIs once we sort out which can be used.
+	background-color: $greenLighter;
+	border-bottom: 1px solid #C1E1BE;
 
 
 	ul {
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
-
 	}
 	li {
 		/*display: none; // for now.*/
 		border-bottom: 1px solid #C1E1BE;
 		float: left;
+		width: 25%;
 
 		&:hover {
 			border-bottom: 1px solid $greenMid;
 		}
 	}
-	span, button {
+	button {
 		@include top-button;
-		@include make-sm-column(4);
-		
-		&:focus { outline: none;}
+		/*@include make-sm-column(4);*/
 
-		&.my-ocs {
-			background: $green url($nav-sprite) 0 -871px no-repeat;
-			float: right;
-			margin-right: -15px;
-			text-indent: -999em;
-			max-width: 66px;
-		}
+		float: right;
+		text-indent: -999em;
+		width: 100%;
+
+		&:focus { outline: none;}
 
 		&.view-map,
 		&.view-grid,
 		&.view-list {
-			float: right;
-			margin-right: -15px;
-			text-indent: -999em;
 			background: $greenLighter url($nav-sprite);
-			width: 75px;
 		}
 
 		&.view-map {
@@ -146,6 +139,7 @@
 		&.view-grid {
 			background-position: -62px -680px;
 
+			display: none; // for now
 			&:hover,
 			&:active {
 				background-position: 0px -680px;
@@ -155,10 +149,16 @@
 		&.view-list {
 			background-position: -62px -742px;
 
+			display: none; // for now
 			&:hover,
 			&:active {
 				background-position: 0px -742px;
 			}
+		}
+
+		&.my-ocs {
+			background: $green url($nav-sprite) 0 -871px no-repeat;
+			max-width: 66px;
 		}
 	}
 }
