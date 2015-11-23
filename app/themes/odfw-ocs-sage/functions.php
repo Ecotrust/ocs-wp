@@ -28,11 +28,3 @@ foreach ($sage_includes as $file) {
   require_once $filepath;
 }
 unset($file, $filepath);
-
-function wrap_images_in_div($content) {
-   $pattern = '/(<img[^>]*class=\"([^>]*?)\"[^>]*>)/i';
-   $replacement = '<div class="image-container">$1</div>';
-   $content = preg_replace($pattern, $replacement, $content);
-   return $content;
-}
-add_filter('the_content', 'wrap_images_in_div', 30);

@@ -17,8 +17,9 @@
 	}
 }
 
-.wp-caption { 
-	border: none;
+figure.wp-caption {
+	border:  none;
+	> a  { color: #000  }
 }
 
 .species-hero.close-caption,
@@ -114,6 +115,8 @@
 	  width: 220px;
 	}
 }
+
+span.attr-name > a { color: $greenMid; }
 
 @media screen and (max-width: 1120px) {
 	body.page-id-109,

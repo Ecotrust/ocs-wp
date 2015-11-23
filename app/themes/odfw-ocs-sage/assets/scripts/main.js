@@ -37,7 +37,6 @@
         if ($nonFeatureFig.length) {
           $nonFeatureFig.each(function(i,figure) {
             $(figure).find('.image-container')
-              .unwrap() //remove a tags
               .append('<span class="photo-info show-info glyphicon glyphicon-info-sign"></span>');
             $(figure).find('figcaption')
               .append('<span class="photo-info glyphicon glyphicon-remove-circle"></span>');
@@ -67,11 +66,14 @@
         });
 
         $('.photo-info').click(function() {
-            $(this).parent().parent().toggleClass('close-caption');
+            $(this).parents('figure').toggleClass('close-caption');
         });
+
+        $nonFeatureFig.find(' > a').removeAttr('href') //deactivate hrefs by default
 
         // BootStrap ToolTips
         $('[title]').tooltip();
+
 	  }
 	},
 	'home': {

@@ -115,6 +115,14 @@ function add_sortable_views_for_custom_post_types(){
 	}
 }
 
+// //wrap images from media gallery in divs
+function wrap_images_in_div($content) {
+   $pattern = '/(<img[^>]*class=\"([^>]*?)\"[^>]*>)/i';
+   $replacement = '<div class="image-container">$1</div>';
+   $content = preg_replace($pattern, $replacement, $content);
+   return $content;
+}
+add_filter('the_content', 'wrap_images_in_div', 30);
 
 // Adjust the way images are imported into the Admin area
 
@@ -122,13 +130,14 @@ function filter_image_send_to_editor($html, $id, $caption, $title, $align, $url,
 	$meta = get_post_meta($id);
 	if ( !empty( $meta["odfw_attribution_name"] ) ) {
 		$html .= "<span class='photo-attribution'><span class='attr-name'>";
-		$html .= $meta["odfw_attribution_name"][0] . "</span>";
 
 		if ( !empty( $meta["odfw_attribution_url"] ) ) {
-			$html .= "<a href='" . $meta["odfw_attribution_url"][0] . "'>" . $meta["odfw_attribution_url"][0]  . "</a>";
+			$html .= "<a href='" . $meta["odfw_attribution_url"][0] . "'>" . $meta["odfw_attribution_name"][0]  . "</a>";
+			$html .= "</span>";
 		}
-
-		$html .= "</span>";
+		else {
+			$html .= $meta["odfw_attribution_name"][0] . "</span>";
+		}
 	}
 	return $html;
 }
