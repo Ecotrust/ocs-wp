@@ -13,5 +13,5 @@
 			?>
 		</ul>
     </nav>
-    <a class="brand" href="<?= esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a>
+    <a class="brand" href="http://www.dfw.state.or.us/conservationstrategy/"><?php bloginfo('name'); ?></a>
 

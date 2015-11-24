@@ -252,7 +252,7 @@
 	> .brand {
 		background-color: $greenDark;
 		display: block;
-		height: 67px;
+		height: $footerHeight;
 		width: 100%;
 		//hide text
 		font: 0/0 a;
@@ -261,6 +261,16 @@
 		@include img-retina("../images/logo-odfw-with-text_sm.png", "/img/logo-odfw-with-text_sm@2x.png", 145px, 50px);
 		background-position: 50% 50%;
 		background-repeat: no-repeat;
+
+		@include breakpoint (tablet) {
+			@include make-sm-column($sidebar-sm-columns);
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			z-index: 5555;
+			/*width: 16.6667%;*/
+		}
+
 	}
 
 }

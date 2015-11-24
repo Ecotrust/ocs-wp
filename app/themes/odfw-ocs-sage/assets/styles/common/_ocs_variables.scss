@@ -48,10 +48,10 @@ $font-size-h5:            $font-size-base !default;
 $font-size-h6:            ceil(($font-size-base * 0.85)) !default; // ~12px
 
 // SPACING
-$basePadding:          14px;
-$sidebarPadding:       $basePadding;
-$innerContentPadding:  $basePadding * 2;
-
+$basePadding:			14px;
+$sidebarPadding:		$basePadding;
+$innerContentPadding:	$basePadding * 2;
+$footerHeight:			67px;
 
 // FORMS
 $input-color:			$greyDark;
