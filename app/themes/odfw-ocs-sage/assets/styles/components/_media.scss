@@ -3,7 +3,6 @@
 .wp-caption {
 	padding: 25px 0 0 0;
 	position: relative;
-	width: 492px;
 	figcaption {
 		background-color: rgba(0,0,0,0.7);
 		bottom: 0;
@@ -21,16 +20,19 @@ figure.wp-caption {
 	border:  none;
 	> a  { color: #000  }
 }
+.species-hero {
+	width: 492px;
+}
 
 .species-hero.close-caption,
 .feature-thumb.close-caption,
 .wp-caption.close-caption {
-	figcaption { 
+	figcaption {
 		display: block;
 		.glyphicon {
 			color: #FFF;
 			text-shadow: none;
-		} 
+		}
 	}
 	.show-info { display: none; }
 }
@@ -59,10 +61,11 @@ figure.wp-caption {
 
 }
 
-.image-container { 
+.image-container {
 	position: relative;
 
-	> img { 
+	> img {
+		height: auto;
 		max-width: 100%;
 		display: block;
 	}

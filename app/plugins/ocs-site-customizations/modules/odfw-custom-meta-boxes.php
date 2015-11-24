@@ -392,59 +392,6 @@ function setupCustomFields () {
 			'priority'     => 'high',
 		) );
 
-
-		$species_group_field = $coa_cmb->add_field( array(
-			'id' => $prefix . 'strategy_species',
-			'type'        => 'group',
-			'options'     => array (
-				'group_title'   => __( 'Strategy Species {#}', 'odfw' ),
-				'add_button'    => __( 'Add another Strategy Species', 'odfw' ),
-				'remove_button' => __( 'Remove this Strategy Species', 'odfw' ),
-				'sortable'      => true, // beta
-				'attributes'  => array(
-					'data-row-type'    => 'cmb-inline-rows',
-				),
-			),
-		) );
-
-			$coa_cmb->add_group_field( $species_group_field, array(
-				'name' => __('Strategy Species ID', 'odfw'),
-				'id'   => $prefix . 'strategy_species_id',
-				'desc' => __('Use the spyglass icon to select a strategy_species.', 'odfw'),
-				'type' => 'post_search_text',
-				'post_type'   => 'strategy_species',
-				'select_type' => 'radio',
-				'select_behavior' => 'replace',
-				'find_text'     => 'Find Species',
-				'include_post_title'  => true,
-				'after_row'   => 'OCS_get_the_name'
-			) );
-
-			$coa_cmb->add_group_field( $species_group_field, array(
-				'name' => __('Strategy Species Association', 'odfw'),
-				'id'   => $prefix . 'strategy_species_association',
-				'desc' => __('Is the species modeled or observed?', 'odfw'),
-				'type' => 'select',
-				'select_type' => 'radio',
-				'default'     => 'modeled',
-				'options'     => array(
-					'Modeled'   => __( 'Modeled', 'cmb' ),
-					'Observed'  => __( 'Observed', 'cmb' ),
-				),
-			) );
-/**
- * Conditionally displays a message if the $post_id is 2
- *
- * @param  array             $field_args Array of field parameters
- * @param  CMB2_Field object $field      Field object
- */
-function OCS_get_the_name( $field_args, $field ) {
-	//$title =  !empty($field->escaped_value) ?  get_the_title($field->escaped_value) : "";
-	//echo "<label class='attached-post-title' for='" . $field->args('id') . "'>" . $title . "</label>";
-
-}
-
-
 		$coa_cmb->add_field( array(
 			'name' => __( 'Compass Link', 'odfw' ),
 			'id' => $prefix . 'compass_link',
@@ -553,11 +500,57 @@ function OCS_get_the_name( $field_args, $field ) {
 			'id'   => 'coa_special_features_title'
 		) );
 
+		$coa_cmb->add_field( array(
+			'name' => __( '2006 COAs', 'odfw' ),
+			'id' => $prefix . 'special_features_2006',
+			'type' => 'text',
+			'options' => array(
+				'add_row_text' => __( 'Add another 2006 COA', 'odfw' ),
+			),
+			'repeatable' => true
+		));
+
+
+		$special_features_protected_area_group_field = $coa_cmb->add_field( array(
+			'id' => $prefix . 'special_features_protected_area',
+			'type'        => 'group',
+			'options'     => array(
+				'group_title'   => __( 'Special Features: Protected Areas {#}', 'odfw' ),
+				'add_button'    => __( 'Add another Protected Area', 'odfw' ),
+				'remove_button' => __( 'Remove this Protected Area', 'odfw' ),
+				'sortable'      => true, // beta
+				)
+		) );
+
+		   $coa_cmb->add_group_field( $special_features_protected_area_group_field, array(
+				'name' => __( 'Protected Area Name', 'odfw' ),
+				'id' => $prefix . 'special_features_protected_area_title',
+				'type' => 'text'
+			) );
+
+		   $coa_cmb->add_group_field( $special_features_protected_area_group_field, array(
+				'name' => __( 'Protected Area Link', 'odfw' ),
+				'id' => $prefix . 'special_features_protected_area_link',
+				'type' => 'text_url'
+			) );
+
+		$coa_cmb->add_field( array(
+			'name' => __( 'KCI Connections', 'odfw' ),
+			'id' => $prefix . 'kci_connections',
+			'type' => 'text'
+		));
+
+		$coa_cmb->add_field( array(
+			'name' => 'General Special Features',
+			'type' => 'title',
+			'id'   => 'coa_general_special_features_title'
+		) );
+
 		$special_features_group_field = $coa_cmb->add_field( array(
 			'id' => $prefix . 'special_features',
 			'type'        => 'group',
 			'options'     => array(
-				'group_title'   => __( 'Special Features {#}', 'odfw' ),
+				'group_title'   => __( 'General Special Features {#}', 'odfw' ),
 				'add_button'    => __( 'Add another Special Feature', 'odfw' ),
 				'remove_button' => __( 'Remove this Special Feature', 'odfw' ),
 				'sortable'      => true, // beta
@@ -566,21 +559,31 @@ function OCS_get_the_name( $field_args, $field ) {
 
 		   $coa_cmb->add_group_field( $special_features_group_field, array(
 				'name' => __( 'Special Feature Name', 'odfw' ),
-				'id' => $prefix . 'special_feature_title',
+				'id' => $prefix . 'special_features_title',
 				'type' => 'text'
 			) );
 
 		   $coa_cmb->add_group_field( $special_features_group_field, array(
-				'name' => __( 'Special Feature Value', 'odfw' ),
+				'name' => __( 'Special Feature Link', 'odfw' ),
 				'id' => $prefix . 'special_features_value',
 				'type' => 'text_url'
 			) );
 
 
+
+
+
+		$coa_cmb->add_field( array(
+			'name' => 'Habitats',
+			'type' => 'title',
+			'id'   => $prefix . 'habitats_title'
+		) );
+
+
 		$coa_cmb->add_field( array(
 			'name' => __( 'Specialized Local Habitats', 'odfw' ),
 			'id'=> $prefix . 'specialized_local_habitats',
-			'desc' => 'One habitat per box. Click the [Add Another Recommendation] button to add another.',
+			'desc' => 'One habitat per box. Click the [Add Another Specialized Local Habitat] button to add another.',
 			'type' => 'text',
 			'options' => array(
 				'add_row_text' => __( 'Add Another Specialized Local Habitat', 'odfw' ),
@@ -602,29 +605,52 @@ function OCS_get_the_name( $field_args, $field ) {
 		));
 
 
-
-
-		/*
 		$coa_cmb->add_field( array(
-			'name'    => __( 'Associated Strategy Species', 'odfw' ),
-			'desc'    => __( 'Drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.', 'cmb2' ),
-			'id'      =>  $prefix . 'key_species',
-			'before_row'   => '<p> Click the (+) next to any item to associate it with this content</p>',
-			'type'    => 'custom_attached_posts',
-			//'post_type'   => 'coa',
-			'options' => array(
-				'show_thumbnails' => false, // Show thumbnails on the left
-				'filter_boxes'    => true, // Show a text box for filtering the results
-				'query_args'      => array( 'post_type' => 'strategy_species', 'posts_per_page' => -1 ), // override the get_posts args
-			)
-		));
-		*/
-		$coa_cmb->add_field( array(
-			'name' => __( 'KCI Connections', 'odfw' ),
-			'before_row'   => '<p>TBD if KCI Connections will be used here. They are currently a part of "Special Features"</p>',
-			'id' => $prefix . 'kci_connections',
-			'type' => 'text'
-		));
+			'name' => 'Species',
+			'type' => 'title',
+			'id'   => $prefix . 'species_title'
+		) );
+
+		$species_group_field = $coa_cmb->add_field( array(
+			'id' => $prefix . 'strategy_species',
+			'type'        => 'group',
+			'options'     => array (
+				'group_title'   => __( 'Strategy Species {#}', 'odfw' ),
+				'add_button'    => __( 'Add another Strategy Species', 'odfw' ),
+				'remove_button' => __( 'Remove this Strategy Species', 'odfw' ),
+				'sortable'      => true, // beta
+				'attributes'  => array(
+					'data-row-type'    => 'cmb-inline-rows',
+				),
+			),
+		) );
+
+			$coa_cmb->add_group_field( $species_group_field, array(
+				'name' => __('Strategy Species', 'odfw'),
+				'id'   => $prefix . 'strategy_species_id',
+				'desc' => __('Use the spyglass icon to select a strategy_species.', 'odfw'),
+				'type' => 'post_search_text',
+				'post_type'   => 'strategy_species',
+				'select_type' => 'radio',
+				'select_behavior' => 'replace',
+				'find_text'     => 'Find Species',
+				'include_post_title'  => true,
+			) );
+
+			$coa_cmb->add_group_field( $species_group_field, array(
+				'name' => __('Strategy Species Type', 'odfw'),
+				'id'   => $prefix . 'strategy_species_association',
+				'desc' => __('Is it Modeled, Observed or Documented?', 'odfw'),
+				'type' => 'select',
+				'select_type' => 'radio',
+				'default'     => 'modeled',
+				'options'     => array(
+					'Modeled Habitat'   => __( 'Modeled Habitat', 'cmb' ),
+					'Observed'  => __( 'Observed', 'cmb' ),
+					'Documented'  => __( 'Documented', 'cmb' ),
+				),
+			) );
+
 
 
 

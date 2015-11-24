@@ -10,7 +10,7 @@
 	<?php endif; ?>
 
     <div class="entry-content">
-		
+
 	  <?php get_template_part('templates/featured-thumbnail'); ?>
       <?php the_content(); ?>
 

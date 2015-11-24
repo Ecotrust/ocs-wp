@@ -69,7 +69,7 @@
             $(this).parents('figure').toggleClass('close-caption');
         });
 
-        $nonFeatureFig.find(' > a').removeAttr('href') //deactivate hrefs by default
+        $nonFeatureFig.find(' > a').removeAttr('href'); //deactivate hrefs by default
 
         // BootStrap ToolTips
         $('[title]').tooltip();

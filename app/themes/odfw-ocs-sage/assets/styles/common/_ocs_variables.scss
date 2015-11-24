@@ -7,7 +7,7 @@ $sidebar-sm-columns:    2;
 
 // Colors
 $text-color:			#111111;
-$brand-primary:         #27ae60;
+$brand-primary:         #005130;
 $off-white:             #f1f1f2;
 $grey:					#58595B;
 $gray:					$grey;
@@ -23,6 +23,7 @@ $greenDark:				#00371a;
 $link-color:            $green;
 $link-hover-color:      darken($link-color, 15%);
 
+$tooltip-bg:			$green;
 
 $font-family-sans-serif:	"HelveticaNeue-45Lt", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-base:			$font-family-sans-serif !default;

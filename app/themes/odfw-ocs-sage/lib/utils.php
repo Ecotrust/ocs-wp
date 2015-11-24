@@ -18,7 +18,9 @@ add_filter('get_search_form', __NAMESPACE__ . '\\get_search_form');
 
 <?php
 
-// couple of helper functions
+// Stick this on the relavant template to get generate the code of all of the fields associated with the page.
+// @TODO integrate it with the field generator https://github.com/willthemoor/cmb2-metabox-generator
+
 function tagMaker($tag, $close = false, $class="") {
 	$theTag = isset($tag) ? $tag : "div";
 
@@ -26,7 +28,7 @@ function tagMaker($tag, $close = false, $class="") {
 
 	if ( $close ) {
 		// formatting hackeries
-		$out = $tag != 'section' && $tag != 'h3'  ? $spcr : "";
+		$out = $tag != 'section' && $tag != 'h2'  ? $spcr : "";
 		$out .= "&lt;/" . $tag . "&gt;";
 		$out .= "<br />";
 	} else {
@@ -52,7 +54,9 @@ function cmbTagMaker($field, $group=false){
 	$fieldType = isset($field['type']) ? $field['type'] : "type-not-set";
 	$fieldName = isset($field['name']) ? $field['name'] : "no-name";
 
-
+	// @TODO don't need title fields showing up
+	// @TODO or output as a header?
+	// if ( $fieldType == "title" ) { return; }
 
 	switch ( $fieldType ) {
 		case "wysiwyg":
@@ -87,11 +91,12 @@ function cmbTagMaker($field, $group=false){
 
 	//start the output
 	$out .= tagMaker('section', false, 'cmb2-wrap-'.$fieldType . " " . $fieldID );
-	$out .= tagMaker('h3')  . $fieldName . tagMaker('h3', true);
+	$out .= tagMaker('h2')  . $fieldName . tagMaker('h2', true);
 	$out .= tagMaker($tag, false, 'cmb2-'.$fieldType);
 	$out .= $getString;
 
 	if( $fieldType=="group" ) {
+		//@TODO Print out: if ( !empty (blah) ) {} First
 		$out .= '<br />' . $spcr . $spcr;
 		// if it's a group, we need to output a php loop, not just an echo
 		$out .= "foreach(\$the_field as \$entries => \$entry ) { " . $h('?>');
@@ -127,6 +132,7 @@ foreach($cmb_fields as $name=>$value) {
 	echo cmbTagMaker($value);
 }
 echo "</pre>";
+
 
 ?>
 

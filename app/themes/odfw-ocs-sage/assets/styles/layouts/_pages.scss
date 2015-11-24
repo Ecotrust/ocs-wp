@@ -41,5 +41,16 @@ body.ecoregions {
 .success-story {
     background: #eeeeee;
     border: 1px solid #dddddd;
+	clear: both;
     padding: 5px 22px 22px;
 }
+
+.coa-id {
+	margin-top: $line-height-px;
+	.btn { cursor: default; }
+	span {
+		font-family: $font-family-sans-serif;
+		font-weight: normal;
+	}
+}
+

@@ -10,6 +10,21 @@
 // Include the custom post type class
 // https://github.com/jjgrainger/wp-custom-post-type-class
 include_once(ODFW_CUSTOMIZATIONS_PLUGIN_URL . '/lib/wp-custom-post-type-class.php');
+/*
+ *
+ *
+ *
+ *
+ * NOTE The above CPT class checks to see if the CPT already exists. If it does, it doesn't register the CPT again.
+ * This means you can't update options here and have them take.
+ * For them to take, you'll need to go and comment out the check for existing CPTs (L# ~430)
+ *
+ *
+ *
+ *
+ */
+
+
 
 function setupCustomPostTypes () {
 
@@ -18,7 +33,7 @@ function setupCustomPostTypes () {
 		'menu_position'  => 3,
 		'public'         => true,
 		'show_in_nav_menus'   => true,
-		'taxonomies'     => array( 'species' ), // 'category', 'post_tag',
+		//'taxonomies'     => array( 'species' ), // 'category', 'post_tag',
 		'supports'       => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'revisions' ), //, 'custom-fields'
 	);
 
@@ -52,7 +67,6 @@ function setupCustomPostTypes () {
 		'slug'           => 'conservation-opportunity-area'
 	), array_merge($global_cpt_args, array(
 		'menu_position'  => 9,
-		//'supports'       => array( 'title', 'author', 'revisions' )
 	)));
 	$coa->menu_icon('dashicons-editor-ul');
 
@@ -63,20 +77,21 @@ function setupCustomPostTypes () {
 		'slug'           => 'strategy-habitat'
 	), array_merge($global_cpt_args, array(
 		'menu_position'  => 7,
-		//'supports'       => array( 'title', 'author', 'revisions' )
 	)));
 	$strategy_habitat->menu_icon('dashicons-format-image');
 
-
+	$ss_options = array_merge($global_cpt_args, array(
+		'menu_position'  => 8,
+		'hierarchical'   => true,
+		'taxonomies'     => array( 'species' ),
+		'supports'       => array( 'title', 'editor', 'author', 'thumbnail', 'page-attributes'),
+	));
 	$strategy_species = new CPT(array(
 		'post_type_name' => 'strategy_species',
 		'singular'       => 'Strategy Species',
 		'plural'         => 'Strategy Species',
-		'slug'           => 'strategy-species'
-	), array_merge($global_cpt_args, array(
-		'menu_position'  => 8,
-		//'supports'       => array( 'title', 'author', 'revisions' )
-	)));
+		'slug'           => 'strategy-species',
+	), $ss_options);
 	$strategy_species->menu_icon('dashicons-id');
 
 	$success_story = new CPT(array(
@@ -86,7 +101,6 @@ function setupCustomPostTypes () {
 		'slug'           => 'success-story'
 	), array_merge($global_cpt_args, array(
 		'menu_position'  => 9,
-		//'supports'       => array( 'title', 'author', 'revisions' )
 	)));
 	$success_story->menu_icon('dashicons-format-chat');
 
