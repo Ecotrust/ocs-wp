@@ -81,3 +81,14 @@ $retina: "(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi)";
 	text-align: center;
 }
 
+@mixin sidebar-column() {
+	background-color: $greyDark;
+	left: -33%;
+	bottom: 0;
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: -1;
+}
+

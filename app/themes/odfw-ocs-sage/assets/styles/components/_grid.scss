@@ -7,37 +7,40 @@
 	// @TODO MQs. 47px is the default for two lines but as the screen shrinks...
 	padding-bottom: 87px;
 
+	&::before {
+		@include sidebar-column;
+		width: 33%;
+		left: -33%;
+	}
+
+
 	.has-sidebar & {
 		padding: 0;
 		// Right sidebar
-		&::before, &::after{
-			background-color: $greyDark;
-			left: -33%;
-			bottom: 0;
-			content: "";
-			position: absolute;
-			right: 0;
-			top: 0;
-			z-index: -1;
+		&::after{
+			@include sidebar-column;
 		}
 		&::before {
-			background-color: $greyDark;
-			width: 33%;
-			left: -33%;
+			/*background-color: $greyDark;*/
 		}
 		&::after {
 			background-color: $greyLighter;
 			left: 75%;
 			left: $main-sm-columns - $sidebar-sm-columns;
 		}
+		.main-content {
+			@include make-sm-column(9);
+		}
 	}
 }
+
+
 
 .sidebar {
   @include make-sm-column($sidebar-sm-columns);
 }
 .main-content {
-	@include make-sm-column(9);
+	/*@include make-sm-column(12);*/
 	padding: 0 $innerContentPadding 150px $innerContentPadding;
 }
 .inner-sidebar {
