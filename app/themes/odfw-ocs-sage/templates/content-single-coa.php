@@ -1,12 +1,11 @@
 <?php while (have_posts()) : the_post(); ?>
   <article <?php post_class(); ?>>
+
+	<?php $coa_id = get_post_meta( get_the_ID(), 'coa_meta_coa_id', true );?>
+
     <header>
-      <h1 class="entry-title"><?php the_title(); ?></h1>
+      <h1 class="entry-title"><?php the_title(); ?>, COA <?=$coa_id; ?></h1>
     </header>
-
-<?php
-
-?>
 
     <?php $the_compass_field = get_post_meta( get_the_ID(), 'coa_meta_compass-link', true );
         if ( ! empty($the_compass_field) ): ?>
@@ -26,18 +25,20 @@
             </div>
     <?php endif; ?>
 
+
     <div class="entry-content">
+
         <?php get_template_part('templates/featured-thumbnail'); ?>
+
 		<div class="row">
 			<div class="col-sm-9">
 				<?php the_content(); ?>
 			</div>
 			<div class="col-sm-2 coa-id">
 				<div class="btn btn-primary">
-					<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_coa_id', true );?>
 
 					<h3 class="panel-title" data-toggle="tooltip" data-placement="bottom" title="Identification number, unique to each COA.">
-						COA ID <span class="badge"><?=$the_field; ?></span>
+						COA ID <span class="badge"><?=$coa_id; ?></span>
 					</h3>
 				</div>
 			</div>
@@ -116,6 +117,20 @@
 		</section>
 
 
+		<section class="cmb2-wrap-textarea_small coa_meta_recommended_conservation_actions">
+			<h2 data-toggle="tooltip"  data-placement="right" title="Priority conservation actions recommended for this COA. Conservation actions need
+		to be compatible with local priorities, local comprehensive plans and land use ordinances, as well as other local,
+		state, or federal laws. Actions on federal lands must undergo federal planning processes prior to implementation to
+		ensure consistency with existing plans and management objectives for the area.">Recommended Conservation Actions</h2>
+
+			<ul class="coa-detail-listing">
+				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended_conservation_actions', true );
+				foreach($the_field as $entry ) { ?>
+					<li><?php echo esc_html( $entry ); ?></li>
+				<?php } ?>
+			</ul>
+		</section>
+
 
 		<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_ecoregions">
 			<h2 data-toggle="tooltip" data-placement="right" title="Ecoregion(s) that contain this COA">Ecoregions</h2>
@@ -128,6 +143,47 @@
 					ocs_list_ecoregions($the_ecoregions_array);
 		?>
 		</section>
+
+
+		<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_habitats">
+			<h2 data-toggle="tooltip"  data-placement="right" title="Strategy Habitat(s) with documented distribution in this COA.">Strategy Habitats</h2>
+
+				<?php
+					// Some of these were stored as a string(single), some as an array (on CSV import)
+					$the_habitats = get_post_meta( get_the_ID(), 'coa_meta_attached_habitats', true );
+					// so let's make sure it's an array
+					$the_habitats_array = is_array($the_habitats) ? $the_habitats : explode(",", $the_habitats);
+					ocs_list_strategy_habitats($the_habitats_array);
+
+				?>
+		</section>
+
+
+		<section class="cmb2-wrap-text coa_meta_specialized_local_habitats">
+			<h2 data-toggle="tooltip"  data-placement="right" title="Smaller, localized habitats and habitat features that are important to Strategy Species and likely to be found in this COA.">Specialized Local Habitats</h2>
+
+			<ul class="coa-detail-listing">
+				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_specialized_local_habitats', true );
+				foreach($the_field as $entry ) { ?>
+					<li><?php echo esc_html( $entry ); ?></li>
+				<?php } ?>
+			</ul>
+		</section>
+
+
+		<section class="cmb2-wrap-group coa_meta_strategy_species">
+			<h2 data-toggle="tooltip"  data-placement="right" title="">Strategy Species</h2>
+
+			<div class="cmb2-group">
+
+			<?php
+				$the_species = get_post_meta( get_the_ID(), 'coa_meta_strategy_species', true );
+				ocs_list_coa_strategy_species($the_species);
+			?>
+
+			</div>
+		</section>
+
 
 
 		<section class="cmb2-wrap-group coa_meta_local_conservation_actions_and_plans">
@@ -171,65 +227,10 @@
 		</section>
 
 
-		<section class="cmb2-wrap-textarea_small coa_meta_recommended_conservation_actions">
-			<h2 data-toggle="tooltip"  data-placement="right" title="Priority conservation actions recommended for this COA. Conservation actions need
-		to be compatible with local priorities, local comprehensive plans and land use ordinances, as well as other local,
-		state, or federal laws. Actions on federal lands must undergo federal planning processes prior to implementation to
-		ensure consistency with existing plans and management objectives for the area.">Recommended Conservation Actions</h2>
 
-			<ul class="coa-detail-listing">
-				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended_conservation_actions', true );
-				foreach($the_field as $entry ) { ?>
-					<li><?php echo esc_html( $entry ); ?></li>
-				<?php } ?>
-			</ul>
-		</section>
-
-
-		<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_habitats">
-			<h2 data-toggle="tooltip"  data-placement="right" title="Strategy Habitat(s) with documented distribution in this COA.">Strategy Habitats</h2>
-
-				<?php
-					// Some of these were stored as a string(single), some as an array (on CSV import)
-					$the_habitats = get_post_meta( get_the_ID(), 'coa_meta_attached_habitats', true );
-					// so let's make sure it's an array
-					$the_habitats_array = is_array($the_habitats) ? $the_habitats : explode(",", $the_habitats);
-					ocs_list_strategy_habitats($the_habitats_array);
-
-				?>
-		</section>
-
-
-		<section class="cmb2-wrap-text coa_meta_specialized_local_habitats">
-			<h2 data-toggle="tooltip"  data-placement="right" title="Smaller, localized habitats and habitat features that are important to Strategy Species and likely to be found in this COA.">Specialized Local Habitats</h2>
-
-			<ul class="coa-detail-listing">
-				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_specialized_local_habitats', true );
-				foreach($the_field as $entry ) { ?>
-					<li><?php echo esc_html( $entry ); ?></li>
-				<?php } ?>
-			</ul>
-		</section>
-
-
-		<section class="cmb2-wrap-group coa_meta_strategy_species">
-			<h2 data-toggle="tooltip"  data-placement="right" title="">Strategy Species</h2>
-
-			<div class="cmb2-group">
-
-			<?php
-				$the_species = get_post_meta( get_the_ID(), 'coa_meta_strategy_species', true );
-				ocs_list_coa_strategy_species($the_species);
-			?>
-
-			</div>
-		</section>
-
-    </div>
+    </div> <!-- /.entry-content -->
 
 		<?php get_template_part('templates/content', 'success-story'); ?>
 
   </article>
-
-
 <?php endwhile; ?>

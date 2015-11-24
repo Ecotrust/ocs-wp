@@ -66,7 +66,7 @@
 
 
 <section class="cmb2-wrap-text species_meta_species-common-name">
-    <h3>Species Common Name</h3>
+    <h2>Species Common Name</h2>
 
     <p class="cmb2-text">
         <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-common-name', true );
@@ -77,7 +77,7 @@
 
 
 <section class="cmb2-wrap-text species_meta_species-scientific-name">
-    <h3>Species Scientific Name</h3>
+    <h2>Species Scientific Name</h2>
 
     <p class="cmb2-text">
         <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-scientific-name', true );
@@ -92,7 +92,7 @@
 	if ( $cats[0]->term_id==19 ):
 ?>
 		<section class="cmb2-wrap-text species_meta_species-group">
-			<h3>SMU/ESU/DPS/Group</h3>
+			<h2>SMU/ESU/DPS/Group</h2>
 
 			<p class="cmb2-text">
 				<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-group', true );
@@ -105,7 +105,7 @@
 
 
 <section class="cmb2-wrap-text species_meta_federal-listing-status">
-    <h3>Federal listing status</h3>
+    <h2>Federal listing status</h2>
 
     <p class="cmb2-text">
         <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_federal-listing-status', true );
@@ -116,7 +116,7 @@
 
 
 <section class="cmb2-wrap-text species_meta_state-listing-status">
-    <h3>State listing status</h3>
+    <h2>State listing status</h2>
 
     <p class="cmb2-text">
         <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_state-listing-status', true );
@@ -127,7 +127,7 @@
 
 
 <section class="cmb2-wrap-custom_attached_posts species_meta_attached_ecoregions">
-    <h3>Associated Ecoregions</h3>
+    <h2>Associated Ecoregions</h2>
 
     <ul class="associated-ecoregions">
 		<?php
@@ -171,7 +171,7 @@ wp_reset_postdata();
 
 
 <section class="cmb2-wrap-textarea species_meta_special-needs">
-    <h3>Special needs</h3>
+    <h2>Special needs</h2>
 
     <p class="cmb2-textarea">
         <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_special-needs', true );
@@ -182,7 +182,7 @@ wp_reset_postdata();
 
 
 <section class="cmb2-wrap-textarea species_meta_limiting-factors">
-    <h3>Limiting factors</h3>
+    <h2>Limiting factors</h2>
 
     <p class="cmb2-textarea">
         <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_limiting-factors', true );
@@ -193,7 +193,7 @@ wp_reset_postdata();
 
 
 <section class="cmb2-wrap-textarea species_meta_data-gaps">
-    <h3>Data gaps</h3>
+    <h2>Data gaps</h2>
 
     <p class="cmb2-textarea">
         <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_data-gaps', true );
@@ -204,7 +204,7 @@ wp_reset_postdata();
 
 
 <section class="cmb2-wrap-textarea species_meta_conservation-actions">
-    <h3>Conservation actions</h3>
+    <h2>Conservation actions</h2>
 
     <p class="cmb2-textarea">
         <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_conservation-actions', true );
@@ -215,7 +215,7 @@ wp_reset_postdata();
 
 
 <section class="cmb2-wrap-textarea species_meta_key-reference">
-    <h3>Key reference or plan</h3>
+    <h2>Key reference or plan</h2>
 
     <p class="cmb2-textarea">
         <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_key-reference', true );
@@ -226,7 +226,7 @@ wp_reset_postdata();
 
 
 <section class="cmb2-wrap-text_url species_meta_image-thumb-url">
-    <h3>Full URL to Thumbnail Image</h3>
+    <h2>Full URL to Thumbnail Image</h2>
 
     <p class="cmb2-text_url">
         <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_image-url', true );
