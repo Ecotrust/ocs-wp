@@ -141,10 +141,15 @@ function ocs_list_coa_strategy_species ($strategy_species, $meta="") {
 	$out = "";
 	$out .=	'<ul class="associated-strategy-species long-list">';
 
-	//echo "<pre>";
-	//print_r($strategy_species);
-	//echo "</pre>";
-	//return;
+/*
+
+Needs to be broken down by top level taxonomy (amphibian, bird, reptile...)
+	These are taxonomies currently. Either need to:
+		Add other 'parents' to the taxonomy for (special grouped fish)
+		Create top level CPTs for existing taxonomy items
+			Either way, page listings could/should be cleaned up
+
+*/
 	$species_ids = array_map(
         function($species) { return $species['coa_meta_strategy_species_id']; },
         $strategy_species

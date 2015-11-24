@@ -411,7 +411,6 @@ function setupCustomFields () {
 			'desc'    => __( 'Click the + sign or drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.', 'cmb2' ),
 			'id'      =>  $prefix . 'attached_ecoregions',
 			'type'    => 'custom_attached_posts',
-			//'post_type'   => 'coa',
 			'options' => array(
 				'show_thumbnails' => false, // Show thumbnails on the left
 				'filter_boxes'    => true, // Show a text box for filtering the results
@@ -423,7 +422,6 @@ function setupCustomFields () {
 		$local_actions_group_field = $coa_cmb->add_field( array(
 			'id' => $prefix . 'local_conservation_actions_and_plans',
 			'type'        => 'group',
-			//'description' => __( 'Local Conservation Action or Plan', 'odfw' ),
 			'options'     => array(
 				'group_title'   => __( 'Local Conservation Action or Plan {#}', 'odfw' ),
 				'add_button'    => __( 'Add another Local Conservation Action or Plan', 'odfw' ),
