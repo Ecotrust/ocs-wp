@@ -1,3 +1,5 @@
+<img id="region-png-print" src="/wordpress//media/ODFW_ecoregion_final_base.png"/>
+
 <article class="row" <?php post_class(); ?>>
 
 <?php

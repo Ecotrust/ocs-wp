@@ -36,12 +36,12 @@
         content: " (" attr(href) ")";
         font-size: 80%;
     }
-    h1, h2, h3, h4, h5, h6, header, img { 
+    h1, h2, h3, h4, h5, h6, header, img, .listings-wrap>article>div { 
         page-break-after:avoid; 
         page-break-inside:avoid;
     }
 
-    blockquote, table, pre { 
+    blockquote, pre { 
         page-break-inside:avoid;
     }
 
@@ -49,26 +49,42 @@
         page-break-before:avoid; 
     }
 
-    .compass.main {
-        display: block !important;
-        position: relative;
-        max-height: 4in;
-        max-width: 100%;
-        margin: 15px 0 15px 25px;
+    .table, .tablepress {
+        display: table;
+        border-spacing: 2px;
+        margin-bottom: 30px;
+
+        tr.row { display: table-row; }
+
+        tr.row > div {
+            display: table-cell;
+            border: solid 1px #ccc;
+            padding: 2px;
+        }
     }
 
     .main-content {
         padding-bottom: 15px !important;
     }
 
+    .ecoregions { 
+        img#region-png-print { display: block; }
+    }
+
     .image-grid-container { 
         height: auto;
     } 
 
-    body.page-id-112 {
-        .listings-wrap>section>article { 
-            height: 300px;
-            width: 325px;
+
+    .listings-wrap>section>article { 
+        height: 300px;
+        width: 325px;
+    }
+
+    body.ocs-strategy-species {
+        .image-grid-container { 
+            height: 155px;
+            max-width: 244px; 
         }
     }
 }
