@@ -1600,6 +1600,8 @@ figure.wp-caption>a{color:#000}
 .photo-info:hover{width:55px}
 .photo-info.visible,.photo-info:focus{width:220px}
 span.attr-name>a{color:#7FA797}
+.svg-mask{min-height:0;height:calc(100vh - 127px);width:78vw}
+.svg-mask image{height:100%}
 @media screen and (max-width:1120px){body.page-id-109 article.col-sm-6.col-md-4,body.page-id-112 article.col-sm-6.col-md-4{width:50%}
 }
 .comment-list{padding-left:0;list-style:none}
