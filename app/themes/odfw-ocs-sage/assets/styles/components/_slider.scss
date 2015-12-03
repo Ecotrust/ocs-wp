@@ -35,7 +35,7 @@
 
 ol.carousel-indicators {
   bottom: 0;
-  padding-bottom: none;
+  padding-bottom: 0;
 
   li, li.active {
     height: 12px;
@@ -82,7 +82,6 @@ ol.carousel-indicators {
 
 a.control_prev, a.control_next {
   display: none;
-
   &:hover { opacity: 1 !important };
 }
 
@@ -94,3 +93,5 @@ a.control_next {
 a.control_prev {
   border-radius: 0 2px 2px 0;
 }
+
+.single-item { display: none !important;}

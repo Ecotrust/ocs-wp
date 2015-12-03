@@ -1648,7 +1648,7 @@ body.map-available button.view-map{display:block}
 .svg-mask svg{display:block;margin:auto;text-align:center}
 .svg-mask:hover a.control_next,.svg-mask:hover a.control_prev{position:absolute;top:42%;z-index:999;display:block;padding:1% 1%;width:auto;height:auto;background:#414041;color:#fff;text-decoration:none;font-weight:600;font-size:18px;opacity:.2;cursor:pointer}
 .carousel-inner,.item{height:calc(80vh - 150px)}
-ol.carousel-indicators{bottom:0;padding-bottom:none}
+ol.carousel-indicators{bottom:0;padding-bottom:0}
 ol.carousel-indicators li,ol.carousel-indicators li.active{height:12px;width:12px;border-radius:50%;border-color:#00371a;display:inline-block;margin:0 10px 0 0;padding:0;cursor:pointer}
 ol.carousel-indicators li{background-color:#D3E9D1}
 ol.carousel-indicators li:hover{height:15px;width:15px}
@@ -1660,6 +1660,7 @@ a.control_next,a.control_prev{display:none}
 a.control_next:hover,a.control_prev:hover{opacity:1!important}
 a.control_next{right:0;border-radius:2px 0 0 2px}
 a.control_prev{border-radius:0 2px 2px 0}
+.single-item{display:none!important}
 ::-webkit-input-placeholder{color:#414041}
 :-moz-placeholder{color:#414041}
 :-ms-input-placeholder{color:#414041}
