@@ -286,3 +286,22 @@
   top: 60px;
   width: inherit;
 }
+
+.slicknav_menu {
+	display:none;
+
+	.slicknav_nav {
+		font-family: $headings-font-family-lighter;
+		font-weight: normal;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.main-ocs-navigation {
+		display:none;
+	}
+	
+	.slicknav_menu ,ul.slicknav_nav {
+		display:block !important;
+	}
+}

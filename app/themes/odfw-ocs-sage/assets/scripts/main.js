@@ -30,6 +30,11 @@
             selector: '[data-toggle="tooltip"]'
         });
 
+        //mobile menu navigation plugin
+        $('.main-ocs-navigation').slicknav({
+          easingOpen: 'linear'
+        });
+
         /*
           toggling non-featured images added via media gallery
           '.image-container' wrapper added to all media via functions.php
