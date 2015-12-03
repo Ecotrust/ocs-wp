@@ -1600,8 +1600,6 @@ figure.wp-caption>a{color:#000}
 .photo-info:hover{width:55px}
 .photo-info.visible,.photo-info:focus{width:220px}
 span.attr-name>a{color:#7FA797}
-.svg-mask{min-height:0;height:calc(100vh - 127px);width:78vw}
-.svg-mask image{height:100%}
 @media screen and (max-width:1120px){body.page-id-109 article.col-sm-6.col-md-4,body.page-id-112 article.col-sm-6.col-md-4{width:50%}
 }
 .comment-list{padding-left:0;list-style:none}
@@ -1646,6 +1644,22 @@ body.map-available button.view-map{display:block}
 .view-external-compass:hover{background-color:#E6E7E8}
 .view-external-compass a{color:#414041;text-decoration:none}
 .view-external-compass span.compass-icon{background:url(../images/icons-nav.png) no-repeat;background-position:-78px -888px;padding-left:40px;line-height:35px;display:inline-block;margin:auto}
+.svg-mask{padding-top:25px;min-height:0;height:calc(90vh - 150px)}
+.svg-mask svg{display:block;margin:auto;text-align:center}
+.svg-mask:hover a.control_next,.svg-mask:hover a.control_prev{position:absolute;top:42%;z-index:999;display:block;padding:1% 1%;width:auto;height:auto;background:#414041;color:#fff;text-decoration:none;font-weight:600;font-size:18px;opacity:.2;cursor:pointer}
+.carousel-inner,.item{height:calc(80vh - 150px)}
+ol.carousel-indicators{bottom:0;padding-bottom:none}
+ol.carousel-indicators li,ol.carousel-indicators li.active{height:12px;width:12px;border-radius:50%;border-color:#00371a;display:inline-block;margin:0 10px 0 0;padding:0;cursor:pointer}
+ol.carousel-indicators li{background-color:#D3E9D1}
+ol.carousel-indicators li:hover{height:15px;width:15px}
+ol.carousel-indicators li.active{background-color:#00371a}
+.carousel-caption{left:30%;right:30%;padding-bottom:5px}
+.carousel-headline{font-size:40px;bottom:35%;color:#f1f1f2;text-transform:uppercase}
+.carousel-subtext{font-size:20px;bottom:25%;color:#E6E7E8}
+a.control_next,a.control_prev{display:none}
+a.control_next:hover,a.control_prev:hover{opacity:1!important}
+a.control_next{right:0;border-radius:2px 0 0 2px}
+a.control_prev{border-radius:0 2px 2px 0}
 ::-webkit-input-placeholder{color:#414041}
 :-moz-placeholder{color:#414041}
 :-ms-input-placeholder{color:#414041}

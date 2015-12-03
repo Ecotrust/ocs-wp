@@ -122,14 +122,6 @@ figure.wp-caption {
 
 span.attr-name > a { color: $greenMid; }
 
-.svg-mask {
-	min-height: 0px;
-	height: calc(100vh - 127px);
-	width: 78vw;
-
-	image { height: 100%;}
-}
-
 @media screen and (max-width: 1120px) {
 	body.page-id-109,
 	body.page-id-112 {
