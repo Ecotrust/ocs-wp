@@ -32,7 +32,9 @@
 
         //mobile menu navigation plugin
         $('.main-ocs-navigation').slicknav({
-          easingOpen: 'linear'
+          easingOpen: 'linear',
+          label: '',
+          closeOnClick: true
         });
 
         /*
@@ -78,6 +80,8 @@
 
         // BootStrap ToolTips
         $('[title]').tooltip();
+
+        $('.slicknav_nav').slicknav('toggle');
 
 	  }
 	},

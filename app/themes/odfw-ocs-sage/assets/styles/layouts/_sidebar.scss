@@ -287,6 +287,8 @@
   width: inherit;
 }
 
+
+/*mobile/sm window nav menu*/
 .slicknav_menu {
 	display:none;
 
@@ -296,12 +298,12 @@
 	}
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
 	.main-ocs-navigation {
 		display:none;
 	}
 	
 	.slicknav_menu ,ul.slicknav_nav {
-		display:block !important;
+		display:block;
 	}
 }

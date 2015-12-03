@@ -1702,6 +1702,7 @@ body.map-available button.view-map{display:block}
 #header .search-wrap input{color:#414041;font-family:TradeGothicBold,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:33px;height:62px;letter-spacing:.02em;line-height:62px;background-color:#D3E9D1;border:0 none;outline:0;padding:1px 10px;text-transform:uppercase;width:90%}
 #header .search-wrap button{background-color:#EFF7ED;border:none;display:inline-block;line-height:56px;text-align:center;background:#D3E9D1 url(../images/icons-nav.png) 0 -806px no-repeat;display:block;float:right;padding:0 15px;margin-right:-15px;text-indent:-999em;width:66px}
 #header .search-wrap button:hover{background:#c3e1c0 url(../images/icons-nav.png) -61px -806px no-repeat}
+#header.mobile{display:none}
 .view-switcher{position:relative;min-height:1px;padding-left:15px;padding-right:15px;padding:0;background-color:#EFF7ED}
 @media (min-width:560px){.view-switcher{float:left;width:25%}
 }
@@ -1783,8 +1784,8 @@ body.map-visible button.view-map{background-position:0 -621px}
 .scroll-nav.fixed{position:fixed;top:60px;width:inherit}
 .slicknav_menu{display:none}
 .slicknav_menu .slicknav_nav{font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400}
-@media screen and (max-width:800px){.main-ocs-navigation{display:none}
-.slicknav_menu,ul.slicknav_nav{display:block!important}
+@media screen and (max-width:768px){.main-ocs-navigation{display:none}
+.slicknav_menu,ul.slicknav_nav{display:block}
 }
 .draft-message{background-color:#EFF7ED;border-top:1px solid #C1E1BE;bottom:0;color:#111;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:11px;margin-left:-15px;margin-right:15px;padding:10px;position:fixed;width:100%}
 .draft-message strong{background-color:#005130;color:#fff;font-weight:400;letter-spacing:.07em;padding:1px 3px}
