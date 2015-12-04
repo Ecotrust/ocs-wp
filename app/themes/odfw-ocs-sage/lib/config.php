@@ -55,7 +55,9 @@ function display_sidebar() {
       [
         'is_404',
 		'is_front_page',
-		//['is_page',  [99, 101, 102, 105, 109] ],
+		['is_tax', 'species'],
+		['is_page',  get_the_cpt_listing_pages() ],
+		['is_page',  get_the_species_listing_pages() ],
         ['is_page_template', 'template-custom.php']
       ]
     );
@@ -65,3 +67,48 @@ function display_sidebar() {
   return $display;
 }
 
+function get_the_cpt_listing_pages_assoc () {
+	// CPT listings
+	$OCS_cptListingPages = array(
+		"99" => "kci",  // KCIs
+		"101" => "ecoregion", // Ecoregions
+		"102" => "coa",// COAs
+		"105" => "strategy_habitat", // Strategy Habitats
+		/*
+		109, // Strategy Species Parent Page
+		*/
+	);
+	return $OCS_cptListingPages;
+
+}
+
+function get_the_cpt_listing_pages () {
+	// CPT listings
+	$OCS_cptListingPages = array(
+		99,  // KCIs
+		101, // Ecoregions
+		102,// COAs
+		105, // Strategy Habitats
+		/*
+		109, // Strategy Species Parent Page
+		*/
+	);
+	return $OCS_cptListingPages;
+
+}
+
+function get_the_species_listing_pages () {
+	// Strategy Species sub pages
+	$OCS_species_sub_pages = array(
+		110, //Birds
+		111, //Mammals
+		112, //Amphibians
+		113, //Reptiles
+		114, //Fish
+		115, //Invertebrates
+		116, //Plants and Algae
+	);
+
+	return $OCS_species_sub_pages;
+
+}

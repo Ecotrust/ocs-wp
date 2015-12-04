@@ -17,7 +17,7 @@
 						<li><button class="view-map">Map</button></li>
 						<li><button class="view-grid">Grid View</button></li>
 						<li><button class="view-list">List View</button></li>
-						<li><button class="my-ocs">Oregon</button></li>
+						<li><a class="my-ocs" href="/help">Help</a></li>
 					</ul>
 				</nav>
 			</div>

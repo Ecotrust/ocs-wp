@@ -10,8 +10,8 @@ function odfw_load_global_admin_tweaks($hook) {
 	wp_enqueue_script( 'odfw_admin_affix',  plugins_url('../assets/bs.affix.3.3.5.min.js', __FILE__) );
 	wp_enqueue_script( 'odfw_admin_custom_scripts',  plugins_url('../assets/odfw_global_admin_custom_scripts.js', __FILE__) );
 }
-add_action('admin_enqueue_scripts', 'odfw_load_global_admin_tweaks');
-add_action('login_enqueue_scripts', 'odfw_load_global_admin_tweaks');
+add_action('admin_enqueue_scripts', 'odfw_load_global_admin_tweaks', 20);
+add_action('login_enqueue_scripts', 'odfw_load_global_admin_tweaks', 20);
 
 /*
 // Can use $hook limit which pages a script or style sheet is loaded

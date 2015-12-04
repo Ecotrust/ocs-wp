@@ -1,6 +1,7 @@
 <?php while (have_posts()) : the_post(); ?>
   <?php get_template_part('templates/page', 'header'); ?>
 
+
 <div class="hentry">
 	<div class="entry-content">
 		<?php the_content(); ?>
@@ -35,8 +36,7 @@
 		get_template_part('templates/cpt-listing/cpt', 'strategy-species');
 
 	// Strategy Species sub pages
-	// $species_sub_pages = array(110,111,112, 113, 114, 115, 116);
-	elseif ( is_page( array(110,111,112, 113, 114, 115, 116) ) ) :
+	elseif ( is_page( Roots\Sage\Config\get_the_species_listing_pages() ) ) :
 		get_template_part('templates/cpt-listing/cpt', 'strategy-species');
 
 	// the rest
