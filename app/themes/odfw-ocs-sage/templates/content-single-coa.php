@@ -214,10 +214,10 @@
 		</section>
 
 
+		<?php get_template_part('templates/content', 'success-story'); ?>
 
     </div> <!-- /.entry-content -->
 
-		<?php get_template_part('templates/content', 'success-story'); ?>
 
   </article>
 <?php endwhile; ?>
