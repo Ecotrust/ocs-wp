@@ -2,7 +2,7 @@
 <div class="svg-mask carousel slide" id="myCarousel" data-ride="carousel">
 
      <div class="carousel-inner" role="listbox">
-        
+
 <!--         each success story needs represent a new div.item  -->
         <div class="item active">
 
@@ -16,7 +16,7 @@
                   <mask id="svgmask2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" transform="scale(1)">
                       <image width="100%" height="100%" xlink:href="app/themes/odfw-ocs-sage/dist/images/or.png" />
                   </mask>
-              </defs>        
+              </defs>
               <image id="the-mask" mask="url(#svgmask2)" width="100%" height="100%" y="0" x="0" xlink:href="https://upload.wikimedia.org/wikipedia/commons/3/3d/LARGE_elevation.jpg" />
           </svg>
 

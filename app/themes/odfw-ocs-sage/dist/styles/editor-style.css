@@ -1689,16 +1689,17 @@ a.control_prev{border-radius:0 2px 2px 0}
 .view-switcher ul{list-style-type:none;margin:0;padding:0}
 .view-switcher li{border-bottom:1px solid #EFF7ED;float:left;width:25%}
 .view-switcher li:hover{border-bottom:1px solid #7FA797}
-.view-switcher button{background-color:#EFF7ED;border:none;display:inline-block;line-height:56px;text-align:center;float:right;text-indent:-999em;width:100%}
-.view-switcher button:focus{outline:0}
-.view-switcher button.view-grid,.view-switcher button.view-list,.view-switcher button.view-map{background:#EFF7ED url(../images/icons-nav.png)}
-.view-switcher button.view-map{background-position:-55px -621px}
-.view-switcher button.view-map:active,.view-switcher button.view-map:hover{background-position:6px -621px}
-.view-switcher button.view-grid{background-position:-62px -680px;display:none}
-.view-switcher button.view-grid:active,.view-switcher button.view-grid:hover{background-position:0 -680px}
-.view-switcher button.view-list{background-position:-62px -742px;display:none}
-.view-switcher button.view-list:active,.view-switcher button.view-list:hover{background-position:0 -742px}
-.view-switcher button.my-ocs{background:#005130 url(../images/icons-nav.png) 0 -871px no-repeat;max-width:66px}
+.view-switcher a,.view-switcher button{background-color:#EFF7ED;border:none;display:inline-block;line-height:56px;text-align:center;float:right;text-indent:-999em;width:100%}
+.view-switcher a:focus,.view-switcher button:focus{outline:0}
+.view-switcher a.view-grid,.view-switcher a.view-list,.view-switcher a.view-map,.view-switcher button.view-grid,.view-switcher button.view-list,.view-switcher button.view-map{background:#EFF7ED url(../images/icons-nav.png)}
+.view-switcher a.view-map,.view-switcher button.view-map{background-position:-55px -621px}
+.view-switcher a.view-map:active,.view-switcher a.view-map:hover,.view-switcher button.view-map:active,.view-switcher button.view-map:hover{background-position:6px -621px}
+.view-switcher a.view-grid,.view-switcher button.view-grid{background-position:-62px -680px;display:none}
+.view-switcher a.view-grid:active,.view-switcher a.view-grid:hover,.view-switcher button.view-grid:active,.view-switcher button.view-grid:hover{background-position:0 -680px}
+.view-switcher a.view-list,.view-switcher button.view-list{background-position:-62px -742px;display:none}
+.view-switcher a.view-list:active,.view-switcher a.view-list:hover,.view-switcher button.view-list:active,.view-switcher button.view-list:hover{background-position:0 -742px}
+.view-switcher a.my-ocs,.view-switcher button.my-ocs{background:#005130 url(../images/icons-nav.png) 0 -871px no-repeat;max-width:66px}
+.view-switcher a.my-ocs:hover,.view-switcher button.my-ocs:hover{background-image:none;font-family:"HelveticaNeue-75Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;color:#fff;text-indent:0;text-decoration:none}
 body.map-visible button.view-map{background-position:0 -621px}
 .page-header{border-bottom:0}
 .sidebar{line-height:1.2;padding:0}

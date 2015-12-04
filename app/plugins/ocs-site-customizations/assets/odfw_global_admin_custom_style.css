@@ -59,11 +59,13 @@
 #coa_meta_strategy_species_repeat .cmb-td {
 	width: 100%;
 }
-#coa_meta_strategy_species_repeat input {
+#coa_meta_strategy_species_repeat input,
+.cmb-type-post-search-text input {
 	display: none;
 	max-width: 85%;
 }
-#coa_meta_strategy_species_repeat .cmb-remove-field-row {
+#coa_meta_strategy_species_repeat .cmb-remove-field-row,
+.cmb-type-post-search-text .cmb-remove-field-row {
 	border-top: 1px solid #ccc;
 	clear: both;
 	padding-top: 10px;

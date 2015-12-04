@@ -109,7 +109,7 @@
 			border-bottom: 1px solid $greenMid;
 		}
 	}
-	button {
+	button, a {
 		@include top-button;
 		/*@include make-sm-column(4);*/
 
@@ -157,6 +157,16 @@
 		&.my-ocs {
 			background: $green url($nav-sprite) 0 -871px no-repeat;
 			max-width: 66px;
+
+			&:hover {
+				background-image: none;
+                font-family: $body-font-bolder;
+                font-size: 14px;
+                font-weight: 700;
+				color: #ffffff;
+				text-indent: 0;
+                text-decoration: none;
+			}
 		}
 	}
 }

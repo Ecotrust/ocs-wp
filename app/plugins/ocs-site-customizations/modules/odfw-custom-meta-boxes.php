@@ -89,6 +89,32 @@ function setupCustomFields () {
 		return $post_options;
 	}
 
+	/**
+	 * Exclude metabox on specific IDs
+	 * @param  object $cmb CMB2 object
+	 * @return bool        True/false whether to show the metabox
+	 */
+	function cmb2_exclude_for_ids( $cmb ) {
+		$ids_to_exclude = $cmb->prop( 'exclude_ids', array() );
+		$excluded = in_array( $cmb->object_id(), $ids_to_exclude, true );
+
+		return ! $excluded;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	add_action( 'cmb2_init', 'kci_metabox' );
@@ -667,29 +693,38 @@ function setupCustomFields () {
 	 *
 	 */
 
-  add_action('cmb2_init', 'success_story_metabox');
-  function success_story_metabox() {
-    $success_story_cmb = new_cmb2_box( array(
-      'id'           => 'posts_success_story',
-      'title'        => __('Associate a Success Story', 'odfw'),
-      'desc'         => __('Select a success story to go with this post', 'odfw'),
-      'object_types' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
-      'context'      => 'normal',
-      'priority'     => 'low'
-    ));
+	add_action('cmb2_init', 'success_story_metabox');
+	function success_story_metabox() {
+		$success_story_cmb = new_cmb2_box( array(
+			'id'           => 'posts_success_story',
+			'title'        => __('Associate a Success Story', 'odfw'),
+			'desc'         => __('Select a success story to go with this post', 'odfw'),
+			'object_types' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
+			'context'      => 'normal',
+			'priority'     => 'low',
+			'show_on_cb' => 'hide_on_home', // Custom function up top
+		));
 
-    $success_story_cmb->add_field(array(
-      'name' => __('Success Story', 'odfw'),
-      'desc' => __('Use the spyglass icon to select a success story to include with this post.', 'odfw'),
-      'post_type'   => 'success_story',
-      'id' => 'success_story',
-	  'type' => 'post_search_text',
-	  'select_type' => 'radio',
-	  'select_behavior' => 'replace',
+		$success_story_cmb->add_field(array(
+			'name' => __('Success Story', 'odfw'),
+			'desc' => __('Use the spyglass icon to select a success story to include with this post.', 'odfw'),
+			'post_type'   => 'success_story',
+			'id' => 'success_story',
+			'type'               => 'post_search_text',
+			'select_type'        => 'radio',
+			'select_behavior'    => 'replace',
+			'find_text'          => 'Find Success Stories',
+			'include_post_title' => true,
 
-    ));
-  }
-
+		));
+	}
+	function hide_on_home( $cmb ) {
+		$show = true;
+		if ($cmb->object_id() == "22"){
+			$show = false;
+		}
+		return $show;
+	}
 
 	/*
 	 *
@@ -955,7 +990,75 @@ function setupCustomFields () {
 
 
 
+	add_action( 'cmb2_init', 'homepage_metabox' );
+	function homepage_metabox() {
 
+		$prefix = '_home_';
+
+		$home_cmb = new_cmb2_box( array(
+			'id'           => $prefix . '_home_success-stories',
+			'title'        => __( 'Homepage Rotator', 'odfw' ),
+			'object_types' => array( 'page' ),
+			'show_on'      => array( 'key' => 'id', 'value' => 22 ),
+			'context'      => 'normal',
+			'priority'     => 'high',
+		) );
+
+		$home_group_field_id = $home_cmb->add_field( array(
+			'id'          => 'goals_and_actions_repeat_group',
+			'type'        => 'group',
+			'options'     => array(
+				'group_title'   => __( 'Home Rotator Item {#}', 'odfw' ),
+				'add_button'    => __( 'Add Another Home Rotator Item', 'odfw' ),
+				'remove_button' => __( 'Remove this Home Rotator Item', 'odfw' ),
+				'sortable'      => true, // beta
+				)
+		) );
+
+	   $home_cmb->add_group_field( $home_group_field_id, array(
+			'name' => __( 'Headline', 'odfw' ),
+			'id' => $prefix . 'headline',
+			'type' => 'text',
+		) );
+
+	   $home_cmb->add_group_field( $home_group_field_id, array(
+			'name' => __( 'Caption', 'odfw' ),
+			'id' => $prefix . 'caption',
+			'type' => 'textarea_small',
+		) );
+
+		$home_cmb->add_group_field( $home_group_field_id, array(
+			'id' => $prefix . "linked-post",
+			'name' => __('What should this link to?', 'odfw'),
+			'desc' => __('Use the spyglass icon to select a success story to include with this post.', 'odfw'),
+			//'object_types' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
+			'post_type' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
+			'type'               => 'post_search_text',
+			'select_type'        => 'radio',
+			'select_behavior'    => 'replace',
+			'include_post_title' => true,
+		) );
+
+
+		/*
+		$home_cmb->add_field( array(
+			'name'    => __( 'Homepage Success Stories', 'cmb2' ),
+			'desc'    => __( 'Drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.', 'cmb2' ),
+			'id'      =>  $prefix . 'success-stories',
+			//'before_row'   => '<p> Click the (+) next to any item to associate it with this content</p>',
+			'type'    => 'custom_attached_posts',
+			'options' => array(
+				'show_thumbnails' => true, // Show thumbnails on the left
+				'filter_boxes'    => true, // Show a text box for filtering the results
+				'query_args'      => array( 'post_type' => 'success_story', 'posts_per_page' => -1 ), // override the get_posts args
+			)
+		));
+
+		text (head)
+
+		*/
+
+	}
 
 
 
