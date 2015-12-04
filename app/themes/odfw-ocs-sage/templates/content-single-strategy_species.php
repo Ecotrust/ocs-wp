@@ -52,65 +52,54 @@
       <?php the_content(); ?>
 
 
-	<section class="cmb2-wrap-text species_meta_species-common-name">
-		<h2>Species Common Name</h2>
+	<section class="species-overview">
+		<h2>Overview</h2>
+		<dl class="dl-horizontal">
+			<dt>Species Common Name</dt>
+			<dd class="cmb2-text">
+				<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-common-name', true );
+				echo esc_html( $the_field ); ?>
+			</dd>
 
-		<p class="cmb2-text">
-			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-common-name', true );
-			echo esc_html( $the_field ); ?>
-		</p>
-	</section>
+			<dt>Species Scientific Name</dt>
 
-
-
-	<section class="cmb2-wrap-text species_meta_species-scientific-name">
-		<h2>Species Scientific Name</h2>
-
-		<p class="cmb2-text">
-			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-scientific-name', true );
-			echo esc_html( $the_field ); ?>
-		</p>
-	</section>
+			<dd class="cmb2-text">
+				<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-scientific-name', true );
+				echo esc_html( $the_field ); ?>
+			</dd>
 
 
 
-	<?php $cats = get_the_terms($post->ID, 'species');
-		//only need this one for fish, catID=19
-		if ( $cats[0]->term_id==19 ):
-	?>
-			<section class="cmb2-wrap-text species_meta_species-group">
-				<h2>SMU/ESU/DPS/Group</h2>
-
-				<p class="cmb2-text">
-					<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-group', true );
-					echo esc_html( $the_field ); ?>
-				</p>
-			</section>
-		<?php endif; ?>
+		<?php $cats = get_the_terms($post->ID, 'species');
+			//only need this one for fish, catID=19
+			if ( $cats[0]->term_id==19 ): ?>
+				<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-group', true );
+					if ( !empty($the_field) ): ?>
+					<dt>SMU/ESU/DPS/Group</dt>
+					<dd class="cmb2-text">
+						<?php echo esc_html( $the_field ); ?>
+					</dd>
+				<?php endif; ?>
+			<?php endif; ?>
 
 
-
-
-	<section class="cmb2-wrap-text species_meta_federal-listing-status">
-		<h2>Federal listing status</h2>
-
-		<p class="cmb2-text">
 			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_federal-listing-status', true );
-			echo esc_html( $the_field ); ?>
-		</p>
-	</section>
+				if ( !empty($the_field) ): ?>
+					<dt>Federal listing status</dt>
+					<dd class="cmb2-text">
+						<?php echo esc_html( $the_field ); ?>
+					</dd>
+			<?php endif; ?>
 
-
-
-	<section class="cmb2-wrap-text species_meta_state-listing-status">
-		<h2>State listing status</h2>
-
-		<p class="cmb2-text">
 			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_state-listing-status', true );
-			echo esc_html( $the_field ); ?>
-		</p>
+				if ( !empty($the_field) ): ?>
+					<dt>State listing status</dt>
+					<dd class="cmb2-text">
+						<?php echo esc_html( $the_field ); ?>
+					</dd>
+			<?php endif; ?>
+		</dl>
 	</section>
-
 
 
 	<section class="cmb2-wrap-custom_attached_posts species_meta_attached_ecoregions">
@@ -157,63 +146,75 @@
 
 
 
-	<section class="cmb2-wrap-textarea species_meta_special-needs">
-		<h2>Special needs</h2>
+	<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_special-needs', true );
+		if ( !empty($the_field) ): ?>
 
-		<p class="cmb2-textarea">
-			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_special-needs', true );
-			echo esc_html( $the_field ); ?>
-		</p>
-	</section>
+			<section class="cmb2-wrap-textarea species_meta_special-needs">
+				<h2>Special needs</h2>
 
-
-
-	<section class="cmb2-wrap-textarea species_meta_limiting-factors">
-		<h2>Limiting factors</h2>
-
-		<p class="cmb2-textarea">
-			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_limiting-factors', true );
-			echo esc_html( $the_field ); ?>
-		</p>
-	</section>
+				<p class="cmb2-textarea">
+					<?php echo esc_html( $the_field ); ?>
+				</p>
+			</section>
+	<?php endif; ?>
 
 
+	<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_limiting-factors', true );
+		if ( !empty($the_field) ): ?>
 
-	<section class="cmb2-wrap-textarea species_meta_data-gaps">
-		<h2>Data gaps</h2>
+			<section class="cmb2-wrap-textarea species_meta_limiting-factors">
+				<h2>Limiting factors</h2>
 
-		<p class="cmb2-textarea">
-			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_data-gaps', true );
-			echo esc_html( $the_field ); ?>
-		</p>
-	</section>
+				<p class="cmb2-textarea">
+					<?php echo esc_html( $the_field ); ?>
+				</p>
+			</section>
+	<?php endif; ?>
 
 
 
-	<section class="cmb2-wrap-textarea species_meta_conservation-actions">
-		<h2>Conservation actions</h2>
+	<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_data-gaps', true );
+		if ( !empty($the_field) ): ?>
 
-		<p class="cmb2-textarea">
-			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_conservation-actions', true );
-			echo esc_html( $the_field ); ?>
-		</p>
-	</section>
+			<section class="cmb2-wrap-textarea species_meta_data-gaps">
+				<h2>Data gaps</h2>
+
+				<p class="cmb2-textarea">
+					<?php echo esc_html( $the_field ); ?>
+				</p>
+			</section>
+	<?php endif; ?>
 
 
 
-	<section class="cmb2-wrap-textarea species_meta_key-reference">
-		<h2>Key reference or plan</h2>
+	<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_conservation-actions', true );
+		if ( !empty($the_field) ): ?>
+			<section class="cmb2-wrap-textarea species_meta_conservation-actions">
+				<h2>Conservation actions</h2>
 
-		<p class="cmb2-textarea">
-			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_key-reference', true );
-			echo esc_html( $the_field ); ?>
-		</p>
-	</section>
+				<p class="cmb2-textarea">
+					<?php echo esc_html( $the_field ); ?>
+				</p>
+			</section>
+	<?php endif; ?>
+
+
+
+	<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_key-reference', true );
+		if ( !empty($the_field) ): ?>
+			<section class="cmb2-wrap-textarea species_meta_key-reference">
+				<h2>Key reference or plan</h2>
+
+				<p class="cmb2-textarea">
+					<?php echo esc_html( $the_field ); ?>
+				</p>
+			</section>
+	<?php endif; ?>
 
 
 
 	<section class="cmb2-wrap-text_url species_meta_image-thumb-url">
-		<h2>Full URL to Thumbnail Image</h2>
+		<h2>Full URL to Thumbnail Image (DEVELOPMENT ONLY FIELD)</h2>
 
 		<p class="cmb2-text_url">
 			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_image-url', true );
