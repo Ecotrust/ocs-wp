@@ -1,11 +1,13 @@
 .main-content {
 	p, caption {
 		font-weight: 300;
-		max-width: 600px;
-
+		max-width: 80%;
 		//quick fix. @TODO set with bootstrap vars/computation
 		margin-top: $line-height-px;
 		margin-bottom: 0;
+	}
+	li {
+		max-width: 80%;
 	}
 	li {
 		margin-top: 0;
@@ -15,6 +17,13 @@
 		font-family: $body-font-bold;
 		font-weight: 600;
 	}
+}
+p+ul{
+	margin-top: $line-height-px/2;
+}
+.page-header {
+	margin: 0;
+	padding-bottom: 0;
 }
 h1, h2 {
 	text-transform: uppercase;
@@ -43,6 +52,7 @@ h3, h4 {
 	font-family: $body-font-bolder;
 	font-size: $font-size-h3;
 	letter-spacing: -0.02em;
+	font-weight: 700;
 	/* off while testing COA layouts */
     /*margin-bottom: $line-height-px;*/
     /*margin-top: $line-height-px * 2;*/

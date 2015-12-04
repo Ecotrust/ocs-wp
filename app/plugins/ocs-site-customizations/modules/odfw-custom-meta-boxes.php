@@ -1039,7 +1039,24 @@ function setupCustomFields () {
 			'include_post_title' => true,
 		) );
 
+		$home_cmb->add_group_field( $home_group_field_id, array(
+			'name' => __( 'Link Success Story?', 'odfw' ),
+			'desc' => __( 'Should this link jump to the Success Story on this page?', 'odfw' ),
+			'id' => $prefix . 'success-story',
+			'type' => 'checkbox',
+		) );
 
+		$home_cmb->add_group_field( $home_group_field_id, array(
+			'name'    => 'Main Image',
+			'desc'    => 'Upload an image or enter an URL.',
+			'id'      => $prefix . 'image',
+			'type'    => 'file',
+			// Optional:
+			'options' => array(
+				'url' => false, // Hide the text input for the url
+				'add_upload_file_text' => 'Add Image' // Change upload button text. Default: "Add or Upload File"
+			),
+		) );
 		/*
 		$home_cmb->add_field( array(
 			'name'    => __( 'Homepage Success Stories', 'cmb2' ),

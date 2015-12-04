@@ -82,11 +82,11 @@
 	  },
 	  finalize: function() {
 
-      //don't show slide arrows or dots if there's only one slide
-      if ($('.carousel-inner .item').length === 1) {
-        $('a.control_next, a.control_prev, ol.carousel-indicators').addClass('single-item')
-      };
-      
+		  // Don't show slide arrows or dots if there's only one slide
+		  if ($('.carousel-inner .item').length === 1) {
+			$('a.control_next, a.control_prev, ol.carousel-indicators').addClass('single-item');
+		  }
+
 	  }
 	},
     'conservation_opportunity_areas': {
