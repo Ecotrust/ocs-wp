@@ -1,4 +1,6 @@
-<article <?php post_class(); ?>>
+<img id="region-png-print" src="/wordpress//media/ODFW_ecoregion_final_base.png"/>
+
+<article class="row" <?php post_class(); ?>>
 
 <?php
 	$args = array(
@@ -27,11 +29,15 @@
 
 ?>
 
-		<div id="ecoregion-item-<?php echo $post->ID; ?>" class="">
+		<div class="col-md-6" id="ecoregion-item-<?php echo $post->ID; ?>">
 			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail('small'); ?>
+				<div class="image-grid-container">
+					<?php if ( has_post_thumbnail($page->ID) ) : ?>
+						<?php echo get_the_post_thumbnail($page->ID, 'large', array('class' => 'img-responsive')) ?>
+					<?php endif; ?>
+				</div>
 				<h3 class="cpt-title"><?php the_title(); ?></h3>
-				<p><?php the_excerpt(); ?></h3>
+				<?php echo get_the_excerpt(); ?>
 			</a>
 		</div>
 

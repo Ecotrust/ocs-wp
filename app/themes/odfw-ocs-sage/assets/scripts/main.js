@@ -13,6 +13,7 @@
 (function($) {
   var $compass = $(".compass.main"); //compass component
   var $iframe = $("iframe.compass-iframe"); //iframe element
+  var $nonFeatureFig = $('figure.wp-caption'); //non featured images
   var OCS = {
     $body : $('body'),
 	// All pages
@@ -28,6 +29,19 @@
         $('body').tooltip({
             selector: '[data-toggle="tooltip"]'
         });
+
+        /*
+          toggling non-featured images added via media gallery
+          '.image-container' wrapper added to all media via functions.php
+        */
+        if ($nonFeatureFig.length) {
+          $nonFeatureFig.each(function(i,figure) {
+            $(figure).find('.image-container')
+              .append('<span class="photo-info show-info glyphicon glyphicon-info-sign"></span>');
+            $(figure).find('figcaption')
+              .append('<span class="photo-info glyphicon glyphicon-remove-circle"></span>');
+          });
+        }
     /*
      * Image Attribution
      * Check https://github.com/Ecotrust/commonplace-magazine/search?utf8=%E2%9C%93&q=photo-info
@@ -52,11 +66,14 @@
         });
 
         $('.photo-info').click(function() {
-            $('.species-hero, .feature-thumb').toggleClass('close-caption');
+            $(this).parents('figure').toggleClass('close-caption');
         });
+
+        $nonFeatureFig.find(' > a').removeAttr('href'); //deactivate hrefs by default
 
         // BootStrap ToolTips
         $('[title]').tooltip();
+
 	  }
 	},
 	'home': {

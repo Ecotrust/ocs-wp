@@ -1,4 +1,4 @@
-<section <?php post_class(); ?>>
+<section class="row" <?php post_class(); ?>>
 
 <?php
 
@@ -21,7 +21,7 @@ if ( is_page('109') ) :
 
 		foreach( $species_pages as $page ) :
 	?>
-			<article id="strategy-species-overview-<?php echo $page->post_name; ?>"  <?php post_class('', $page->ID); ?>>
+			<article class="col-sm-6 col-md-4" id="strategy-species-overview-<?php echo $page->post_name; ?>"  <?php post_class('', $page->ID); ?>>
 				
 				<a href="<?php echo get_page_link( $page->ID ); ?>">
 					<!-- <?php $the_field = get_post_meta( $page->ID, 'species_meta_image', true ); ?> -->
@@ -90,7 +90,7 @@ else :
         ?>
 
 
-		<article id="strategy-species-item-<?php echo $post->ID; ?>"  <?php post_class(); ?>>
+		<article class="col-sm-6 col-md-4" id="strategy-species-item-<?php echo $post->ID; ?>"  <?php post_class(); ?>>
 			<a href="<?php the_permalink(); ?>">
 				<div class="image-grid-container">
 					<?php 
