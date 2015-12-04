@@ -25,6 +25,11 @@ get_template_part('templates/header');
       </aside><!-- /.sidebar -->
 
       <main class="main" role="main">
+        <?php
+        if ( is_page('22') ):
+          get_template_part('templates/home', 'page');
+        endif
+        ?>
         <div class="main-content">
           <?php include Wrapper\template_path(); ?>
         </div>
