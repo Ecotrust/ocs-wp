@@ -1,5 +1,7 @@
 .species-hero,
-.feature-thumb {
+.feature-thumb,
+.wp-caption {
+	padding: 25px 0 0 0;
 	position: relative;
 	figcaption {
 		background-color: rgba(0,0,0,0.7);
@@ -14,15 +16,18 @@
 	}
 }
 
-.feature-thumb {
-	padding-top: 25px;
+figure.wp-caption {
+	border:  none;
+	> a  { color: #000  }
 }
-.species-hero {
+.species-hero,
+.feature-thumb {
 	width: 492px;
 }
 
 .species-hero.close-caption,
-.feature-thumb.close-caption {
+.feature-thumb.close-caption,
+.wp-caption.close-caption {
 	figcaption {
 		display: block;
 		.glyphicon {
@@ -110,3 +115,11 @@
 	}
 }
 
+span.attr-name > a { color: $greenMid; }
+
+@media screen and (max-width: 1120px) {
+	body.page-id-109,
+	body.page-id-112 {
+		article.col-sm-6.col-md-4 { width: 50%;}
+	}
+}
