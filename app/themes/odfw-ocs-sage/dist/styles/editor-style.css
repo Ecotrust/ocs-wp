@@ -1543,15 +1543,18 @@ td.visible-print,th.visible-print{display:table-cell!important}
 }
 @media print{.hidden-print{display:none!important}
 }
-.main-content caption,.main-content p{font-weight:300;max-width:600px;margin-top:20px;margin-bottom:0}
+.main-content caption,.main-content p{font-weight:300;max-width:80%;margin-top:20px;margin-bottom:0}
+.main-content li{max-width:80%}
 .main-content li{margin-top:0;margin-bottom:10px}
 .main-content a{font-family:"HelveticaNeue-65Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:600}
+p+ul{margin-top:10px}
+.page-header{margin:0;padding-bottom:0}
 .scroll-nav__heading,h1,h2{text-transform:uppercase}
 h1{color:#414041;font-family:"TradeGothicBold","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:33px;height:62px;letter-spacing:.02em;line-height:62px}
 h1.entry-title{height:auto;margin:25px 0 0 0;line-height:1}
 h1+small{font-family:"HelveticaNeue-46Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;text-transform:uppercase;display:block;margin-bottom:24px}
 .scroll-nav__heading,h2{font-size:18px}
-h3,h4{font-family:"HelveticaNeue-75Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:15px;letter-spacing:-.02em}
+h3,h4{font-family:"HelveticaNeue-75Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:15px;letter-spacing:-.02em;font-weight:700}
 h4{color:#222;font-size:12px;margin-bottom:2px;margin-top:20px}
 section h4{margin-bottom:0;margin-top:20px}
 h4+p{margin-top:0}
@@ -1610,7 +1613,7 @@ span.attr-name>a{color:#7FA797}
 @media (min-width:560px){.main{float:left;width:83.33333%}
 }
 .main::before{background-color:#414041;left:-33%;bottom:0;content:"";position:absolute;right:0;top:0;z-index:-1;width:33%;left:-33%}
-.has-sidebar .main{padding:0}
+.has-sidebar .main{padding:0;padding-bottom:300px}
 .has-sidebar .main::after{background-color:#414041;left:-33%;bottom:0;content:"";position:absolute;right:0;top:0;z-index:-1}
 .has-sidebar .main::after{background-color:#E6E7E8;left:75%;left:10}
 .has-sidebar .main .main-content{position:relative;min-height:1px;padding-left:15px;padding-right:15px}

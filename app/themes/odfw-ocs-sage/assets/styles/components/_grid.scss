@@ -16,6 +16,8 @@
 
 	.has-sidebar & {
 		padding: 0;
+		padding-bottom: 300px;
+
 		// Right sidebar
 		&::after{
 			@include sidebar-column;

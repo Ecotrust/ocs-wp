@@ -5,7 +5,7 @@
 		<div class="header-inner">
 			<div class="row">
 				<div class="search-wrap">
-					<form action="//localhost:3000/" class="search-form form-inline" method="get" role="search">
+					<form action="/" class="search-form form-inline" method="get" role="search">
 						<label class="sr-only">Search for:</label>
 						<input type="search" required="" placeholder="Search the OCS" id="search-field" class="search-field" name="s" value="">
 						<button class="search-submit" type="submit">Search</button>
