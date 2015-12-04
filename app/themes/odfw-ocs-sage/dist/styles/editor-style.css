@@ -1721,6 +1721,8 @@ body.map-available button.view-map{display:block}
 .view-switcher button.my-ocs{background:#005130 url(../images/icons-nav.png) 0 -871px no-repeat;max-width:66px}
 body.map-visible button.view-map{background-position:0 -621px}
 .page-header{border-bottom:0}
+@media only screen and (min-width:901px) and (max-width:1050px){#header a.brand,#header input#search-field{font-size:3vw}
+}
 .sidebar{line-height:1.2;padding:0}
 .sidebar ol,.sidebar ul{padding:0}
 .sidebar ol>li,.sidebar ul>li{position:relative}

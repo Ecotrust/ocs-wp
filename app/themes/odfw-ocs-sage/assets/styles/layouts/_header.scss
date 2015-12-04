@@ -171,3 +171,17 @@ body.map-visible {
 .page-header {
 	border-bottom: 0;
 }
+
+/*min-width query is tied to .sidebars*/
+@media only screen and (min-width: 901px) and (max-width: 1050px) {
+	#header {
+		a.brand, input#search-field { font-size: 3vw;}
+	}
+}
+
+@media only screen and (max-width: 900px) {
+	#header {
+		
+	}
+}
+
