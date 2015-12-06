@@ -72,9 +72,11 @@
 	padding-bottom: 0;
 }
 .attached-post-title {
+	border: 1px solid #ddd;
+	min-height: 1em;
     display: inline-block;
     max-width: 85%;
-    padding: 5px 0;
+    padding: 5px;
     width: 25em;
 }
 /*
