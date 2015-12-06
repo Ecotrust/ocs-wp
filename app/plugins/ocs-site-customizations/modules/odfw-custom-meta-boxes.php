@@ -996,7 +996,7 @@ function setupCustomFields () {
 		$prefix = '_home_';
 
 		$home_cmb = new_cmb2_box( array(
-			'id'           => $prefix . '_home_success-stories',
+			'id'           => $prefix . '_home_rotator_items',
 			'title'        => __( 'Homepage Rotator', 'odfw' ),
 			'object_types' => array( 'page' ),
 			'show_on'      => array( 'key' => 'id', 'value' => 22 ),
@@ -1005,7 +1005,7 @@ function setupCustomFields () {
 		) );
 
 		$home_group_field_id = $home_cmb->add_field( array(
-			'id'          => 'goals_and_actions_repeat_group',
+			'id'          => $prefix . 'rotator_repeat_group',
 			'type'        => 'group',
 			'options'     => array(
 				'group_title'   => __( 'Home Rotator Item {#}', 'odfw' ),
@@ -1030,7 +1030,7 @@ function setupCustomFields () {
 		$home_cmb->add_group_field( $home_group_field_id, array(
 			'id' => $prefix . "linked-post",
 			'name' => __('What should this link to?', 'odfw'),
-			'desc' => __('Use the spyglass icon to select a success story to include with this post.', 'odfw'),
+			'desc' => __('Use the spyglass icon to select an OCS page.', 'odfw'),
 			//'object_types' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
 			'post_type' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
 			'type'               => 'post_search_text',
