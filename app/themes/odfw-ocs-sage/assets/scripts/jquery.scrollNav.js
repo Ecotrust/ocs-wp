@@ -41,7 +41,8 @@
       topLinkText: 'Top',
       fixedMargin: 40,
       scrollOffset: 40,
-      animated: true,
+	  fixedHeaderSize: 0,
+	  animated: true,
       speed: 500,
       insertLocation: 'insertBefore',
       arrowKeys: false,
@@ -213,8 +214,8 @@
       // in-view section
 
       var $nav                = S.nav;
-      var win_top             = $(window).scrollTop();
-      var boundry_top         = win_top + S.settings.scrollOffset;
+	  var win_top             = $(window).scrollTop();
+      var boundry_top         = win_top + S.settings.scrollOffset + S.settings.fixedHeaderSize;
       var boundry_bottom      = win_top + S.dims.vp_height - S.settings.scrollOffset;
       var sections_active     = [];
       var sub_sections_active = [];
@@ -222,8 +223,13 @@
       if ( win_top > (S.dims.nav_offset - S.settings.fixedMargin) ) { $nav.addClass('fixed'); }
       else { $nav.removeClass('fixed'); }
 
+	  // dynamic by passing in a JQ selector?
+	  // or get the padding-top from the body?
+	  // S.settings.fixedHeaderSize
       var in_view = function(section) {
-        return (section.top_offset >= boundry_top && section.top_offset <= boundry_bottom) || (section.bottom_offset > boundry_top && section.bottom_offset < boundry_bottom) || (section.top_offset < boundry_top && section.bottom_offset > boundry_bottom);
+        return (section.top_offset >= boundry_top && section.top_offset <= boundry_bottom)
+			|| (section.bottom_offset > boundry_top && section.bottom_offset < boundry_bottom)
+			|| (section.top_offset < boundry_top && section.bottom_offset > boundry_bottom);
       };
 
       $.each(S.sections.data, function() {
