@@ -1,13 +1,8 @@
 <?php while (have_posts()) : the_post(); ?>
   <article <?php post_class(); ?>>
+
     <header>
 	  <h1 class="entry-title"><?php the_title(); ?> </h1>
-		<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-scientific-name', true ); ?>
-		<?php if ( !empty($the_field) ): ?>
-			<h2>
-				<?php echo esc_html( $the_field ); ?>
-			</h2>
-		<?php endif; ?>
     </header>
 
     <?php $the_compass_field = get_post_meta( get_the_ID(), 'species_meta_compass-link', true );
@@ -53,57 +48,53 @@
 
 
 	<section class="species-overview">
+
 		<h2>Overview</h2>
-		<dl class="dl-horizontal">
-			<dt>Species Common Name</dt>
-			<dd class="cmb2-text">
+
+		<ul class="list-unstyled">
+
+			<li><strong>Species Common Name</strong>
 				<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-common-name', true );
 				echo esc_html( $the_field ); ?>
-			</dd>
+			</li>
 
-			<dt>Species Scientific Name</dt>
-
-			<dd class="cmb2-text">
+			<li><strong>Species Scientific Name</strong><em>
 				<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-scientific-name', true );
-				echo esc_html( $the_field ); ?>
-			</dd>
+				echo esc_html( $the_field ); ?></em>
+			</li>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_federal-listing-status', true );
+				if ( !empty($the_field) ): ?>
+					<li><strong>Federal Listing Status</strong>
+						<?php echo esc_html( $the_field ); ?>
+					</li>
+			<?php endif; ?>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_state-listing-status', true );
+				if ( !empty($the_field) ): ?>
+					<li><strong>State Listing Status</strong>
+						<?php echo esc_html( $the_field ); ?>
+					</li>
+			<?php endif; ?>
 
 		<?php $cats = get_the_terms($post->ID, 'species');
 			//only need this one for fish, catID=19
 			if ( $cats[0]->term_id==19 ): ?>
 				<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-group', true );
 					if ( !empty($the_field) ): ?>
-					<dt>SMU/ESU/DPS/Group</dt>
-					<dd class="cmb2-text">
+					<li><strong>SMU/ESU/DPS/Group</strong>
 						<?php echo esc_html( $the_field ); ?>
-					</dd>
+					</li>
 				<?php endif; ?>
 			<?php endif; ?>
 
+		</ul>
 
-			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_federal-listing-status', true );
-				if ( !empty($the_field) ): ?>
-					<dt>Federal listing status</dt>
-					<dd class="cmb2-text">
-						<?php echo esc_html( $the_field ); ?>
-					</dd>
-			<?php endif; ?>
-
-			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_state-listing-status', true );
-				if ( !empty($the_field) ): ?>
-					<dt>State listing status</dt>
-					<dd class="cmb2-text">
-						<?php echo esc_html( $the_field ); ?>
-					</dd>
-			<?php endif; ?>
-		</dl>
 	</section>
 
 
 	<section class="cmb2-wrap-custom_attached_posts species_meta_attached_ecoregions">
-		<h2>Associated Ecoregions</h2>
+		<h2>Ecoregions</h2>
 
 		<ul class="associated-ecoregions">
 			<?php
@@ -205,8 +196,10 @@
 			<section class="cmb2-wrap-textarea species_meta_key-reference">
 				<h2>Key reference or plan</h2>
 
+				<?php //may contain links
+				$linkified = preg_replace('/(http[s]{0,1}\:\/\/\S{4,})\s{0,}/ims', '<a href="$1" >$1</a> ', $the_field); ?>
 				<p class="cmb2-textarea">
-					<?php echo esc_html( $the_field ); ?>
+					<?php echo $linkified; ?>
 				</p>
 			</section>
 	<?php endif; ?>
