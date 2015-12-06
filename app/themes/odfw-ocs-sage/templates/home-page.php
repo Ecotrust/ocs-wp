@@ -10,7 +10,7 @@
         <div class="item <?php echo $i == 0 ? 'active' : '' ?>">
 
 		<?php $url = esc_url( get_permalink($item['_home_linked-post']) );
-		$url .= $item["_home_success-story"] == "on" ? "#success-story"  : "";
+		$url .= !empty($item["_home_success-story"] ) && $item["_home_success-story"] == "on" ? "#success-story"  : "";
 	 ?>
 			<a href="<?php echo $url; ?>">
 				<div class="carousel-caption">
