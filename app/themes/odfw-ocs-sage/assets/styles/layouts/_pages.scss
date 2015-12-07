@@ -54,3 +54,20 @@ body.ecoregions {
 	}
 }
 
+
+.species-overview {
+	strong {
+		display: block;
+	}
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		max-width: 492px;
+	}
+	li {
+		padding: 0 20px 0 0;
+		width: 50%;
+	}
+
+}
+

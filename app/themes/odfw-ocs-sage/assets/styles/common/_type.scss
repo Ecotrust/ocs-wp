@@ -89,8 +89,7 @@ p, li, dt, td {
     }
 }
 dt {
-  //margin-top: 1em;
-  font: 14px $body-font-bold;
+	font-family: $body-font-bolder;
 }
 dd {
   margin-bottom: 1em;

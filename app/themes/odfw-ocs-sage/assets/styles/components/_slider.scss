@@ -45,18 +45,18 @@ ol.carousel-indicators {
     display: inline-block;
     margin: 0 10px 0 0;
     padding: 0;
-    cursor: pointer; 
+    cursor: pointer;
   }
 
-  li { 
+  li {
     background-color: $greenLight;
 
     &:hover {
       height: 15px;
       width: 15px;
-    }; 
+    };
   }
-  
+
   li.active { background-color: $greenDark; }
 }
 
@@ -67,9 +67,10 @@ ol.carousel-indicators {
 }
 
 .carousel-headline {
-  font-size: 40px;
   bottom: 35%;
   color: $off-white;
+  font-family: $headings-font-family;
+  font-size: 36px;
   text-transform: uppercase;
 }
 
