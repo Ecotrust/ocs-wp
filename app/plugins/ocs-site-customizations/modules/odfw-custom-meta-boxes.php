@@ -996,7 +996,7 @@ function setupCustomFields () {
 		$prefix = '_home_';
 
 		$home_cmb = new_cmb2_box( array(
-			'id'           => $prefix . '_home_rotator_items',
+			'id'           => $prefix . 'rotator_items',
 			'title'        => __( 'Homepage Rotator', 'odfw' ),
 			'object_types' => array( 'page' ),
 			'show_on'      => array( 'key' => 'id', 'value' => 22 ),
