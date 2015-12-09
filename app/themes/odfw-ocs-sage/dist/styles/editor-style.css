@@ -1572,6 +1572,7 @@ abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-dec
 [data-toggle=tooltip].scroll-nav__heading,h2[data-toggle=tooltip]{display:inline-block;width:auto}
 [data-toggle=tooltip].scroll-nav__heading:after,[data-toggle=tooltip].scroll-nav__heading:before,h2[data-toggle=tooltip]:after,h2[data-toggle=tooltip]:before{content:" ";display:table}
 [data-toggle=tooltip].scroll-nav__heading:after,h2[data-toggle=tooltip]:after{clear:both}
+.single-coa .scroll-nav__heading+.tooltip .tooltip-inner,.single-coa h2+.tooltip .tooltip-inner,.single-strategy_species .scroll-nav__heading+.tooltip .tooltip-inner,.single-strategy_species h2+.tooltip .tooltip-inner{max-width:400px;text-align:left;padding:8px 12px}
 h3.cpt-title{margin-top:25px}
 h3>.badge{margin-left:3px}
 .long-list,.long-list ol,.long-list ul{-moz-column-count:2;-webkit-column-count:2;column-count:2}

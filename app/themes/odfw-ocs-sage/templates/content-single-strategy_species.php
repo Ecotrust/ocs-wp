@@ -94,7 +94,7 @@
 
 
 	<section class="cmb2-wrap-custom_attached_posts species_meta_attached_ecoregions">
-		<h2>Ecoregions</h2>
+	<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-ecoregions') ?>">Ecoregions</h2 data-toggle="tooltip"  data-placement="right" title="">
 
 		<ul class="associated-ecoregions">
 			<?php
@@ -141,7 +141,7 @@
 		if ( !empty($the_field) ): ?>
 
 			<section class="cmb2-wrap-textarea species_meta_special-needs">
-				<h2>Special needs</h2>
+				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-special-needs') ?>">Special needs</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
 					<?php echo esc_html( $the_field ); ?>
@@ -154,7 +154,7 @@
 		if ( !empty($the_field) ): ?>
 
 			<section class="cmb2-wrap-textarea species_meta_limiting-factors">
-				<h2>Limiting factors</h2>
+				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-limiting-factors') ?>">Limiting factors</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
 					<?php echo esc_html( $the_field ); ?>
@@ -168,7 +168,7 @@
 		if ( !empty($the_field) ): ?>
 
 			<section class="cmb2-wrap-textarea species_meta_data-gaps">
-				<h2>Data gaps</h2>
+				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-data-gaps') ?>">Data gaps</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
 					<?php echo esc_html( $the_field ); ?>
@@ -181,7 +181,7 @@
 	<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_conservation-actions', true );
 		if ( !empty($the_field) ): ?>
 			<section class="cmb2-wrap-textarea species_meta_conservation-actions">
-				<h2>Conservation actions</h2>
+				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-recommended-conservation-actions') ?>">Conservation actions</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
 					<?php echo esc_html( $the_field ); ?>
@@ -194,7 +194,7 @@
 	<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_key-reference', true );
 		if ( !empty($the_field) ): ?>
 			<section class="cmb2-wrap-textarea species_meta_key-reference">
-				<h2>Key reference or plan</h2>
+				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-key-reference') ?>">Key reference or plan</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<?php //may contain links
 				$linkified = preg_replace('/(http[s]{0,1}\:\/\/\S{4,})\s{0,}/ims', '<a href="$1" >$1</a> ', $the_field); ?>
@@ -207,7 +207,7 @@
 
 
 	<section class="cmb2-wrap-text_url species_meta_image-thumb-url">
-		<h2>Full URL to Thumbnail Image (DEVELOPMENT ONLY FIELD)</h2>
+		<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">Full URL to Thumbnail Image (DEVELOPMENT ONLY FIELD)</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 		<p class="cmb2-text_url">
 			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_image-url', true );

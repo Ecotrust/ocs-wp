@@ -1,4 +1,5 @@
 <?php
+// NOTE The HTML for the shortcode version is in /modules/content-authoring
 $success_story_post_id = get_post_meta(get_the_ID(), 'success_story', true);
 if ($success_story_post_id):
 	$success_story = get_post($success_story_post_id);
