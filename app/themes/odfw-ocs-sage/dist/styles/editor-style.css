@@ -1569,7 +1569,7 @@ abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-dec
 .on-hold.scroll-nav__heading+.tooltip,h2.on-hold+.tooltip{left:10px!important;margin-left:50px}
 .on-hold.scroll-nav__heading+.tooltip .tooltip-inner,h2.on-hold+.tooltip .tooltip-inner{max-width:70%;text-align:left}
 .on-hold.scroll-nav__heading+.tooltip .tooltip-arrow,h2.on-hold+.tooltip .tooltip-arrow{left:25px!important}
-[data-toggle=tooltip].scroll-nav__heading,h2[data-toggle=tooltip]{display:inline-block;width:auto}
+[data-toggle=tooltip].scroll-nav__heading,h2[data-toggle=tooltip]{cursor:help;display:inline-block;width:auto}
 [data-toggle=tooltip].scroll-nav__heading:after,[data-toggle=tooltip].scroll-nav__heading:before,h2[data-toggle=tooltip]:after,h2[data-toggle=tooltip]:before{content:" ";display:table}
 [data-toggle=tooltip].scroll-nav__heading:after,h2[data-toggle=tooltip]:after{clear:both}
 .single-coa .scroll-nav__heading+.tooltip .tooltip-inner,.single-coa h2+.tooltip .tooltip-inner,.single-strategy_species .scroll-nav__heading+.tooltip .tooltip-inner,.single-strategy_species h2+.tooltip .tooltip-inner{max-width:400px;text-align:left;padding:8px 12px}
@@ -1585,6 +1585,7 @@ body{padding-top:62px}
 .tablepress>tfoot th br,table>tfoot th br{margin-bottom:1em}
 .tablepress.table-centered-header thead th,table.table-centered-header thead th{text-align:center}
 .tablepress.table-row-headers tbody>tr>td:first-child,table.table-row-headers tbody>tr>td:first-child{font-family:"HelveticaNeue-75Lt","Helvetica Neue",Helvetica,Arial,sans-serif}
+img{max-width:95%;height:auto}
 .feature-thumb,.species-hero,.wp-caption{padding:25px 0 0 0;position:relative}
 .feature-thumb figcaption,.species-hero figcaption,.wp-caption figcaption{background-color:rgba(0,0,0,.7);bottom:0;color:#fff;font-size:12px;left:0;padding:10px 33px;position:absolute;width:100%;display:none}
 figure.wp-caption{border:none}

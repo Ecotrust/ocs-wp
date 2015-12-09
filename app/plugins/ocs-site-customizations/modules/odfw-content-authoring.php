@@ -77,12 +77,24 @@ function get_the_odfw_success_story ($id) {
 		$out .= '<aside class="success-story" name="success-story">';
 		$out .= '<h3>' . $success_story->post_title . ' </h3>';
 		$out .= '<div class="success-story-content">';
-		// @TODO need to process shortcode
-		$out .= wpautop($success_story->post_content);
+		$out .= apply_filters('the_content', $success_story->post_content);
 		$out .= '</div>';
 		$out .= '</aside>';
 	endif;
 return $out;
+/*
+
+
+  query_posts("p=$thepostid&post_type=page");
+  if (have_posts()) : while (have_posts()) : the_post();
+    $output .= get_the_content($post->ID);
+  endwhile; else:
+    // failed, output nothing
+  endif;
+  wp_reset_query();
+
+  return $output;
+*/
 }
 function the_odfw_success_story ($id) {
 	echo get_the_odfw_success_story($id);

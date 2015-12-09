@@ -135,6 +135,7 @@ h2.on-hold + .tooltip {
 	}
 }
 h2[data-toggle=tooltip]{
+	cursor: help;
 	display: inline-block;
 	width: auto;
 	@include clearfix;
