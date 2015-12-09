@@ -1,3 +1,32 @@
+
+function dumpComputedStyles(elem,prop) {
+
+  var cs = window.getComputedStyle(elem,null);
+  if (prop) {
+    console.log("    "+prop+" : "+cs.getPropertyValue(prop)+"\n");
+    return;
+  }
+  var len = cs.length;
+  for (var i=0;i<len;i++) {
+ 
+    var style = cs[i];
+    console.log("    "+style+" : "+cs.getPropertyValue(style)+"\n");
+  }
+
+}
+var bd = document.querySelectorAll('body')[0];
+var cs = window.getComputedStyle(bd,'padding-top');
+var pv = cs.getPropertyValue('padding-top');
+
+console.log(bd);
+console.log(cs);
+console.log(pv);
+
+var jpt = $('body').css('paddingTop');
+console.log('jpt', jpt);
+//dumpComputedStyles(bd, 'padding-top');
+
+
 <a href="/ecoregion/blue-mountains/" title="Blue Mountains">BM</a>
 <a href="/ecoregion/coast-range/"title="Coastal Range">CR</a>	
 <a href="/ecoregion/columbia-plateau/ title="Columbia Plateau">CP</a>

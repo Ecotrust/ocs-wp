@@ -117,58 +117,14 @@ function setupCustomFields () {
 
 
 
-	add_action( 'cmb2_init', 'kci_metabox' );
+	//add_action( 'cmb2_init', 'kci_metabox' );
 
 	function kci_metabox() {
 
 		$prefix = 'kci_';
 
+		//goals and actions removed
 
-		$kci_cmb = new_cmb2_box( array(
-			'id'           => $prefix . 'goals',
-			'title'        => __( 'Goals and Actions', 'odfw' ),
-			'desc' => __( 'Groups of goals and actions.', 'odfw' ),
-			'object_types' => array( 'kci' ),
-			'context'      => 'normal',
-			'priority'     => 'default',
-		) );
-
-
-
-		$goal_group_field_id = $kci_cmb->add_field( array(
-			'id'          => 'goals_and_actions_repeat_group',
-			'type'        => 'group',
-			'description' => __( 'Goals and Actions for this KCI. Please note: Due to a bug, you *must* save this entry between adding each additonal goal/action set in order to use the full text editor.', 'odfw' ),
-			'options'     => array(
-				'group_title'   => __( 'Goal {#}', 'odfw' ),
-				'add_button'    => __( 'Add Another Goal/Action set', 'odfw' ),
-				'remove_button' => __( 'Remove this goal', 'odfw' ),
-				'sortable'      => true, // beta
-				),
-		) );
-
-
-	   $kci_cmb->add_group_field( $goal_group_field_id, array(
-			'name' => __( 'Goal Title', 'odfw' ),
-			'id' => $prefix . 'goal_title',
-			'type' => 'text',
-		) );
-
-		/*
-	   $kci_cmb->add_group_field( $goal_group_field_id, array(
-			'name' => __( 'Action Title', 'odfw' ),
-			'id' => $prefix . 'action_title',
-			'type' => 'text',
-		) );
-
-		 */
-
-	   $kci_cmb->add_group_field( $goal_group_field_id, array(
-			'name' => __( 'Actions', 'odfw' ),
-			'id' => $prefix . 'actions',
-			'type'    => 'wysiwyg',
-			'options' => array()
-			) );
 
 	}
 
@@ -996,7 +952,7 @@ function setupCustomFields () {
 		$prefix = '_home_';
 
 		$home_cmb = new_cmb2_box( array(
-			'id'           => $prefix . '_home_success-stories',
+			'id'           => $prefix . 'rotator_items',
 			'title'        => __( 'Homepage Rotator', 'odfw' ),
 			'object_types' => array( 'page' ),
 			'show_on'      => array( 'key' => 'id', 'value' => 22 ),
@@ -1005,7 +961,7 @@ function setupCustomFields () {
 		) );
 
 		$home_group_field_id = $home_cmb->add_field( array(
-			'id'          => 'goals_and_actions_repeat_group',
+			'id'          => $prefix . 'rotator_repeat_group',
 			'type'        => 'group',
 			'options'     => array(
 				'group_title'   => __( 'Home Rotator Item {#}', 'odfw' ),
@@ -1030,7 +986,7 @@ function setupCustomFields () {
 		$home_cmb->add_group_field( $home_group_field_id, array(
 			'id' => $prefix . "linked-post",
 			'name' => __('What should this link to?', 'odfw'),
-			'desc' => __('Use the spyglass icon to select a success story to include with this post.', 'odfw'),
+			'desc' => __('Use the spyglass icon to select an OCS page.', 'odfw'),
 			//'object_types' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
 			'post_type' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
 			'type'               => 'post_search_text',
@@ -1039,7 +995,24 @@ function setupCustomFields () {
 			'include_post_title' => true,
 		) );
 
+		$home_cmb->add_group_field( $home_group_field_id, array(
+			'name' => __( 'Link Success Story?', 'odfw' ),
+			'desc' => __( 'Should this link jump to the Success Story on this page?', 'odfw' ),
+			'id' => $prefix . 'success-story',
+			'type' => 'checkbox',
+		) );
 
+		$home_cmb->add_group_field( $home_group_field_id, array(
+			'name'    => 'Main Image',
+			'desc'    => 'Upload an image or enter an URL.',
+			'id'      => $prefix . 'image',
+			'type'    => 'file',
+			// Optional:
+			'options' => array(
+				'url' => false, // Hide the text input for the url
+				'add_upload_file_text' => 'Add Image' // Change upload button text. Default: "Add or Upload File"
+			),
+		) );
 		/*
 		$home_cmb->add_field( array(
 			'name'    => __( 'Homepage Success Stories', 'cmb2' ),

@@ -54,6 +54,8 @@ class ODFW_customizations {
 
         include_once(ODFW_MODULES . 'odfw-customize-media.php');
 
+        include_once(ODFW_MODULES . 'odfw-options-page.php');
+
 
 		//$this->adjust_species_CSV_imports();
 

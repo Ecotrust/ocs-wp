@@ -72,9 +72,11 @@
 	padding-bottom: 0;
 }
 .attached-post-title {
+	border: 1px solid #ddd;
+	min-height: 1em;
     display: inline-block;
     max-width: 85%;
-    padding: 5px 0;
+    padding: 5px;
     width: 25em;
 }
 /*
@@ -100,8 +102,17 @@
     height: 25px;
     margin: 0.9em -14px;
     top: 0;
-}
 
+}
+/* ... But not on the options page. */
+#ocs_option_metabox .cmb2-wrap > .cmb-field-list .cmb-row.cmb-type-title::before {
+	display: none;
+}
+#ocs_option_metabox	#tab-nav::after {
+	clear: both;
+	content: "";
+	display: table;
+}
 /*
 .toplevel_page_tablepress #edit-form-body textarea {
 	min-width: 200px;

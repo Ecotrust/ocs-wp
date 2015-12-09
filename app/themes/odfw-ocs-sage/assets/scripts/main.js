@@ -88,14 +88,15 @@
 	'home': {
 	  init: function() {
 		// JavaScript to be fired on the home page
+        
 	  },
 	  finalize: function() {
 
-      //don't show slide arrows or dots if there's only one slide
-      if ($('.carousel-inner .item').length === 1) {
-        $('a.control_next, a.control_prev, ol.carousel-indicators').addClass('single-item')
-      };
-      
+		  // Don't show slide arrows or dots if there's only one slide
+		  if ($('.carousel-inner .item').length <= 1) {
+		      $('a.control_next, a.control_prev, ol.carousel-indicators').addClass('single-item');
+		  }
+
 	  }
 	},
     'conservation_opportunity_areas': {
@@ -116,7 +117,8 @@
 				headlineText: 'On This Page',
 				showTopLink: false,
 				fixedMargin: 60,
-				scrollOffset: 80,
+				scrollOffset: 75,
+				fixedHeaderSize: 60,
 				animated: true,
 				speed: 300,
 				insertTarget: '.on-page-nav',
