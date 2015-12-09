@@ -4,7 +4,7 @@
 <div class="carousel slide container-fluid" id="myCarousel" data-ride="carousel">
 
     <div class="carousel-inner" role="listbox">
-        <img class="carousel-overlay" src="http://s10.postimg.org/h4tgoghuh/oregon.pngq"/>
+        <img class="carousel-overlay" src="app/themes/odfw-ocs-sage/dist/images/oregon.png"/>
 
 	<?php $i=0;
 		foreach($the_items as $item): ?>
@@ -34,7 +34,7 @@
           <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
       </a>
     </div>
-    
+
     <ol class="carousel-indicators">
         <?php
             for($i = 0; $i < count($the_items); ++$i) { ?>

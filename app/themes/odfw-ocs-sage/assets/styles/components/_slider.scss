@@ -120,7 +120,14 @@ a.control_prev {
 
 .single-item { display: none !important;}
 
-@media screen and (max-width: 1000px) {
+@media screen and (min-width: 976px) and (max-width: 1125px) {
+  .carousel-caption {
+    .carousel-headline { font-size: 2.25vw }
+    .carousel-subtext { font-size: 1.75vw }
+  }
+}
+
+@media screen and (max-width: 975px) {
   .carousel-caption {
     .carousel-headline { font-size: 2vw }
     .carousel-subtext { font-size: 1.5vw }
