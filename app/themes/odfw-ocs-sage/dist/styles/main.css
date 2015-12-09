@@ -1648,11 +1648,12 @@ body.map-available button.view-map{display:block}
 .view-external-compass:hover{background-color:#E6E7E8}
 .view-external-compass a{color:#414041;text-decoration:none}
 .view-external-compass span.compass-icon{background:url(../images/icons-nav.png) no-repeat;background-position:-78px -888px;padding-left:40px;line-height:35px;display:inline-block;margin:auto}
-.carousel.slide{padding:15px;height:auto}
+.carousel.slide{padding:15px;height:calc(95vh - 150px)}
 .carousel.slide:hover a.control_next,.carousel.slide:hover a.control_prev{position:absolute;top:42%;z-index:999;display:block;padding:1% 1%;width:auto;height:auto;background:#414041;color:#fff;text-decoration:none;font-weight:600;font-size:18px;opacity:.2;cursor:pointer}
-.carousel-inner{width:90%;height:auto;margin-left:auto;margin-right:auto}
+.carousel-wrapper{position:relative;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);-o-transform:translateY(-50%);transform:translateY(-50%)}
+.carousel-inner{width:100%;height:auto;border:rgba(255,255,255,.75) solid 1px;margin-left:auto;margin-right:auto}
 .carousel-inner img.carousel-overlay{width:100%;height:auto;max-width:100%;background-color:transparent}
-.carousel-inner .item{position:absolute;height:100%;width:100%;top:0;z-index:-1}
+.carousel-inner .item{position:absolute;height:100%;width:100%;top:1px;bottom:1px;z-index:-1}
 .carousel-inner .item>img{display:block;max-width:100%;width:100%;height:100%;line-height:1;margin-left:auto;margin-right:auto}
 ol.carousel-indicators{padding:15px 0 15px 0;bottom:auto!important;z-index:0}
 ol.carousel-indicators li,ol.carousel-indicators li.active{height:12px;width:12px;border-radius:50%;border-color:#00371a;display:inline-block;margin:0 10px 0 0;padding:0;cursor:pointer}
