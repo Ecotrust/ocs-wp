@@ -139,7 +139,7 @@ class ocs_Admin {
 
 					// create the tabs from title fields
 					$('.cmb2-metabox-title').each(function(i, item){
-						//var ret = '<li><a class="nav-tab" href="#tab-'+(i+1)+'">'+ $(this).text() +'</a></li>';
+						var ret = '<li><a class="nav-tab" href="#tab-'+(i+1)+'">'+ $(this).text() +'</a></li>';
 						//var ret = '<a class="nav-tab" href="#tab-'+(i+1)+'">'+ $(this).text() +'</a>';
 						$('#tab-nav').append(ret);
 					});
