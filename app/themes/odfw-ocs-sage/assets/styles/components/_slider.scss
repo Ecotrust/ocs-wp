@@ -1,13 +1,6 @@
-.svg-mask {
-  padding-top: 25px;
-  min-height: 0px;
-  height: calc(90vh - 150px);
-
-  svg {
-    display: block;
-    margin: auto;
-    text-align: center;
-  }
+.carousel.slide {
+  padding: 15px;
+  height: auto;
 
   &:hover {
     a.control_prev, a.control_next {
@@ -29,13 +22,43 @@
   }
 }
 
-.carousel-inner, .item {
-  height: calc(80vh - 150px);
+.carousel-inner {
+  width: 90%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  /*  oregon state mask*/
+  img.carousel-overlay { 
+    width: 100%; 
+    height: auto;
+    max-width: 100%;
+    background-color: transparent;
+  }
+  
+  /* image slide*/
+  .item {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: -1;
+
+    > img {
+      display: block;
+      max-width: 100%;
+      width: 100%;
+      height: 100%;
+      line-height: 1;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 }
 
 ol.carousel-indicators {
-  bottom: 0;
-  padding-bottom: 0;
+  padding: 15px 0 15px 0;
+  bottom: auto !important;
+  z-index: 0;
 
   li, li.active {
     height: 12px;
@@ -64,22 +87,22 @@ ol.carousel-indicators {
   left: 30%;
   right: 30%;
   padding-bottom: 5px;
-}
 
-.carousel-headline {
-  bottom: 35%;
-  color: $off-white;
-  font-family: $headings-font-family;
-  font-size: 36px;
-  text-transform: uppercase;
-}
+  .carousel-headline {
+    bottom: 35%;
+    color: $off-white;
+    font-family: $headings-font-family;
+    font-size: 36px;
+    text-transform: uppercase;
+  }
 
-.carousel-subtext {
-  font-size: 20px;
-  bottom: 25%;
-  color: $greyLighter;
-}
+  .carousel-subtext {
+    font-size: 20px;
+    bottom: 25%;
+    color: $greyLighter;
+  }
 
+}
 
 a.control_prev, a.control_next {
   display: none;
@@ -96,3 +119,10 @@ a.control_prev {
 }
 
 .single-item { display: none !important;}
+
+@media screen and (max-width: 1000px) {
+  .carousel-caption {
+    .carousel-headline { font-size: 2vw }
+    .carousel-subtext { font-size: 1.5vw }
+  }
+}
