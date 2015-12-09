@@ -25,8 +25,8 @@ class UpdraftPlus_BackupModule_ViaAddon {
 		global $updraftplus;
 
 		if (!class_exists('UpdraftPlus_Addons_RemoteStorage_'.$this->method)) {
-			$updraftplus->log("You do not have the UpdraftPlus ".$this->method.' add-on installed - get it from http://updraftplus.com/shop/');
-			$updraftplus->log(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'), $this->description ,'http://updraftplus.com/shop/'), 'error', 'missingaddon-'.$this->method);
+			$updraftplus->log("You do not have the UpdraftPlus ".$this->method.' add-on installed - get it from https://updraftplus.com/shop/');
+			$updraftplus->log(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'), $this->description ,'https://updraftplus.com/shop/'), 'error', 'missingaddon-'.$this->method);
 			return false;
 		}
 
@@ -39,8 +39,8 @@ class UpdraftPlus_BackupModule_ViaAddon {
 		global $updraftplus;
 
 		if (!class_exists('UpdraftPlus_Addons_RemoteStorage_'.$this->method)) {
-			$updraftplus->log('You do not have the UpdraftPlus '.$this->method.' add-on installed - get it from http://updraftplus.com/shop/');
-			$updraftplus->log(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'), $this->description, 'http://updraftplus.com/shop/'), 'error', 'missingaddon-'.$this->method);
+			$updraftplus->log('You do not have the UpdraftPlus '.$this->method.' add-on installed - get it from https://updraftplus.com/shop/');
+			$updraftplus->log(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'), $this->description, 'https://updraftplus.com/shop/'), 'error', 'missingaddon-'.$this->method);
 			return false;
 		}
 
@@ -49,7 +49,7 @@ class UpdraftPlus_BackupModule_ViaAddon {
 	}
 
 	public function listfiles($match = 'backup_') {
-		return apply_filters('updraft_'.$this->method.'_listfiles', new WP_Error('no_addon', sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'), $this->description, 'http://updraftplus.com/shop/')), $match);
+		return apply_filters('updraft_'.$this->method.'_listfiles', new WP_Error('no_addon', sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'), $this->description, 'https://updraftplus.com/shop/')), $match);
 	}
 
 	// download method: takes a file name (base name), and removes it from the cloud storage
@@ -58,8 +58,8 @@ class UpdraftPlus_BackupModule_ViaAddon {
 		global $updraftplus;
 
 		if (!class_exists('UpdraftPlus_Addons_RemoteStorage_'.$this->method)) {
-			$updraftplus->log('You do not have the UpdraftPlus '.$this->method.' add-on installed - get it from http://updraftplus.com/shop/');
-			$updraftplus->log(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'), $this->description, 'http://updraftplus.com/shop/'), 'error', 'missingaddon-'.$this->method);
+			$updraftplus->log('You do not have the UpdraftPlus '.$this->method.' add-on installed - get it from https://updraftplus.com/shop/');
+			$updraftplus->log(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'), $this->description, 'https://updraftplus.com/shop/'), 'error', 'missingaddon-'.$this->method);
 			return false;
 		}
 
@@ -69,7 +69,7 @@ class UpdraftPlus_BackupModule_ViaAddon {
 
 	public function config_print() {
 
-		$link = sprintf(__('%s support is available as an add-on','updraftplus'), $this->description).' - <a href="http://updraftplus.com/shop/'.$this->method.'/">'.__('follow this link to get it','updraftplus');
+		$link = sprintf(__('%s support is available as an add-on','updraftplus'), $this->description).' - <a href="https://updraftplus.com/shop/'.$this->method.'/">'.__('follow this link to get it','updraftplus');
 
 		$default = '
 		<tr class="updraftplusmethod '.$this->method.'">

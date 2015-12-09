@@ -4,7 +4,7 @@ Plugin Name: UpdraftPlus - Backup/Restore
 Plugin URI: https://updraftplus.com
 Description: Backup and restore: take backups locally, or backup to Amazon S3, Dropbox, Google Drive, Rackspace, (S)FTP, WebDAV & email, on automatic schedules.
 Author: UpdraftPlus.Com, DavidAnderson
-Version: 1.11.12
+Version: 1.11.18
 Donate link: http://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
 Text Domain: updraftplus
@@ -58,8 +58,25 @@ if (!defined('UPDRAFTPLUS_MAXBATCHFILES')) define('UPDRAFTPLUS_MAXBATCHFILES', 5
 // If any individual email attachment is greater than this, then a warning is given (and then removed if the email actually succeeds)
 if (!defined('UPDRAFTPLUS_WARN_EMAIL_SIZE')) define('UPDRAFTPLUS_WARN_EMAIL_SIZE', 20*1048576);
 
-// Options to pass to the zip binary (if that method happens to be used). By default, we mark several extensions that refer to filetypes that are already compressed as not needing further compression - which saves time/resources.
-if (!defined('UPDRAFTPLUS_BINZIP_OPTS')) define('UPDRAFTPLUS_BINZIP_OPTS', '-n .jpg:.JPG:.jpeg:.JPEG:.png:.PNG:.gif:.GIF:.zip:.ZIP:.gz:.bz2:.xz.:.rar:.RAR:.mp3:.MP3:.mp4:.MP4:.mpeg:.MPEG:.avi:.AVI:.mov:.MOV');
+// Filetypes that should be stored inside the zip without any attempt at further compression. By default, we mark several extensions that refer to filetypes that are already compressed as not needing further compression - which saves time/resources. This option only applies to zip engines that support varying the compression method. Specify in lower-case, and upper-case variants (and for some zip engines, all variants) will automatically be included.
+if (!defined('UPDRAFTPLUS_ZIP_NOCOMPRESS')) define('UPDRAFTPLUS_ZIP_NOCOMPRESS', '.jpg,.jpeg,.png,.gif,.zip,.gz,.bz2,.xz,.rar,.mp3,.mp4,.mpeg,.avi,.mov');
+
+// This is passed to set_time_limit() at various points, to try to maximise run-time. (UD resumes if it gets killed, but more in one stretch always helps). The effect of this varies according to the hosting setup - it can't necessarily always be controlled.
+if (!defined('UPDRAFTPLUS_SET_TIME_LIMIT')) define('UPDRAFTPLUS_SET_TIME_LIMIT', 900);
+
+// Options to pass to the zip binary (if that method happens to be used). By default, we mark the extensions specified in UPDRAFTPLUS_ZIP_NOCOMPRESS for non-compression via the -n flag
+if (!defined('UPDRAFTPLUS_BINZIP_OPTS')) {
+	$zip_nocompress = array_map('trim', explode(',', UPDRAFTPLUS_ZIP_NOCOMPRESS));
+	$zip_binzip_opts = '';
+	foreach ($zip_nocompress as $ext) {
+		if (empty($zip_binzip_opts)) {
+			$zip_binzip_opts = "-n $ext:".strtoupper($ext);
+		} else {
+			$zip_binzip_opts .= ':'.$ext.':'.strtoupper($ext);
+		}
+	}
+	define('UPDRAFTPLUS_BINZIP_OPTS', $zip_binzip_opts);
+}
 
 // Load add-ons and files that may or may not be present, depending on where the plugin was distributed
 if (is_file(UPDRAFTPLUS_DIR.'/autoload.php')) require_once(UPDRAFTPLUS_DIR.'/autoload.php');

@@ -100,8 +100,9 @@ function updraft_restore_setoptions(entities) {
 }
 
 function updraft_backup_dialog_open() {
-	if(updraft_settings_form_changed){
-		if(window.confirm(updraftlion.unsavedsettingsbackup)){
+	jQuery('#backupnow_includefiles_moreoptions').hide();
+	if (updraft_settings_form_changed){
+		if (window.confirm(updraftlion.unsavedsettingsbackup)){
 			jQuery('#backupnow_label').val(''); 
 			jQuery('#updraft-backupnow-modal').dialog('open');
 		}
@@ -837,7 +838,7 @@ function updraft_downloader_status_update(base, nonce, what, findex, resp, respo
 	return cancel_repeat;
 }
 
-function updraft_backupnow_go(backupnow_nodb, backupnow_nofiles, backupnow_nocloud, onlythisfileentity, extradata, label) {
+function updraft_backupnow_go(backupnow_nodb, backupnow_nofiles, backupnow_nocloud, onlythesefileentities, extradata, label) {
 
 	jQuery('#updraft_backup_started').html('<em>'+updraftlion.requeststart+'</em>').slideDown('');
 	setTimeout(function() {jQuery('#updraft_backup_started').fadeOut('slow');}, 75000);
@@ -853,8 +854,9 @@ function updraft_backupnow_go(backupnow_nodb, backupnow_nofiles, backupnow_noclo
 		extradata: extradata
 	};
 	
-	if ('' != onlythisfileentity) {
-		params.onlythisfileentity = onlythisfileentity;
+	
+	if ('' != onlythesefileentities) {
+		params.onlythisfileentity = onlythesefileentities;
 	}
 	
 	jQuery.post(ajaxurl, params, function(response) {
@@ -877,7 +879,7 @@ function updraft_backupnow_go(backupnow_nodb, backupnow_nofiles, backupnow_noclo
 jQuery(document).ready(function($){
 
 	jQuery('#updraft-navtab-backups-content').on('click', '#updraft_existing_backups .updraft_existing_backups_row', function(e) {
-		if (! e.ctrlKey) return;
+		if (! e.ctrlKey && ! e.metaKey) return;
 		jQuery(this).toggleClass('backuprowselected');
 		if (jQuery('#updraft_existing_backups .updraft_existing_backups_row.backuprowselected').length >0) {
 			jQuery('#ud_massactions').show();
@@ -885,6 +887,42 @@ jQuery(document).ready(function($){
 			jQuery('#ud_massactions').hide();
 		}
 	});
+	
+	jQuery('#backupnow_includefiles_showmoreoptions').click(function(e) {
+		e.preventDefault();
+		jQuery('#backupnow_includefiles_moreoptions').toggle();
+	});
+	
+	// Remote Control
+	jQuery('#updraftplus_remotecontrol_keycreate_go').click(function(e) {
+		e.preventDefault();
+		jQuery('#updraftplus_remotecontrol_key').html(updraftlion.creating);
+		try {
+			jQuery.post(ajaxurl,  {
+				action: 'updraft_ajax',
+				subaction: 'remotecontrol_createkey',
+				nonce: updraft_credentialtest_nonce
+			}, function(response) {
+				jQuery('#updraftplus_remotecontrol_key').html();
+				try {
+					resp = jQuery.parseJSON(response);
+					alert(resp.r);
+					console.log(resp.bundle);
+					if (resp.hasOwnProperty('bundle')) {
+						jQuery('#updraftplus_remotecontrol_key').html('<textarea onclick="this.select();" style="width:625px; height:235px; word-wrap:break-word; border: 1px solid #aaa; border-radius: 3px; padding:4px;">'+resp.bundle+'</textarea>');
+					}
+				} catch (err) {
+					alert(updraftlion.unexpectedresponse+' '+response);
+					console.log(err);
+				} 
+			});
+		} catch (err) {
+			jQuery('#updraftplus_remotecontrol_key').html();
+			console.log(err);
+		}
+	});
+	
+	// UpdraftPlus Vault
 	
 	jQuery('#updraftvault_settings_cell').on('click', '.updraftvault_backtostart', function(e) {
 		e.preventDefault();
@@ -1098,12 +1136,17 @@ jQuery(document).ready(function($){
 		// Make a list of what files we want
 		var already_added_wpcore = 0;
 		var meta_foreign = jQuery('#updraft_restore_meta_foreign').val();
-		jQuery('input[name="updraft_restore[]"]').each(function(x,y){
+		jQuery('input[name="updraft_restore[]"]').each(function(x, y){
 			if (jQuery(y).is(':checked') && !jQuery(y).is(':disabled')) {
 				anyselected = 1;
 				var howmany = jQuery(y).data('howmany');
 				var type = jQuery(y).val();
-				if (1 == meta_foreign || (2 == meta_foreign && 'db' != type)) { type = 'wpcore'; }
+				if (1 == meta_foreign || (2 == meta_foreign && 'db' != type)) {
+					if ('wpcore' != type) {
+						howmany = jQuery('#updraft_restore_form #updraft_restore_wpcore').data('howmany');
+					}
+					type = 'wpcore';
+				}
 				if ('wpcore' != type || already_added_wpcore == 0) {
 					var restobj = [ type, howmany ];
 					whichselected.push(restobj);
@@ -1204,9 +1247,25 @@ jQuery(document).ready(function($){
 	var backupnow_modal_buttons = {};
 	backupnow_modal_buttons[updraftlion.backupnow] = function() {
 		
-		var backupnow_nodb = jQuery('#backupnow_nodb').is(':checked') ? 1 : 0;
-		var backupnow_nofiles = jQuery('#backupnow_nofiles').is(':checked') ? 1 : 0;
-		var backupnow_nocloud = jQuery('#backupnow_nocloud').is(':checked') ? 1 : 0;
+		var backupnow_nodb = jQuery('#backupnow_includedb').is(':checked') ? 0 : 1;
+		var backupnow_nofiles = jQuery('#backupnow_includefiles').is(':checked') ? 0 : 1;
+		var backupnow_nocloud = jQuery('#backupnow_includecloud').is(':checked') ? 0 : 1;
+		
+		var onlythesefileentities = '';
+		jQuery('#backupnow_includefiles_moreoptions input[type="checkbox"]').each(function(index) {
+			if (!jQuery(this).is(':checked')) { return; }
+			var name = jQuery(this).attr('name');
+			if (name.substring(0, 16) != 'updraft_include_') { return; }
+			var entity = name.substring(16);
+			if (onlythesefileentities != '') { onlythesefileentities += ','; }
+			onlythesefileentities += entity;
+		});
+
+		if ('' == onlythesefileentities && 0 == backupnow_nofiles) {
+			alert(updraftlion.nofileschosen);
+			return;
+		}
+		
 		if (backupnow_nodb && backupnow_nofiles) {
 			alert(updraftlion.excludedeverything);
 			return;
@@ -1220,12 +1279,12 @@ jQuery(document).ready(function($){
 			});
 		}, 1700);
 		
-		updraft_backupnow_go(backupnow_nodb, backupnow_nofiles, backupnow_nocloud, '', '', jQuery('#backupnow_label').val());
+		updraft_backupnow_go(backupnow_nodb, backupnow_nofiles, backupnow_nocloud, onlythesefileentities, '', jQuery('#backupnow_label').val());
 	};
 	backupnow_modal_buttons[updraftlion.cancel] = function() { jQuery(this).dialog("close"); };
 	
 	jQuery("#updraft-backupnow-modal" ).dialog({
-		autoOpen: false, height: 355, width: 480, modal: true,
+		autoOpen: false, height: 472, width: 610, modal: true,
 		buttons: backupnow_modal_buttons
 	});
 
@@ -1308,9 +1367,11 @@ jQuery(document).ready(function($){
 		updraft_page_is_visible = 1;
 		updraft_console_focussed_tab = 4;
 	});
-	jQuery('#updraft-navtab-settings, #updraft-navtab-settings2').click(function(e) {
-		jQuery(this).parents('.updraftmessage').remove();
+	jQuery('#updraft-navtab-settings, #updraft-navtab-settings2, #updraft_backupnow_gotosettings').click(function(e) {
 		e.preventDefault();
+		// These next two should only do anything if the relevant selector was clicked
+		jQuery(this).parents('.updraftmessage').remove();
+		jQuery('#updraft-backupnow-modal').dialog('close');
 		jQuery('#updraft-navtab-status-content').hide();
 		jQuery('#updraft-navtab-backups-content').hide();
 		jQuery('#updraft-navtab-expert-content').hide();
@@ -1371,7 +1432,7 @@ jQuery(document).ready(function($){
 		uploader.bind('Init', function(up){
 			var uploaddiv = $('#plupload-upload-ui');
 			
-			if(up.features.dragdrop){
+			if (up.features.dragdrop){
 				uploaddiv.addClass('drag-drop');
 				$('#drag-drop-area')
 				.bind('dragover.wp-uploader', function(){ uploaddiv.addClass('drag-over'); })
@@ -1534,7 +1595,7 @@ jQuery(document).ready(function($){
 		optionsItemBuilder: function(itemData, element, index){
 			return element.val().length ? '<span class="ico ico-'+element.val()+'"></span>'+itemData.text : itemData.text;
 		},
-		inheritOriginalWidth: true
+		inheritOriginalWidth: false
 	});
 	
 });
@@ -1559,7 +1620,7 @@ jQuery(document).ready(function($){
 		uploader.bind('Init', function(up){
 			var uploaddiv = $('#plupload-upload-ui2');
 
-			if(up.features.dragdrop){
+			if (up.features.dragdrop){
 				uploaddiv.addClass('drag-drop');
 				$('#drag-drop-area2')
 				.bind('dragover.wp-uploader', function(){ uploaddiv.addClass('drag-over'); })
