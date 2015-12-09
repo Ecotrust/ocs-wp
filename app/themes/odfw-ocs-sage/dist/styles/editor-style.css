@@ -1585,7 +1585,6 @@ body{padding-top:62px}
 .tablepress>tfoot th br,table>tfoot th br{margin-bottom:1em}
 .tablepress.table-centered-header thead th,table.table-centered-header thead th{text-align:center}
 .tablepress.table-row-headers tbody>tr>td:first-child,table.table-row-headers tbody>tr>td:first-child{font-family:"HelveticaNeue-75Lt","Helvetica Neue",Helvetica,Arial,sans-serif}
-img{max-width:95%;height:auto}
 .feature-thumb,.species-hero,.wp-caption{padding:25px 0 0 0;position:relative}
 .feature-thumb figcaption,.species-hero figcaption,.wp-caption figcaption{background-color:rgba(0,0,0,.7);bottom:0;color:#fff;font-size:12px;left:0;padding:10px 33px;position:absolute;width:100%;display:none}
 figure.wp-caption{border:none}
@@ -1598,8 +1597,8 @@ figure.wp-caption>a{color:#000}
 .ecoregion-svg object,.ecoregion-svg>img{display:block;max-width:98%;max-height:98%;position:absolute;top:0;bottom:0;left:0;right:0}
 .ecoregion-svg object{opacity:0}
 .ecoregion-svg>.popover>.arrow{display:none}
-.image-container{position:relative}
-.image-container>img{height:auto;max-width:100%;display:block}
+.image-container,figure{max-width:100%;position:relative}
+.image-container>img,figure>img{height:auto;max-width:100%;display:block}
 .photo-info{position:absolute;cursor:pointer}
 .photo-info.glyphicon{bottom:11px;left:10px;top:auto;font-size:1.25em;text-shadow:-1px 0 #FFF,0 1px #FFF,1px 0 #FFF,0 -1px #FFF}
 .photo-info.glyphicon:hover{font-size:1.4em}

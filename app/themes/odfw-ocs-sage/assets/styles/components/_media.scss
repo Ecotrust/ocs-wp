@@ -1,7 +1,4 @@
-img {
-	max-width: 95%;
-	height: auto;
-}
+
 
 .species-hero,
 .feature-thumb,
@@ -67,7 +64,8 @@ figure.wp-caption {
 
 }
 
-.image-container {
+.image-container, figure {
+	max-width: 100%;
 	position: relative;
 
 	> img {
