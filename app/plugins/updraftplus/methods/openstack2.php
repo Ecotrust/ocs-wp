@@ -91,7 +91,7 @@ class UpdraftPlus_BackupModule_openstack extends UpdraftPlus_BackupModule_openst
 		<tr class="updraftplusmethod <?php echo $this->method;?>">
 		<th></th>
 			<td>
-				<p><?php _e('Get your access credentials from your OpenStack Swift provider, and then pick a container name to use for storage. This container will be created for you if it does not already exist.','updraftplus');?> <a href="http://updraftplus.com/faqs/there-appear-to-be-lots-of-extra-files-in-my-rackspace-cloud-files-container/"><?php _e('Also, you should read this important FAQ.', 'updraftplus'); ?></a></p>
+				<p><?php _e('Get your access credentials from your OpenStack Swift provider, and then pick a container name to use for storage. This container will be created for you if it does not already exist.','updraftplus');?> <a href="https://updraftplus.com/faqs/there-appear-to-be-lots-of-extra-files-in-my-rackspace-cloud-files-container/"><?php _e('Also, you should read this important FAQ.', 'updraftplus'); ?></a></p>
 			</td>
 		</tr>
 
@@ -104,7 +104,7 @@ class UpdraftPlus_BackupModule_openstack extends UpdraftPlus_BackupModule_openst
 		</tr>
 
 		<tr class="updraftplusmethod <?php echo $this->method;?>">
-			<th><a href="http://docs.openstack.org/grizzly/openstack-compute/admin/content/users-and-projects.html" title="<?php _e('Follow this link for more information', 'updraftplus');?>"><?php _e('Tenant', 'updraftplus');?></a>:</th>
+			<th><a href="http://docs.openstack.org/openstack-ops/content/projects_users.html" title="<?php _e('Follow this link for more information', 'updraftplus');?>"><?php _e('Tenant', 'updraftplus');?></a>:</th>
 			<td><input type="text" autocomplete="off" style="width: 364px" id="updraft_openstack_tenant" name="updraft_openstack[tenant]" value="<?php echo htmlspecialchars($opts['tenant']) ?>" />
 			</td>
 		</tr>

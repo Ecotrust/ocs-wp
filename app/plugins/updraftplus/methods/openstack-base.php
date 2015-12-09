@@ -152,6 +152,8 @@ class UpdraftPlus_BackupModule_openstack_base {
 			return true;
 
 		} catch (Exception $e) {
+			global $updraftplus;
+			$updraftplus->log("Error when sending manifest (".get_class($e)."): ".$e->getMessage());
 			return false;
 		}
 	}

@@ -13,8 +13,9 @@
 
 	define('WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/app');
 	define('WP_CONTENT_URL', 'http://' . $_SERVER['SERVER_NAME'] . '/app');
+    // Now set in theme/lib/init.php
 	//define('UPLOADS', '../media' );
-	define( 'UPLOADS',        '/media' );
+
 
 	define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wordpress');
 	define('WP_HOME',    'http://' . $_SERVER['SERVER_NAME']);

@@ -678,7 +678,7 @@ class UpdraftPlus_BackupModule_s3 {
 				if ('s3generic' == $key) {
 					_e('Examples of S3-compatible storage providers:').' ';
 					echo '<a href="http://www.cloudian.com/">Cloudian</a>, ';
-					echo '<a href="http://cloud.google.com/storage">Google Cloud Storage</a>, ';
+					echo '<a href="https://cloud.google.com/storage">Google Cloud Storage</a>, ';
 					echo '<a href="https://www.mh.connectria.com/rp/order/cloud_storage_index">Connectria</a>, ';
 					echo '<a href="http://www.constant.com/cloud/storage/">Constant</a>, ';
 					echo '<a href="http://www.eucalyptus.com/eucalyptus-cloud/iaas">Eucalyptus</a>, ';
@@ -875,7 +875,7 @@ class UpdraftPlus_BackupModule_s3 {
 				if (!$s3->putObjectString($try_file, $bucket, $path.$try_file)) {
 					echo __('Failure','updraftplus').": ${bucket_verb}".__('We successfully accessed the bucket, but the attempt to create a file in it failed.','updraftplus');
 				} else {
-					echo  __('Success','updraftplus').": ${bucket_verb}".__('We accessed the bucket, and were able to create files within it.','updraftplus').' ';
+					echo  __('Success', 'updraftplus').": ${bucket_verb}".__('We accessed the bucket, and were able to create files within it.','updraftplus').' ';
 					$comm_with = ($config['key'] == 's3generic') ? $endpoint : $config['whoweare_long'];
 					if ($s3->getuseSSL()) {
 						echo sprintf(__('The communication with %s was encrypted.', 'updraftplus'), $comm_with);

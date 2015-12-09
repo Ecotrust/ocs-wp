@@ -138,12 +138,12 @@ input.labelauty[disabled] + label
 /* Add a background to (un)checked images */
 input.labelauty + label > span.labelauty-unchecked-image
 {
-	background-image: url( images/icons/s3.png );
+	background-image: url( images/icons/folder.png );
 }
 
 input.labelauty + label > span.labelauty-checked-image
 {
-	background-image: url( images/icons/s3.png );
+	background-image: url( images/icons/folder.png );
 }
 
 input.labelauty.email + label > span.labelauty-checked-image,
@@ -196,6 +196,11 @@ input.labelauty.onedrive + label > span.labelauty-unchecked-image {
 	background-image: url( ../../images/icons/onedrive.png );
 }
 
+input.labelauty.azure + label > span.labelauty-checked-image,
+input.labelauty.azure + label > span.labelauty-unchecked-image {
+	background-image: url( ../../images/icons/azure.png );
+}
+
 input.labelauty.openstack + label > span.labelauty-checked-image,
 input.labelauty.openstack + label > span.labelauty-unchecked-image {
 	background-image: url( ../../images/icons/openstack.png );
@@ -214,6 +219,11 @@ input.labelauty.updraftvault + label > span.labelauty-unchecked-image {
 input.labelauty.webdav + label > span.labelauty-checked-image,
 input.labelauty.webdav + label > span.labelauty-unchecked-image {
 	background-image: url( ../../images/icons/webdav.png );
+}
+
+input.labelauty.googlecloud + label > span.labelauty-checked-image,
+input.labelauty.googlecloud + label > span.labelauty-unchecked-image {
+	background-image: url( ../../images/icons/googlecloud.png );
 }
 
 #remote-storage-container {

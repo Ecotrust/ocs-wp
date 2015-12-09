@@ -88,7 +88,7 @@ class Updraft_Restorer extends WP_Upgrader {
 	# Subsequently, we have also added the ability to unpack tarballs
 	private function unpack_package_archive($package, $delete_package = true, $type = false) {
 
-		if (!empty($this->ud_foreign) && !empty($this->ud_foreign_working_dir)) {
+		if (!empty($this->ud_foreign) && !empty($this->ud_foreign_working_dir) && $package == $this->ud_foreign_package) {
 			if (is_dir($this->ud_foreign_working_dir)) {
 				return $this->ud_foreign_working_dir;
 			} else {
@@ -105,14 +105,14 @@ class Updraft_Restorer extends WP_Upgrader {
 
 		$upgrade_folder = $wp_filesystem->wp_content_dir() . 'upgrade/';
 
-		//Clean up contents of upgrade directory beforehand.
+		// Clean up contents of upgrade directory beforehand.
 		$upgrade_files = $wp_filesystem->dirlist($upgrade_folder);
 		if ( !empty($upgrade_files) ) {
 			foreach ( $upgrade_files as $file )
 				$wp_filesystem->delete($upgrade_folder . $file['name'], true);
 		}
 
-		//We need a working directory
+		// We need a working directory
 		#This is the only change from the WP core version - minimise path length
 		#$working_dir = $upgrade_folder . basename($package, '.zip');
 		$working_dir = $upgrade_folder . substr(md5($package), 0, 8);
@@ -188,6 +188,7 @@ class Updraft_Restorer extends WP_Upgrader {
 
 		if (!empty($this->ud_foreign)) {
 			$this->ud_foreign_working_dir = $working_dir;
+			$this->ud_foreign_package = $package;
 			# Zip containing an SQL file. We try a default pattern.
 			if ('db' === $type) {
 				$basepack = basename($package, '.zip');
@@ -333,7 +334,7 @@ class Updraft_Restorer extends WP_Upgrader {
 	// The purposes of the $type parameter are 1) to detect 'others' and apply a historical bugfix 2) to detect wpcore, and apply the setting for what to do with wp-config.php 3) to work out whether to delete the directory itself
 	// Must use only wp_filesystem
 	// $dest_dir must already have a trailing slash
-	// $preserve_existing: this setting only applies at the top level: 0 = overwrite with no backup; 1 = make backup of existing; 2 = do nothing if there is existing, 3 = do nothing to the top level directory, but do copy-in contents. Thus, on a multi-archive set where you want a backup, you'd do this: first call with $preserve_existing === 1, then on subsequent zips call with 3
+	// $preserve_existing: this setting only applies at the top level: 0 = overwrite with no backup; 1 = make backup of existing; 2 = do nothing if there is existing, 3 = do nothing to the top level directory, but do copy-in contents (and over-write files). Thus, on a multi-archive set where you want a backup, you'd do this: first call with $preserve_existing === 1, then on subsequent zips call with 3
 	public function move_backup_in($working_dir, $dest_dir, $preserve_existing = 1, $do_not_overwrite = array('plugins', 'themes', 'uploads', 'upgrade'), $type = 'not-others', $send_actions = false, $force_local = false) {
 
 		global $wp_filesystem, $updraftplus;
@@ -363,7 +364,6 @@ class Updraft_Restorer extends WP_Upgrader {
 
 		$wpcore_config_moved = false;
 
-
 		if ('plugins' == $type || 'themes' == $type) $updraftplus->log("Top-level entities being moved: ".implode(', ', array_keys($upgrade_files)));
 
 		foreach ( $upgrade_files as $file => $filestruc ) {
@@ -384,7 +384,7 @@ class Updraft_Restorer extends WP_Upgrader {
 				}
 				$updraftplus->log("$file/$file: rename to $file");
 				$file = $matches[1];
-				$tmp_file = rand(0,999999999).'.php';
+				$tmp_file = rand(0, 999999999).'.php';
 				// Rename directory
 				$wpfs->move($working_dir . "/$file", $working_dir . "/".$tmp_file, true);
 				$wpfs->move($working_dir . "/$tmp_file/$file", $working_dir ."/".$file, true);
@@ -434,19 +434,25 @@ class Updraft_Restorer extends WP_Upgrader {
 				}
 			}
 
+
 			# Secondly, move in the new one
+			$is_dir = $wpfs->is_dir($working_dir."/".$file);
+
 			if (2 == $preserve_existing && $wpfs->exists($dest_dir.$file)) {
 				# Something exists - no move. Remove it from the temporary directory - so that it will be clean later
 				@$wpfs->delete($working_dir.'/'.$file, true);
-			} elseif (3 != $preserve_existing || !$wpfs->exists($dest_dir.$file)) {
-				$is_dir = $wpfs->is_dir($working_dir."/".$file);
-				# This method is broken due to https://core.trac.wordpress.org/ticket/26598
-				#if (empty($chmod)) $chmod = $wpfs->getnumchmodfromh($wpfs->gethchmod($dest_dir));
-				if (empty($chmod)) $chmod = octdec(sprintf("%04d", $this->get_current_chmod($dest_dir, $wpfs)));
+			// The $is_dir check was added in version 1.11.18; without this, files in the top-level that weren't in the first archive didn't get over-written
+			} elseif (3 != $preserve_existing || !$wpfs->exists($dest_dir.$file) || !$is_dir) {
+
 				if ($wpfs->move($working_dir."/".$file, $dest_dir.$file, true) ) {
 					if ($send_actions) do_action('updraftplus_restored_'.$type.'_one', $file);
 					# Make sure permissions are at least as great as those of the parent
-					if ($is_dir && !empty($chmod)) $this->chmod_if_needed($dest_dir.$file, $chmod, false, $wpfs);
+					if ($is_dir) {
+						# This method is broken due to https://core.trac.wordpress.org/ticket/26598
+						#if (empty($chmod)) $chmod = $wpfs->getnumchmodfromh($wpfs->gethchmod($dest_dir));
+						if (empty($chmod)) $chmod = octdec(sprintf("%04d", $this->get_current_chmod($dest_dir, $wpfs)));
+						if (!empty($chmod)) $this->chmod_if_needed($dest_dir.$file, $chmod, false, $wpfs);
+					}
 				} else {
 					return new WP_Error('move_failed', $this->strings['move_failed'], $working_dir."/".$file." -> ".$dest_dir.$file);
 				}
@@ -484,7 +490,7 @@ class Updraft_Restorer extends WP_Upgrader {
 		foreach ($files as $rname => $rfile) {
 			if ('d' != $rfile['type']) {
 				# Delete it if it already exists (or perhaps WP does it for us)
-					if (!$wp_filesystem->move($source_dir.'/'.$rname, $dest_dir.'/'.$rname, true)) {
+				if (!$wp_filesystem->move($source_dir.'/'.$rname, $dest_dir.'/'.$rname, true)) {
 					$updraftplus->log_e('Failed to move file (check your file permissions and disk quota): %s', $source_dir.'/'.$rname." -&gt; ".$dest_dir.'/'.$rname);
 					return false;
 				}
@@ -520,7 +526,7 @@ class Updraft_Restorer extends WP_Upgrader {
 	}
 
 	// Pre-flight check: chance to complain and abort before anything at all is done
-	public function pre_restore_backup($backup_files, $type, $info) {
+	public function pre_restore_backup($backup_files, $type, $info, $continuation_data = null) {
 
 		if (is_string($backup_files)) $backup_files=array($backup_files);
 
@@ -570,7 +576,7 @@ class Updraft_Restorer extends WP_Upgrader {
 
 		$updraft_dir = $updraftplus->backups_dir_location();
 
-		if (('plugins' == $type || 'uploads' == $type || 'themes' == $type) && (!is_multisite() || $this->ud_backup_is_multisite !== 0 || ('uploads' != $type || empty($updraftplus_addons_migrator->new_blogid )))) {
+		if (!is_array($continuation_data) && (('plugins' == $type || 'uploads' == $type || 'themes' == $type) && (!is_multisite() || $this->ud_backup_is_multisite !== 0 || ('uploads' != $type || empty($updraftplus_addons_migrator->new_blogid ))))) {
 // 			if ($wp_filesystem->exists($wp_filesystem_dir.'-old')) {
 			if (file_exists($updraft_dir.'/'.basename($wp_filesystem_dir)."-old")) {
 				$ret_val = new WP_Error('already_exists', sprintf(__('Existing unremoved folders from a previous restore exist (please use the "Delete Old Directories" button to delete them before trying again): %s', 'updraftplus'), $wp_filesystem_dir.'-old'));
@@ -779,7 +785,7 @@ class Updraft_Restorer extends WP_Upgrader {
 			// In this special case, the backup contents are not in a folder, so it is not simply a case of moving the folder around, but rather looping over all that we find
 
 			# On subsequent archives of a multi-archive set, don't move anything; but do on the first
-			$preserve_existing = (isset($this->been_restored['others'])) ? 3 : 1;
+			$preserve_existing = isset($this->been_restored['others']) ? 3 : 1;
 
 			$this->move_backup_in($move_from, trailingslashit($wp_filesystem_dir), $preserve_existing, array('plugins', 'themes', 'uploads', 'upgrade'), 'others');
 
@@ -788,9 +794,9 @@ class Updraft_Restorer extends WP_Upgrader {
 		} else {
 
 			// Default action: used for plugins, themes and uploads (and wpcore, via a filter)
-
 			// Multi-archive sets: we record what we've already begun on, and on subsequent runs, copy in instead of replacing
 			$movedin = apply_filters('updraftplus_restore_movein_'.$type, $working_dir, $this->abspath, $wp_filesystem_dir);
+
 			// A filter, to allow add-ons to perform the install of non-standard entities, or to indicate that it's not possible
 			if (false === $movedin) {
 				$this->skin->feedback('not_possible');
@@ -869,32 +875,47 @@ class Updraft_Restorer extends WP_Upgrader {
 					}
 
 				}
-
+				
+				$short_circuit = false;
+				
 				# For foreign 'Simple Backup', we need to keep going down until we find wp-content 
 				if (empty($this->ud_foreign)) {
 					$working_dir_use = $working_dir;
 				} else {
 					$working_dir_use = $this->search_for_folder('wp-content', $working_dir);
-					if (!is_string($working_dir_use)) return new WP_Error('not_found', __('The WordPress content folder (wp-content) was not found in this zip file.', 'updraftplus'));
+					if (!is_string($working_dir_use)) {
+						if (empty($this->ud_foreign) || !apply_filters('updraftplus_foreign_allow_missing_entity', false, $type, $this->ud_foreign)) {
+							return new WP_Error('not_found', __('The WordPress content folder (wp-content) was not found in this zip file.', 'updraftplus'));
+						} else {
+							$short_circuit = true;
+						}
+					}
 				}
 
-				// The backup may not actually have /$type, since that is info from the present site
-				$move_from = $this->get_first_directory($working_dir_use, array(basename($info['path']), $type));
-				if (false === $move_from) return new WP_Error('new_move_failed', $this->strings['new_move_failed']);
+				if (empty($short_circuit)) {
+					// The backup may not actually have /$type, since that is info from the present site
+					$move_from = $this->get_first_directory($working_dir_use, array(basename($info['path']), $type));
+					if (false === $move_from) {
+						if (!empty($this->ud_foreign) && !apply_filters('updraftplus_foreign_allow_missing_entity', false, $type, $this->ud_foreign)) {
+							return new WP_Error('new_move_failed', $this->strings['new_move_failed']);
+						}
+					} else {
 
-				$this->skin->feedback('moving_backup');
+						$this->skin->feedback('moving_backup');
 
-				// Old-style
-// 				if (!isset($this->been_restored[$type])) {
-// 					if (!$wp_filesystem->move($move_from, $wp_filesystem_dir, true) ) {
-// 						return new WP_Error('new_move_failed', $this->strings['new_move_failed']);
-// 					}
-// 				} else {
-					$move_in = $this->move_backup_in($move_from, trailingslashit($wp_filesystem_dir), 3, array(), $type);
-					if (is_wp_error($move_in)) return $move_in;
-					if (!$move_in) return new WP_Error('new_move_failed', $this->strings['new_move_failed']);
-					$wp_filesystem->rmdir($move_from);
-// 				}
+						// Old-style
+		// 				if (!isset($this->been_restored[$type])) {
+		// 					if (!$wp_filesystem->move($move_from, $wp_filesystem_dir, true) ) {
+		// 						return new WP_Error('new_move_failed', $this->strings['new_move_failed']);
+		// 					}
+		// 				} else {
+							$move_in = $this->move_backup_in($move_from, trailingslashit($wp_filesystem_dir), 3, array(), $type);
+							if (is_wp_error($move_in)) return $move_in;
+							if (!$move_in) return new WP_Error('new_move_failed', $this->strings['new_move_failed']);
+							$wp_filesystem->rmdir($move_from);
+		// 				}
+					}
+				}
 
 			}
 
@@ -1006,7 +1027,6 @@ class Updraft_Restorer extends WP_Upgrader {
 		$nonce = $updraftplus->nonce;
 // TODO: Apparently empty
 		$auth_code = esc_js($this->ajax_restore_auth_code);
-error_log("AC: $auth_code ... ".serialize($this->ajax_restore_auth_code));
 
 		echo <<<ENDHERE
 		<script>
@@ -1141,10 +1161,11 @@ ENDHERE;
 	}
 
 	private function search_for_folder($folder, $startat) {
+		if (!is_dir($startat)) return false;
 		# Exists in this folder?
 		if (is_dir($startat.'/'.$folder)) return trailingslashit($startat).$folder;
 		# Does not
-		if($handle = opendir($startat)) {
+		if ($handle = opendir($startat)) {
 			while (($file = readdir($handle)) !== false) {
 				if ($file != '.' && $file != '..' && is_dir($startat).'/'.$file) {
 					$ss = $this->search_for_folder($folder, trailingslashit($startat).$file);
@@ -1316,7 +1337,6 @@ ENDHERE;
 				$filtered_db_name = apply_filters('updraftplus_foreign_dbfilename', false, $this->ud_foreign, $this->ud_backup_info, $working_dir_localpath, $separatedb);
 				if (is_string($filtered_db_name)) $db_basename = $filtered_db_name;
 			}
-
 		}
 
 		// wp_filesystem has no gzopen method, so we switch to using the local filesystem (which is harmless, since we are performing read-only operations)
@@ -1571,9 +1591,8 @@ ENDHERE;
 				continue;
 			}
 
-			# The timed overhead of this is negligible
-			if (preg_match('/^\s*drop table if exists \`?([^\`]*)\`?\s*;/i', $sql_line, $matches)) {
-
+			// The timed overhead of this is negligible
+			if (preg_match('/^\s*drop table (if exists )?\`?([^\`]*)\`?\s*;/i', $sql_line, $matches)) {
 				$sql_type = 1;
 
 				if (!isset($printed_new_table_prefix)) {
@@ -1582,7 +1601,7 @@ ENDHERE;
 					$printed_new_table_prefix = true;
 				}
 
-				$this->table_name = $matches[1];
+				$this->table_name = $matches[2];
 				
 				// Legacy, less reliable - in case it was not caught before
 				if ('' == $old_table_prefix && preg_match('/^([a-z0-9]+)_.*$/i', $this->table_name, $tmatches)) {
@@ -1596,6 +1615,12 @@ ENDHERE;
 				if ('' != $old_table_prefix && $import_table_prefix != $old_table_prefix) {
 					$sql_line = $updraftplus->str_replace_once($old_table_prefix, $import_table_prefix, $sql_line);
 				}
+				
+				if (empty($matches[1])) {
+					// Seen with some foreign backups
+					$sql_line = preg_replace('/drop table/i', 'drop table if exists', $sql_line, 1);
+				}
+				
 				$this->tables_been_dropped[] = $this->new_table_name;
 
 			} elseif (preg_match('/^\s*create table \`?([^\`\(]*)\`?\s*\(/i', $sql_line, $matches)) {
@@ -1766,6 +1791,7 @@ ENDHERE;
 
 	// The table here is just for logging/info. The actual restoration itself is done via the standard options class.
 	private function restore_configuration_bundle($table) {
+		if (!is_array($this->configuration_bundle)) return;
 		global $updraftplus;
 		$updraftplus->log("Restoring prior UD configuration (table: $table; keys: ".count($this->configuration_bundle).")");
 		foreach ($this->configuration_bundle as $key => $value) {
@@ -1802,11 +1828,13 @@ ENDHERE;
 				}
 			}
 
-			# Type 1 = DROP TABLE
-			if (1 == $sql_type && $this->drop_forbidden) {
-				$sql_line = "DELETE FROM ".$updraftplus->backquote($this->new_table_name);
-				$updraftplus->log_e('Cannot drop tables, so deleting instead (%s)', $sql_line);
-				$ignore_errors = true;
+			// Type 1 = DROP TABLE
+			if (1 == $sql_type) {
+				if ($this->drop_forbidden) {
+					$sql_line = "DELETE FROM ".$updraftplus->backquote($this->new_table_name);
+					$updraftplus->log_e('Cannot drop tables, so deleting instead (%s)', $sql_line);
+					$ignore_errors = true;
+				}
 			}
 
 			if (3 == $sql_type && $sql_line && strlen($sql_line) > $this->max_allowed_packet) {

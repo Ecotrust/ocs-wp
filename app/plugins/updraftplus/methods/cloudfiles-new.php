@@ -78,7 +78,7 @@ class UpdraftPlus_BackupModule_cloudfiles_opencloudsdk extends UpdraftPlus_Backu
 		<tr class="updraftplusmethod <?php echo $this->method;?>">
 		<th></th>
 			<td>
-				<p><?php _e('Get your API key <a href="https://mycloud.rackspace.com/">from your Rackspace Cloud console</a> (read instructions <a href="http://www.rackspace.com/knowledge_center/article/rackspace-cloud-essentials-1-generating-your-api-key">here</a>), then pick a container name to use for storage. This container will be created for you if it does not already exist.','updraftplus');?> <a href="http://updraftplus.com/faqs/there-appear-to-be-lots-of-extra-files-in-my-rackspace-cloud-files-container/"><?php _e('Also, you should read this important FAQ.', 'updraftplus'); ?></a></p>
+				<p><?php _e('Get your API key <a href="https://mycloud.rackspace.com/">from your Rackspace Cloud console</a> (read instructions <a href="http://www.rackspace.com/knowledge_center/article/rackspace-cloud-essentials-1-generating-your-api-key">here</a>), then pick a container name to use for storage. This container will be created for you if it does not already exist.','updraftplus');?> <a href="https://updraftplus.com/faqs/there-appear-to-be-lots-of-extra-files-in-my-rackspace-cloud-files-container/"><?php _e('Also, you should read this important FAQ.', 'updraftplus'); ?></a></p>
 			</td>
 		</tr>
 		<tr class="updraftplusmethod <?php echo $this->method;?>">
@@ -119,7 +119,7 @@ class UpdraftPlus_BackupModule_cloudfiles_opencloudsdk extends UpdraftPlus_Backu
 			<th><?php _e('Cloud Files Username','updraftplus');?>:</th>
 			<td><input type="text" autocomplete="off" style="width: 282px" id="updraft_cloudfiles_user" name="updraft_cloudfiles[user]" value="<?php echo htmlspecialchars($opts['user']) ?>" />
 			<div style="clear:both;">
-			<?php echo apply_filters('updraft_cloudfiles_apikeysetting', '<a href="http://updraftplus.com/shop/cloudfiles-enhanced/"><em>'.__('To create a new Rackspace API sub-user and API key that has access only to this Rackspace container, use this add-on.', 'updraftplus').'</em></a>'); ?>
+			<?php echo apply_filters('updraft_cloudfiles_apikeysetting', '<a href="https://updraftplus.com/shop/cloudfiles-enhanced/"><em>'.__('To create a new Rackspace API sub-user and API key that has access only to this Rackspace container, use this add-on.', 'updraftplus').'</em></a>'); ?>
 			</div>
 			</td>
 		</tr>

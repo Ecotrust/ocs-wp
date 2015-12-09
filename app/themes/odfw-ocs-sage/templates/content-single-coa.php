@@ -24,7 +24,7 @@
 			<div class="col-sm-2 coa-id">
 				<div class="btn btn-primary">
 
-					<h3 class="panel-title" data-toggle="tooltip" data-placement="bottom" title="Identification number, unique to each COA.">
+					<h3 class="panel-title" data-toggle="tooltip" data-placement="bottom" title="<?php echo ocs_get_option('coa-id') ?>">
 						COA ID <span class="badge"><?=$coa_id; ?></span>
 					</h3>
 				</div>
@@ -36,8 +36,7 @@
 
 
 		<section class="cmb2-wrap-group coa_meta_special_features">
-			<h2 data-toggle="tooltip" data-placement="right" title="Unique attributes that might be found in this area, and may have contributed to the
-		area being designated as a COA.">Special Features</h2>
+			<h2 data-toggle="tooltip" data-placement="right" title="<?php echo ocs_get_option('coa-special-features') ?>">Special Features</h2>
 
 
 			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_special_features', true );
@@ -59,7 +58,10 @@
 
 			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_special_features_2006', true );
 			if ( !empty ($the_field) ): ?>
-			<h3>2006 <abbr class="c2c-text-hover" title="Oregon Department of Fish and Wildlife">ODFW</abbr> <abbr class="c2c-text-hover" title="Conservation Opportunity Area">COA</abbr></h3>
+			<h3  data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-special-features-2006') ?>">2006
+				<abbr class="c2c-text-hover" title="Oregon Department of Fish and Wildlife">ODFW</abbr>
+				<abbr class="c2c-text-hover" title="Conservation Opportunity Area">COA</abbr>
+			</h3>
 			<ul class="coa-detail-listing">
 				<?php foreach($the_field as $entry ) { ?>
 					<li><?php echo esc_html( $entry ); ?></li>
@@ -71,7 +73,7 @@
 			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_special_features_protected_area', true );
 			$size = count($the_field) > 8 ? " long-list " : "";
 			if ( !empty ($the_field) ): ?>
-			<h3>Protected Areas</h3>
+			<h3  data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-special-features-protected-areas') ?>">Protected Areas</h3>
 			<ul class="coa-detail-listing <?=$size; ?>">
 
 				<?php foreach($the_field as $entries => $entry ) { ?>
@@ -92,7 +94,7 @@
 			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_kci_connections', true );
 			if ( !empty ($the_field) ): ?>
 				<div class="cmb2-wrap-text coa_meta_kci_connections">
-					<h2 data-toggle="tooltip" title="">KCI Connections</h2>
+					<h2 data-toggle="tooltip" title="<?php echo ocs_get_option('coa-special-features-KCI-connections') ?>">KCI Connections</h2>
 
 					<p class="cmb2-text">
 						<?php echo esc_html( $the_field ); ?>
@@ -105,10 +107,7 @@
 
 
 		<section class="cmb2-wrap-textarea_small coa_meta_recommended_conservation_actions">
-			<h2 data-toggle="tooltip"  data-placement="right" title="Priority conservation actions recommended for this COA. Conservation actions need
-		to be compatible with local priorities, local comprehensive plans and land use ordinances, as well as other local,
-		state, or federal laws. Actions on federal lands must undergo federal planning processes prior to implementation to
-		ensure consistency with existing plans and management objectives for the area.">Recommended Conservation Actions</h2>
+			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-special-features') ?>">Recommended Conservation Actions</h2>
 
 			<ul class="coa-detail-listing">
 				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended_conservation_actions', true );
@@ -120,7 +119,7 @@
 
 
 		<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_ecoregions">
-			<h2 data-toggle="tooltip" data-placement="right" title="Ecoregion(s) that contain this COA">Ecoregions</h2>
+			<h2 data-toggle="tooltip" data-placement="right" title="<?php echo ocs_get_option('') ?>">Ecoregions</h2>
 
 			<?php
 					// Some of these were stored as a string(single), some as an array (on CSV import)
@@ -128,12 +127,12 @@
 					// so let's make sure it's an array
 					$the_ecoregions_array = is_array($the_ecoregions) ? $the_ecoregions : explode(",", $the_ecoregions);
 					ocs_list_ecoregions($the_ecoregions_array);
-		?>
+			?>
 		</section>
 
 
 		<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_habitats">
-			<h2 data-toggle="tooltip"  data-placement="right" title="Strategy Habitat(s) with documented distribution in this COA.">Strategy Habitats</h2>
+			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-strategy-habitats') ?>">Strategy Habitats</h2>
 
 				<?php
 					// Some of these were stored as a string(single), some as an array (on CSV import)
@@ -147,7 +146,7 @@
 
 
 		<section class="cmb2-wrap-text coa_meta_specialized_local_habitats">
-			<h2 data-toggle="tooltip"  data-placement="right" title="Smaller, localized habitats and habitat features that are important to Strategy Species and likely to be found in this COA.">Specialized Local Habitats</h2>
+			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-specialized-habitats') ?>">Specialized Local Habitats</h2>
 
 			<ul class="coa-detail-listing">
 				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_specialized_local_habitats', true );
@@ -159,7 +158,7 @@
 
 
 		<section class="cmb2-wrap-group coa_meta_strategy_species">
-			<h2 data-toggle="tooltip"  data-placement="right" title="">Strategy Species</h2>
+			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-strategy-species') ?>">Strategy Species</h2>
 
 			<div class="cmb2-group">
 
@@ -174,9 +173,7 @@
 
 
 		<section class="cmb2-wrap-group coa_meta_local_conservation_actions_and_plans">
-			<h2 data-toggle="tooltip" data-placement="right"  title="Current references to specific conservation planning efforts and/or
-			ongoing projects within this COA. List of references will be updated as needed.
-			Please contact ODFW if you would like to propose additional plans added to this area.">
+			<h2 data-toggle="tooltip" data-placement="right"  title="<?php echo ocs_get_option('coa-conservations-actions') ?>">
 			Local Conservation Actions and Plans</h2>
 
 			<ul>
@@ -195,9 +192,7 @@
 
 
 		<section class="cmb2-wrap-group coa_meta_potential_partners">
-			<h2 data-toggle="tooltip"  data-placement="right" title="Organizations with a potential, or ongoing interest in this COA. Users are
-		encouraged to contact these organizations if you are interested in more detailed information about this COA. If your
-		organization would like to be listed, and is not currently, please contact ODFW. ">Potential Partners</h2>
+			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-potential-partners') ?>">Potential Partners</h2>
 
 			<ul>
 			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_potential_partners', true );

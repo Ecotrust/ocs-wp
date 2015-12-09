@@ -1,7 +1,6 @@
 <?php while (have_posts()) : the_post(); ?>
   <?php get_template_part('templates/page', 'header'); ?>
 
-
 <div class="hentry">
 	<div class="entry-content">
 		<?php the_content(); ?>
@@ -56,23 +55,5 @@
 
 endwhile;
 
-/*
-99 kci
-101 ecoregion
-102 Conservation Opportunity Areas
-105 Strategy Habitats
-109 Strategy Species
-	Get sub pages and then
-110, //Birds
-111, //Mammals
-112, //Amphibians
-113, //Reptiles
-114, //Fish
-115, //Invertebrates
-116, //Plants and Algae
-117, //Species Data Gaps: Research and Monitoring Needs
-118, //Animal Concentrations
-119, //Naturally Occurring Fish and Wildlife Diseases
-120, //Methods for determining Strategy Species
- */
+
 ?>

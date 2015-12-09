@@ -135,9 +135,19 @@ h2.on-hold + .tooltip {
 	}
 }
 h2[data-toggle=tooltip]{
+	cursor: help;
 	display: inline-block;
 	width: auto;
 	@include clearfix;
+}
+// These are wordy. A little wider and left aligned.
+.single-strategy_species h2+.tooltip .tooltip-inner ,
+.single-coa h2+.tooltip .tooltip-inner {
+	max-width: $tooltip-max-width * 2;
+	text-align: left;
+	padding: 8px 12px;
+
+
 }
 //decrease margin spacing between featured image and h3 on cpt listings
 h3.cpt-title { margin-top: 25px; }

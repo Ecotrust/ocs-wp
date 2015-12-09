@@ -227,9 +227,7 @@
 	  // or get the padding-top from the body?
 	  // S.settings.fixedHeaderSize
       var in_view = function(section) {
-        return (section.top_offset >= boundry_top && section.top_offset <= boundry_bottom)
-			|| (section.bottom_offset > boundry_top && section.bottom_offset < boundry_bottom)
-			|| (section.top_offset < boundry_top && section.bottom_offset > boundry_bottom);
+        return (section.top_offset >= boundry_top && section.top_offset <= boundry_bottom) || (section.bottom_offset > boundry_top && section.bottom_offset < boundry_bottom) || (section.top_offset < boundry_top && section.bottom_offset > boundry_bottom);
       };
 
       $.each(S.sections.data, function() {
