@@ -1,4 +1,30 @@
 // Temporary Grid
+
+.listings-wrap {
+
+	.grid-item {
+		display: inline-block;
+		/*min-height: 200px;*/
+		position: relative;
+		vertical-align: top;
+		width: 33%;
+
+		// BS MEDIA ELEMENT?
+	}
+	.grid-layout & {
+
+	}
+
+	.list-layout & {
+		.grid-item {
+			width: 100%;
+		}
+
+	}
+}
+
+
+
 .ocs-strategy-species, .ecoregions, .parent-pageid-109 {
 // pageid-109 = strategy species parent
 	.listings-wrap > article > div,
@@ -11,6 +37,12 @@
 /*		&:nth-child(3n+1){
 			clear: both;
 		}*/
+		/*float: left;*/
+		/*margin: 0 15px 15px 0;*/
+
+		&:nth-child(3n+1){
+			/*clear: both;*/
+		}
 		&:hover {
 		}
 

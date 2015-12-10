@@ -7,7 +7,7 @@
 		'post_type' => 'ecoregion',
 		'orderby' => 'title',
 		'order' => 'ASC',
-		'posts_per_page'=> '100', // -1 == show all
+		'posts_per_page'=> '-1', // -1 == show all
 	);
 
 	$loop = new WP_Query( $args );
@@ -25,21 +25,14 @@
 			$region_content = wp_trim_excerpt(get_the_excerpt());
 			$popup_content_array[$region_title] = $region_content;
 
-			global $post;
+			//global $post;
 
+			get_template_part('/templates/cpt-parts/part', 'ecoregion');
 ?>
 
-		<div class="col-md-6" id="ecoregion-item-<?php echo $post->ID; ?>">
-			<a href="<?php the_permalink(); ?>">
-				<div class="image-grid-container">
-					<?php if ( has_post_thumbnail($post->ID) ) : ?>
-						<?php echo get_the_post_thumbnail($post->ID, 'large', array('class' => 'img-responsive')) ?>
-					<?php endif; ?>
-				</div>
-				<h3 class="cpt-title"><?php the_title(); ?></h3>
-				<?php echo get_the_excerpt(); ?>
-			</a>
-		</div>
+
+
+
 
 <?php
 			$count++;
