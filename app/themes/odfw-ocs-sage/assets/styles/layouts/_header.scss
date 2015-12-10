@@ -51,7 +51,7 @@
 		@include make-sm-column(9);
 
 		form, input {
-			display: inline-block;
+			display: flex;
 			width: 100%;
 		}
 		input {
@@ -182,16 +182,32 @@ body.map-visible {
 	border-bottom: 0;
 }
 
+/*wordpress admin toolbar switches to mobile @ 782px*/
+@media only screen and (max-width: 782px) {
+	.admin-bar #header {
+	    top: 14px;
+	}
+}
+
 /*min-width query is tied to .sidebars*/
-@media only screen and (min-width: 901px) and (max-width: 1050px) {
+@media only screen and (max-width: 1050px) {
 	#header {
-		a.brand, input#search-field { font-size: 3vw;}
+		a.brand { font-size: 3vw;}
+		input#search-field { font-size: 2.75vw; }
 	}
 }
 
 @media only screen and (max-width: 900px) {
 	#header {
+		a.brand { 
+			min-width: 147px; 
+			font-size: 25px;
+		}
 		
+		.header-inner {
+			float: none;
+			margin-left: 147px; /*min-width of a.brand */
+		}
 	}
 }
 

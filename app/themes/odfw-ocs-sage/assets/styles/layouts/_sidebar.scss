@@ -308,7 +308,9 @@
 		font-weight: normal;
 	}
 }
-
+@media screen and (min-width: 769px) and (max-width: 900px) {
+	.main-ocs-navigation { min-width: 147px; }
+}
 @media screen and (max-width: 768px) {
 	.main-ocs-navigation {
 		display:none;

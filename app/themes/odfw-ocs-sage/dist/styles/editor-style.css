@@ -1727,7 +1727,7 @@ a.control_prev{border-radius:0 2px 2px 0}
 #header .search-wrap{border-bottom:1px solid #7FA797;display:inline-block;position:relative;min-height:1px;padding-left:15px;padding-right:15px}
 @media (min-width:560px){#header .search-wrap{float:left;width:75%}
 }
-#header .search-wrap form,#header .search-wrap input{display:inline-block;width:100%}
+#header .search-wrap form,#header .search-wrap input{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:100%}
 #header .search-wrap input{color:#414041;font-family:TradeGothicBold,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:33px;height:62px;letter-spacing:.02em;line-height:62px;background-color:#D3E9D1;border:0 none;outline:0;padding:1px 10px;text-transform:uppercase;width:90%}
 #header .search-wrap button{background-color:#EFF7ED;border:none;display:inline-block;line-height:56px;text-align:center;background:#D3E9D1 url(../images/icons-nav.png) 0 -806px no-repeat;display:block;float:right;padding:0 15px;margin-right:-15px;text-indent:-999em;width:66px}
 #header .search-wrap button:hover{background:#c3e1c0 url(../images/icons-nav.png) -61px -806px no-repeat}
@@ -1751,7 +1751,13 @@ a.control_prev{border-radius:0 2px 2px 0}
 .view-switcher a.my-ocs:hover,.view-switcher button.my-ocs:hover{background-image:none;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;color:#fff;text-indent:0;text-decoration:none}
 body.map-visible button.view-map{background-position:0 -621px}
 .page-header{border-bottom:0}
-@media only screen and (min-width:901px) and (max-width:1050px){#header a.brand,#header input#search-field{font-size:3vw}
+@media only screen and (max-width:782px){.admin-bar #header{top:14px}
+}
+@media only screen and (max-width:1050px){#header a.brand{font-size:3vw}
+#header input#search-field{font-size:2.75vw}
+}
+@media only screen and (max-width:900px){#header a.brand{min-width:147px;font-size:25px}
+#header .header-inner{float:none;margin-left:147px}
 }
 .sidebar{line-height:1.2;padding:0}
 .sidebar ol,.sidebar ul{padding:0}
@@ -1820,6 +1826,8 @@ body.map-visible button.view-map{background-position:0 -621px}
 .scroll-nav.fixed{position:fixed;top:60px;width:inherit}
 .slicknav_menu{display:none}
 .slicknav_menu .slicknav_nav{font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400}
+@media screen and (min-width:769px) and (max-width:900px){.main-ocs-navigation{min-width:147px}
+}
 @media screen and (max-width:768px){.main-ocs-navigation{display:none}
 .slicknav_menu,ul.slicknav_nav{display:block}
 }
