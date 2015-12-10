@@ -306,15 +306,15 @@
 	.slicknav_nav {
 		font-family: $headings-font-family-lighter;
 		font-weight: normal;
+		background: $greyDark;
 	}
 }
+
 @media screen and (min-width: 769px) and (max-width: 900px) {
 	.main-ocs-navigation { min-width: 147px; }
 }
 @media screen and (max-width: 768px) {
-	.main-ocs-navigation {
-		display:none;
-	}
+	.main-ocs-navigation, aside { display:none; }
 	
 	.slicknav_menu ,ul.slicknav_nav {
 		display:block;

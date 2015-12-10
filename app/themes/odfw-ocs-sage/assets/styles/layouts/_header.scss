@@ -211,3 +211,9 @@ body.map-visible {
 	}
 }
 
+/*search-box.js has a height constraint at 767px*/
+@media only screen and (max-width: 767px) {
+	#header {
+		input#search-field { font-size: 5vw; }
+	}
+}
