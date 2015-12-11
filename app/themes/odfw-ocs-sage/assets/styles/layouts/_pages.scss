@@ -5,6 +5,7 @@
 	.grid-item {
 		display: inline-block;
 		/*min-height: 200px;*/
+		max-width: 325px; //?
 		position: relative;
 		vertical-align: top;
 		width: 33%;
@@ -17,7 +18,7 @@
 			font-family: $body-font-bold;
 			font-weight: 500;
 			letter-spacing: 0;
-			margin-top: 10px;
+			margin: 16px 0 11px 0;
 			& + p {
 				margin-top: 0;
 			}
@@ -32,7 +33,8 @@
 	a {
 		color: $text-color;
 		display: block;
-		padding: 10px;
+		font-family: $font-family-sans-serif;
+		padding: $basePadding;
 		&:hover {
 			background-color: #eee;
 			text-decoration: none;
@@ -43,8 +45,7 @@
 		.grid-item {
 			float: left;
 			margin: 0 0 15px 0;
-			min-height: 225px;
-			max-width: 325px;
+			/*min-height: 225px;*/
 		}
 
 		.grid-item:nth-child(3n+1){
@@ -54,7 +55,20 @@
 
 	.list-layout & {
 		.grid-item {
+
+			margin-bottom: $basePadding;
+			max-width: none;
 			width: 100%;
+
+			a {
+				overflow: hidden;
+			}
+
+			.image-grid-container {
+				float: left;
+				margin-right: 20px;
+				width: 20%;
+			}
 		}
 
 	}

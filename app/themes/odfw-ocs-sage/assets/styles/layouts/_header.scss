@@ -43,16 +43,21 @@
 
 	.header-inner {
 		@include make-sm-column($main-sm-columns - $sidebar-sm-columns);
+        padding-left: 0;
+        padding-right: 0;
+        display: flex;
+        align-items: center;
 	}
 
 	.search-wrap {
 		border-bottom: 1px solid $greenMid;
-		display: inline-block;
-		@include make-sm-column(9);
+		//display: inline-block;
+		//@include make-sm-column(9);
+        flex: 1;
 
 		form, input {
-			display: inline-block;
-			width: 100%;
+			display: flex;
+            width: 100%;
 		}
 		input {
 			@include h1Styles;
@@ -63,7 +68,8 @@
 			outline: none;
 			padding: 1px 10px;
 			text-transform: uppercase;
-			width: 90%;
+            padding: 1px 15px;
+			//width: 90%;
 			/*
 			&.focused {
 				font-family: $headings-font-family;
@@ -74,11 +80,14 @@
 			@include top-button;
 			background: $greenLight url($nav-sprite) 0 -806px no-repeat;
 			display: block;
-			float: right;
+			//float: right;
 			padding: 0 15px;
 			margin-right: -15px;
 			text-indent: -999em;
 			width: 66px;
+            display: inline-block;
+            margin-right: 0;
+            //width: 10%;
 			&:hover {
 				background: darken($greenLight, 5) url($nav-sprite) -61px -806px no-repeat;
 			}
@@ -88,34 +97,37 @@
 
 
 .view-switcher {
-	@include make-sm-column(3);
+	//@include make-sm-column(3);
 	padding: 0;
 
 	// @TODO these should be on the LIs once we sort out which can be used.
 	background-color: $greenLighter;
 
+    /*
 	ul {
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
 	}
 	li {
-		/*display: none; // for now.*/
 		border-bottom: 1px solid $greenLighter;
-		float: left;
-		width: 25%;
+		//float: left;
+		//width: 25%;
+        width: 50px;
 
 		&:hover {
 			border-bottom: 1px solid $greenMid;
 		}
-	}
-	button, a {
+    }
+    */
+	a {
 		@include top-button;
 		/*@include make-sm-column(4);*/
+        display: none; // default
 
-		float: right;
+        line-height: 62px; // this is a bug
 		text-indent: -999em;
-		width: 100%;
+        width: 66px;
 
 		&:focus { outline: none;}
 
@@ -126,7 +138,8 @@
 		}
 
 		&.view-map {
-			background-position: -55px -621px;
+            background-position: -55px -621px;
+			//background-position: -61px -621px;
 
 			&:hover,
 			&:active {
@@ -137,8 +150,8 @@
 		&.view-grid {
 			background-position: -62px -680px;
 
-			display: none; // for now
 			&:hover,
+			.grid-layout &,
 			&:active {
 				background-position: 0px -680px;
 			}
@@ -147,8 +160,8 @@
 		&.view-list {
 			background-position: -62px -742px;
 
-			display: none; // for now
 			&:hover,
+			.list-layout &,
 			&:active {
 				background-position: 0px -742px;
 			}
@@ -156,7 +169,9 @@
 
 		&.my-ocs {
 			background: $green url($nav-sprite) 0 -871px no-repeat;
-			max-width: 66px;
+			//max-width: 66px;
+            display: inline-block;
+			width: 66px;
 
 			&:hover {
 				background-image: none;
@@ -172,10 +187,26 @@
 }
 
 body.map-visible {
-	button.view-map {
-		background-position: 0px -621px;
+	.view-map {
+        background-position: 0px -621px;
 	}
 }
+
+.grid-available .view-switcher .view-grid,
+.list-available .view-switcher .view-list {
+    display: inline-block;
+}
+//.grid-available, .list-available {
+    //.view-switcher li {
+		//width: 25%;
+    //}
+    //.search-wrap { @include make-sm-column(9); }
+    //.view-switcher { @include make-sm-column(3); }
+    //.search-wrap, .view-switcher {
+        //padding-left: 0;
+        //padding-right: 0;
+    //}
+//}
 
 .page-header {
 	border-bottom: 0;

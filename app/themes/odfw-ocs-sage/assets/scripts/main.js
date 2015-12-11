@@ -16,6 +16,7 @@
   var $nonFeatureFig = $('figure.wp-caption'); //non featured images
   var OCS = {
     $body : $('body'),
+
 	// All pages
 	'common': {
 	  init: function() {
@@ -23,8 +24,10 @@
 
         if ($compass.length) {
             $compass.insertAfter("main");
-            $('body').toggleClass('map-available');
+            OCS.$body.toggleClass('map-available');
         }
+
+		OCS.listAndGridToggle();
 
         $('body').tooltip({
             selector: '[data-toggle="tooltip"]'
@@ -57,8 +60,8 @@
 		// JavaScript to be fired on all pages, after page specific JS is fired
 
         //Toggle class for switching between compass and main content
-        $('button.view-map, span.compass-close').click(function(){
-            $('body').toggleClass('map-visible');
+        $('.view-map, span.compass-close').click(function(){
+            OCS.$body.toggleClass('map-visible');
             if ($iframe.length) {
                 //$iframe has to be added, not just hidden for fullscreen view of oregon
                 $('.compass-wrap').append($iframe);
@@ -79,7 +82,7 @@
 	'home': {
 	  init: function() {
 		// JavaScript to be fired on the home page
-        
+
 	  },
 	  finalize: function() {
 
@@ -115,10 +118,30 @@
 				insertTarget: '.on-page-nav',
 				insertLocation: 'prependTo',
 				activeClass: 'current_page_item',
-				scrollToHash: true
+				scrollToHash: true,
+				onRender: function(){
+					OCS.$body.addClass('sidebar-visible');
+				}
 			});
 
 		}
+	},
+
+	listAndGridToggle: function (){
+
+		if ($('.listings-wrap').length ) {
+			OCS.$body.addClass('grid-available').addClass('list-available');
+			//temp for testing
+			OCS.$body.addClass('grid-layout');
+		}
+		$('.view-grid').on('click', function() {
+			OCS.$body.addClass('grid-layout').removeClass('list-layout');
+			return false;
+		});
+		$('.view-list').on('click', function() {
+			OCS.$body.addClass('list-layout').removeClass('grid-layout');
+			return false;
+		});
 	}
   };
 

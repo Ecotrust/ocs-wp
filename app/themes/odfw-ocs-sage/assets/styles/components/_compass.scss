@@ -1,22 +1,25 @@
 /*moved all body compass/map-related 'stuff' here - hopefully more coherent*/
 
 body {
-    button.view-map,
-    .compass { 
+    .view-map,
+    .compass {
         display: none;
     }
     main { display: block; }
 
     &.map-visible {
         main { display: none; }
-        .compass { 
+        .compass {
             display: block;
             position: relative;
         }
+		.view-map {
+		    background-position: 0px -621px;
+		}
     }
 
     &.map-available {
-       button.view-map { display: block;} 
+       .view-map { display: block;}
     }
 }
 
@@ -89,7 +92,7 @@ body {
         color: $greyDark;
         text-decoration: none;
     }
-   
+
 
 /*    .glyphicon {
         color: $link-color;

@@ -8,7 +8,7 @@
 				<h3 class="cpt-title"><?php the_title(); ?></h3>
 				<p><?php echo get_the_excerpt(); ?></p>
 				<?php
-// Look up strategy habitats
+// @TODO Look up strategy habitats
 ?>
 			</a>
 	</article>
