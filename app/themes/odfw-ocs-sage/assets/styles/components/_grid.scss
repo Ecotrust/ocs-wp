@@ -16,7 +16,6 @@
 
 	.has-sidebar & {
 		padding: 0;
-		padding-bottom: 300px;
 
 		// Right sidebar
 		&::after{
@@ -33,6 +32,10 @@
 		.main-content {
 			@include make-sm-column(9);
 		}
+	}
+	//.sidebar-visible added when the sidebar js has finished
+	.has-sidebar.sidebar-visible & {
+		padding-bottom: 300px;
 	}
 }
 

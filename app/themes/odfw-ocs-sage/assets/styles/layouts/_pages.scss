@@ -1,30 +1,79 @@
 // Temporary Grid
-.ocs-strategy-species, .ecoregions, .parent-pageid-109 {
-// pageid-109 = strategy species parent
-	.listings-wrap > article > div,
-	.listings-wrap > section > article { //not all are this way yet but orta be.
-		float: left;
-		margin: 0 0 15px 0;
-		min-height: 225px;
-		max-width: 325px;
 
-/*		&:nth-child(3n+1){
-			clear: both;
-		}*/
-		&:hover {
+.listings-wrap {
+
+	.grid-item {
+		display: inline-block;
+		/*min-height: 200px;*/
+		max-width: 325px; //?
+		position: relative;
+		vertical-align: top;
+		width: 33%;
+
+		img {
+			height: auto;
+			width: 100%;
 		}
-
-		a {
-			color: $text-color;
-			display: block;
-			padding: 10px;
-			&:hover {
-				background-color: #eee;
-				text-decoration: none;
+		.cpt-title {
+			font-family: $body-font-bold;
+			font-weight: 500;
+			letter-spacing: 0;
+			margin: 16px 0 11px 0;
+			& + p {
+				margin-top: 0;
 			}
 		}
+		p {
+			max-width: 100%;
+		}
+		// BS MEDIA ELEMENT?
+
+	}
+
+	a {
+		color: $text-color;
+		display: block;
+		font-family: $font-family-sans-serif;
+		padding: $basePadding;
+		&:hover {
+			background-color: #eee;
+			text-decoration: none;
+		}
+	}
+
+	.grid-layout & {
+		.grid-item {
+			float: left;
+			margin: 0 0 15px 0;
+			/*min-height: 225px;*/
+		}
+
+		.grid-item:nth-child(3n+1){
+			clear: both;
+		}
+	}
+
+	.list-layout & {
+		.grid-item {
+
+			margin-bottom: $basePadding;
+			max-width: none;
+			width: 100%;
+
+			a {
+				overflow: hidden;
+			}
+
+			.image-grid-container {
+				float: left;
+				margin-right: 20px;
+				width: 20%;
+			}
+		}
+
 	}
 }
+
 
 .ecoregions {
 	.listings-wrap > article > div { height: 390px;}

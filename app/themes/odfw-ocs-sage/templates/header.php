@@ -2,25 +2,20 @@
 	<div class="row">
 		<a class="brand" href="<?= esc_url(home_url('/')); ?>">Conserve</a>
 
-		<div class="header-inner">
-			<div class="row">
-				<div class="search-wrap">
-					<form action="/" class="search-form form-inline" method="get" role="search">
-						<label class="sr-only">Search for:</label>
-						<input type="search" required="" placeholder="Search the OCS" id="search-field" class="search-field" name="s" value="">
-						<button class="search-submit" type="submit">Search</button>
-					</form>
-				</div>
-
-				<nav class="view-switcher">
-					<ul>
-						<li><button class="view-map">Map</button></li>
-						<li><button class="view-grid">Grid View</button></li>
-						<li><button class="view-list">List View</button></li>
-						<li><a class="my-ocs" href="/help">Help</a></li>
-					</ul>
-				</nav>
+		<div class="header-inner view-switcher">
+			<div class="search-wrap">
+				<form action="/" class="search-form form-inline" method="get" role="search">
+					<label class="sr-only">Search for:</label>
+					<input type="search" required="" placeholder="Search the OCS" id="search-field" class="search-field" name="s" value="">
+					<button class="search-submit" type="submit">Search</button>
+				</form>
 			</div>
-		</div>
-	</div>
+
+			<a href="#" class="view-map">Map</a>
+			<a href="#" class="view-grid">Grid View</a>
+			<a href="#" class="view-list">List View</a>
+			<a class="my-ocs" href="/help">Help</a></li>
+
+		</div> <!-- /.header-inner -->
+	</div> <!-- /.row -->
 </header>

@@ -75,7 +75,7 @@ function OCS_add_excerpts_to_pages() {
 }
 add_action( 'init', 'OCS_add_excerpts_to_pages' );
 
-
+/*
 // Register Modified Date Column for both posts & pages
 function modified_column_register( $columns ) {
 	$columns['Modified'] = __( 'Modified Date', 'modified' );
@@ -115,6 +115,7 @@ function add_sortable_views_for_custom_post_types(){
 		add_filter( 'manage_edit-'.$post_type.'_sortable_columns', 'modified_column_register_sortable' );
 	}
 }
+ */
 
 // //wrap images from media gallery in divs
 function wrap_images_in_div($content) {

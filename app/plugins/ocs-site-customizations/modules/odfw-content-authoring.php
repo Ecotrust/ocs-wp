@@ -70,6 +70,7 @@ USE:
 
 */
 
+
 function get_the_odfw_success_story ($id) {
 	$out = "";
 	$success_story = get_post($id);
@@ -82,19 +83,6 @@ function get_the_odfw_success_story ($id) {
 		$out .= '</aside>';
 	endif;
 return $out;
-/*
-
-
-  query_posts("p=$thepostid&post_type=page");
-  if (have_posts()) : while (have_posts()) : the_post();
-    $output .= get_the_content($post->ID);
-  endwhile; else:
-    // failed, output nothing
-  endif;
-  wp_reset_query();
-
-  return $output;
-*/
 }
 function the_odfw_success_story ($id) {
 	echo get_the_odfw_success_story($id);
@@ -107,7 +95,7 @@ function the_odfw_success_story_shortcode($atts, $content = null) {
 }
 
 add_shortcode('success-story', 'the_odfw_success_story_shortcode');
-add_shortcode('linkbox', 'the_odfw_success_story_shortcode');
+//add_shortcode('linkbox', 'the_odfw_success_story_shortcode');
 
 
 
