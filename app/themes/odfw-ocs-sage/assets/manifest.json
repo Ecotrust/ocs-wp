@@ -2,7 +2,8 @@
   "dependencies": {
 	"plugins.js": {
 	  "files": [
-        "scripts/jquery.scrollNav.js"
+        "scripts/jquery.scrollNav.js",
+        "scripts/jquery.slicknav.js"
       ]
 	},
 	"main.js": {

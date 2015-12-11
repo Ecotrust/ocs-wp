@@ -1,7 +1,7 @@
 <?php
 	$the_items = get_post_meta( get_the_ID(), '_home_rotator_repeat_group', true );
 ?>
-<div class="carousel slide container-fluid" id="myCarousel" data-ride="carousel">
+<div class="carousel slide container-fluid" id="myCarousel">
     <div class="carousel-wrapper">
         <div class="carousel-inner" role="listbox">
             <img class="carousel-overlay" src="app/themes/odfw-ocs-sage/dist/images/oregon.png"/>

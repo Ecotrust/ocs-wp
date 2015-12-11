@@ -93,6 +93,7 @@
 			}
 		}
 	}
+	&.mobile { display: none; }
 }
 
 
@@ -210,4 +211,59 @@ body.map-visible {
 
 .page-header {
 	border-bottom: 0;
+	h1 { display: inline; }
+}
+
+
+/*min-width query is tied to .sidebars*/
+@media only screen and (max-width: 1050px) {
+	#header {
+		a.brand { font-size: 3vw;}
+		input#search-field { font-size: 2.75vw; }
+	}
+}
+
+/*
+wordpress admin toolbar switches to mobile @ 782px
+and is apparently not fixed(?) @ 600px
+*/
+@media only screen and (min-width: 601px) and (max-width: 782px) {
+	.admin-bar #header { top: 14px; } 
+}
+
+/*search-box.js has a height constraint at 767px*/
+@media only screen and (max-width: 767px) {
+	#header {
+		input#search-field { font-size: 3vw; }
+	}
+}
+
+/*figured to just remove wordpress admin toolbar at this point*/
+@media only screen and (max-width: 600px) {
+	#wpadminbar { display: none; }
+
+	.admin-bar #header { padding-top: 0; }
+
+	#header {
+		a.brand {
+			font-size: 6vw;
+			width: 100%;
+		}
+
+		.header-inner { 
+			margin-left: 0;
+			width: 100%; 
+
+		}
+	}
+
+	footer.content-info { 
+		.draft-message { min-height: 40px; }
+	}
+}
+
+@media only screen and (max-height: 568px) {
+	header#header {
+		.header-inner.view-switcher { display: none;}
+	}
 }

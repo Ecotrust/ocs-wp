@@ -120,3 +120,17 @@ body.ecoregions {
 
 }
 
+/*only slider shows*/
+body.home.page {
+	.main-content { display: none; }
+}
+
+@media only screen and (max-width: 768px) {
+	.content.row { padding-top: 50px; }
+}
+
+
+@media only screen and (max-width: 600px) {
+	.content.row { padding-top: 90px; }
+	.wrap.container-fluid { margin-top: 18px;}
+}
