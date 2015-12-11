@@ -211,6 +211,7 @@ body.map-visible {
 
 .page-header {
 	border-bottom: 0;
+	h1 { display: inline; }
 }
 
 
@@ -233,7 +234,7 @@ and is apparently not fixed(?) @ 600px
 /*search-box.js has a height constraint at 767px*/
 @media only screen and (max-width: 767px) {
 	#header {
-		input#search-field { font-size: 25px; }
+		input#search-field { font-size: 3vw; }
 	}
 }
 
@@ -254,7 +255,6 @@ and is apparently not fixed(?) @ 600px
 			width: 100%; 
 
 		}
-
 	}
 
 	footer.content-info { 
@@ -262,6 +262,8 @@ and is apparently not fixed(?) @ 600px
 	}
 }
 
-@media only screen and (max-width: 560px) {
-
+@media only screen and (max-height: 568px) {
+	header#header {
+		.header-inner.view-switcher { display: none;}
+	}
 }

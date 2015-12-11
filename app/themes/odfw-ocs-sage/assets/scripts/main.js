@@ -37,8 +37,9 @@
         $('.main-ocs-navigation').slicknav({
           easingOpen: 'linear',
           label: '',
-          closeOnClick: true,
-          appendTo: "header#header"
+          closeOnClick: "true",
+          appendTo: "header#header",
+          allowParentLinks: "true"
         });
 
         /*
@@ -86,7 +87,6 @@
         $('[title]').tooltip();
 
         $('.slicknav_nav').slicknav('toggle');
-
 	  }
 	},
 	'home': {

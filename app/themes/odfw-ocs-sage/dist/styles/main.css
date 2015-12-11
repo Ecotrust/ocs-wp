@@ -1698,8 +1698,8 @@ body.map-available .view-map{display:block}
 .carousel.slide:hover a.control_next,.carousel.slide:hover a.control_prev{position:absolute;top:42%;z-index:999;display:block;padding:1% 1%;width:auto;height:auto;background:#414041;color:#fff;text-decoration:none;font-weight:600;font-size:18px;opacity:.2;cursor:pointer}
 .carousel-wrapper{position:relative;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);-o-transform:translateY(-50%);transform:translateY(-50%)}
 .carousel-inner{width:100%;height:auto;border:rgba(255,255,255,.75) solid 1px;margin-left:auto;margin-right:auto}
-.carousel-inner img.carousel-overlay{width:100%;height:auto;max-width:100%;background-color:transparent}
-.carousel-inner .item{position:absolute;height:100%;width:100%;top:1px;bottom:1px;z-index:-1}
+.carousel-inner img.carousel-overlay{width:100%;height:auto;max-width:100%;background-color:transparent;position:relative;z-index:101;pointer-events:none}
+.carousel-inner .item{position:absolute;height:100%;width:100%;top:1px;bottom:1px;z-index:100}
 .carousel-inner .item>img{display:block;max-width:100%;width:100%;height:100%;line-height:1;margin-left:auto;margin-right:auto}
 ol.carousel-indicators{padding:15px 0 15px 0;bottom:auto!important;z-index:0}
 ol.carousel-indicators li,ol.carousel-indicators li.active{height:12px;width:12px;border-radius:50%;border-color:#00371a;display:inline-block;margin:0 10px 0 0;padding:0;cursor:pointer}
@@ -1753,18 +1753,21 @@ a.control_prev{border-radius:0 2px 2px 0}
 body.map-visible .view-map{background-position:0 -621px}
 .grid-available .view-switcher .view-grid,.list-available .view-switcher .view-list{display:inline-block}
 .page-header{border-bottom:0}
+.page-header h1{display:inline}
 @media only screen and (max-width:1050px){#header a.brand{font-size:3vw}
 #header input#search-field{font-size:2.75vw}
 }
 @media only screen and (min-width:601px) and (max-width:782px){.admin-bar #header{top:14px}
 }
-@media only screen and (max-width:767px){#header input#search-field{font-size:25px}
+@media only screen and (max-width:767px){#header input#search-field{font-size:3vw}
 }
 @media only screen and (max-width:600px){#wpadminbar{display:none}
 .admin-bar #header{padding-top:0}
 #header a.brand{font-size:6vw;width:100%}
 #header .header-inner{margin-left:0;width:100%}
 footer.content-info .draft-message{min-height:40px}
+}
+@media only screen and (max-height:568px){header#header .header-inner.view-switcher{display:none}
 }
 .sidebar{line-height:1.2;padding:0}
 .sidebar ol,.sidebar ul{padding:0}
@@ -1837,7 +1840,6 @@ footer.content-info .draft-message{min-height:40px}
 }
 @media screen and (max-width:768px){.content.row>aside.sidebar,.main-ocs-navigation{display:none}
 .slicknav_menu,ul.slicknav_nav{display:block}
-.content.row{padding-top:30px}
 main.main{width:100%}
 }
 @media only screen and (min-width:601px) and (max-width:768px){.has-sidebar.sidebar-visible main.main .main-content{width:75%}
@@ -1876,7 +1878,11 @@ body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 
 .species-overview strong{display:block}
 .species-overview ul{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;max-width:492px}
 .species-overview li{padding:0 20px 0 0;width:50%}
-@media only screen and (max-width:560px){.wrap.container-fluid{margin-top:18px}
+body.home.page .main-content{display:none}
+@media only screen and (max-width:768px){.content.row{padding-top:50px}
+}
+@media only screen and (max-width:600px){.content.row{padding-top:90px}
+.wrap.container-fluid{margin-top:18px}
 }
 @media print{body{padding-top:0!important}
 .wrap.container-fluid{margin-left:0;float:none;width:auto}
