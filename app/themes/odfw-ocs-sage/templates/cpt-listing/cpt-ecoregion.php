@@ -1,4 +1,4 @@
-<img id="region-png-print" src="/wordpress//media/ODFW_ecoregion_final_base.png"/>
+<img id="region-png-print" src="/media/ODFW_ecoregion_final_base.png"/>
 
 <section <?php post_class('row'); ?>>
 
@@ -12,8 +12,6 @@
 
 	$loop = new WP_Query( $args );
 
-	$count = 0;
-
 	$popup_content_array = array();
 
 
@@ -25,17 +23,7 @@
 			$region_content = wp_trim_excerpt(get_the_excerpt());
 			$popup_content_array[$region_title] = $region_content;
 
-			//global $post;
-
 			get_template_part('/templates/cpt-parts/part', 'ecoregion');
-?>
-
-
-
-
-
-<?php
-			$count++;
 
 		endwhile;
 	endif;
@@ -53,8 +41,8 @@
 			<span class="compass-close">
 			    <i class="glyphicon glyphicon-remove-circle"></i>
 			</span>
-			<img id="region-png" src="/wordpress//media/ODFW_ecoregion_final_base.png"/>
-			<object id="regions" data="/wordpress//media/ODFW_ecoregion_final_clean.svg" type="image/svg+xml"></object>
+			<img id="region-png" src="/media/ODFW_ecoregion_final_base.png"/>
+			<object id="regions" data="/media/ODFW_ecoregion_final_clean.svg" type="image/svg+xml"></object>
 		</div>
 	</div>
 

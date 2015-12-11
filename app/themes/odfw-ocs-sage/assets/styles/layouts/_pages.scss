@@ -9,10 +9,47 @@
 		vertical-align: top;
 		width: 33%;
 
+		img {
+			height: auto;
+			width: 100%;
+		}
+		.cpt-title {
+			font-family: $body-font-bold;
+			font-weight: 500;
+			letter-spacing: 0;
+			margin-top: 10px;
+			& + p {
+				margin-top: 0;
+			}
+		}
+		p {
+			max-width: 100%;
+		}
 		// BS MEDIA ELEMENT?
-	}
-	.grid-layout & {
 
+	}
+
+	a {
+		color: $text-color;
+		display: block;
+		padding: 10px;
+		&:hover {
+			background-color: #eee;
+			text-decoration: none;
+		}
+	}
+
+	.grid-layout & {
+		.grid-item {
+			float: left;
+			margin: 0 0 15px 0;
+			min-height: 225px;
+			max-width: 325px;
+		}
+
+		.grid-item:nth-child(3n+1){
+			clear: both;
+		}
 	}
 
 	.list-layout & {
@@ -23,40 +60,6 @@
 	}
 }
 
-
-
-.ocs-strategy-species, .ecoregions, .parent-pageid-109 {
-// pageid-109 = strategy species parent
-	.listings-wrap > article > div,
-	.listings-wrap > section > article { //not all are this way yet but orta be.
-		float: left;
-		margin: 0 0 15px 0;
-		min-height: 225px;
-		max-width: 325px;
-
-/*		&:nth-child(3n+1){
-			clear: both;
-		}*/
-		/*float: left;*/
-		/*margin: 0 15px 15px 0;*/
-
-		&:nth-child(3n+1){
-			/*clear: both;*/
-		}
-		&:hover {
-		}
-
-		a {
-			color: $text-color;
-			display: block;
-			padding: 10px;
-			&:hover {
-				background-color: #eee;
-				text-decoration: none;
-			}
-		}
-	}
-}
 
 .ecoregions {
 	.listings-wrap > article > div { height: 390px;}

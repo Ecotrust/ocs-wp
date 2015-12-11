@@ -1573,7 +1573,6 @@ abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-dec
 [data-toggle=tooltip].scroll-nav__heading:after,[data-toggle=tooltip].scroll-nav__heading:before,h2[data-toggle=tooltip]:after,h2[data-toggle=tooltip]:before{content:" ";display:table}
 [data-toggle=tooltip].scroll-nav__heading:after,h2[data-toggle=tooltip]:after{clear:both}
 .single-coa .scroll-nav__heading+.tooltip .tooltip-inner,.single-coa h2+.tooltip .tooltip-inner,.single-strategy_species .scroll-nav__heading+.tooltip .tooltip-inner,.single-strategy_species h2+.tooltip .tooltip-inner{max-width:400px;text-align:left;padding:8px 12px}
-h3.cpt-title{margin-top:25px}
 h3>.badge{margin-left:3px}
 .long-list,.long-list ol,.long-list ul{-moz-column-count:2;-webkit-column-count:2;column-count:2}
 body{padding-top:62px}
@@ -1783,10 +1782,15 @@ body.map-visible button.view-map{background-position:0 -621px}
 .draft-message strong{background-color:#005130;color:#fff;font-weight:400;letter-spacing:.07em;padding:1px 3px}
 .draft-message small{font-size:10px}
 .listings-wrap .grid-item{display:inline-block;position:relative;vertical-align:top;width:33%}
+.listings-wrap .grid-item img{height:auto;width:100%}
+.listings-wrap .grid-item .cpt-title{font-family:"HelveticaNeue-65Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:500;letter-spacing:0;margin-top:10px}
+.listings-wrap .grid-item .cpt-title+p{margin-top:0}
+.listings-wrap .grid-item p{max-width:100%}
+.listings-wrap a{color:#111;display:block;padding:10px}
+.listings-wrap a:hover{background-color:#eee;text-decoration:none}
+.grid-layout .listings-wrap .grid-item{float:left;margin:0 0 15px 0;min-height:225px;max-width:325px}
+.grid-layout .listings-wrap .grid-item:nth-child(3n+1){clear:both}
 .list-layout .listings-wrap .grid-item{width:100%}
-.ecoregions .listings-wrap>article>div,.ecoregions .listings-wrap>section>article,.ocs-strategy-species .listings-wrap>article>div,.ocs-strategy-species .listings-wrap>section>article,.parent-pageid-109 .listings-wrap>article>div,.parent-pageid-109 .listings-wrap>section>article{float:left;margin:0 0 15px 0;min-height:225px;max-width:325px}
-.ecoregions .listings-wrap>article>div a,.ecoregions .listings-wrap>section>article a,.ocs-strategy-species .listings-wrap>article>div a,.ocs-strategy-species .listings-wrap>section>article a,.parent-pageid-109 .listings-wrap>article>div a,.parent-pageid-109 .listings-wrap>section>article a{color:#111;display:block;padding:10px}
-.ecoregions .listings-wrap>article>div a:hover,.ecoregions .listings-wrap>section>article a:hover,.ocs-strategy-species .listings-wrap>article>div a:hover,.ocs-strategy-species .listings-wrap>section>article a:hover,.parent-pageid-109 .listings-wrap>article>div a:hover,.parent-pageid-109 .listings-wrap>section>article a:hover{background-color:#eee;text-decoration:none}
 .ecoregions .listings-wrap>article>div{height:390px}
 .ecoregions img#region-png-print{display:none}
 body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}
