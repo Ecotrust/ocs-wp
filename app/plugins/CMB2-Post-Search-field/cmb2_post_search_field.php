@@ -262,7 +262,6 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 
 			if ( true === search.includeposttitle ) {
 				search.$titleLabel = $( evt.currentTarget ).parents( '.cmb-type-post-search-text' ).find( '.cmb-td .attached-post-title' );
-			console.log('$titleLabel', search.$titleLabel);
 			}
 
 			search.trigger( 'open' );

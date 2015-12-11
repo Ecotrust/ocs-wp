@@ -74,9 +74,7 @@ function get_the_cpt_listing_pages_assoc () {
 		"101" => "ecoregion", // Ecoregions
 		"102" => "coa",// COAs
 		"105" => "strategy_habitat", // Strategy Habitats
-		/*
 		109, // Strategy Species Parent Page
-		*/
 	);
 	return $OCS_cptListingPages;
 
@@ -89,9 +87,7 @@ function get_the_cpt_listing_pages () {
 		101, // Ecoregions
 		102,// COAs
 		105, // Strategy Habitats
-		/*
 		109, // Strategy Species Parent Page
-		*/
 	);
 	return $OCS_cptListingPages;
 

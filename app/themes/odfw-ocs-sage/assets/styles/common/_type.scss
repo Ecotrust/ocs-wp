@@ -44,11 +44,14 @@ h1 {
 		margin-bottom: 24px;
 	}
 }
-
+h2, h3, h4, h5 {
+	line-height: 1.25;
+	margin-top: 1.9em;
+}
 h2 {
 	font-size: $font-size-h2;
 }
-h3, h4 {
+h3, h4, h5 {
 	font-family: $body-font-bolder;
 	font-size: $font-size-h3;
 	letter-spacing: -0.02em;
@@ -57,7 +60,7 @@ h3, h4 {
     /*margin-bottom: $line-height-px;*/
     /*margin-top: $line-height-px * 2;*/
 }
-h4 {
+h4, h5 {
 	color: #222;
 	font-size: $font-size-h4;
     margin-bottom: 2px;
@@ -67,16 +70,18 @@ section h4 {
 	margin-bottom: 0;
     margin-top: $line-height-px;
 }
-h4 + p {
+.main-content h5 + p {
 	margin-top: 0;
 }
+
+.main-content h5 { margin-bottom: 3px; }
 
 h2 > strong, h3 > strong, h4 > strong {
 	// just in case bold gets left in.
 	font-weight: inherit;
 }
 p, li, dt, td {
-	> strong {
+	> strong, b {
 		font-family: $body-font-bolder;
 	}
 }
@@ -149,8 +154,7 @@ h2[data-toggle=tooltip]{
 
 
 }
-//decrease margin spacing between featured image and h3 on cpt listings
-h3.cpt-title { margin-top: 25px; }
+
 
 h3>.badge { margin-left: 3px; }
 

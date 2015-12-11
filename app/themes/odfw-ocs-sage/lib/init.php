@@ -29,6 +29,8 @@ function setup() {
   add_theme_support('post-thumbnails');
 
   add_image_size( 'hero', 1600, 580, true );
+  add_image_size( 'grid', 230, 117, true );
+  add_image_size( 'listing', 116, 63, true );
 
   //if(get_option('medium_size_w')!=640) update_option('medium_size_w',640);
   //if(get_option('medium_size_h')!=320) update_option('medium_size_h',320);
@@ -40,8 +42,8 @@ function setup() {
   update_option('image_default_link_type', 'none' );
   update_option('image_default_size', 'large' );
 
-  update_option('upload_path', $_SERVER['DOCUMENT_ROOT'] . '../media');
-  update_option('upload_url_path', 'http://' . $_SERVER['SERVER_NAME'] . '/media');
+  //update_option('upload_path', $_SERVER['DOCUMENT_ROOT'] . '../media');
+  //update_option('upload_url_path', 'http://' . $_SERVER['SERVER_NAME'] . '/media');
 
   add_filter('jpeg_quality', function($arg){return 75;});
 
@@ -56,10 +58,6 @@ function setup() {
 
   // Tell the TinyMCE editor to use a custom stylesheet
   add_editor_style(Assets\asset_path('styles/editor-style.css'));
-
-  //230x115: grid (medium size)
-  //115x65 = listing (thumbnail size)
-  //add_image_size( 'grid', 206, 206, true );
 
   /* Doesn't need to be set over and over again so commented for now
   	// We need the medium and large image sizes to be cropped.
