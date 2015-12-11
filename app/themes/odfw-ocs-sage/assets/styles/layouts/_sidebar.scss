@@ -315,17 +315,51 @@
 	}
 }
 
+/*main-ocs-nav font becomes to large for left panel*/
 @media screen and (min-width: 769px) and (max-width: 900px) {
-	.main-ocs-navigation, a.brand { min-width: 147px; }
+	ul.main-ocs-navigation { 
+		li > a { font-size: 1.5vw; } 
+	}
 }
 
 /*tablet resolution*/
 @media screen and (max-width: 768px) {
-	.main-ocs-navigation, aside, .has-sidebar .main::after { display:none; }
-	
+	.main-ocs-navigation, .content.row > aside.sidebar { display:none; }
+
 	.slicknav_menu ,ul.slicknav_nav {
 		display:block;
 	}
 
 	.content.row { padding-top: 30px; }
+
+	main.main { width: 100%; }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+	.has-sidebar.sidebar-visible { 
+		main.main { 
+			.main-content { width: 75%;}
+			&:after { content: ""; }
+		}
+	}
+
+	.has-sidebar {
+		main.main {
+			.main-content { width: 100%; }
+			&:after { content: none; }
+		}
+	}
+
+	
+}
+
+@media screen and (max-width: 600px) {
+	aside.inner-sidebar { display: none; }
+
+	.has-sidebar.sidebar-visible {
+		main.main {
+			.main-content { width: 100%; }
+			&:after { content: none; }
+		}
+	}
 }

@@ -222,20 +222,6 @@ body.map-visible {
 	}
 }
 
-@media only screen and (max-width: 897px) {
-	#header {
-		a.brand { 
-			min-width: 147px; 
-			font-size: 25px;
-		}
-		
-		.header-inner {
-			float: none;
-			margin-left: 150px; 
-		}
-	}
-}
-
 /*
 wordpress admin toolbar switches to mobile @ 782px
 and is apparently not fixed(?) @ 600px
@@ -257,17 +243,21 @@ and is apparently not fixed(?) @ 600px
 
 	.admin-bar #header { padding-top: 0; }
 
+	#header {
+		a.brand {
+			font-size: 6vw;
+			width: 100%;
+		}
+
+		.header-inner { margin-left: 0; }
+
+	}
+
 	footer.content-info { 
 		.draft-message { min-height: 40px; }
 	}
 }
 
 @media only screen and (max-width: 560px) {
-	#header {
-		a.brand, .search-wrap { width: 100%; }
 
-		.header-inner { margin-left: 0; }
-
-		.view-switcher { display: none; }
-	}
 }

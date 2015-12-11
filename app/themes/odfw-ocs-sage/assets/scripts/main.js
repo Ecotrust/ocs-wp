@@ -38,7 +38,7 @@
           easingOpen: 'linear',
           label: '',
           closeOnClick: true,
-          prependTo: ".wrap.container-fluid"
+          appendTo: "header#header"
         });
 
         /*

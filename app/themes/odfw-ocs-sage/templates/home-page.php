@@ -13,15 +13,13 @@
     		<?php $url = esc_url( get_permalink($item['_home_linked-post']) );
     		$url .= !empty($item["_home_success-story"] ) && $item["_home_success-story"] == "on" ? "#success-story"  : "";
     	 ?>
-    			<a href="<?php echo $url; ?>">
+    			<a href="<?php echo $url; ?>"></a>
     				<div class="carousel-caption">
     					<h3 class="carousel-headline"><?php echo esc_html($item['_home_headline']); ?></h3>
     					<p class="carousel-subtext"><?php echo esc_html($item['_home_caption']); ?></p>
     				</div>
 
     				<image src="<?php echo esc_html($item['_home_image']); ?>" />
-
-    			</a>
     		</div>
 
     	<?php $i++;

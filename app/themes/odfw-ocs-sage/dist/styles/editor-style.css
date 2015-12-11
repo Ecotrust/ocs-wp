@@ -1752,20 +1752,15 @@ body.map-visible .view-map{background-position:0 -621px}
 @media only screen and (max-width:1050px){#header a.brand{font-size:3vw}
 #header input#search-field{font-size:2.75vw}
 }
-@media only screen and (max-width:897px){#header a.brand{min-width:147px;font-size:25px}
-#header .header-inner{float:none;margin-left:150px}
-}
 @media only screen and (min-width:601px) and (max-width:782px){.admin-bar #header{top:14px}
 }
 @media only screen and (max-width:767px){#header input#search-field{font-size:25px}
 }
 @media only screen and (max-width:600px){#wpadminbar{display:none}
 .admin-bar #header{padding-top:0}
-footer.content-info .draft-message{min-height:40px}
-}
-@media only screen and (max-width:560px){#header .search-wrap,#header a.brand{width:100%}
+#header a.brand{font-size:6vw;width:100%}
 #header .header-inner{margin-left:0}
-#header .view-switcher{display:none}
+footer.content-info .draft-message{min-height:40px}
 }
 .sidebar{line-height:1.2;padding:0}
 .sidebar ol,.sidebar ul{padding:0}
@@ -1834,11 +1829,21 @@ footer.content-info .draft-message{min-height:40px}
 .scroll-nav.fixed{position:fixed;top:60px;width:inherit}
 .slicknav_menu{display:none;position:fixed;width:100%;background-color:#414041;z-index:5;margin-left:-15px}
 .slicknav_menu .slicknav_nav{font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;background-color:#58595B}
-@media screen and (min-width:769px) and (max-width:900px){.main-ocs-navigation,a.brand{min-width:147px}
+@media screen and (min-width:769px) and (max-width:900px){ul.main-ocs-navigation li>a{font-size:1.5vw}
 }
-@media screen and (max-width:768px){.has-sidebar .main::after,.main-ocs-navigation,aside{display:none}
+@media screen and (max-width:768px){.content.row>aside.sidebar,.main-ocs-navigation{display:none}
 .slicknav_menu,ul.slicknav_nav{display:block}
 .content.row{padding-top:30px}
+main.main{width:100%}
+}
+@media only screen and (min-width:601px) and (max-width:768px){.has-sidebar.sidebar-visible main.main .main-content{width:75%}
+.has-sidebar.sidebar-visible main.main:after{content:""}
+.has-sidebar main.main .main-content{width:100%}
+.has-sidebar main.main:after{content:none}
+}
+@media screen and (max-width:600px){aside.inner-sidebar{display:none}
+.has-sidebar.sidebar-visible main.main .main-content{width:100%}
+.has-sidebar.sidebar-visible main.main:after{content:none}
 }
 .draft-message{background-color:#EFF7ED;border-top:1px solid #C1E1BE;bottom:0;color:#111;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:11px;margin-left:-15px;margin-right:15px;min-height:67px;padding:10px;padding-left:18%;padding-top:15px;position:fixed;width:100%}
 .draft-message strong{background-color:#005130;color:#fff;font-weight:400;letter-spacing:.07em;padding:1px 3px}
@@ -1867,7 +1872,7 @@ body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 
 .species-overview strong{display:block}
 .species-overview ul{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;max-width:492px}
 .species-overview li{padding:0 20px 0 0;width:50%}
-@media only screen and (max-width:560px){.wrap.container-fluid{margin-top:46px}
+@media only screen and (max-width:560px){.wrap.container-fluid{margin-top:18px}
 }
 @media print{body{padding-top:0!important}
 .wrap.container-fluid{margin-left:0;float:none;width:auto}
