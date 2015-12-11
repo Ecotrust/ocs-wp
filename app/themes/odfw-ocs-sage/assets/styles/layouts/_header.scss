@@ -249,7 +249,11 @@ and is apparently not fixed(?) @ 600px
 			width: 100%;
 		}
 
-		.header-inner { margin-left: 0; }
+		.header-inner { 
+			margin-left: 0;
+			width: 100%; 
+
+		}
 
 	}
 

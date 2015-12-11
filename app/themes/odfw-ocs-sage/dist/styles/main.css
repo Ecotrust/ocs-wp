@@ -1651,6 +1651,10 @@ body.map-available .view-map{display:block}
 .view-external-compass:hover{background-color:#E6E7E8}
 .view-external-compass a{color:#414041;text-decoration:none}
 .view-external-compass span.compass-icon{background:url(../images/icons-nav.png) no-repeat;background-position:-78px -888px;padding-left:40px;line-height:35px;display:inline-block;margin:auto}
+@media only screen and (max-width:768px){.compass.main{width:100%}
+}
+@media only screen and (max-width:600px){.map-available .compass,.map-available a.view-map{display:none}
+}
 /*!
  * SlickNav Responsive Mobile Menu v1.0.6
  * (c) 2015 Josh Cope
@@ -1759,7 +1763,7 @@ body.map-visible .view-map{background-position:0 -621px}
 @media only screen and (max-width:600px){#wpadminbar{display:none}
 .admin-bar #header{padding-top:0}
 #header a.brand{font-size:6vw;width:100%}
-#header .header-inner{margin-left:0}
+#header .header-inner{margin-left:0;width:100%}
 footer.content-info .draft-message{min-height:40px}
 }
 .sidebar{line-height:1.2;padding:0}
