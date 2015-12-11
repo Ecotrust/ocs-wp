@@ -36,7 +36,7 @@
 <?php // @TODO Needs better formatting. Table or DL or something ?>
 
 			<section class="cmb2-wrap-textarea_small ecoregion_meta_important-industries">
-				<h5>IMPORTANT INDUSTRIES</h5>
+				<h5>Important Industries</h5>
 
 				<p class="cmb2-textarea_small">
 					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_important-industries', true );
@@ -47,7 +47,7 @@
 
 
 			<section class="cmb2-wrap-textarea_small ecoregion_meta_major-crops">
-				<h5>MAJOR CROPS</h5>
+				<h5>Major Crops</h5>
 
 				<p class="cmb2-textarea_small">
 					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_major-crops', true );
@@ -58,7 +58,7 @@
 
 
 			<section class="cmb2-wrap-textarea_small ecoregion_meta_recreational-areas">
-				<h5>IMPORTANT NATURE-BASED RECREATIONAL AREAS</h5>
+				<h5>Important Nature-based Recreational Areas</h5>
 
 				<p class="cmb2-textarea_small">
 					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_recreational-areas', true );
@@ -69,7 +69,7 @@
 
 
 			<section class="cmb2-wrap-text ecoregion_meta_elevation">
-				<h5>ELEVATION</h5>
+				<h5>Elevation</h5>
 
 				<p class="cmb2-text">
 					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_elevation', true );
@@ -80,7 +80,7 @@
 
 
 			<section class="cmb2-wrap-text ecoregion_meta_number-of-species">
-				<h5>NUMBER OF VERTEBRATE WILDLIFE SPECIES</h5>
+				<h5>Number of Vertebrate Wildlife Species</h5>
 
 				<p class="cmb2-text">
 					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_number-of-species', true );
@@ -91,7 +91,7 @@
 
 
 			<section class="cmb2-wrap-textarea_small ecoregion_meta_rivers">
-				<h5>IMPORTANT RIVERS</h5>
+				<h5>Important Rivers</h5>
 
 				<p class="cmb2-textarea_small">
 					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_rivers', true );
@@ -102,7 +102,7 @@
 
 
 			<section class="cmb2-wrap-textarea_small ecoregion_meta_outstanding">
-				<h5>ECOLOGICALLY OUTSTANDING AREAS</h5>
+				<h5>Ecologically Outstanding Areas</h5>
 
 				<p class="cmb2-textarea_small">
 					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_outstanding', true );
