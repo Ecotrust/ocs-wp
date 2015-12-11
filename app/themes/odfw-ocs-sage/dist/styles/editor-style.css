@@ -367,7 +367,7 @@ hr{margin-top:18px;margin-bottom:18px;border:0;border-top:1px solid #eee}
 .h3,h3{font-size:14px}
 .h4,h4{font-size:13px}
 .h5,h5{font-size:12px}
-.h6,h6{font-size:11px}
+.h6,h6{font-size:12px}
 p{margin:0 0 9px}
 .lead{margin-bottom:18px;font-size:13px;font-weight:300;line-height:1.4}
 @media (min-width:560px){.lead{font-size:18px}
@@ -1788,10 +1788,13 @@ body.map-visible .view-map{background-position:0 -621px}
 .listings-wrap a{color:#111;display:block;font-family:"HelveticaNeue-45Lt","Helvetica Neue",Helvetica,Arial,sans-serif;padding:14px}
 .listings-wrap a:hover{background-color:#eee;text-decoration:none}
 .grid-layout .listings-wrap .grid-item{float:left;margin:0 0 15px 0}
+.grid-layout .listings-wrap .grid-item .cpt-title{margin-bottom:0}
+.grid-layout .listings-wrap .grid-item p{display:none}
 .grid-layout .listings-wrap .grid-item:nth-child(3n+1){clear:both}
-.list-layout .listings-wrap .grid-item{margin-bottom:14px;max-width:none;width:100%}
+.list-layout .listings-wrap .grid-item{max-width:none;width:100%}
 .list-layout .listings-wrap .grid-item a{overflow:hidden}
-.list-layout .listings-wrap .grid-item .image-grid-container{float:left;margin-right:20px;width:20%}
+.list-layout .listings-wrap .grid-item .image-grid-container{float:left;margin-right:10px;width:30px}
+.list-layout .listings-wrap .grid-item .cpt-title{margin-top:0}
 .ecoregions .listings-wrap>article>div{height:390px}
 .ecoregions img#region-png-print{display:none}
 body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}

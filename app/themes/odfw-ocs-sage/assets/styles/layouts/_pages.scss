@@ -46,19 +46,24 @@
 			float: left;
 			margin: 0 0 15px 0;
 			/*min-height: 225px;*/
+
+			.cpt-title { margin-bottom: 0; }
+			p { display: none; }
 		}
 
 		.grid-item:nth-child(3n+1){
 			clear: both;
 		}
+
 	}
 
 	.list-layout & {
 		.grid-item {
 
-			margin-bottom: $basePadding;
+			/*margin-bottom: $basePadding / 2;*/
 			max-width: none;
 			width: 100%;
+
 
 			a {
 				overflow: hidden;
@@ -66,9 +71,12 @@
 
 			.image-grid-container {
 				float: left;
-				margin-right: 20px;
-				width: 20%;
+				margin-right: 10px;
+				width: 30px;
 			}
+			.cpt-title { margin-top: 0; }
+
+
 		}
 
 	}
