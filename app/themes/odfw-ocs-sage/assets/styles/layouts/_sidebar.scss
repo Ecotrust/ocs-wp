@@ -306,6 +306,7 @@
 	width: 100%;
 	background-color: $greyDark;
 	z-index: 5;
+	margin-left: -15px; /*offset container-fluid*/
 
 	.slicknav_nav {
 		font-family: $headings-font-family-lighter;
@@ -315,10 +316,12 @@
 }
 
 @media screen and (min-width: 769px) and (max-width: 900px) {
-	.main-ocs-navigation { min-width: 147px; }
+	.main-ocs-navigation, a.brand { min-width: 147px; }
 }
+
+/*tablet resolution*/
 @media screen and (max-width: 768px) {
-	.main-ocs-navigation, aside { display:none; }
+	.main-ocs-navigation, aside, .has-sidebar .main::after { display:none; }
 	
 	.slicknav_menu ,ul.slicknav_nav {
 		display:block;

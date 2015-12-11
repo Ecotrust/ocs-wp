@@ -34,7 +34,8 @@
         $('.main-ocs-navigation').slicknav({
           easingOpen: 'linear',
           label: '',
-          closeOnClick: true
+          closeOnClick: true,
+          prependTo: ".wrap.container-fluid"
         });
 
         /*

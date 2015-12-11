@@ -191,7 +191,7 @@ body.map-visible {
 	}
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 897px) {
 	#header {
 		a.brand { 
 			min-width: 147px; 
@@ -200,7 +200,7 @@ body.map-visible {
 		
 		.header-inner {
 			float: none;
-			margin-left: 147px; /*min-width of a.brand */
+			margin-left: 150px; 
 		}
 	}
 }
@@ -226,8 +226,6 @@ and is apparently not fixed(?) @ 600px
 
 	.admin-bar #header { padding-top: 0; }
 
-	body { padding-top: 17px; }
-
 	footer.content-info { 
 		.draft-message { min-height: 40px; }
 	}
@@ -238,10 +236,7 @@ and is apparently not fixed(?) @ 600px
 		a.brand, .search-wrap { width: 100%; }
 
 		.header-inner { margin-left: 0; }
-		
+
 		.view-switcher { display: none; }
 	}
-
-	body { padding-top: 80px; }
-
 }
