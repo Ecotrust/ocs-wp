@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
     if (!$('.map-visible').length) {
-       $('button.view-map').click(function(){
+       $('a.view-map').click(function(){
             setTimeout(function() {
                 var svg = document.getElementById('regions');
                 if (svg != null) {
