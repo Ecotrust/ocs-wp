@@ -726,7 +726,12 @@ function setupCustomFields () {
 			'id' => $prefix . 'compass-link',
 			'type' => 'textarea_small',
 			'desc' => get_compass_instructions()
+		));
 
+		$ecoregion_cmb->add_field( array(
+			'name' => __( 'Ecoregion Map', 'odfw' ),
+			'id' => $prefix . 'ecoregion-map',
+			'type' => 'file',
 		));
 
 		$ecoregion_cmb->add_field( array(

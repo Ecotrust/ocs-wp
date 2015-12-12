@@ -28,6 +28,7 @@
         }
 
 		OCS.listAndGridToggle();
+		OCS.inlineReadMore();
 
         $('body').tooltip({
             selector: '[data-toggle="tooltip"]'
@@ -125,6 +126,11 @@
 			});
 
 		}
+	},
+
+	inlineReadMore: function(){
+		//$('span[id^="more"]').parent('p').nextAll('hide');
+
 	},
 
 	listAndGridToggle: function (){

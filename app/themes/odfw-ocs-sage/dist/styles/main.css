@@ -1793,8 +1793,8 @@ body.map-visible .view-map{background-position:0 -621px}
 .grid-layout .listings-wrap .grid-item:nth-child(3n+1){clear:both}
 .list-layout .listings-wrap .grid-item{max-width:none;width:100%}
 .list-layout .listings-wrap .grid-item a{overflow:hidden}
-.list-layout .listings-wrap .grid-item .image-grid-container{float:left;margin-right:10px;width:30px}
-.list-layout .listings-wrap .grid-item .cpt-title{margin-top:0}
+.list-layout .listings-wrap .grid-item .image-grid-container{float:left;margin-right:10px;width:60px}
+.list-layout .listings-wrap .grid-item .cpt-title{margin-bottom:5px;margin-top:0}
 .ecoregions .listings-wrap>article>div{height:390px}
 .ecoregions img#region-png-print{display:none}
 body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}
