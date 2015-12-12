@@ -6,7 +6,7 @@
     ?>
     <figure class="feature-thumb">
         <div class="image-container">
-            <?php if ( $caption || $attrName ) : ?>
+            <?php if (!empty($caption) || !empty($attrName)): ?>
                 <span class="photo-info show-info glyphicon glyphicon-info-sign"></span>
             <?php endif; ?>
             <?php echo the_post_thumbnail('large') ?>
@@ -14,10 +14,10 @@
 
         <figcaption>
             <span class="photo-info glyphicon glyphicon-remove-circle"></span>
-            <?php if ( $caption ) : ?>
-                <?php echo $caption; ?>, 
+            <?php if ( !empty($caption) ) : ?>
+                <?php echo $caption; ?> 
             <?php endif; ?>
-            <?php if ( $attrName ) : ?>
+            <?php if ( !empty($attrName) ) : ?>
                 <?php echo $attrName; ?> 
             <?php endif; ?>
         </figcaption>

@@ -24,91 +24,60 @@
 
     <div class="entry-content">
     	<?php get_template_part('templates/featured-thumbnail'); ?>
-		<h2>Description</h2>
-		<?php the_content(); ?>
-
+		<section>
+			<h2>Description</h2>
+			<?php the_content(); ?>
+		</section>
 
 		<section class="ecoregion-characteristics-title">
 			<h2>Characteristics</h3>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_ecoregion-map', true ); ?>
+			<div class="image-container">
+				<img class="img-responsive ecoregion-map" src="<?php echo esc_html( $the_field ); ?>">
+			</div>
 
+			<h5>Important Industries</h5>
+			<p class="cmb2-textarea_small">
+				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_important-industries', true );
+				echo esc_html( $the_field ); ?>
+			</p>
 
-<?php // @TODO Needs better formatting. Table or DL or something ?>
+			<h5>Major Crops</h5>
+			<p class="cmb2-textarea_small">
+				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_major-crops', true );
+				echo esc_html( $the_field ); ?>
+			</p>
 
-			<section class="cmb2-wrap-textarea_small ecoregion_meta_important-industries">
-				<h5>IMPORTANT INDUSTRIES</h5>
+			<h5>Important Nature-based Recreational Areas</h5>
+			<p class="cmb2-textarea_small">
+				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_recreational-areas', true );
+				echo esc_html( $the_field ); ?>
+			</p>
 
-				<p class="cmb2-textarea_small">
-					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_important-industries', true );
-					echo esc_html( $the_field ); ?>
-				</p>
-			</section>
+			<h5>Elevation</h5>
+			<p class="cmb2-text">
+				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_elevation', true );
+				echo esc_html( $the_field ); ?>
+			</p>
 
+			<h5>Number of Vertebrate Wildlife Species</h5>
+			<p class="cmb2-text">
+				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_number-of-species', true );
+				echo esc_html( $the_field ); ?>
+			</p>
 
+			<h5>Important Rivers</h5>
+			<p class="cmb2-textarea_small">
+				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_rivers', true );
+				echo esc_html( $the_field ); ?>
+			</p>
 
-			<section class="cmb2-wrap-textarea_small ecoregion_meta_major-crops">
-				<h5>MAJOR CROPS</h5>
-
-				<p class="cmb2-textarea_small">
-					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_major-crops', true );
-					echo esc_html( $the_field ); ?>
-				</p>
-			</section>
-
-
-
-			<section class="cmb2-wrap-textarea_small ecoregion_meta_recreational-areas">
-				<h5>IMPORTANT NATURE-BASED RECREATIONAL AREAS</h5>
-
-				<p class="cmb2-textarea_small">
-					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_recreational-areas', true );
-					echo esc_html( $the_field ); ?>
-				</p>
-			</section>
-
-
-
-			<section class="cmb2-wrap-text ecoregion_meta_elevation">
-				<h5>ELEVATION</h5>
-
-				<p class="cmb2-text">
-					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_elevation', true );
-					echo esc_html( $the_field ); ?>
-				</p>
-			</section>
-
-
-
-			<section class="cmb2-wrap-text ecoregion_meta_number-of-species">
-				<h5>NUMBER OF VERTEBRATE WILDLIFE SPECIES</h5>
-
-				<p class="cmb2-text">
-					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_number-of-species', true );
-					echo esc_html( $the_field ); ?>
-				</p>
-			</section>
-
-
-
-			<section class="cmb2-wrap-textarea_small ecoregion_meta_rivers">
-				<h5>IMPORTANT RIVERS</h5>
-
-				<p class="cmb2-textarea_small">
-					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_rivers', true );
-					echo esc_html( $the_field ); ?>
-				</p>
-			</section>
-
-
-
-			<section class="cmb2-wrap-textarea_small ecoregion_meta_outstanding">
-				<h5>ECOLOGICALLY OUTSTANDING AREAS</h5>
-
-				<p class="cmb2-textarea_small">
-					<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_outstanding', true );
-					echo esc_html( $the_field ); ?>
-				</p>
-			</section>
+			<h5>Ecologically Outstanding Areas</h5>
+			<p class="cmb2-textarea_small">
+				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_outstanding', true );
+				echo esc_html( $the_field ); ?>
+			</p>
 
 		</section>
 
