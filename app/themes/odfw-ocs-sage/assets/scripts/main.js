@@ -34,6 +34,15 @@
             selector: '[data-toggle="tooltip"]'
         });
 
+        //mobile menu navigation plugin
+        $('.main-ocs-navigation').slicknav({
+          easingOpen: 'linear',
+          label: '',
+          closeOnClick: "true",
+          appendTo: "header#header",
+          allowParentLinks: "true"
+        });
+
         /*
           toggling non-featured images added via media gallery
           '.image-container' wrapper added to all media via functions.php
@@ -78,6 +87,7 @@
         // BootStrap ToolTips
         $('[title]').tooltip();
 
+        $('.slicknav_nav').slicknav('toggle');
 	  }
 	},
 	'home': {

@@ -107,3 +107,13 @@ body {
         margin: auto;
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .compass.main { width: 100%; }
+}
+
+@media only screen and (max-width: 600px) {
+    .map-available { 
+        a.view-map, .compass { display: none; }
+    }
+}
