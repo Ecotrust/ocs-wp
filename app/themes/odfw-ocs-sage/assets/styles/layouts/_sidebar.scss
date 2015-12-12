@@ -304,6 +304,8 @@
 	display:none;
 	position: fixed;
 	width: 100%;
+	max-height: 100%;
+	overflow: hidden;
 	background-color: $greyDark;
 	z-index: 5;
 	margin-left: -15px; /*offset container-fluid*/
@@ -312,6 +314,9 @@
 		font-family: $headings-font-family-lighter;
 		font-weight: normal;
 		background-color: $grey;
+		overflow-y: scroll;
+		max-height: calc(90vh - 150px);
+		width: 100%;
 	}
 }
 

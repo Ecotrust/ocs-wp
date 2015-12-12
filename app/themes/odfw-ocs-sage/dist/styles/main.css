@@ -1834,8 +1834,8 @@ footer.content-info .draft-message{min-height:40px}
 .sub-page-navigation+.on-page-nav{border-top:1px solid #9fa0a2;padding-top:14px;margin-top:14px}
 .scroll-nav__heading{display:block}
 .scroll-nav.fixed{position:fixed;top:60px;width:inherit}
-.slicknav_menu{display:none;position:fixed;width:100%;background-color:#414041;z-index:5;margin-left:-15px}
-.slicknav_menu .slicknav_nav{font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;background-color:#58595B}
+.slicknav_menu{display:none;position:fixed;width:100%;max-height:100%;overflow:hidden;background-color:#414041;z-index:5;margin-left:-15px}
+.slicknav_menu .slicknav_nav{font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;background-color:#58595B;overflow-y:scroll;max-height:calc(90vh - 150px);width:100%}
 @media screen and (min-width:769px) and (max-width:900px){ul.main-ocs-navigation li>a{font-size:1.5vw}
 }
 @media screen and (max-width:768px){.content.row>aside.sidebar,.main-ocs-navigation{display:none}
