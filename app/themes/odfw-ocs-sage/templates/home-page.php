@@ -15,8 +15,12 @@
     	 ?>
     			<a href="<?php echo $url; ?>">
     				<div class="carousel-caption">
-    					<h3 class="carousel-headline"><?php echo esc_html($item['_home_headline']); ?></h3>
-    					<p class="carousel-subtext"><?php echo esc_html($item['_home_caption']); ?></p>
+                        <?php if ( !empty($item['_home_headline']) ) : ?>
+    					   <h3 class="carousel-headline"><?php echo esc_html($item['_home_headline']); ?></h3>
+                        <?php endif; ?> 
+                        <?php if ( !empty($item['_home_caption']) ) : ?>  
+    					   <p class="carousel-subtext"><?php echo esc_html($item['_home_caption']); ?></p>
+                        <?php endif; ?> 
     				</div>
 
     				<image src="<?php echo esc_html($item['_home_image']); ?>" />
