@@ -169,20 +169,41 @@
 		}
 
 		&.my-ocs {
-			background: $green url($nav-sprite) 0 -871px no-repeat;
-			//max-width: 66px;
+
+            background: $green url($nav-sprite) 0 -871px no-repeat;
             display: inline-block;
+            position: relative;
 			width: 66px;
 
 			&:hover {
-				background-image: none;
-                font-family: $body-font-bolder;
-                font-size: 14px;
-                font-weight: 700;
+                background-image: none;
 				color: #ffffff;
+                font-family: $body-font-bold;
+                font-size: 16px;
+                font-weight: 500;
+                letter-spacing: 0.03em;
 				text-indent: 0;
                 text-decoration: none;
+                text-transform: uppercase;
 			}
+
+            &:after {
+                // Hack to fade out the oregon icon on hover
+                // bgi on main element hidden on hover
+                background: transparent url($nav-sprite) 0 -871px no-repeat;
+                content: "";
+                opacity: 1;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                position: absolute;
+                transition: opacity 0.2s;
+                z-index: 0;
+            }
+            &:hover:after{
+                opacity: 0.5;
+            }
 		}
 	}
 }
