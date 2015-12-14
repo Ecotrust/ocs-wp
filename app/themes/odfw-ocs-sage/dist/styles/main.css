@@ -1636,11 +1636,11 @@ span.attr-name>a{color:#7FA797}
 body .compass,body .view-map{display:none}
 body main{display:block}
 body.map-visible main{display:none}
-body.map-visible .compass{display:block;position:relative}
+body.map-visible .compass{display:block;position:relative;padding-bottom:0}
 body.map-visible .view-map{background-position:0 -621px}
 body.map-available .view-map{display:block}
-.compass.main{min-height:0;height:calc(100vh - 138px);background-color:#fff}
-.compass-container,.compass-iframe,.compass-wrap{height:100%;width:100%}
+.compass.main{min-height:0;height:calc(95vh - 120px);background-color:#fff}
+.compass-container,.compass-iframe,.compass-wrap{height:99%;width:100%}
 .compass-container{position:absolute}
 .compass-wrap{position:relative;overflow:hidden}
 .compass-wrap>iframe{position:absolute;top:0;left:0}

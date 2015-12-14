@@ -12,6 +12,7 @@ body {
         .compass {
             display: block;
             position: relative;
+            padding-bottom: 0;
         }
 		.view-map {
 		    background-position: 0px -621px;
@@ -25,14 +26,14 @@ body {
 
 .compass.main {
     min-height: 0px;
-    height: calc(100vh - 138px);
+    height: calc(95vh - 120px);
     background-color: #fff;
 }
 
 .compass-container,
 .compass-wrap,
 .compass-iframe {
-    height: 100%;
+    height: 99%;
     width: 100%;
 }
 
