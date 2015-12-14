@@ -14,8 +14,9 @@ body {
             position: relative;
             padding-bottom: 0;
         }
-		.view-map {
-		    background-position: 0px -621px;
+		.view-switcher > .view-map {
+		    background-position: -61px -621px;
+            &:hover, &:active { background-position: 0px -621px; }
 		}
     }
 
@@ -26,7 +27,7 @@ body {
 
 .compass.main {
     min-height: 0px;
-    height: calc(95vh - 120px);
+    height: calc(98vh - 120px);
     background-color: #fff;
 }
 

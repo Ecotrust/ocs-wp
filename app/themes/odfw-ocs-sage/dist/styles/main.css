@@ -1637,9 +1637,10 @@ body .compass,body .view-map{display:none}
 body main{display:block}
 body.map-visible main{display:none}
 body.map-visible .compass{display:block;position:relative;padding-bottom:0}
-body.map-visible .view-map{background-position:0 -621px}
+body.map-visible .view-switcher>.view-map{background-position:-61px -621px}
+body.map-visible .view-switcher>.view-map:active,body.map-visible .view-switcher>.view-map:hover{background-position:0 -621px}
 body.map-available .view-map{display:block}
-.compass.main{min-height:0;height:calc(95vh - 120px);background-color:#fff}
+.compass.main{min-height:0;height:calc(98vh - 120px);background-color:#fff}
 .compass-container,.compass-iframe,.compass-wrap{height:99%;width:100%}
 .compass-container{position:absolute}
 .compass-wrap{position:relative;overflow:hidden}
@@ -1745,8 +1746,8 @@ a.control_prev{border-radius:0 2px 2px 0}
 .view-switcher a{background-color:#EFF7ED;border:none;display:inline-block;line-height:56px;text-align:center;display:none;line-height:62px;text-indent:-999em;width:66px}
 .view-switcher a:focus{outline:0}
 .view-switcher a.view-grid,.view-switcher a.view-list,.view-switcher a.view-map{background:#EFF7ED url(../images/icons-nav.png)}
-.view-switcher a.view-map{background-position:-55px -621px}
-.view-switcher a.view-map:active,.view-switcher a.view-map:hover{background-position:6px -621px}
+.view-switcher a.view-map{background-position:-61px -621px}
+.view-switcher a.view-map:active,.view-switcher a.view-map:hover{background-position:0 -621px}
 .view-switcher a.view-grid{background-position:-62px -680px}
 .grid-layout .view-switcher a.view-grid,.view-switcher a.view-grid:active,.view-switcher a.view-grid:hover{background-position:0 -680px}
 .view-switcher a.view-list{background-position:-62px -742px}
