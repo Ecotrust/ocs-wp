@@ -360,6 +360,27 @@ function setupCustomFields () {
 	 * COA
 	 */
 
+	add_action( 'cmb2_init', 'main_coa_compass_field' );
+	function main_coa_compass_field (  ) { 
+		$prefix = '_main_coa_';
+
+		$coa_main_cmb = new_cmb2_box( array(
+			'id'           => $prefix . 'compass',
+			'title'        => __( 'Compass', 'odfw' ),
+			'object_types' => array( 'page' ),
+			'show_on'      => array( 'key' => 'id', 'value' => 102 ),
+			'context'      => 'normal',
+			'priority'     => 'high',
+		) );
+
+		$coa_main_cmb->add_field( array(
+			'name' => __( 'Compass Link', 'odfw' ),
+			'id' => $prefix . 'compass-link',
+			'type' => 'textarea_small',
+			'desc' => get_compass_instructions()
+		));
+	}
+
 
 	add_action( 'cmb2_init', 'coa_metabox' );
 	function coa_metabox(  ) {
