@@ -22,9 +22,9 @@
 	  init: function() {
 		// JavaScript to be fired on all pages
 
-        if ($compass.length) {
-            $compass.insertAfter("main");
+        if ($compass.length || ($(".compass-coa"))) {
             OCS.$body.toggleClass('map-available');
+            if ($compass) $compass.insertAfter("main"); 
         }
 
 		OCS.listAndGridToggle();
@@ -107,8 +107,10 @@
     'conservation_opportunity_areas': {
 	  init: function() {
 		// JavaScript to be fired on COA pages
+        $('body').addClass('map-visible').removeClass('grid-layout');
 	  },
 	  finalize: function() {
+        OCS.findAvailableHeight();
 	  }
     },
     // pages with a sidebar
@@ -138,6 +140,16 @@
 		}
 	},
 
+    //fill rest of COA main page with Compass iframe
+    findAvailableHeight: function() {
+        var totalHeight = 0;
+        var viewHeight = $('main.main').height() - $('.draft-message').outerHeight() - $('header#header').height();
+        $('.entry-content > p').each(function() {
+            totalHeight += $(this).height();
+        });
+        $('.compass-coa').css('height', (viewHeight - totalHeight+'px'));
+    },
+
 	inlineReadMore: function(){
 		//$('span[id^="more"]').parent('p').nextAll('hide');
 
@@ -151,10 +163,16 @@
 			OCS.$body.addClass('grid-layout');
 		}
 		$('.view-grid').on('click', function() {
+            if ($('.compass-coa').length) {
+                OCS.$body.removeClass('map-visible'); 
+            }
 			OCS.$body.addClass('grid-layout').removeClass('list-layout');
 			return false;
 		});
 		$('.view-list').on('click', function() {
+            if ($('.compass-coa').length) {
+                OCS.$body.removeClass('map-visible'); 
+            }
 			OCS.$body.addClass('list-layout').removeClass('grid-layout');
 			return false;
 		});
