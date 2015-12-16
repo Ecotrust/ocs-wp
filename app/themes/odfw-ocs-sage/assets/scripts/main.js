@@ -142,12 +142,16 @@
 
     //fill rest of COA main page with Compass iframe
     findAvailableHeight: function() {
-        var totalHeight = 0;
-        var viewHeight = $('main.main').height() - $('.draft-message').outerHeight() - $('header#header').height();
-        $('.entry-content > p').each(function() {
-            totalHeight += $(this).height();
-        });
-        $('.compass-coa').css('height', (viewHeight - totalHeight+'px'));
+        if ($(window).height() <= 767) {
+            $('.compass-coa').css('height', 400 + 'px');
+        } else {
+            var totalHeight = 0;
+            var viewHeight = $('main.main').height() - $('.draft-message').outerHeight() - $('header#header').height();
+            $('.entry-content > p').each(function() {
+                totalHeight += $(this).height();
+            });
+            $('.compass-coa').css('height', (viewHeight - totalHeight+'px'));
+        }
     },
 
 	inlineReadMore: function(){

@@ -67,7 +67,7 @@ body {
     top: 25px;
     right: 15px;
     cursor: pointer;
-    z-index: 1000;
+    z-index: 1;
 
     > .glyphicon {
         font-size: 3.25em;
@@ -89,7 +89,7 @@ body {
     border: 1.5px solid $brand-primary;
     background-color: $off-white;
     padding: 6px;
-    z-index: 1000;
+    z-index: 1;
     -moz-box-shadow:    1.5px 1.5px 1px 1.5px $greyDark;
     -webkit-box-shadow: 1.5px 1.5px 1px 1.5px $greyDark;
     box-shadow:         1.5px 1.5px 1px 1.5px $greyDark;
@@ -148,7 +148,7 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-    .map-available { 
+    body.map-available, body.map-visible { 
         a.view-map, .compass { display: none; }
     }
 }

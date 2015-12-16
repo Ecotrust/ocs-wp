@@ -1648,10 +1648,10 @@ body.map-available .view-map{display:block}
 .compass-container{position:absolute}
 .compass-wrap{position:relative;overflow:hidden}
 .compass-wrap>iframe{position:absolute;top:0;left:0}
-.compass-close{position:absolute;top:25px;right:15px;cursor:pointer;z-index:1000}
+.compass-close{position:absolute;top:25px;right:15px;cursor:pointer;z-index:1}
 .compass-close>.glyphicon{font-size:3.25em;color:#58595B}
 .compass-close>.glyphicon:hover{color:#414041}
-.view-external-compass{position:absolute;height:50px;top:20px;right:75px;font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:18px;border:1.5px solid #005130;background-color:#f1f1f2;padding:6px;z-index:1000;-webkit-box-shadow:1.5px 1.5px 1px 1.5px #414041;box-shadow:1.5px 1.5px 1px 1.5px #414041}
+.view-external-compass{position:absolute;height:50px;top:20px;right:75px;font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:18px;border:1.5px solid #005130;background-color:#f1f1f2;padding:6px;z-index:1;-webkit-box-shadow:1.5px 1.5px 1px 1.5px #414041;box-shadow:1.5px 1.5px 1px 1.5px #414041}
 .view-external-compass:hover{background-color:#E6E7E8}
 .view-external-compass a{color:#414041;text-decoration:none}
 .view-external-compass span.compass-icon{background:url(../images/icons-nav.png) no-repeat;background-position:-78px -888px;padding-left:40px;line-height:35px;display:inline-block;margin:auto}
@@ -1662,7 +1662,7 @@ body.map-available .view-map{display:block}
 .compass-coa .view-external-compass span.compass-icon{background-position:-78px -890px;line-height:30px}
 @media only screen and (max-width:768px){.compass.main{width:100%}
 }
-@media only screen and (max-width:600px){.map-available .compass,.map-available a.view-map{display:none}
+@media only screen and (max-width:600px){body.map-available .compass,body.map-available a.view-map,body.map-visible .compass,body.map-visible a.view-map{display:none}
 }
 /*!
  * SlickNav Responsive Mobile Menu v1.0.6
@@ -1865,7 +1865,7 @@ main.main{width:100%}
 .has-sidebar.sidebar-visible main.main .main-content{width:100%}
 .has-sidebar.sidebar-visible main.main:after{content:none}
 }
-.draft-message{background-color:#EFF7ED;border-top:1px solid #C1E1BE;bottom:0;color:#111;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:11px;margin-left:-15px;margin-right:15px;min-height:67px;padding:10px;padding-left:18%;padding-top:15px;position:fixed;width:100%}
+.draft-message{background-color:#EFF7ED;border-top:1px solid #C1E1BE;bottom:0;color:#111;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:11px;margin-left:-15px;margin-right:15px;min-height:67px;padding:10px;padding-left:18%;padding-top:15px;position:fixed;width:100%;z-index:2}
 .draft-message strong{background-color:#005130;color:#fff;font-weight:400;letter-spacing:.07em;padding:1px 3px}
 .draft-message small{font-size:10px}
 @media only screen and (max-width:900px){.draft-message{text-align:center}
@@ -1888,7 +1888,7 @@ main.main{width:100%}
 .ecoregions .listings-wrap>article>div{height:390px}
 .ecoregions img#region-png-print{display:none}
 body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}
-body.page-id-102 section.post-102{display:none}
+body.page-id-102.map-visible section.post-102{display:none}
 .success-story{background:#eee;border:1px solid #ddd;clear:both;padding:5px 22px 22px}
 .coa-id{margin-top:20px}
 .coa-id .btn,.coa-id .comment-form input[type=submit],.comment-form .coa-id input[type=submit]{cursor:default}
