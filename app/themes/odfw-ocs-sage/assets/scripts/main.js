@@ -22,7 +22,7 @@
 	  init: function() {
 		// JavaScript to be fired on all pages
 
-        if ($compass.length || ($(".compass-coa"))) {
+        if ($compass.length || ($(".compass-coa").length)) {
             OCS.$body.toggleClass('map-available');
             if ($compass) $compass.insertAfter("main"); 
         }
