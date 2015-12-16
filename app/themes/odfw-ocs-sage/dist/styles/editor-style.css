@@ -1640,7 +1640,6 @@ body.map-visible .compass{display:block;position:relative;padding-bottom:0}
 body.map-visible .view-switcher>.view-map{background-position:-61px -621px}
 body.map-visible .view-switcher>.view-map:active,body.map-visible .view-switcher>.view-map:hover{background-position:0 -621px}
 body.map-visible.conservation-opportunity-areas main{display:block}
-body.map-visible.conservation-opportunity-areas section.post-102{display:none}
 body.map-visible.conservation-opportunity-areas .view-switcher>.view-map{background-position:0 -621px}
 body.map-visible.conservation-opportunity-areas .view-switcher>.view-map:active,body.map-visible.conservation-opportunity-areas .view-switcher>.view-map:hover{background-position:-61px -621px}
 body.map-available .view-map{display:block}
@@ -1889,6 +1888,7 @@ main.main{width:100%}
 .ecoregions .listings-wrap>article>div{height:390px}
 .ecoregions img#region-png-print{display:none}
 body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}
+body.page-id-102 section.post-102{display:none}
 .success-story{background:#eee;border:1px solid #ddd;clear:both;padding:5px 22px 22px}
 .coa-id{margin-top:20px}
 .coa-id .btn,.coa-id .comment-form input[type=submit],.comment-form .coa-id input[type=submit]{cursor:default}

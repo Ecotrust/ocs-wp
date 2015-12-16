@@ -22,7 +22,6 @@ body {
 
     &.map-visible.conservation-opportunity-areas { 
         main { display: block; }
-        section.post-102 { display: none;}
         .view-switcher > .view-map {
             background-position: 0px -621px;
             &:hover, &:active { background-position: -61px -621px; }
