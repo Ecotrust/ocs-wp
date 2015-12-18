@@ -18,7 +18,7 @@
                 <?php echo $caption; ?> 
             <?php endif; ?>
             <?php if ( !empty($attrName) ) : ?>
-                <?php echo $attrName; ?> 
+                Photo Credit: <?php echo $attrName; ?> 
             <?php endif; ?>
         </figcaption>
     </figure>
