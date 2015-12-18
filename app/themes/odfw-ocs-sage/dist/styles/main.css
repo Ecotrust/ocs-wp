@@ -1869,9 +1869,9 @@ main.main{width:100%}
 @media only screen and (max-width:900px){.draft-message{text-align:center}
 }
 .listings-wrap .grid-item{display:inline-block;max-width:325px;position:relative;vertical-align:top;width:33%}
-.listings-wrap .grid-item img{height:auto;width:100%}
+.listings-wrap .grid-item img{height:200px;width:100%}
 .listings-wrap .grid-item .cpt-title{font-family:HelveticaNeue-65Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:500;letter-spacing:0;margin:16px 0 11px 0}
-.listings-wrap .grid-item .cpt-title+p{margin-top:0}
+.listings-wrap .grid-item .cpt-title+p{margin-top:0;overflow:hidden}
 .listings-wrap .grid-item p{max-width:100%}
 .listings-wrap a{color:#111;display:block;font-family:HelveticaNeue-45Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;padding:14px}
 .listings-wrap a:hover{background-color:#eee;text-decoration:none}
@@ -1883,6 +1883,7 @@ main.main{width:100%}
 .list-layout .listings-wrap .grid-item a{overflow:hidden}
 .list-layout .listings-wrap .grid-item .image-grid-container{float:left;margin-right:10px;width:60px}
 .list-layout .listings-wrap .grid-item .cpt-title{margin-bottom:5px;margin-top:0}
+.list-layout .listings-wrap .image-grid-container>img{height:auto}
 .ecoregions .listings-wrap>article>div{height:390px}
 .ecoregions img#region-png-print{display:none}
 body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}

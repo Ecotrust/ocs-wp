@@ -11,7 +11,7 @@
 		width: 33%;
 
 		img {
-			height: auto;
+			height: 200px;
 			width: 100%;
 		}
 		.cpt-title {
@@ -21,6 +21,7 @@
 			margin: 16px 0 11px 0;
 			& + p {
 				margin-top: 0;
+				overflow: hidden;
 			}
 		}
 		p {
@@ -81,6 +82,7 @@
 
 
 		}
+		 .image-grid-container > img { height: auto;}
 
 	}
 }
