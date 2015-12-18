@@ -112,30 +112,37 @@ function setupCustomFields () {
 
 
 
+	/*
+	 *
+	 * kci
+	 *
+	 */
 
 
-
-
-
-	//add_action( 'cmb2_init', 'kci_metabox' );
-
+	add_action( 'cmb2_init', 'kci_metabox' );
 	function kci_metabox() {
 
-		$prefix = 'kci_';
+		$prefix = 'kci_meta_';
 
 		//goals and actions removed
 
+		$kci_cmb = new_cmb2_box( array(
+			'id'           => $prefix . 'kci',
+			'title'        => __( 'KCI Metadata', 'odfw' ),
+			'object_types' => array( 'kci' ),
+			'context'      => 'normal',
+			'priority'     => 'high',
+		) );
+
+		$kci_cmb->add_field( array(
+			'name' => __( 'Compass Link', 'odfw' ),
+			'id' => $prefix . 'compass-link',
+			'type' => 'textarea_small',
+			'desc' => get_compass_instructions()
+		));
+
 
 	}
-
-
-
-
-
-
-
-
-
 
 	/*
 	 *
