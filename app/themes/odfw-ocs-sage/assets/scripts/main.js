@@ -106,6 +106,15 @@
 
 	  }
 	},
+    'single_strategy_species': {
+      init: function() {
+        // JavaScript to be fired on the single species page
+
+      },
+      finalize: function() {
+        OCS.showSpeciesTypeSidebar();
+      }
+    },
     'conservation_opportunity_areas': {
 	  init: function() {
 		// JavaScript to be fired on COA pages
@@ -144,6 +153,41 @@
 
 		}
 	},
+
+    //show species type reference in sidebar on single-strategy-species pages
+    showSpeciesTypeSidebar: function() {
+        var speciesArray = ['amphibian', 'bird', 'mammal', 'reptile', 'fish', 'invertebrate', 'plant'];
+        for (var i=0; i<speciesArray.length; i++) {
+            var str = '.species-'+speciesArray[i];
+            if ($(str).length) {
+               switch(i) {
+                case 0:
+                    page = 'li.page-item-112';
+                    break;
+                case 1:
+                    page = 'li.page-item-110';
+                    break;
+                case 2:
+                    page = 'li.page-item-111';
+                    break;
+                case 3:
+                    page = 'li.page-item-113';
+                    break;
+                case 4:
+                    page = 'li.page-item-114';
+                    break;
+                case 5:
+                    page = 'li.page-item-115';
+                    break;
+                case 6:
+                    page = 'li.page-item-116';
+                    break;            
+                }
+                $(page).addClass('current_page_item');
+                $('.page-item-109').addClass('current_page_parent');
+            }
+        }
+    },
 
     //fill rest of COA main page with Compass iframe, with certain constraints
     findAvailableHeight: function(elm) {
