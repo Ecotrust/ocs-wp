@@ -38,9 +38,6 @@
 		?>
 
 		<div class="ecoregion-svg">
-			<span class="compass-close">
-			    <i class="glyphicon glyphicon-remove-circle"></i>
-			</span>
 			<img id="region-png" src="/media/ODFW_ecoregion_final_base.png"/>
 			<object id="regions" data="/media/ODFW_ecoregion_final_clean-2.svg" type="image/svg+xml"></object>
 		</div>

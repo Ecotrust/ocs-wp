@@ -15,16 +15,11 @@ body {
             padding-bottom: 0;
         }
 		.view-switcher > .view-map {
-		    background-position: -61px -621px;
-            &:hover, &:active { background-position: 0px -621px; }
-		}
-    }
-
-    &.map-visible.conservation-opportunity-areas { 
-        main { display: block; }
-        .view-switcher > .view-map {
-            background-position: 0px -621px;
+		    background-position: 0px -621px;
             &:hover, &:active { background-position: -61px -621px; }
+		}
+        &.conservation-opportunity-areas {
+            main {display: block;}
         }
     }
 

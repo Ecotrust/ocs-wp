@@ -1637,11 +1637,9 @@ body .compass,body .view-map{display:none}
 body main{display:block}
 body.map-visible main{display:none}
 body.map-visible .compass{display:block;position:relative;padding-bottom:0}
-body.map-visible .view-switcher>.view-map{background-position:-61px -621px}
-body.map-visible .view-switcher>.view-map:active,body.map-visible .view-switcher>.view-map:hover{background-position:0 -621px}
+body.map-visible .view-switcher>.view-map{background-position:0 -621px}
+body.map-visible .view-switcher>.view-map:active,body.map-visible .view-switcher>.view-map:hover{background-position:-61px -621px}
 body.map-visible.conservation-opportunity-areas main{display:block}
-body.map-visible.conservation-opportunity-areas .view-switcher>.view-map{background-position:0 -621px}
-body.map-visible.conservation-opportunity-areas .view-switcher>.view-map:active,body.map-visible.conservation-opportunity-areas .view-switcher>.view-map:hover{background-position:-61px -621px}
 body.map-available .view-map{display:block}
 .compass.main{min-height:0;height:calc(98vh - 120px);background-color:#fff}
 .compass-container,.compass-iframe,.compass-wrap{height:99%;width:100%}

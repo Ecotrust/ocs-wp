@@ -221,19 +221,25 @@
 			OCS.$body.addClass('grid-layout');
 		}
 		$('.view-grid').on('click', function() {
-            if ($('.compass-coa').length) {
+            if ($('.compass-coa') || $('.ecoregion-svg').length) {
                 OCS.$body.removeClass('map-visible'); 
             }
 			OCS.$body.addClass('grid-layout').removeClass('list-layout');
 			return false;
 		});
 		$('.view-list').on('click', function() {
-            if ($('.compass-coa').length) {
+            if ($('.compass-coa') || $('.ecoregion-svg').length) {
                 OCS.$body.removeClass('map-visible'); 
             }
 			OCS.$body.addClass('list-layout').removeClass('grid-layout');
 			return false;
 		});
+        $('.view-map').on('click', function() {
+            if ($('.compass-coa') || $('.ecoregion-svg').length) {
+                OCS.$body.removeClass('list-layout grid-layout'); 
+            }
+            return false;
+        });        
 	}
   };
 
