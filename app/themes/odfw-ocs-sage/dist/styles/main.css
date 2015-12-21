@@ -1708,7 +1708,7 @@ body.home.page main.main{height:90vh;padding:0;min-height:1px}
 .carousel-inner{width:100%;height:auto;margin-left:auto;margin-right:auto}
 .carousel-inner img.carousel-overlay{width:100%;height:auto;max-width:100%;background-color:transparent;position:relative;z-index:101;pointer-events:none}
 .carousel-inner .item{position:absolute;height:100%;width:100%;top:1px;bottom:1px;z-index:100}
-.carousel-inner .item a>img{display:block;max-width:100%;width:100%;max-height:98%;height:auto;margin-left:auto;margin-right:auto}
+.carousel-inner .item a>img{display:block;max-width:100%;width:100%;max-height:98%;height:98%;margin-left:auto;margin-right:auto}
 ol.carousel-indicators{padding:15px 0 15px 0;bottom:auto!important;z-index:0}
 ol.carousel-indicators li,ol.carousel-indicators li.active{height:12px;width:12px;border-radius:50%;border-color:#00371a;display:inline-block;margin:0 10px 0 0;padding:0;cursor:pointer}
 ol.carousel-indicators li{background-color:#D3E9D1}

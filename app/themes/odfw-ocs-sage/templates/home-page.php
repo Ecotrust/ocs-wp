@@ -1,7 +1,7 @@
 <?php
 	$the_items = get_post_meta( get_the_ID(), '_home_rotator_repeat_group', true );
 ?>
-<div class="carousel slide container-fluid" id="myCarousel">
+<div class="carousel slide container-fluid" id="myCarousel" data-ride="carousel">
     <a href="#myCarousel" class="control_next" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     </a>
