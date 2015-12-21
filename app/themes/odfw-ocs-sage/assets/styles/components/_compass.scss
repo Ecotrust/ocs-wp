@@ -15,9 +15,12 @@ body {
             padding-bottom: 0;
         }
 		.view-switcher > .view-map {
-		    background-position: -61px -621px;
-            &:hover, &:active { background-position: 0px -621px; }
+		    background-position: 0px -621px;
+            &:hover, &:active { background-position: -61px -621px; }
 		}
+        &.conservation-opportunity-areas {
+            main {display: block;}
+        }
     }
 
     &.map-available {
@@ -28,7 +31,7 @@ body {
 .compass.main {
     min-height: 0px;
     height: calc(98vh - 120px);
-    background-color: #fff;
+    background-color: #fff;   
 }
 
 .compass-container,
@@ -59,7 +62,7 @@ body {
     top: 25px;
     right: 15px;
     cursor: pointer;
-    z-index: 1000;
+    z-index: 1;
 
     > .glyphicon {
         font-size: 3.25em;
@@ -81,7 +84,7 @@ body {
     border: 1.5px solid $brand-primary;
     background-color: $off-white;
     padding: 6px;
-    z-index: 1000;
+    z-index: 1;
     -moz-box-shadow:    1.5px 1.5px 1px 1.5px $greyDark;
     -webkit-box-shadow: 1.5px 1.5px 1px 1.5px $greyDark;
     box-shadow:         1.5px 1.5px 1px 1.5px $greyDark;
@@ -110,12 +113,38 @@ body {
     }
 }
 
+.compass-coa { 
+    border: solid 1px; 
+    border-color: $greyDark;
+    margin-top: 15px;
+    width: 80%;
+    
+    .compass-close {
+        > .glyphicon { font-size: 3em };
+    }
+
+    .view-external-compass {
+        height: 40px;
+        right: 59px;
+        font-size: 13px;
+        padding: 2px;
+
+        a { padding: 2px; }
+
+        span.compass-icon {
+            background-position: -78px -890px;
+            line-height: 30px;
+        }
+    }
+    
+}
+
 @media only screen and (max-width: 768px) {
     .compass.main { width: 100%; }
 }
 
 @media only screen and (max-width: 600px) {
-    .map-available { 
+    body.map-available, body.map-visible { 
         a.view-map, .compass { display: none; }
     }
 }

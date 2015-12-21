@@ -1,7 +1,13 @@
 <?php
 	$the_items = get_post_meta( get_the_ID(), '_home_rotator_repeat_group', true );
 ?>
-<div class="carousel slide container-fluid" id="myCarousel">
+<div class="carousel slide container-fluid" id="myCarousel" data-ride="carousel">
+    <a href="#myCarousel" class="control_next" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    </a>
+    <a href="#myCarousel" class="control_prev" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    </a>
     <div class="carousel-wrapper">
         <div class="carousel-inner" role="listbox">
             <img class="carousel-overlay" src="app/themes/odfw-ocs-sage/dist/images/oregon.png"/>
@@ -31,12 +37,6 @@
     	<?php $i++;
     		endforeach; ?>
 
-          <a href="#myCarousel" class="control_next" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-          </a>
-          <a href="#myCarousel" class="control_prev" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-          </a>
         </div>
 
         <ol class="carousel-indicators">

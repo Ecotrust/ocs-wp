@@ -11,7 +11,6 @@
 		width: 33%;
 
 		img {
-			height: auto;
 			width: 100%;
 		}
 		.cpt-title {
@@ -21,6 +20,7 @@
 			margin: 16px 0 11px 0;
 			& + p {
 				margin-top: 0;
+				overflow: hidden;
 			}
 		}
 		p {
@@ -81,6 +81,7 @@
 
 
 		}
+		 .image-grid-container > img { height: auto;}
 
 	}
 }
@@ -95,6 +96,10 @@ body.page-id-109,
 body.page-id-112,
 body.ecoregions {
 	.listings-wrap { padding-top: 25px; }
+}
+
+body.page-id-102.map-visible {
+	section.post-102 { display: none;}
 }
 
 // Temporary. No style guide yet.

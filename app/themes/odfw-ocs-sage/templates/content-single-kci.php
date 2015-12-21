@@ -7,11 +7,6 @@
       <?php get_template_part('templates/featured-thumbnail'); ?>
       <?php the_content(); ?>
 
-	<?php $the_compass_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_compass-link', true );
-		if ( ! empty($the_compass_field) ): ?>
-			<?php the_odfw_compass_iframe($the_compass_field); ?>
-	<?php endif; ?>
-
 	<?php get_template_part('templates/content', 'success-story'); ?>
 
     </div>
@@ -19,3 +14,8 @@
   </article>
 
 <?php endwhile; ?>
+
+<?php $the_compass_field = get_post_meta( get_the_ID(), 'kci_meta_compass-link', true );
+  if ( ! empty($the_compass_field) ): ?>
+    <?php include(locate_template('templates/compass-view.php')); ?>
+<?php endif; ?>

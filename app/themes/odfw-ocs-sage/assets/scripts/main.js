@@ -22,9 +22,11 @@
 	  init: function() {
 		// JavaScript to be fired on all pages
 
-        if ($compass.length) {
-            $compass.insertAfter("main");
+        if ($compass.length || ($(".compass-coa").length)) {
             OCS.$body.toggleClass('map-available');
+            if ($compass) {
+                $compass.insertAfter("main");
+            } 
         }
 
 		OCS.listAndGridToggle();
@@ -104,11 +106,25 @@
 
 	  }
 	},
+    'single_strategy_species': {
+      init: function() {
+        // JavaScript to be fired on the single species page
+
+      },
+      finalize: function() {
+        OCS.showSpeciesTypeSidebar();
+      }
+    },
     'conservation_opportunity_areas': {
 	  init: function() {
 		// JavaScript to be fired on COA pages
+        if ($('body.page-id-102').length) {
+            $('body').addClass('map-visible').removeClass('grid-layout');
+        }
 	  },
 	  finalize: function() {
+        var $coaCompass = $('.compass-coa');
+        OCS.findAvailableHeight($coaCompass);
 	  }
     },
     // pages with a sidebar
@@ -138,6 +154,60 @@
 		}
 	},
 
+    //show species type reference in sidebar on single-strategy-species pages
+    showSpeciesTypeSidebar: function() {
+        var speciesArray = ['amphibian', 'bird', 'mammal', 'reptile', 'fish', 'invertebrate', 'plant'];
+        for (var i=0; i<speciesArray.length; i++) {
+            var str = '.species-'+speciesArray[i];
+            if ($(str).length) {
+               switch(i) {
+                case 0:
+                    page = 'li.page-item-112';
+                    break;
+                case 1:
+                    page = 'li.page-item-110';
+                    break;
+                case 2:
+                    page = 'li.page-item-111';
+                    break;
+                case 3:
+                    page = 'li.page-item-113';
+                    break;
+                case 4:
+                    page = 'li.page-item-114';
+                    break;
+                case 5:
+                    page = 'li.page-item-115';
+                    break;
+                case 6:
+                    page = 'li.page-item-116';
+                    break;            
+                }
+                $(page).addClass('current_page_item');
+                $('.page-item-109').addClass('current_page_parent');
+            }
+        }
+    },
+
+    //fill rest of COA main page with Compass iframe, with certain constraints
+    findAvailableHeight: function(elm) {
+        if ($(window).height() <= 767) {
+            elm.css('height', 400 + 'px');
+        } else {
+            var entryContentHeight = 0;
+            var viewHeight = $('main.main').height() - $('.draft-message').outerHeight() - $('header#header').height();
+            $('.entry-content > p').each(function() {
+                entryContentHeight += $(this).height();
+            });
+            var availableHeight = (viewHeight - entryContentHeight);
+            if (availableHeight < 400) {
+                elm.css('height', 400+'px');
+            } else {
+                elm.css('height', (availableHeight+'px'));
+            }
+        }
+    },
+
 	inlineReadMore: function(){
 		//$('span[id^="more"]').parent('p').nextAll('hide');
 
@@ -151,13 +221,25 @@
 			OCS.$body.addClass('grid-layout');
 		}
 		$('.view-grid').on('click', function() {
+            if ($('.compass-coa') || $('.ecoregion-svg').length) {
+                OCS.$body.removeClass('map-visible'); 
+            }
 			OCS.$body.addClass('grid-layout').removeClass('list-layout');
 			return false;
 		});
 		$('.view-list').on('click', function() {
+            if ($('.compass-coa') || $('.ecoregion-svg').length) {
+                OCS.$body.removeClass('map-visible'); 
+            }
 			OCS.$body.addClass('list-layout').removeClass('grid-layout');
 			return false;
 		});
+        $('.view-map').on('click', function() {
+            if ($('.compass-coa') || $('.ecoregion-svg').length) {
+                OCS.$body.removeClass('list-layout grid-layout'); 
+            }
+            return false;
+        });        
 	}
   };
 
