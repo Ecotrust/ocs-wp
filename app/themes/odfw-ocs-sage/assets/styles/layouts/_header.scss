@@ -249,7 +249,7 @@ wordpress admin toolbar switches to mobile @ 782px
 and is apparently not fixed(?) @ 600px
 */
 @media only screen and (min-width: 601px) and (max-width: 782px) {
-	.admin-bar #header { top: 14px; } 
+	.admin-bar #header { top: 14px; }
 }
 
 /*search-box.js has a height constraint at 767px*/
@@ -271,14 +271,14 @@ and is apparently not fixed(?) @ 600px
 			width: 100%;
 		}
 
-		.header-inner { 
+		.header-inner {
 			margin-left: 0;
-			width: 100%; 
+			width: 100%;
 
 		}
 	}
 
-	footer.content-info { 
+	footer.content-info {
 		.draft-message { min-height: 40px; }
 	}
 }

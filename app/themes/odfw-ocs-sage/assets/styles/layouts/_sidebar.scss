@@ -36,15 +36,14 @@
 
 			// generate sprite positions
 			@for $i from 0 through 9 {
-				>li:nth-child(#{$i+1}) > a:before
+				>li:nth-child(#{$i+1}) > a:before,
 				{
 					background: url($nav-sprite) 0 $i*-62px no-repeat;
 				}
-				//>li:nth-child(#{$i+1}) > a:hover:before,
-				/*>li:nth-child(#{$i+1}).active > a:before,*/
-				>li:nth-child(#{$i+1}).current_page_item > a:before,
-				>li:nth-child(#{$i+1}).current_page_parent > a:before,
-				>li:nth-child(#{$i+1}).current_page_ancestor > a:before
+				>li:nth-child(#{$i+1}).active > a:before,
+				>li:nth-child(#{$i+1}).current-menu-item > a:before,
+				>li:nth-child(#{$i+1}).current-menu-parent > a:before,
+				>li:nth-child(#{$i+1}).current-menu-ancestor > a:before
 				{
 					background: url($nav-sprite) -62px $i*-62px no-repeat;
 				}
@@ -56,98 +55,7 @@
 				min-height: 60px;
 				width: 100%;
 
-				//
-				// Sub-Pages
-				//
-				> ul, > ul ul {
-					display: none;
-					background-color: $greyLighter;
-						> li {
-							/*margin: 3px -15px;*/
 
-							> a {
-								color: $greyDark;
-								font-family: $headings-font-family-lighter;
-								font-weight: normal;
-								/*padding: 10px $sidebarPadding;*/
-								padding: 10px 7px 10px 18px;
-							}
-							&:hover > a { //put the :hover on the LI so it stays highlighted when in sub menu flyouts
-								background-color: mix($grey, $greyLighter);
-								color: mix($greyDark, #000000);
-								text-decoration: none;
-							}
-							/*&.current_page_parent > a,*/
-							/*&.current_page_ancestor > a, {*/
-							&.current_page_item > a {
-								background-color: #fff;
-								border-left: 16px solid #d6d7d8;
-								color: mix($greyDark, #000000);
-								text-decoration: none;
-							}
-						}
-				}
-				> ul.children ul.children {
-					a { padding-left: 30px; font-size: 12px; }
-				}
-				// Show it
-				&.current_page_item,
-				&.current_page_parent,
-				&.current_page_ancestor {
-					> ul, > ul ul {
-						display: table-row;
-					}
-				}
-				// Show it on hover
-				// But not if it's already open.
-				&.page_item_has_children:not(.current_page_item):not(.current_page_parent):not(.current_page_ancestor):hover {
-					position: relative;
-
-					ul {
-						background-color: $greyDark;
-						display: block;
-						position: absolute;
-						left: 100%;
-						top: 1px;
-						width: 250px;
-						z-index: 1111;
-
-						// SUB SUB nav, ONS mostly
-						> .page_item_has_children {
-
-							> a:after {
-								content: "»";
-								font-family: serif;
-								font-size: 17px;
-								font-weight: normal;
-								position: absolute;
-								right: 6px;
-								top: 8px;
-							}
-							> ul { display: none;}
-							&:hover > ul { display: block;}
-							.children a { padding-left: 18px; font-size: 14px; }
-
-
-						}
-
-						a {
-							color: #ffffff;
-						}
-					}
-				}
-
-				&.current_page_item > a,
-				&.current_page_parent > a,
-				&.current_page_ancestor > a,
-				// make sure we don't go dark on hover
-				&.current_page_item:hover > a,
-				&.current_page_parent:hover > a,
-				&.current_page_ancestor:hover > a,
-				&.active > a {
-					background-color: #fff;
-					color: #000000;
-				}
 				&:hover > a { //put the :hover on the LI so it stays highlighted when in sub menu flyouts
 					background-color: darken($greyDark, 10%);
 					text-decoration: none;
@@ -171,6 +79,113 @@
 					top: -4px;
 					width: 62px;
 				}
+
+				// WP seems to be waffling on - and _. Late night says, "just add both"
+				&.current-menu-item > a,
+				&.current-menu-parent > a,
+				&.current-menu-ancestor > a,
+				&.current_menu_parent > a,
+				&.current_menu_ancestor > a,
+				// make sure we don't go dark on hover
+				&.active:hover > a,
+				&.current-menu-item:hover > a,
+				&.current-menu-parent:hover > a,
+				&.current-menu-ancestor:hover > a,
+				&.active > a {
+					background-color: #fff;
+					color: #000000;
+				}
+
+				//
+				// Sub-menus
+				//
+				> ul, > ul ul {
+					display: none;
+					background-color: $greyLighter;
+						> li {
+							/*margin: 3px -15px;*/
+
+							> a {
+								color: $greyDark;
+								font-family: $headings-font-family-lighter;
+								font-weight: normal;
+								/*padding: 10px $sidebarPadding;*/
+								padding: 10px 7px 10px 18px;
+							}
+							&:hover > a { //put the :hover on the LI so it stays highlighted when in sub menu flyouts
+								background-color: mix($grey, $greyLighter);
+								color: mix($greyDark, #000000);
+								text-decoration: none;
+							}
+							// Active submenu item
+							/*&.current_menu_ancestor > a, {*/
+							&.current-menu-item > a,
+							&.current-menu-parent > a,
+							&.active > a {
+								background-color: #fff;
+								border-left: 16px solid #d6d7d8;
+								color: mix($greyDark, #000000);
+								text-decoration: none;
+							}
+						}
+				}
+				> ul.children ul.children {
+					a { padding-left: 30px; font-size: 12px; }
+				}
+
+				// Show the submenu if...
+				// WP is being really inconsistent with the class output
+				&.active,
+				/*&.current_page_item,*/
+				/*&.current_page_parent,*/
+				/*&.current_page_ancestor*/
+				&.current-menu-item,
+				&.current-menu-parent,
+				&.current-menu-ancestor {
+					> ul, > ul ul {
+						display: table-row;
+					}
+				}
+				// Show the submenu as a flyout on hover
+				// But not if it's already open.
+				&.menu-item-has-children:not(.active):not(.current-menu-item):not(.current-menu-parent):not(.current-menu-ancestor):hover {
+					position: relative;
+
+					ul {
+						background-color: $greyDark;
+						display: block;
+						position: absolute;
+						left: 100%;
+						top: 1px;
+						width: 250px;
+						z-index: 1111;
+
+						// SUB SUB nav, ONS mostly
+						> .menu-item-has-children {
+
+							> a:after {
+								content: "»";
+								font-family: serif;
+								font-size: 17px;
+								font-weight: normal;
+								position: absolute;
+								right: 6px;
+								top: 8px;
+							}
+							> ul { display: none;}
+							&:hover > ul { display: block;}
+							.children a { padding-left: 18px; font-size: 14px; }
+
+
+						}
+
+						a {
+							color: #ffffff;
+						}
+					}
+				}
+
+
 
 			}
 
@@ -217,6 +232,11 @@
 				font-size: 14px;
 			}
 			.active .sub-menu { display: table-row; }
+
+			.active a {
+				background-color: $greyLight;
+			}
+
 		}
 
 		/*
@@ -245,9 +265,6 @@
 
 
 
-	.active a {
-		background-color: $greyLight;
-	}
 
 	> .brand {
 		background-color: $greenDark;
@@ -322,8 +339,8 @@
 
 /*main-ocs-nav font becomes to large for left panel*/
 @media screen and (min-width: 769px) and (max-width: 900px) {
-	ul.main-ocs-navigation { 
-		li > a { font-size: 1.5vw; } 
+	ul.main-ocs-navigation {
+		li > a { font-size: 1.5vw; }
 	}
 }
 
@@ -339,8 +356,8 @@
 }
 
 @media only screen and (min-width: 601px) and (max-width: 768px) {
-	.has-sidebar.sidebar-visible { 
-		main.main { 
+	.has-sidebar.sidebar-visible {
+		main.main {
 			.main-content { width: 75%;}
 			&:after { content: ""; }
 		}
@@ -353,7 +370,7 @@
 		}
 	}
 
-	
+
 }
 
 @media screen and (max-width: 600px) {
