@@ -26,7 +26,7 @@
             OCS.$body.toggleClass('map-available');
             if ($compass) {
                 $compass.insertAfter("main");
-            } 
+            }
         }
 
 		OCS.listAndGridToggle();
@@ -112,7 +112,7 @@
 
       },
       finalize: function() {
-        OCS.showSpeciesTypeSidebar();
+        //OCS.showSpeciesTypeSidebar();
       }
     },
     'conservation_opportunity_areas': {
@@ -181,7 +181,7 @@
                     break;
                 case 6:
                     page = 'li.page-item-116';
-                    break;            
+                    break;
                 }
                 $(page).addClass('current_page_item');
                 $('.page-item-109').addClass('current_page_parent');
@@ -222,24 +222,24 @@
 		}
 		$('.view-grid').on('click', function() {
             if ($('.compass-coa') || $('.ecoregion-svg').length) {
-                OCS.$body.removeClass('map-visible'); 
+                OCS.$body.removeClass('map-visible');
             }
 			OCS.$body.addClass('grid-layout').removeClass('list-layout');
 			return false;
 		});
 		$('.view-list').on('click', function() {
             if ($('.compass-coa') || $('.ecoregion-svg').length) {
-                OCS.$body.removeClass('map-visible'); 
+                OCS.$body.removeClass('map-visible');
             }
 			OCS.$body.addClass('list-layout').removeClass('grid-layout');
 			return false;
 		});
         $('.view-map').on('click', function() {
             if ($('.compass-coa') || $('.ecoregion-svg').length) {
-                OCS.$body.removeClass('list-layout grid-layout'); 
+                OCS.$body.removeClass('list-layout grid-layout');
             }
             return false;
-        });        
+        });
 	}
   };
 

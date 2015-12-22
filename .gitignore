@@ -3,6 +3,7 @@
 sitemap.xml
 sitemap.xml.gz
 node_modules
+data/local
 
 
 

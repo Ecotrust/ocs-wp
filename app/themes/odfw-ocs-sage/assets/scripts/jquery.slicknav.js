@@ -81,7 +81,7 @@
                 $(e).removeAttr('class');
             });
         }
-        
+
         // remove styles if set
         if (settings.removeStyles) {
             $this.mobileNav.removeAttr('style');
@@ -97,7 +97,7 @@
             iconClass += ' ' + prefix + '_no-text';
         }
 
-        if (settings.parentTag == 'a') {
+        if (settings.parentTag === 'a') {
             settings.parentTag = 'a href="#"';
         }
 
@@ -165,8 +165,9 @@
                 if ((!settings.allowParentLinks || settings.nestedParentLinks) || !containsAnchor) {
                     var $wrap = $(nodes).wrapAll(wrapElement).parent();
                     $wrap.addClass(prefix+'_row');
-                } else
+                } else {
                     $(nodes).wrapAll('<span class="'+prefix+'_parent-link '+prefix+'_row"/>').parent();
+				}
 
                 if (!settings.showChildren) {
                     item.addClass(prefix+'_collapsed');
@@ -179,8 +180,9 @@
                 // create parent arrow. wrap with link if parent links and separating
                 var arrowElement = $('<span class="'+prefix+'_arrow">'+(settings.showChildren?settings.openedSymbol:settings.closedSymbol)+'</span>');
 
-                if (settings.allowParentLinks && !settings.nestedParentLinks && containsAnchor)
+                if (settings.allowParentLinks && !settings.nestedParentLinks && containsAnchor) {
                     arrowElement = arrowElement.wrap(wrapElement).parent();
+				}
 
                 //append arrow
                 $(nodes).last().after(arrowElement);
@@ -251,7 +253,7 @@
         // check for enter key on menu button and menu parents
         $($this.btn).keydown(function (e) {
             var ev = e || event;
-            if(ev.keyCode == 13) {
+            if(ev.keyCode === 13) {
                 e.preventDefault();
                 $this._menuToggle();
             }
@@ -259,7 +261,7 @@
 
         $this.mobileNav.on('keydown', '.'+prefix+'_item', function(e) {
             var ev = e || event;
-            if(ev.keyCode == 13) {
+            if(ev.keyCode === 13) {
                 e.preventDefault();
                 $this._itemClick($(e.target));
             }
@@ -369,9 +371,9 @@
                 $(parent).removeClass(prefix+'_animating');
 
                 //Fire init or afterClose callback
-                if (!init){
+                if (!init) {
                     settings.afterClose(trigger);
-                } else if (trigger == 'init'){
+                } else if (trigger === 'init'){
                     settings.init();
                 }
             });
