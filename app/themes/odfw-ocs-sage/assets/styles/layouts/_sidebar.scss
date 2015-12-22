@@ -148,7 +148,8 @@
 				}
 				// Show the submenu as a flyout on hover
 				// But not if it's already open.
-				&.menu-item-has-children:not(.active):not(.current-menu-item):not(.current-menu-parent):not(.current-menu-ancestor):hover {
+				// not(.active):
+				&.menu-item-has-children:not(.current-menu-item):not(.current-menu-parent):not(.current-menu-ancestor):hover {
 					position: relative;
 
 					ul {
@@ -164,7 +165,7 @@
 						> .menu-item-has-children {
 
 							> a:after {
-								content: "»";
+								content: "»»";
 								font-family: serif;
 								font-size: 17px;
 								font-weight: normal;
