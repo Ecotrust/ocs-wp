@@ -84,6 +84,13 @@ class UpdraftPlus_S3
 		self::$useSSL = $useSSL;
 		self::$sslCACert = $sslCACert;
 		if (!empty($endpoint)) self::$endpoint = $endpoint;
+
+		if (!function_exists('curl_init')) {
+			global $updraftplus;
+			$updraftplus->log('The PHP cURL extension must be installed and enabled to use this remote storage method');
+			throw new Exception('The PHP cURL extension must be installed and enabled to use this remote storage method');
+		}
+
 	}
 
 
@@ -2007,7 +2014,6 @@ final class UpdraftPlus_S3Request
 
 		//var_dump('bucket: ' . $this->bucket, 'uri: ' . $this->uri, 'resource: ' . $this->resource, 'url: ' . $url);
 
-		// Basic setup
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_USERAGENT, 'S3/php');
 

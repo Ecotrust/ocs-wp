@@ -4,7 +4,7 @@ Plugin Name: UpdraftPlus - Backup/Restore
 Plugin URI: https://updraftplus.com
 Description: Backup and restore: take backups locally, or backup to Amazon S3, Dropbox, Google Drive, Rackspace, (S)FTP, WebDAV & email, on automatic schedules.
 Author: UpdraftPlus.Com, DavidAnderson
-Version: 1.11.18
+Version: 1.11.20
 Donate link: http://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
 Text Domain: updraftplus
@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 if (!defined('ABSPATH')) die('No direct access allowed');
+
+if ((isset($updraftplus) && is_object($updraftplus) && is_a($updraftplus, 'UpdraftPlus')) || function_exists('updraftplus_modify_cron_schedules')) return;
 
 define('UPDRAFTPLUS_DIR', dirname(__FILE__));
 define('UPDRAFTPLUS_URL', plugins_url('', __FILE__));
@@ -81,6 +83,7 @@ if (!defined('UPDRAFTPLUS_BINZIP_OPTS')) {
 // Load add-ons and files that may or may not be present, depending on where the plugin was distributed
 if (is_file(UPDRAFTPLUS_DIR.'/autoload.php')) require_once(UPDRAFTPLUS_DIR.'/autoload.php');
 
+if (!function_exists('updraftplus_modify_cron_schedules')):
 // wp-cron only has hourly, daily and twicedaily, so we need to add some of our own
 function updraftplus_modify_cron_schedules($schedules) {
 	$schedules['weekly'] = array('interval' => 604800, 'display' => 'Once Weekly');
@@ -90,6 +93,7 @@ function updraftplus_modify_cron_schedules($schedules) {
 	$schedules['every8hours'] = array('interval' => 28800, 'display' => sprintf(__('Every %s hours', 'updraftplus'), 8));
 	return $schedules;
 }
+endif;
 // http://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules. Raised priority because some plugins wrongly over-write all prior schedule changes (including BackupBuddy!)
 add_filter('cron_schedules', 'updraftplus_modify_cron_schedules', 30);
 
@@ -161,6 +165,13 @@ if (!file_exists(UPDRAFTPLUS_DIR.'/class-updraftplus.php') || !file_exists(UPDRA
 		}
 	}
 
+}
+
+# Ubuntu bug - https://bugs.launchpad.net/ubuntu/+source/php5/+bug/1315888
+if (!function_exists('gzopen') && function_exists('gzopen64')) {
+	function gzopen($filename , $mode, $use_include_path = 0 ) { 
+		return gzopen64($filename, $mode, $use_include_path);
+	}
 }
 
 // Do this even if the missing files detection above fired, as the "missing files" detection above has a greater chance of showing the user useful info

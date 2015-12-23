@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, lcahill
 Tags: backup, backups, restore, amazon backup, s3 backup, dropbox backup, google drive backup, rackspace cloud files, rackspace backup, dreamhost, dreamobjects backup, ftp backup, webdav backup, google cloud storage, onedrive, microsoft one drive, microsoft azure, azure, back up, multisite, restoration, sftp backup, ftps, scp backup, migrate, duplicate, copy, mysql backup, database backup, db backups, website backup, wordpress backup, full backup, openstack backup, sicherung
 Requires at least: 3.2
 Tested up to: 4.4
-Stable tag: 1.11.18
+Stable tag: 1.11.20
 Author URI: https://updraftplus.com
 Donate link: http://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -16,7 +16,7 @@ Backup and restoration made easy. Complete backups; manual or scheduled (backup 
 
 <strong>Top-quality:</strong> UpdraftPlus is the <a href="http://rankwp.com/plugins/updraftplus">highest-ranking backup plugin on wordpress.org</a> (ranks in the top 40 out of over 30,000 WordPress plugins for quality on rankwp.com).
 
-<strong>Over 600,000 currently active installs:</strong> widely tested and reliable (over 3.4 million downloads). The #1 most installed scheduled backup plugin, according to wordpress.org. Many millions of backups completed!
+<strong>Over 600,000 currently active installs:</strong> widely tested and reliable (over 3.6 million downloads). The #1 most installed scheduled backup plugin, according to wordpress.org. Many millions of backups completed!
 
 * Supports WordPress backups to UpdraftPlus Vault, Amazon S3 (or compatible), Dropbox, Rackspace Cloud Files, Google Drive, Google Cloud Storage, DreamHost DreamObjects, FTP, OpenStack (Swift) and email. Also (via a paid add-on) backup to Microsoft OneDrive, Microsoft Azure, Google Cloud Storage, Copy.Com, FTP over SSL, SFTP, SCP, and WebDAV (and compatible services, e.g. Yandex, Cubby, OwnCloud). Examples of S3-compatible providers: Cloudian, Connectria, Constant, Eucalyptus, Nifty, Nimbula, Cloudn.
 * Quick restore (both file and database backups)
@@ -118,7 +118,33 @@ Thanks for asking; yes, we've got a few. Check out this profile page - https://p
 
 The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
 
-N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.11.18 of the free version correspond to changes made in 2.11.18.x of the paid version.
+N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.11.20 of the free version correspond to changes made in 2.11.20.x of the paid version.
+
+= 1.11.20 - 21/Dec/2015 =
+
+* FEATURE: WordPress multisite backup administrators can now selectively restore data from a chosen site, instead of restoring the entire WordPress install - https://updraftplus.com/selectively-restoring-on-wordpress-multisite/ (requires WP 3.5+, UpdraftPlus Premium)
+* FEATURE: Import a WordPress single-site backup into WordPress multisite, as a new site (requires WP 3.5+, UpdraftPlus Premium) - https://updraftplus.com/information-on-importing-a-single-site-wordpress-backup-into-a-wordpress-network-i-e-multisite/
+* FIX: Properly encode folder paths with Copy.Com, allowing some previously prevented folder names to work
+* FIX: In-dashboard decryption using some decryption keys with URL-encodable characters failed
+* FIX: Prevent PHP fatal error on settings page on a buggy old PHP version (5.2.10) when Google Cloud storage add-on not present
+* FIX: When using multiple remote storage providers, a race condition could lead to some old backups not being deleted on the storage not uploaded to last
+* FIX: Views are now placed after tables in the database backup
+* FIX: In-page uploader widget was not working on sub-domain based multisites in some dashboard access scenarios
+* FIX: Package Net/URL2 (PEAR), so that servers without it already can use Microsoft Azure blob storage
+* TWEAK: Upgrade Microsoft OneDrive API usage to latest version
+* TWEAK: Automatic backups are now hooked into the themes page in the network admin on WP multisite installs
+* TWEAK: Dashboard messages were not being clearly shown when trying to use UpdraftPlus Vault without PHP Curl available
+* TWEAK: Protect against other plugins loading incompatible Google SDKs when Google Cloud is being used
+* TWEAK: When trying to use S3, DreamObjects or UpdraftPlus Vault without PHP Curl available, make the cause of the problem more obvious
+* TWEAK: When sending data to remote site, keep re-trying on receipt of an HTTP 413 (request entity too large) down to 64Kb (instead of previous 128Kb) - a webserver was seen in the wild configured at this level
+* TWEAK: Detect the WordPress scheduler invoking a scheduled backup multiple times, in some cases where the existing semaphore lock wasn't helping (because the backup already finished, or the WP scheduler invoked multiple instances of the same event minutes apart - apparently possible when very heavily overloaded)
+* TWEAK: Detect an inconsistent semaphore locking state, and fix it (apparently only possible upon unexpected server crash)
+* TWEAK: Provide a button to cancel (not just continue) an interrupted restore
+* TWEAK: Work around buggy Ubuntu PHP versions - https://bugs.launchpad.net/ubuntu/+source/php5/+bug/1315888
+* TWEAK: Make sure that backup options get passed on with continuation data, when resuming an interrupted restore
+* TWEAK: Catch a few untranslated strings (in the decryptor widget for encrypted backups)
+* TWEAK: Log more information if a connection to UpdraftPlus Vault fails
+* TWEAK: The internal info shown when triple-clicking a backup set's date had messed-up formatting
 
 = 1.11.18 - 25/Nov/2015 =
 
@@ -1696,4 +1722,4 @@ We recognise and thank the following for code and/or libraries used and/or modif
 
 
 == Upgrade Notice ==
-* 1.11.18: Easier resumption of restores, "Backup Now" usability improvements, more exclusion options, (Premium) Microsoft Azure Blob storage support, various tweaks + fixes
+* 1.11.20: Various tweaks and fixes, plus new multisite-related features in UpdraftPlus Premium

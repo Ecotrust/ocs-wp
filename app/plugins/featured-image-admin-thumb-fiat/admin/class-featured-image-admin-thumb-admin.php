@@ -59,15 +59,6 @@ class Featured_Image_Admin_Thumb_Admin {
 	private function __construct() {
 
 		/*
-		 * @TODO :
-		 *
-		 * - Uncomment following lines if the admin class should only be available for super admins
-		 */
-		/* if( ! is_super_admin() ) {
-			return;
-		} */
-
-		/*
 		 * Call $plugin_slug from public plugin class.
 		 *
 		 */
@@ -78,14 +69,6 @@ class Featured_Image_Admin_Thumb_Admin {
 		// Load admin style sheet and JavaScript.
 		add_action( 'admin_enqueue_scripts',        array( $this, 'enqueue_admin_styles' ) );
 		add_action( 'admin_enqueue_scripts',        array( $this, 'enqueue_admin_scripts' ) );
-
-		/* These setting for an options page are not used at present in this plugin */
-		// Add the options page and menu item.
-//		add_action( 'admin_menu',                   array( $this, 'add_plugin_admin_menu' ) );
-
-		// Add an action link pointing to the options page.
-//		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_slug . '.php' );
-//		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
 		add_image_size( $this->fiat_image_size , 60  );
 
@@ -129,15 +112,6 @@ class Featured_Image_Admin_Thumb_Admin {
 	 * @return    object    A single instance of this class.
 	 */
 	public static function get_instance() {
-
-		/*
-		 * @TODO :
-		 *
-		 * - Uncomment following lines if the admin class should only be available for super admins
-		 */
-		/* if( ! is_super_admin() ) {
-			return;
-		} */
 
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
@@ -197,26 +171,17 @@ class Featured_Image_Admin_Thumb_Admin {
 			$this->plugin_slug . '-admin-script-thumbnail',
 				plugins_url( 'assets/js/admin-thumbnail.js', __FILE__ ),
 			array( 'post' ), Featured_Image_Admin_Thumb::VERSION, true );
-
+			wp_localize_script(
+				$this->plugin_slug . '-admin-script-thumbnail',
+				'fiat_thumb',
+				array(
+					'button_text' => __( 'Use as thumbnail', 'featured-image-admin-thumb-fiat' ),
+					'change_featured_image' => __( 'Change featured image', 'featured-image-admin-thumb-fiat' )
+				)
+			);
 		}
 	}
 
-	/**
-	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
-	 *
-	 * @since    1.0.0
-	 */
-	public function add_plugin_admin_menu() {
-
-		/*
-		 * Add a settings page for this plugin to the Settings menu.
-		 *
-		 * NOTE:  Alternative menu locations are available via WordPress administration menu functions.
-		 *
-		 *        Administration Menus: http://codex.wordpress.org/Administration_Menus
-		 */
-
-	}
 	/**
 	 * Render the settings page for this plugin.
 	 *
@@ -224,22 +189,6 @@ class Featured_Image_Admin_Thumb_Admin {
 	 */
 	public function display_plugin_admin_page() {
 		include_once( 'views/admin.php' );
-	}
-
-	/**
-	 * Add settings action link to the plugins page.
-	 *
-	 * @since    1.0.0
-	 */
-	public function add_action_links( $links ) {
-
-		return array_merge(
-			array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
-			),
-			$links
-		);
-
 	}
 
 	/**
@@ -327,7 +276,7 @@ class Featured_Image_Admin_Thumb_Admin {
 					}
 					// Here it is!
 					$this->fiat_nonce = wp_create_nonce( 'set_post_thumbnail-' . $post_id );
-					$template_html = '<a title="Change featured image" href="%1$s" id="set-post-thumbnail" class="fiat_thickbox" data-thumbnail-id="%3$d">%2$s<span class="genericon genericon-edit fiat-icon"></span></a>';
+					$template_html = '<a title="' . __( 'Change featured image', 'featured-image-admin-thumb-fiat' ) . '" href="%1$s" id="set-post-thumbnail" class="fiat_thickbox" data-thumbnail-id="%3$d">%2$s<span class="genericon genericon-edit fiat-icon"></span></a>';
 					$html = sprintf( $template_html,
 						home_url() . '/wp-admin/media-upload.php?post_id=' . $post_id .'&amp;type=image&amp;TB_iframe=1&_wpnonce=' . $this->fiat_nonce,
 						$thumb_url,
@@ -342,10 +291,12 @@ class Featured_Image_Admin_Thumb_Admin {
 					// It's like dealing with the IRS. :-)
 
 					$this->fiat_nonce = wp_create_nonce( 'set_post_thumbnail-' . $post_id );
-					$set_edit_markup = $this->fiat_on_woocommerce_products_list() ? '<span class="genericon genericon-edit fiat-icon"></span>' : __( 'Set <br/>featured image', $this->text_domain );
-					$template_html = '<a title="Set featured image" href="%s" id="set-post-thumbnail" class="fiat_thickbox" >'.$set_edit_markup.'</a>';
+					$set_featured_image = sprintf( __( 'Set %s featured image', 'featured-image-admin-thumb-fiat' ), '<br/>' );
+					$set_edit_markup = $this->fiat_on_woocommerce_products_list() ? '<span class="genericon genericon-edit fiat-icon"></span>' : $set_featured_image;
+					$template_html = '<a title="' . __( 'Set featured image', 'featured-image-admin-thumb-fiat' ) . '" href="%1$s" id="set-post-thumbnail" class="fiat_thickbox" >%2$s</a>';
 					$html = sprintf( $template_html,
-						home_url() . '/wp-admin/media-upload.php?post_id=' . $post_id .'&amp;type=image&amp;TB_iframe=1&_wpnonce=' . $this->fiat_nonce
+						home_url() . '/wp-admin/media-upload.php?post_id=' . $post_id .'&amp;type=image&amp;TB_iframe=1&_wpnonce=' . $this->fiat_nonce,
+						$set_edit_markup
 					);
 					// Click me!
 					echo $html;
@@ -384,7 +335,7 @@ class Featured_Image_Admin_Thumb_Admin {
 			return array_merge(
 					$columns,
 					array(
-							'thumb' => __( 'Thumb', $this->text_domain ),
+							'thumb' => __( 'Thumb', 'featured-image-admin-thumb-fiat' ),
 					)
 			);
 		}

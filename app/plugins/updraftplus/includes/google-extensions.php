@@ -31,7 +31,7 @@ class UpdraftPlus_Google_Http_MediaFileUpload extends Google_Http_MediaFileUploa
  */
 
 if (!class_exists('Google_Client')) {
-  require_once dirname(__FILE__) . '/../autoload.php';
+  require_once dirname(__FILE__) . '/Google/autoload.php';
 }
 
 /**

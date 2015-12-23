@@ -1,22 +1,23 @@
 === Featured Image Admin Thumb ===
 Contributors: seanchayes
 Donate link: http://www.seanhayes.biz/
-Tags: thumbnail, admin, image, featured, featured image, featured thumbnail, featured admin thumbnail
+Tags: post-thumbnail, thumbnail, admin, image, featured, featured image, featured thumbnail, featured admin thumbnail
 Requires at least: 3.5.1
 Tested up to: 4.4
-Stable tag: 1.3.6
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Adds a thumbnail image to an admin column for All Post/post types view (where supported) to inline set/change the featured image or post thumbnail.
+Adds inline thumbnail image to admin columns for All Post/post types view (where supported). Click to easily set/change the featured image for that content.
 
 == Description ==
 
 When active this plugin adds a column to the All Posts/All Pages and where supported the All Custom Post Type admin views. This column, "Thumb", will display a thumbnail of the featured image
  or post thumbnail so you can easily determine the content that is missing an image.
 
-You can also change the thumb/image from the All Posts/All Pages/All Custom Post Type view without having to edit the post.
+You can also make inline edits that allow you to change the thumb/image from the All Posts/All Pages/All Custom Post Type view without having to edit the post.
 
+Now the plugin is translatable. Using tools such as Poedit along with localized / international versions of WordPress, FIAT can display user supplied translations of its text.
 == Installation ==
 
 = Using The WordPress Dashboard =
@@ -56,6 +57,9 @@ After checking that the plugin is enabled, be sure to click Screen Options if yo
 3. Shows the change icon located next to a featured image/thumb indicating it can be changed inline without having to edit the content item first
 
 == Changelog ==
+= 1.4 (2015-11-16) =
+Language translation functionality added
+
 = 1.3.6 (2015-10-29) =
 Removed post check inadvertently included from another branch and was restricting display of thumbnail column
 

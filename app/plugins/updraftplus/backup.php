@@ -368,16 +368,19 @@ class UpdraftPlus_Backup {
 						$sarray[$bind] = $file;
 					}
 				}
-				if (count($sarray)>0) {
-					$objname = "UpdraftPlus_BackupModule_${service}";
-					if (class_exists($objname)) {
-						$remote_obj = new $objname;
+				$objname = "UpdraftPlus_BackupModule_$service";
+				if (class_exists($objname)) {
+					$remote_obj = new $objname;
+					if (count($sarray)>0) {
 						$pass_to_prune = $remote_obj->backup($sarray);
 						$do_prune[$service] = array($remote_obj, $pass_to_prune);
 					} else {
-						$updraftplus->log("Unexpected error: no class '$objname' was found ($method_include)");
-						$updraftplus->log(__("Unexpected error: no class '$objname' was found (your UpdraftPlus installation seems broken - try re-installing)",'updraftplus'), 'error');
+						// We still need to make sure that prune is run on this remote storage method, even if all entities were previously uploaded
+						$do_prune[$service] = array($remote_obj, null);
 					}
+				} else {
+					$updraftplus->log("Unexpected error: no class '$objname' was found ($method_include)");
+					$updraftplus->log(sprintf(__("Unexpected error: no class '%s' was found (your UpdraftPlus installation seems broken - try re-installing)", 'updraftplus'), $objname), 'error');
 				}
 			}
 		}
@@ -835,8 +838,17 @@ class UpdraftPlus_Backup {
 	}
 
 	// The purpose of this function is to make sure that the options table is put in the database first, then the users table, then the usermeta table; and after that the core WP tables - so that when restoring we restore the core tables first
-	private function backup_db_sorttables($a, $b) {
+	private function backup_db_sorttables($a_arr, $b_arr) {
 
+		$a = $a_arr['name'];
+		$a_table_type = $a_arr['type'];
+		$b = $b_arr['name'];
+		$b_table_type = $b_arr['type'];
+	
+		// Views must always go after tables (since they can depend upon them)
+		if ('VIEW' == $a_table_type && 'VIEW' != $b_table_type) return 1;
+		if ('VIEW' == $b_table_type && 'VIEW' != $a_table_type) return -1;
+	
 		if ('wp' != $this->whichdb) return strcmp($a, $b);
 
 		global $updraftplus;
@@ -1220,8 +1232,15 @@ class UpdraftPlus_Backup {
 			}
 		}
 
-		$all_tables = $this->wpdb_obj->get_results("SHOW TABLES", ARRAY_N);
-		$all_tables = array_map(create_function('$a', 'return $a[0];'), $all_tables);
+		// SHOW FULL - so that we get to know whether it's a BASE TABLE or a VIEW
+		$all_tables = $this->wpdb_obj->get_results("SHOW FULL TABLES", ARRAY_N);
+		
+		if (empty($all_tables) && !empty($this->wpdb_obj->last_error)) {
+			$all_tables = $this->wpdb_obj->get_results("SHOW TABLES", ARRAY_N);
+			$all_tables = array_map(create_function('$a', 'return array("name" => $a[0], "type" => "BASE TABLE");'), $all_tables);
+		} else {
+			$all_tables = array_map(create_function('$a', 'return array("name" => $a[0], "type" => $a[1]);'), $all_tables);
+		}
 
 		# If this is not the WP database, then we do not consider it a fatal error if there are no tables
 		if ('wp' == $whichdb && 0 == count($all_tables)) {
@@ -1233,6 +1252,8 @@ class UpdraftPlus_Backup {
 
 		// Put the options table first
 		usort($all_tables, array($this, 'backup_db_sorttables'));
+		
+		$all_table_names = array_map(create_function('$a', 'return $a["name"];'), $all_tables);
 
 		if (!$updraftplus->really_is_writable($this->updraft_dir)) {
 			$updraftplus->log("The backup directory (".$this->updraft_dir.") could not be written to (could be account/disk space full, or wrong permissions).");
@@ -1242,8 +1263,8 @@ class UpdraftPlus_Backup {
 
 		# This check doesn't strictly get all possible duplicates; it's only designed for the case that can happen when moving between deprecated Windows setups and Linux
 		$this->duplicate_tables_exist = false;
-		foreach ($all_tables as $table) {
-			if (strtolower($table) != $table && in_array(strtolower($table), $all_tables)) {
+		foreach ($all_table_names as $table) {
+			if (strtolower($table) != $table && in_array(strtolower($table), $all_table_names)) {
 				$this->duplicate_tables_exist = true;
 				$updraftplus->log("Tables with names differing only based on case-sensitivity exist in the MySQL database: $table / ".strtolower($table));
 			}
@@ -1254,8 +1275,11 @@ class UpdraftPlus_Backup {
 		$found_options_table = false;
 		$is_multisite = is_multisite();
 
-		foreach ($all_tables as $table) {
+		foreach ($all_tables as $ti) {
 
+			$table = $ti['name'];
+			$table_type = $ti['type'];
+		
 			$manyrows_warning = false;
 			$total_tables++;
 
@@ -1311,7 +1335,7 @@ class UpdraftPlus_Backup {
 						$bindump_threshold = (!$updraftplus->something_useful_happened && !empty($updraftplus->current_resumption) && ($updraftplus->current_resumption - $updraftplus->last_successful_resumption == 2 )) ? 1000 : 8000;
 
 						$bindump = (isset($rows) && ($rows>$bindump_threshold || (defined('UPDRAFTPLUS_ALWAYS_TRY_MYSQLDUMP') && UPDRAFTPLUS_ALWAYS_TRY_MYSQLDUMP)) && is_string($binsqldump)) ? $this->backup_table_bindump($binsqldump, $table, $where) : false;
-						if (true !== $bindump) $this->backup_table($table, $where);
+						if (true !== $bindump) $this->backup_table($table, $where, 'none', $table_type);
 
 						if (!empty($manyrows_warning)) $updraftplus->log_removewarning('manyrows_'.$this->whichdb_suffix.$table);
 
@@ -1365,7 +1389,11 @@ class UpdraftPlus_Backup {
 
 		// Finally, stitch the files together
 		if (!function_exists('gzopen')) {
-			$updraftplus->log("PHP function is disabled; abort expected: gzopen");
+			if (function_exists('gzopen64')) {
+				$updraftplus->log("PHP function is disabled; abort expected: gzopen - buggy Ubuntu PHP version; try this plugin to help: https://wordpress.org/plugins/wp-ubuntu-gzopen-fix/");
+			} else {
+				$updraftplus->log("PHP function is disabled; abort expected: gzopen");
+			}
 		}
 
 		if (false === $this->backup_db_open($backup_final_file_name, true)) return false;
@@ -1480,7 +1508,7 @@ class UpdraftPlus_Backup {
 	 * @param string $segment
 	 * @return void
 	 */
-	private function backup_table($table, $where = '', $segment = 'none') {
+	private function backup_table($table, $where = '', $segment = 'none', $table_type = 'BASE TABLE') {
 		global $updraftplus;
 
 		$microtime = microtime(true);
@@ -1500,9 +1528,16 @@ class UpdraftPlus_Backup {
 			$this->stow("\n# Delete any existing table ".$updraftplus->backquote($table)."\n\n");
 			$this->stow("DROP TABLE IF EXISTS " . $updraftplus->backquote($dump_as_table) . ";\n");
 			
+			if ('VIEW' == $table_type) {
+				$this->stow("DROP VIEW IF EXISTS " . $updraftplus->backquote($dump_as_table) . ";\n");
+			}
+			
 			// Table structure
 			// Comment in SQL-file
-			$this->stow("\n# Table structure of table ".$updraftplus->backquote($table)."\n\n");
+			
+			$description = ('VIEW' == $table_type) ? 'view' : 'table';
+			
+			$this->stow("\n# Table structure of $description ".$updraftplus->backquote($table)."\n\n");
 			
 			$create_table = $this->wpdb_obj->get_results("SHOW CREATE TABLE ".$updraftplus->backquote($table), ARRAY_N);
 			if (false === $create_table) {
@@ -1525,12 +1560,12 @@ class UpdraftPlus_Backup {
 			$this->stow($create_line.' ;');
 			
 			if (false === $table_structure) {
-				$err_msg = sprintf('Error getting table structure of %s', $table);
+				$err_msg = sprintf("Error getting $description structure of %s", $table);
 				$this->stow("#\n# $err_msg\n#\n");
 			}
 		
 			// Comment in SQL-file
-			$this->stow("\n\n# " . sprintf('Data contents of table %s',$updraftplus->backquote($table)) . "\n\n");
+			$this->stow("\n\n# " . sprintf("Data contents of $description %s",$updraftplus->backquote($table)) . "\n\n");
 
 		}
 
@@ -1545,7 +1580,7 @@ class UpdraftPlus_Backup {
 		}
 
 		// In UpdraftPlus, segment is always 'none'
-		if($segment == 'none' || $segment >= 0) {
+		if('VIEW' != $table_type && ($segment == 'none' || $segment >= 0)) {
 			$defs = array();
 			$integer_fields = array();
 			// $table_structure was from "DESCRIBE $table"
@@ -1688,12 +1723,14 @@ class UpdraftPlus_Backup {
 		# (function_exists('mysql_get_server_info')) ? @mysql_get_server_info() : '?';
 
 		if ('wp' == $this->whichdb) {
+			$wp_upload_dir = wp_upload_dir();
 			$this->stow("# WordPress MySQL database backup\n");
 			$this->stow("# Created by UpdraftPlus version ".$updraftplus->version." (https://updraftplus.com)\n");
 			$this->stow("# WordPress Version: $wp_version, running on PHP ".phpversion()." (".$_SERVER["SERVER_SOFTWARE"]."), MySQL $mysql_version\n");
 			$this->stow("# Backup of: ".untrailingslashit(site_url())."\n");
 			$this->stow("# Home URL: ".untrailingslashit(home_url())."\n");
 			$this->stow("# Content URL: ".untrailingslashit(content_url())."\n");
+			$this->stow("# Uploads URL: ".untrailingslashit($wp_upload_dir['baseurl'])."\n");
 			$this->stow("# Table prefix: ".$this->table_prefix_raw."\n");
 			$this->stow("# Filtered table prefix: ".$this->table_prefix."\n");
 			$this->stow("# Site info: multisite=".(is_multisite() ? '1' : '0')."\n");

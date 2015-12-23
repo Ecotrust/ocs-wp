@@ -7,7 +7,7 @@
  *
  * @since 1.0.0
  *
- * global ajaxurl
+ * global ajaxurl, fiat_thumb
  */
 (function($){
     //uploading files variable
@@ -40,7 +40,7 @@
             },
             button: {
                 //Button text
-                text: "Use as thumbnail"
+                text: fiat_thumb.button_text
             },
             states: [
                 new wp.media.controller.Library({
@@ -79,7 +79,7 @@
                     _ajax_nonce:    nonce
                 }).done ( function( thumb_url )  {
                     // This is the column location to place the img
-					var pre_html = '<a title="Change featured image" href="' + '/wp-admin/media-upload.php?post_id=' + post_id + '&amp;type=image&amp;TB_iframe=1&_wpnonce=' + nonce + '" id="set-post-thumbnail" class="fiat_thickbox" >';
+					var pre_html = '<a title="' + fiat_thumb.change_featured_image + '" href="' + '/wp-admin/media-upload.php?post_id=' + post_id + '&amp;type=image&amp;TB_iframe=1&_wpnonce=' + nonce + '" id="set-post-thumbnail" class="fiat_thickbox" >';
 					var post_html = '<span class="genericon genericon-edit fiat-icon"></span></a>';
                     $( '.thumb', '#post-' + post_id ).html( pre_html + thumb_url + post_html );
                     $( '.thumb', '#post-' + post_id ).hide().fadeIn();

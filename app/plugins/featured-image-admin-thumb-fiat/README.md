@@ -3,14 +3,14 @@
 Featured Image Admin Thumbnails plugin enabled in the All Posts/All Pages views
 to display thumbnail images next to each post / page if one is present
 
-Adds a thumbnail image to an admin column for All Post/post types view (where supported) to inline set/change the featured image or post thumbnail.
+Adds inline thumbnail image to admin columns for All Post/post types view (where supported). Click to easily set/change the featured image for that content.
 
 ##Description
 
 When active this plugin adds a column to the All Posts/All Pages and where supported the All Custom Post Type admin views. This column, "Thumb", will display a thumbnail of the featured image
  or post thumbnail so you can easily determine the content that is missing an image.
 
-You can also change the thumb/image from the All Posts/All Pages/All Custom Post Type view without having to edit the post.
+You can also make inline edits that allow you to change the thumb/image from the All Posts/All Pages/All Custom Post Type view without having to edit the post.
 
 ###Installation
 
@@ -40,7 +40,7 @@ You can also change the thumb/image from the All Posts/All Pages/All Custom Post
 
 ##Frequently Asked Questions
 
-### A question that someone might have
+### You don't see the thumb column and the thumbnails in that column
 
 After checking that the plugin is enabled, be sure to click Screen Options if you don't immediately see the column and ensure "Thumb" has a checkmark next to it
 
@@ -50,6 +50,9 @@ After checking that the plugin is enabled, be sure to click Screen Options if yo
 2. If the column is not showing in your All Posts/Pages view this shows you where you can check to see that the "Thumb" column is selected to be displayed
 
 ###Changelog
+= 1.4 (2015-11-16) =
+Language translation functionality added 
+
 = 1.3.6 (2015-10-29) =
 Removed post check inadvertently included from another branch and was restricting display of thumbnail column
 

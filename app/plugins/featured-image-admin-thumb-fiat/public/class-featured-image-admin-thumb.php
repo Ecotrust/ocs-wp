@@ -29,7 +29,7 @@ class Featured_Image_Admin_Thumb {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.4.0';
 
 	/**
 	 *
@@ -44,7 +44,7 @@ class Featured_Image_Admin_Thumb {
 	 *
 	 * @var      string
 	 */
-	protected $plugin_slug = 'featured-image-admin-thumb';
+	protected $plugin_slug = 'featured-image-admin-thumb-fiat';
 
 	/**
 	 * Instance of this class.
@@ -253,11 +253,11 @@ class Featured_Image_Admin_Thumb {
 	 */
 	public function load_plugin_textdomain() {
 
-		$domain = $this->plugin_slug;
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-
-		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-
+		load_plugin_textdomain(
+				$this->plugin_slug,
+				false,
+				dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+		);
 	}
 
 	/**

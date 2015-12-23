@@ -722,6 +722,8 @@ function updraft_restorer_checkstage2(doalert) {
 		timestamp: jQuery('#updraft_restore_timestamp').val(),
 		restoreopts: jQuery('#updraft_restore_form').serialize()
 	}, function(data) {
+		var info = null;
+		jQuery('#updraft_restorer_restore_options').val('');
 		try {
 			var resp = jQuery.parseJSON(data);
 			if (null == resp) {
@@ -739,11 +741,31 @@ function updraft_restorer_checkstage2(doalert) {
 			}
 			if (resp.hasOwnProperty('i')) {
 				// Store the information passed back from the backup scan
+				try {
+					info = jQuery.parseJSON(resp.i);
+// 					if (info.hasOwnProperty('multisite') && info.multisite && info.hasOwnProperty('same_url') && info.same_url) {
+					if (info.hasOwnProperty('addui')) {
+						console.log("Further UI options are being displayed");
+						var addui = info.addui;
+						report += '<div id="updraft_restoreoptions_ui" style="clear:left; padding-top:10px;">'+addui+'</div>';
+						if (typeof JSON == 'object' && typeof JSON.stringify == 'function') {
+							// If possible, remove from the stored info, to prevent passing back potentially large amounts of unwanted data
+							delete info.addui;
+							resp.i = JSON.stringify(info);
+						}
+					}
+				} catch(err) {
+					console.log(err);
+					console.log(resp);
+				}
 				jQuery('#updraft_restorer_backup_info').val(resp.i);
 			} else {
 				jQuery('#updraft_restorer_backup_info').val();
 			}
 			jQuery('#updraft-restore-modal-stage2a').html(report);
+			if (jQuery('#updraft-restore-modal-stage2a .updraft_select2').length > 0) {
+				jQuery('#updraft-restore-modal-stage2a .updraft_select2').select2();
+			}
 		} catch(err) {
 			console.log(data);
 			console.log(err);
@@ -877,6 +899,15 @@ function updraft_backupnow_go(backupnow_nodb, backupnow_nofiles, backupnow_noclo
 }
 
 jQuery(document).ready(function($){
+	
+	// https://github.com/select2/select2/issues/1246#issuecomment-71710835
+	if (jQuery.ui && jQuery.ui.dialog && jQuery.ui.dialog.prototype._allowInteraction) {
+		var ui_dialog_interaction = jQuery.ui.dialog.prototype._allowInteraction;
+		jQuery.ui.dialog.prototype._allowInteraction = function(e) {
+			if ($(e.target).closest('.select2-dropdown').length) return true;
+					   return ui_dialog_interaction.apply(this, arguments);
+		};
+	}
 
 	jQuery('#updraft-navtab-backups-content').on('click', '#updraft_existing_backups .updraft_existing_backups_row', function(e) {
 		if (! e.ctrlKey && ! e.metaKey) return;
@@ -1086,7 +1117,7 @@ jQuery(document).ready(function($){
 
 	var updraft_message_modal_buttons = {};
 	updraft_message_modal_buttons[updraftlion.close] = function() { jQuery(this).dialog("close"); };
-	jQuery( "#updraft-message-modal" ).dialog({
+	jQuery( "#updraft-message-modal").dialog({
 		autoOpen: false, height: 350, width: 520, modal: true,
 		buttons: updraft_message_modal_buttons
 	});
@@ -1124,7 +1155,7 @@ jQuery(document).ready(function($){
 		});
 	};
 	updraft_delete_modal_buttons[updraftlion.cancel] = function() { jQuery(this).dialog("close"); };
-	jQuery( "#updraft-delete-modal" ).dialog({
+	jQuery( "#updraft-delete-modal").dialog({
 		autoOpen: false, height: 262, width: 430, modal: true,
 		buttons: updraft_delete_modal_buttons
 	});
@@ -1221,6 +1252,27 @@ jQuery(document).ready(function($){
 			} else if (updraft_restore_stage == 2) {
 				updraft_restorer_checkstage2(1);
 			} else if (updraft_restore_stage == 3) {
+				var continue_restore = 1;
+				jQuery('#updraft_restoreoptions_ui input.required').each(function(index) {
+					if (continue_restore == 0) return;
+					var sitename = jQuery(this).val();
+					if (sitename == '') {
+						alert(updraftlion.pleasefillinrequired);
+						continue_restore = 0;
+					} else if (jQuery(this).attr('pattern') != '') {
+						var pattern = jQuery(this).attr('pattern');
+						var re = new RegExp(pattern, "g");
+						if (!re.test(sitename)) {
+							alert(jQuery(this).data('invalidpattern'));
+							continue_restore = 0;
+						}
+					}
+				});
+				if (!continue_restore) return;
+				var restore_options = jQuery('#updraft_restoreoptions_ui select, #updraft_restoreoptions_ui input').serialize();
+				console.log("Restore options: "+restore_options);
+				jQuery('#updraft_restorer_restore_options').val(restore_options);
+				// This must be done last, as it wipes out the section with #updraft_restoreoptions_ui
 				jQuery('#updraft-restore-modal-stage2a').html(updraftlion.restoreproceeding);
 				jQuery('#updraft_restore_form').submit();
 			}
@@ -1231,16 +1283,16 @@ jQuery(document).ready(function($){
 	
 	updraft_restore_modal_buttons[updraftlion.cancel] = function() { jQuery(this).dialog("close"); };
 
-	jQuery( "#updraft-restore-modal" ).dialog({
+	jQuery( "#updraft-restore-modal").dialog({
 		autoOpen: false, height: 505, width: 590, modal: true,
 		buttons: updraft_restore_modal_buttons
 	});
 
-	jQuery("#updraft-iframe-modal" ).dialog({
+	jQuery("#updraft-iframe-modal").dialog({
 		autoOpen: false, height: 500, width: 780, modal: true
 	});
 
-	jQuery("#updraft-backupnow-inpage-modal" ).dialog({
+	jQuery("#updraft-backupnow-inpage-modal").dialog({
 		autoOpen: false, height: 345, width: 580, modal: true
 	});
 	
@@ -1283,7 +1335,7 @@ jQuery(document).ready(function($){
 	};
 	backupnow_modal_buttons[updraftlion.cancel] = function() { jQuery(this).dialog("close"); };
 	
-	jQuery("#updraft-backupnow-modal" ).dialog({
+	jQuery("#updraft-backupnow-modal").dialog({
 		autoOpen: false, height: 472, width: 610, modal: true,
 		buttons: backupnow_modal_buttons
 	});
@@ -1292,7 +1344,7 @@ jQuery(document).ready(function($){
 		autoOpen: false, height: updraftlion.migratemodalheight, width: updraftlion.migratemodalwidth, modal: true,
 	});
 
-	jQuery( "#updraft-poplog" ).dialog({
+	jQuery( "#updraft-poplog").dialog({
 		autoOpen: false, height: 600, width: '75%', modal: true,
 	});
 	
@@ -1675,7 +1727,7 @@ jQuery(document).ready(function($){
 				} else if (response.response.substring(0,3) == 'OK:') {
 					bkey = response.response.substring(3);
 					$('#' + file.id + " .fileprogress").hide();
-					$('#' + file.id).append(updraftlion.uploaded+' <a href="?page=updraftplus&action=downloadfile&updraftplus_file='+bkey+'&decrypt_key='+$('#updraftplus_db_decrypt').val()+'">'+updraftlion.followlink+'</a> '+updraftlion.thiskey+' '+$('#updraftplus_db_decrypt').val().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+					$('#' + file.id).append(updraftlion.uploaded+' <a href="?page=updraftplus&action=downloadfile&updraftplus_file='+bkey+'&decrypt_key='+encodeURIComponent($('#updraftplus_db_decrypt').val())+'">'+updraftlion.followlink+'</a> '+updraftlion.thiskey+' '+$('#updraftplus_db_decrypt').val().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"));
 				} else {
 					alert(updraftlion.unknownresp+' '+response.response);
 				}

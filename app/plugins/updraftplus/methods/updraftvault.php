@@ -111,7 +111,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 
 		if (!is_wp_error($getconfig) && false != $getconfig && is_array($getconfig) && isset($getconfig['body'])) {
 
-			if ($getconfig['response']['code'] >=200 && $getconfig['response']['code'] < 300) {
+			if ($getconfig['response']['code'] >= 200 && $getconfig['response']['code'] < 300) {
 				$response = json_decode($getconfig['body'], true);
 
 				if (is_array($response) && isset($response['user_messages']) && is_array($response['user_messages'])) {
@@ -163,6 +163,10 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 			} else {
 				$updraftplus->log("Unexpected HTTP response code (please try again later): ".$getconfig['response']['code']);
 			}
+		} elseif (is_wp_error($getconfig)) {
+			$updraftplus->log_wp_error($getconfig);
+		} else {
+			$updraftplus->log("HTTP failure: wp_remote_post returned a result that was not understood (".gettype($getconfig).")");
 		}
 
 		if (!$details_retrieved) {
@@ -219,6 +223,16 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		<tr class="updraftplusmethod updraftvault">
 			<th><img style="padding-left: 40px;" src="<?php echo esc_attr(UPDRAFTPLUS_URL.'/images/updraftvault-150.png');?>" alt="UpdraftPlus Vault" width="150" height="116"></th>
 			<td valign="top" id="updraftvault_settings_cell">
+			<?php
+				global $updraftplus_admin;
+				if (!class_exists('SimpleXMLElement')) {
+					
+					$updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not included a <strong>required</strong> (for %s) module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'UpdraftPlus Vault', 'SimpleXMLElement'), 'updraftvault');
+				}
+
+				$updraftplus_admin->curl_check('UpdraftPlus Vault', false, 'updraftvault', true);
+			?>
+			
 				<div id="updraftvault_settings_default"<?php if ($connected) echo ' style="display:none;"';?>>
 					<p style="padding-bottom:20px;">
 						<?php echo __('UpdraftPlus Vault brings you storage that is <strong>reliable, easy to use and a great price</strong>.', 'updraftplus').' '.__('Press a button to get started.', 'updraftplus');?>
@@ -290,14 +304,6 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 		</tr>
 
 		<?php
-		global $updraftplus_admin;
-		if (!class_exists('SimpleXMLElement')) {
-			
-			$updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not included a required module (%s). Please contact your web hosting provider's support.", 'updraftplus'), 'SimpleXMLElement'), $key);
-		}
-
-		$updraftplus_admin->curl_check('UpdraftPlus Vault', false, 'updraftvault', false);
-
 		$this->vault_in_config_print = false;
 
 	}
