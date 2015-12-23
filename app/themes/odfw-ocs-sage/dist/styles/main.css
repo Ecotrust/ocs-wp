@@ -1595,10 +1595,11 @@ figure.wp-caption>a{color:#000}
 .feature-thumb.close-caption figcaption,.species-hero.close-caption figcaption,.wp-caption.close-caption figcaption{display:block}
 .feature-thumb.close-caption figcaption .glyphicon,.species-hero.close-caption figcaption .glyphicon,.wp-caption.close-caption figcaption .glyphicon{color:#FFF;text-shadow:none;bottom:30%}
 .feature-thumb.close-caption .show-info,.species-hero.close-caption .show-info,.wp-caption.close-caption .show-info{display:none}
-.ecoregion-svg{position:relative;height:100%;width:100%;cursor:pointer}
-.ecoregion-svg object,.ecoregion-svg>img{display:block;max-width:98%;max-height:98%;position:absolute;top:0;bottom:0;left:0;right:0}
-.ecoregion-svg object{opacity:0}
+.ecoregion-svg{position:relative;height:100%;width:100%}
+.ecoregion-svg .eco-container,.ecoregion-svg svg,.ecoregion-svg>img{display:block;max-width:98%;max-height:98%;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto}
+.ecoregion-svg svg{opacity:0}
 .ecoregion-svg>.popover>.arrow{display:none}
+.ecoregion-svg .eco-container{pointer-events:none}
 .image-container,figure{max-width:100%;position:relative}
 .image-container>img,figure>img{height:auto;max-width:100%;display:block}
 .photo-info{position:absolute;cursor:pointer}
