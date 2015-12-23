@@ -1607,6 +1607,7 @@ figure.wp-caption>a{color:#000}
 .photo-info>.caption-content{background:0 0;background-color:rgba(255,255,255,.6);-webkit-box-sizing:border-box;box-sizing:border-box;font-family:"HelveticaNeue-45Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:.8em;height:38px;line-height:1.1em;margin-left:40px;margin-top:1px;padding:5px;width:180px;zoom:1}
 .photo-info:hover{width:55px}
 .photo-info.visible,.photo-info:focus{width:220px}
+.link-box img,.success-story-content img{max-width:100%}
 span.attr-name>a{color:#7FA797}
 @media screen and (max-width:1120px){body.page-id-109 article.col-sm-6.col-md-4,body.page-id-112 article.col-sm-6.col-md-4{width:50%}
 }
@@ -1893,7 +1894,8 @@ main.main{width:100%}
 .ecoregions img#region-png-print{display:none}
 body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}
 body.page-id-102.map-visible section.post-102{display:none}
-.success-story{background:#eee;border:1px solid #ddd;clear:both;padding:5px 22px 22px}
+.success-story{background:#eee;border:1px solid #ddd;clear:both;margin:2em;padding:5px 22px 22px}
+.link-box{border-left:4px solid #005130;margin-left:50px;padding-left:30px}
 .coa-id{margin-top:20px}
 .coa-id .btn,.coa-id .comment-form input[type=submit],.comment-form .coa-id input[type=submit]{cursor:default}
 .coa-id span{font-family:"HelveticaNeue-45Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400}

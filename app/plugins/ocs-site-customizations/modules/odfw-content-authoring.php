@@ -95,8 +95,13 @@ function the_odfw_success_story_shortcode($atts, $content = null) {
 }
 
 add_shortcode('success-story', 'the_odfw_success_story_shortcode');
-//add_shortcode('linkbox', 'the_odfw_success_story_shortcode');
 
+
+function the_odfw_link_box_shortcode($atts, $content = null) {
+	return '<div class="link-box">' . $content . '</div>';
+}
+
+add_shortcode('linkbox', 'the_odfw_link_box_shortcode');
 
 
 

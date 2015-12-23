@@ -119,6 +119,10 @@ figure.wp-caption {
 	}
 }
 
+.success-story-content img, .link-box img {
+	max-width: 100%;
+}
+
 span.attr-name > a { color: $greenMid; }
 
 @media screen and (max-width: 1120px) {
