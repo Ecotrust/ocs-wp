@@ -368,7 +368,7 @@ function setupCustomFields () {
 	 */
 
 	add_action( 'cmb2_init', 'main_coa_compass_field' );
-	function main_coa_compass_field (  ) { 
+	function main_coa_compass_field (  ) {
 		$prefix = '_main_coa_';
 
 		$coa_main_cmb = new_cmb2_box( array(
@@ -1021,7 +1021,7 @@ function setupCustomFields () {
 			'name' => __('What should this link to?', 'odfw'),
 			'desc' => __('Use the spyglass icon to select an OCS page.', 'odfw'),
 			//'object_types' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
-			'post_type' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
+			'post_type' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page', 'success_story'),
 			'type'               => 'post_search_text',
 			'select_type'        => 'radio',
 			'select_behavior'    => 'replace',
