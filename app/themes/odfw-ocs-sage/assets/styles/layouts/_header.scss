@@ -63,19 +63,24 @@
 			@include h1Styles;
 			background-color: $greenLight;
 			border: 0 none;
-			/* font-weight is still tbd */
-			/*font-family: $headings-font-family-lighter;*/
 			outline: none;
 			padding: 1px 10px;
 			text-transform: uppercase;
             padding: 1px 15px;
-			//width: 90%;
 			/*
 			&.focused {
 				font-family: $headings-font-family;
 			}
 			*/
+            &.search-40-65 { font-size: 30px }
+            &.search-65-90  { font-size: 27px }
+            &.search-90-115  { font-size: 24px }
+            &.search-over-115  { font-size: 21px }
+
+
 		}
+
+
 		button {
 			@include top-button;
 			background: $greenLight url($nav-sprite) 0 -806px no-repeat;
