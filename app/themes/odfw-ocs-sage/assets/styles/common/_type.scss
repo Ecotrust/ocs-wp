@@ -151,10 +151,12 @@ h2[data-toggle=tooltip]{
 	max-width: $tooltip-max-width * 2;
 	text-align: left;
 	padding: 8px 12px;
-
-
 }
 
+.species-association {
+    color: $grey;
+    font-size: 10px;
+}
 
 h3>.badge { margin-left: 3px; }
 

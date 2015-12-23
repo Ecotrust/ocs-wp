@@ -145,16 +145,20 @@
 		</section>
 
 
-		<section class="cmb2-wrap-text coa_meta_specialized_local_habitats">
-			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-specialized-habitats') ?>">Specialized Local Habitats</h2>
+		<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_specialized_local_habitats', true );
+			if ( !empty ($the_field) ): ?>
 
-			<ul class="coa-detail-listing">
-				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_specialized_local_habitats', true );
-				foreach($the_field as $entry ) { ?>
-					<li><?php echo esc_html( $entry ); ?></li>
-				<?php } ?>
-			</ul>
-		</section>
+			<section class="cmb2-wrap-text coa_meta_specialized_local_habitats">
+				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-specialized-habitats') ?>">Specialized Local Habitats</h2>
+
+				<ul class="coa-detail-listing">
+					<?php foreach($the_field as $entry ) { ?>
+						<li><?php echo esc_html( $entry ); ?></li>
+					<?php } ?>
+				</ul>
+			</section>
+		<?php endif; ?>
+
 
 
 		<section class="cmb2-wrap-group coa_meta_strategy_species">

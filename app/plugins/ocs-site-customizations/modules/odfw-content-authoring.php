@@ -202,7 +202,7 @@ Needs to be broken down by top level taxonomy (amphibian, bird, reptile...)
 		global $post;
 		$asso =  $strategy_species[$i]['coa_meta_strategy_species_association'];
 		$out .= "<li><a id='$post->ID' href='/strategy-species/$post->post_name'>$post->post_title</a>";
-		$out .= " ($asso)</li>";
+		$out .= " <span class='species-association'>($asso)</span></li>";
 
 
 		$i++;
