@@ -1,3 +1,23 @@
+#adminmenu li.wp-menu-separator {
+    border-bottom: 1px solid #555;
+    height: 1px;
+    margin: 8px 0;
+    padding: 0;
+}
+	#adminmenu div.wp-menu-name {
+		font-size: 13px;
+		padding: 4px 0;
+	}
+	#adminmenu .wp-first-item.current {
+		font-size: 13px;
+	}
+	div.wp-menu-image::before {
+		padding: 3px 0;
+	}
+
+	#adminmenu div.wp-menu-image {
+		height: 20px;
+	}
 
 .cmb2-wrap .cmb-td input.regular-text,
 .cmb2-wrap .cmb-td input.cmb2-text-url {

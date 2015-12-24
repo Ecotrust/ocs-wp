@@ -38,13 +38,17 @@ function modify_read_more_link() {
 //add_filter( 'the_content_more_link', __NAMESPACE__ . '\\modify_read_more_link' );
 
 function replace_content($content) {
-	//$content = str_replace('###replaceme###', 'something_else',$content);
+	// could limit it to specific pages with something like:
+	//
+	// $cptPages = Roots\Sage\Config\get_the_cpt_listing_pages();
+	// if (in_array($post->ID, $cptPages) )
+	// but seems ok/open for now.
 	$count = 0;
 
 	$markupOpen = "<div class='read-more-wrap'>";
 	$markupClose = '</div><button class="inline-read-more" data-original="Continue Reading" data-alternate="Close Overivew">Continue Reading</button>';
 
-	$content = preg_replace('/<span id\=\"(more\-\d+)"><\/span>/', '<span id="\1"></span>'."\n\n". $markupOpen ."\n\n", $content, $count);
+	$content = preg_replace('/<span id\=\"(more\-\d+)"><\/span>/', '<span id="\1"></span>'."\n\n". $markupOpen ."\n\n", $content, 1, $count);
 
 	// only if it actually found something:
 	if ( $count > 0 ) {
