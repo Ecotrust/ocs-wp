@@ -145,6 +145,42 @@ body.page-id-102.map-visible {
 
 }
 
+/* Read more for CPT landing pages */
+.inline-read-more {
+	border: 0 none;
+	background-color: rgba(239, 247, 237, 0.48);
+	border-left: 4px solid $green;
+	clear: both;
+	font-family: $body-font-bold;
+	font-weight: 600;
+	display: inline-block;
+	margin: 15px 0;
+	padding: 6px 15px;
+	text-transform: uppercase;
+	transition: all 0.3s ease;
+
+	&:hover {
+		background-color: $greenLighter;
+		border-left: 6px solid #000;
+		color: #000;
+	}
+}
+
+.read-more-wrap {
+	max-height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition: max-height 0.9s ease-in-out, opacity 1s ease-in-out;
+	/*transition: all 1s cubic-bezier(.68,-0.55,.27,1.55);*/
+	/*transition: height 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s, opacity 1s ease 0s;*/
+
+	&.visible {
+		max-height: 3000px;
+		opacity: 1;
+		overflow: visible;
+	}
+}
+
 /*only slider shows*/
 body.home.page {
 	.main-content { display: none; }

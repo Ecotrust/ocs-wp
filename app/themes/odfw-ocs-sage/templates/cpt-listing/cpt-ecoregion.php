@@ -39,7 +39,7 @@
 
 		<div class="ecoregion-svg">
 			<img id="region-png" src="/media/ODFW_ecoregion_final_base.png"/>
-			<?php echo file_get_contents("/media/ODFW_ecoregion_final_clean-3.svg"); ?>
+			<?php echo file_get_contents("media/ODFW_ecoregion_final_clean-3.svg"); ?>
 		</div>
 	</div>
 

@@ -14,8 +14,12 @@
   var $compass = $(".compass.main"); //compass component
   var $iframe = $("iframe.compass-iframe"); //iframe element
   var $nonFeatureFig = $('figure.wp-caption'); //non featured images
-  var OCS = {
-    $body : $('body'),
+
+    var OCS = {
+        $body : $('body'),
+		// "99" => "kci", "101" => "ecoregion", "102" => "coa", "105" => "strategy_habitat", "109" = "Strategy Species Parent Page"
+        landingPages : ['page-id-99','page-id-101','page-id-102','page-id-105', 'page-id-109' ],
+
 
 	// All pages
 	'common': {
@@ -29,8 +33,8 @@
             }
         }
 
-		OCS.listAndGridToggle();
-		OCS.inlineReadMore();
+        OCS.listAndGridToggle();
+        OCS.inlineReadMore();
 
         $('body').tooltip({
             selector: '[data-toggle="tooltip"]'
@@ -210,8 +214,21 @@
     },
 
 	inlineReadMore: function(){
-		//$('span[id^="more"]').parent('p').nextAll('hide');
+        //replace the WordPress <!--MORE--> Link with a readmore
+        //content is wrapped inside of a div.read-more-wrap within lib/extras.php
+        $('.inline-read-more').on('click', function(){
+			var $t = $(this),
+				newText = $t.text() === $t.attr('data-original') ? $t.attr("data-alternate") : $t.attr('data-original');
 
+                $('.read-more-wrap').toggleClass('visible');
+
+                //need to scroll back up?
+                if (newText === $t.attr("data-original") ) {
+                    $('html, body').animate({scrollTop: '0px'}, 600);
+                }
+
+				$t.text(newText);
+        }).blur();
 	},
 
 	listAndGridToggle: function (){

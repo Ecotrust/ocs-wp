@@ -32,6 +32,21 @@ function excerpt_more() {
 }
 add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');
 
+function modify_read_more_link() {
+	return '<a class="more-link">Your Read More Link Text</a>';
+}
+//add_filter( 'the_content_more_link', __NAMESPACE__ . '\\modify_read_more_link' );
+
+function replace_content($content) {
+	//$content = str_replace('###replaceme###', 'something_else',$content);
+	$markupOpen = "<div class='read-more-wrap'>";
+	$markupClose = '</div><button class="inline-read-more" data-original="Continue Reading" data-alternate="Close Overivew">Continue Reading</button>';
+	$content = preg_replace('/<span id\=\"(more\-\d+)"><\/span>/', '<span id="\1"></span>'."\n\n". $markupOpen ."\n\n", $content);
+	$content .= $markupClose;
+	return $content;
+}
+add_filter('the_content', __NAMESPACE__ . '\\replace_content');
+
 
 add_filter('sage/wrap_base', __NAMESPACE__ . '\\sage_wrap_base_cpts'); // Add our function to the sage/wrap_base filter
 
