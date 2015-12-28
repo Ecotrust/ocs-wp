@@ -13,5 +13,5 @@
  */
 			?>
     </nav>
-    <a class="brand" href="http://www.dfw.state.or.us/conservationstrategy/"><?php bloginfo('name'); ?></a>
+	<a class="brand" href="<?php echo ocs_get_option('ocs-odfw-logo-url'); ?>"><?php bloginfo('name'); ?></a>
 

@@ -1,8 +1,36 @@
 <?php
 /**
  * CMB2 Theme Options
- * @version 0.1.0
+ * @version 0.1.1
  */
+
+
+/**
+ *
+ * NOTE on Tabs:
+ *
+ * Each cmb2 "title" field will be converted into tab title.
+ * Use the 'before_row' field on each title to add the required HTML.
+ *
+ *		First tab needs to open it:
+ *
+ *			'before_row' => '<div id="tab-1">'
+ *
+ *		Subsequent titles need to close the previous and open the next, incrementing the tab ID:
+ *
+ * 			'before_row' => '</div><div id="tab-2">'
+ *
+ *		Final field in the set (not a title field) needs to use the after_row property to close it all up.
+ *
+ *			'after_row' => '</div>', //close final tab
+ *
+ *		Javascript will take care of the rest
+ *
+ *
+ * If you need a real "title" field for some other reason, use one of the 'before' properties on an existing field.
+ *
+ */
+
 class ocs_Admin {
 
 	/**
@@ -183,6 +211,44 @@ class ocs_Admin {
 		//
 
 		//
+		// General Stuff
+		//
+
+		$cmb->add_field( array(
+			'name' => __( 'General OCS Settings', 'ocs' ),
+			'id'   => 'general-ocs-settings',
+			'type' => 'title',
+			'before_row' => '<div id="tab-1">'
+		) );
+
+		// echo ocs_get_option('coa-specialized-habitats');
+		$cmb->add_field( array(
+			'name'    => __( 'Where should the Oregon/Help icon link to?', 'ocs' ),
+			'id'      => 'ocs-help-icon-url',
+			'desc' => __('Use the spyglass icon to select destination url.', 'odfw'),
+			'type' => 'post_search_text',
+			'post_type'   => 'page',
+			'select_type' => 'radio',
+			'select_behavior' => 'replace',
+			'find_text'     => 'Find Pages',
+			'include_post_title'  => true,
+		) );
+
+		$cmb->add_field( array(
+			'name' => __( 'ODFW/OCS Link Destination', 'odfw' ),
+			'desc' => __('Where should the ODFW/OCS icon in the lower left link to?', 'odfw'),
+			'id' => 'ocs-odfw-logo-url',
+			'type' => 'text'
+		) );
+
+		$cmb->add_field( array(
+			'name' => __( 'Compass URL', 'odfw' ),
+			'desc' => __('This url will prefix all compass links in the OCS', 'odfw'),
+			'id' => 'ocs-compass-url',
+			'type' => 'text'
+		) );
+
+		//
 		// SPECIES
 		//
 		$cmb->add_field( array(
@@ -192,7 +258,7 @@ class ocs_Admin {
 			//generic tabID because the id passed above is conflated on options pages
 			//comes out as class along with generic cmb2 classes:
 			//class="cmb-row cmb-type-title cmb2-id-[id-passed]"
-			'before_row' => '<div id="tab-1">'
+			'before_row' => '</div><div id="tab-2">'
 		) );
 
 		$cmb->add_field( array(
@@ -242,7 +308,7 @@ class ocs_Admin {
 			'name' => __( 'COAP Hover Text', 'ocs' ),
 			'id'   => 'coa-hover-title',
 			'type' => 'title',
-			'before_row' => '</div><div id="tab-2">'
+			'before_row' => '</div><div id="tab-3">'
 		) );
 
 		$cmb->add_field( array(
@@ -317,6 +383,11 @@ class ocs_Admin {
 			'type'    => 'textarea_small',
 			'after_row' => '</div>', //close final tab
 		) );
+
+
+
+
+
 
 	}
 

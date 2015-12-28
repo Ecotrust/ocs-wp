@@ -35,6 +35,7 @@
 
         OCS.listAndGridToggle();
         OCS.inlineReadMore();
+        OCS.fixLeftNav();
 
         $('body').tooltip({
             selector: '[data-toggle="tooltip"]'
@@ -211,6 +212,10 @@
                 elm.css('height', (availableHeight+'px'));
             }
         }
+    },
+
+    fixLeftNav: function(){
+
     },
 
 	inlineReadMore: function(){

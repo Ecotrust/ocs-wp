@@ -14,7 +14,8 @@
 			<a href="#" class="view-map">Map</a>
 			<a href="#" class="view-grid">Grid View</a>
 			<a href="#" class="view-list">List View</a>
-			<a class="my-ocs" href="/help">Help</a></li>
+			<?php $theHelpLink = get_permalink(ocs_get_option('ocs-help-icon-url')); ?>
+			<a class="my-ocs" href="<?php echo $theHelpLink ?>">Help</a></li>
 
 		</div> <!-- /.header-inner -->
 	</div> <!-- /.row -->

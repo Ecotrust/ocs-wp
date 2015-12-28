@@ -133,11 +133,20 @@
 	content: "";
 	display: table;
 }
-/*
-.toplevel_page_tablepress #edit-form-body textarea {
-	min-width: 200px;
+
+#cmb2-metabox-ocs_option_metabox .cmb-th {
+	width: 20%;
 }
-*/
+#cmb2-metabox-ocs_option_metabox .cmb-td {
+	width: 60%;
+}
+
+#cmb2-metabox-ocs_option_metabox .cmb-td textarea,
+#cmb2-metabox-ocs_option_metabox .cmb-td .attached-post-title {
+	width: 100%;
+}
+
+
 .toplevel_page_tablepress #edit-form-body .focus td {
 	height: 200px;
 }
