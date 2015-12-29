@@ -6,7 +6,7 @@
 			<div class="search-wrap">
 				<form action="/" class="search-form form-inline" method="get" role="search">
 					<label class="sr-only">Search for:</label>
-					<input type="search" required="" placeholder="Search the OCS" id="search-field" class="search-field" name="s" value="">
+					<input type="search" required="" placeholder="SEARCH" id="search-field" class="search-field" name="s" value="">
 					<button class="search-submit" type="submit">Search</button>
 				</form>
 			</div>
