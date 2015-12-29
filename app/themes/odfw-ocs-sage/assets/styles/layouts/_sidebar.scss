@@ -378,10 +378,11 @@
 @media screen and (max-width: 600px) {
 	aside.inner-sidebar { display: none; }
 
-	.has-sidebar.sidebar-visible {
+	.has-sidebar {
 		main.main {
 			.main-content { width: 100%; }
 			&:after { content: none; }
 		}
 	}
+
 }

@@ -1,4 +1,5 @@
 	<nav role="navigation">
+		<a href="#mainContent" class="sr-only sr-only-focusable" tabindex="0">Skip Navigation to Main Content</a>
 			<?php
 			  if (has_nav_menu('primary_navigation')) :
 				wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'main-ocs-navigation']);

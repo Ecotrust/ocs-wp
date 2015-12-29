@@ -50,6 +50,8 @@
           allowParentLinks: "true"
         });
 
+        $('<a href="#mainContent" class="sr-only sr-only-focusable" tabindex="0">Skip to Main Content</a>').prependTo('.slicknav_menu');
+
         /*
           toggling non-featured images added via media gallery
           '.image-container' wrapper added to all media via functions.php
