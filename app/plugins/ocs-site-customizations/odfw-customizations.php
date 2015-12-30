@@ -57,7 +57,7 @@ class ODFW_customizations {
         include_once(ODFW_MODULES . 'odfw-options-page.php');
 
 
-		//$this->adjust_species_CSV_imports();
+		$this->adjust_species_CSV_imports();
 
 		//Uncomment this to debug CSV importing before it hits the database
 		//require_once('lib/rs-csv-importer-debug.php');
@@ -68,9 +68,18 @@ class ODFW_customizations {
 
     public function adjust_species_CSV_imports () {
 
+
         // tweak custom fields ('meta_data')
         function CSV_species_save_meta_filter( $meta, $post, $is_update ) {
 
+			$accros = array(
+				"SOC" => "Species of Concern",
+				"C" => "Candidate for listing",
+				"E"=> "Endangered",
+				"T" => "Threatened",
+				"S" => "Sensitive",
+				"P" => "Proposed"
+			);
             foreach ($meta as $key => $value) {
                 // serialize the attached ecoregions list
                 if ($key == "species_meta_attached_ecoregions") {
@@ -79,6 +88,25 @@ class ODFW_customizations {
                         $meta[$key] = $_value;
                     }
                 }
+				// Replace abbreviations in the status fields with <abbr> tags
+				if ($key == "species_meta_federal-listing-status" || $key == "species_meta_state-listing-status") {
+					if ( !empty( $value ) ) {
+						trim($value);
+						foreach($accros as $accr=>$fullText) {
+							//if( strpos($ac, $value) !== false ) {
+							// only when the abbr is the first thing in the field:
+							//if( strpos($ac, $value) == 0 ) {
+							if( $accr == $value ) {
+								$abbrStr = "<abbr title='" . $fullText . "'>" . $value . "</abbr>";
+								$meta[$key] = $abbrStr;
+								//echo "XXX: " . $key . ": " . $value . "<br>" . "\n\n" ;
+							}
+						}
+					}else{
+						//echo "value is empty<br>" . "\n\n";
+					}
+				}
+
             }
             return $meta;
         }

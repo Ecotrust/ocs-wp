@@ -13,6 +13,10 @@
  * Inititally defined in wp-config.php but just in case.
  */
 
+	// This prefix has been moved to the OCS settings page but not yet implemented.
+	// Use it like:
+	// echo ocs_get_option('ocs-compass-url');
+	//
 	if (!defined('COMPASS_URL_PREFIX')) {
 	  // Path to the build directory for front-end assets
 	  define('COMPASS_URL_PREFIX', 'http://52.25.124.64/visualize/');
@@ -105,120 +109,5 @@ add_shortcode('linkbox', 'the_odfw_link_box_shortcode');
 
 
 
-function ocs_list_ecoregions ($ecorgions) {
-	$out = "";
-	$out .=	'<ul class="associated-ecoregions">';
 
-		// Get the associated ecoregion names
-		$args = array(
-			'post_type' => 'ecoregion',
-			'post__in' => $ecorgions,
-			'orderby' => 'date',
-			'order' => 'ASC',
-			'posts_per_page'=> '30', // -1 == show all
-		);
-
-		$loop = new WP_Query( $args );
-
-
-	if( $loop->have_posts() ):
-		while( $loop->have_posts() ): $loop->the_post();
-
-		global $post;
-		$out .= "<li><a id='$post->ID' href='/ecoregion/$post->post_name'>$post->post_title</a></li>";
-
-		endwhile;
-	endif;
-
-	$out .= '</ul>';
-	echo $out;
-
-	/* Restore original Post Data */
-	wp_reset_postdata();
-
-}
-
-function ocs_list_strategy_habitats ($strategy_habitats) {
-	$out = "";
-	$out .=	'<ul class="associated-strategy-habitats">';
-
-		// Get the associated ecoregion names
-		$args = array(
-			'post_type' => 'strategy_habitat',
-			'post__in' => $strategy_habitats,
-			'orderby' => 'date',
-			'order' => 'ASC',
-			'posts_per_page'=> '-1', // -1 == show all
-		);
-
-		$loop = new WP_Query( $args );
-
-
-	if( $loop->have_posts() ):
-		while( $loop->have_posts() ): $loop->the_post();
-
-		global $post;
-		$out .= "<li><a id='$post->ID' href='/strategy-habitat/$post->post_name'>$post->post_title</a></li>";
-
-		endwhile;
-	endif;
-
-	$out .= '</ul>';
-	echo $out;
-
-	/* Restore original Post Data */
-	wp_reset_postdata();
-
-}
-
-function ocs_list_coa_strategy_species ($strategy_species, $meta="") {
-	$out = "";
-	$out .=	'<ul class="associated-strategy-species long-list">';
-
-/*
-
-Needs to be broken down by top level taxonomy (amphibian, bird, reptile...)
-	These are taxonomies currently. Either need to:
-		Add other 'parents' to the taxonomy for (special grouped fish)
-		Create top level CPTs for existing taxonomy items
-			Either way, page listings could/should be cleaned up
-
-*/
-	$species_ids = array_map(
-        function($species) { return $species['coa_meta_strategy_species_id']; },
-        $strategy_species
-	);
-
-	// Get the associated ecoregion names
-	$args = array(
-		'post_type' => 'strategy_species',
-		'post__in' => $species_ids,
-		'orderby' => 'title',
-		'order' => 'ASC',
-		'posts_per_page'=> '-1', // -1 == show all
-	);
-
-	$loop = new WP_Query( $args );
-
-	$i = 0;
-	if( $loop->have_posts() ):
-		while( $loop->have_posts() ): $loop->the_post();
-
-		global $post;
-		$asso =  $strategy_species[$i]['coa_meta_strategy_species_association'];
-		$out .= "<li><a id='$post->ID' href='/strategy-species/$post->post_name'>$post->post_title</a>";
-		$out .= " <span class='species-association'>($asso)</span></li>";
-
-
-		$i++;
-		endwhile;
-	endif;
-
-	$out .= '</ul>';
-	echo $out;
-
-	/* Restore original Post Data */
-	wp_reset_postdata();
-
-}
 

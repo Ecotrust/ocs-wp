@@ -37,47 +37,61 @@
 				<img class="img-responsive ecoregion-map" src="<?php echo esc_html( $the_field ); ?>">
 			</div>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_important-industries', true );
+			if ( !empty ($the_field) ): ?>
 			<h5>Important Industries</h5>
 			<p class="cmb2-textarea_small">
-				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_important-industries', true );
-				echo esc_html( $the_field ); ?>
+				<?php echo esc_html( $the_field ); ?>
 			</p>
+			<?php endif; ?>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_major-crops', true );
+			if ( !empty ($the_field) ): ?>
 			<h5>Major Crops</h5>
 			<p class="cmb2-textarea_small">
-				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_major-crops', true );
-				echo esc_html( $the_field ); ?>
+				<?php echo esc_html( $the_field ); ?>
 			</p>
+			<?php endif; ?>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_recreational-areas', true );
+			if ( !empty ($the_field) ): ?>
 			<h5>Important Nature-based Recreational Areas</h5>
 			<p class="cmb2-textarea_small">
-				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_recreational-areas', true );
-				echo esc_html( $the_field ); ?>
+				<?php echo esc_html( $the_field ); ?>
 			</p>
+			<?php endif; ?>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_elevation', true );
+			if ( !empty ($the_field) ): ?>
 			<h5>Elevation</h5>
 			<p class="cmb2-text">
-				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_elevation', true );
-				echo esc_html( $the_field ); ?>
+				<?php echo esc_html( $the_field ); ?>
 			</p>
+			<?php endif; ?>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_number-of-species', true );
+			if ( !empty ($the_field) ): ?>
 			<h5>Number of Vertebrate Wildlife Species</h5>
 			<p class="cmb2-text">
-				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_number-of-species', true );
-				echo esc_html( $the_field ); ?>
+				<?php echo esc_html( $the_field ); ?>
 			</p>
+			<?php endif; ?>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_rivers', true );
+			if ( !empty ($the_field) ): ?>
 			<h5>Important Rivers</h5>
 			<p class="cmb2-textarea_small">
-				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_rivers', true );
-				echo esc_html( $the_field ); ?>
+				<?php echo esc_html( $the_field ); ?>
 			</p>
+			<?php endif; ?>
 
+			<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_outstanding', true );
+			if ( !empty ($the_field) ): ?>
 			<h5>Ecologically Outstanding Areas</h5>
 			<p class="cmb2-textarea_small">
-				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_outstanding', true );
-				echo esc_html( $the_field ); ?>
+				<?php echo esc_html( $the_field ); ?>
 			</p>
+			<?php endif; ?>
 
 		</section>
 
@@ -98,9 +112,6 @@
 		</section>
 
 
-
-
-
 		<section class="cmb2-wrap-group factors_repeat_group">
 			<h2>Limiting Factors and Recommended Approaches</h2>
 
@@ -118,7 +129,44 @@
 		</section>
 
 
+		<section class="associated-species listings-wrap">
 
+			<h2>Strategy Species</h2>
+
+			<div class="grid-layout">
+
+			<?php
+				Roots\Sage\CPT\ocs_list_ecoregion_associated_species( get_the_ID() );
+			?>
+
+			</div>
+		</section>
+
+
+		<section class="associated-species listings-wrap">
+
+			<h2>Conservation Opportunity Areas</h2>
+
+			<div class="grid-layout">
+
+			<?php
+				Roots\Sage\CPT\ocs_list_ecoregion_associated_COA( get_the_ID() );
+			?>
+
+			</div>
+		</section>
+
+		<?php
+/*
+ * coa_meta_attached_ecoregions
+ *
+ *
+ * species_meta_attached_ecoregions
+ *
+ * */
+
+
+?>
 		<?php get_template_part('templates/content', 'success-story'); ?>
 
     </div>

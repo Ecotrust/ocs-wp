@@ -221,7 +221,6 @@ class ocs_Admin {
 			'before_row' => '<div id="tab-1">'
 		) );
 
-		// echo ocs_get_option('coa-specialized-habitats');
 		$cmb->add_field( array(
 			'name'    => __( 'Where should the Oregon/Help icon link to?', 'ocs' ),
 			'id'      => 'ocs-help-icon-url',

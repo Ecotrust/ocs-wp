@@ -66,14 +66,14 @@
 			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_federal-listing-status', true );
 				if ( !empty($the_field) ): ?>
 					<li><strong>Federal Listing Status</strong>
-						<?php echo esc_html( $the_field ); ?>
+						<?php echo $the_field; ?>
 					</li>
 			<?php endif; ?>
 
 			<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_state-listing-status', true );
 				if ( !empty($the_field) ): ?>
 					<li><strong>State Listing Status</strong>
-						<?php echo esc_html( $the_field ); ?>
+						<?php echo $the_field; ?>
 					</li>
 			<?php endif; ?>
 
@@ -93,47 +93,20 @@
 	</section>
 
 
-	<section class="cmb2-wrap-custom_attached_posts species_meta_attached_ecoregions">
-	<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-ecoregions') ?>">Ecoregions</h2 data-toggle="tooltip"  data-placement="right" title="">
 
-		<ul class="associated-ecoregions">
-			<?php
-				// Some of these were stored as a string(single), some as an array (on CSV import)
-				$the_ecoregions = get_post_meta( get_the_ID(), 'species_meta_attached_ecoregions', true );
-				// so let's make sure it's an array
-				$the_ecoregions_array = is_array($the_ecoregions) ? $the_ecoregions : explode(",", $the_ecoregions);
+		<section class="associated-ecoregions listings-wrap">
+			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-ecoregions') ?>">Ecoregions</h2 data-toggle="tooltip"  data-placement="right" title="">
 
-				// Get the associated ecoregion names
-				$args = array(
-					'post_type' => 'ecoregion',
-					'post__in' => $the_ecoregions_array,
-					'orderby' => 'date',
-					'order' => 'ASC',
-					'posts_per_page'=> '30', // -1 == show all
-				);
-
-					$loop = new WP_Query( $args ); ?>
-
-			<?php
-
-
-		if( $loop->have_posts() ):
-			while( $loop->have_posts() ): $loop->the_post();
-
-			global $post; ?>
-
-				<li><a id="<?= $post->ID; ?>" href="/ecoregion/<?= $post->post_name; ?>"><?= $post->post_title; ?></a></li>
-
-			<?php
-
-			endwhile;
-		endif;
-	/* Restore original Post Data */
-	wp_reset_postdata();
-	?>
-
-		</ul>
-	</section>
+			<div class="grid-layout">
+				<?php
+					// Some of these were stored as a string(single), some as an array (on CSV import)
+					$the_ecoregions = get_post_meta( get_the_ID(), 'species_meta_attached_ecoregions', true );
+					// so let's make sure it's an array
+					$the_ecoregions_array = is_array($the_ecoregions) ? $the_ecoregions : explode(",", $the_ecoregions);
+					Roots\Sage\CPT\ocs_list_ecoregions($the_ecoregions_array);
+				?>
+			</div>
+		</section>
 
 
 
@@ -204,8 +177,7 @@
 			</section>
 	<?php endif; ?>
 
-
-
+	<?php /*
 	<section class="cmb2-wrap-text_url species_meta_image-thumb-url">
 		<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">Full URL to Thumbnail Image (DEVELOPMENT ONLY FIELD)</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
@@ -214,6 +186,7 @@
 			echo esc_html( $the_field ); ?>
 		</p>
 	</section>
+	*/ ?>
 
 	<?php get_template_part('templates/content', 'success-story'); ?>
 

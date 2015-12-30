@@ -118,30 +118,35 @@
 		</section>
 
 
-		<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_ecoregions">
+		<section class="associated-ecoregions listings-wrap">
 			<h2 data-toggle="tooltip" data-placement="right" title="<?php echo ocs_get_option('') ?>">Ecoregions</h2>
 
-			<?php
+			<div class="grid-layout">
+				<?php
 					// Some of these were stored as a string(single), some as an array (on CSV import)
 					$the_ecoregions = get_post_meta( get_the_ID(), 'coa_meta_attached_ecoregions', true );
 					// so let's make sure it's an array
 					$the_ecoregions_array = is_array($the_ecoregions) ? $the_ecoregions : explode(",", $the_ecoregions);
-					ocs_list_ecoregions($the_ecoregions_array);
-			?>
+					Roots\Sage\CPT\ocs_list_ecoregions($the_ecoregions_array);
+				?>
+			</div>
 		</section>
 
 
-		<section class="cmb2-wrap-custom_attached_posts coa_meta_attached_habitats">
+		<section class="associated-habitats listings-wrap">
+
 			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-strategy-habitats') ?>">Strategy Habitats</h2>
 
+			<div class="grid-layout">
 				<?php
 					// Some of these were stored as a string(single), some as an array (on CSV import)
 					$the_habitats = get_post_meta( get_the_ID(), 'coa_meta_attached_habitats', true );
 					// so let's make sure it's an array
 					$the_habitats_array = is_array($the_habitats) ? $the_habitats : explode(",", $the_habitats);
-					ocs_list_strategy_habitats($the_habitats_array);
+					Roots\Sage\CPT\ocs_list_strategy_habitats($the_habitats_array);
 
 				?>
+			</div>
 		</section>
 
 
@@ -161,14 +166,15 @@
 
 
 
-		<section class="cmb2-wrap-group coa_meta_strategy_species">
+		<section class="associated-species listings-wrap">
+
 			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-strategy-species') ?>">Strategy Species</h2>
 
-			<div class="cmb2-group">
+			<div class="grid-layout">
 
 			<?php
 				$the_species = get_post_meta( get_the_ID(), 'coa_meta_strategy_species', true );
-				ocs_list_coa_strategy_species($the_species);
+				Roots\Sage\CPT\ocs_list_coa_strategy_species($the_species,"", true);
 			?>
 
 			</div>

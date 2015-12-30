@@ -17,6 +17,7 @@ $sage_includes = [
   'lib/config.php',                // Configuration
   'lib/assets.php',                // Scripts and stylesheets
   'lib/titles.php',                // Page titles
+  'lib/cpt-getters.php',           // Functions for pulling in related CPT loop parts
   'lib/extras.php',                // Custom functions
 ];
 

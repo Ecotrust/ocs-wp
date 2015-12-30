@@ -2,6 +2,8 @@
 
 .listings-wrap {
 
+	@include clearfix;
+
 	.grid-item {
 		display: inline-block;
 		/*min-height: 200px;*/
