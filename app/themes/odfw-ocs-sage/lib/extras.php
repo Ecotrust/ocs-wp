@@ -13,6 +13,18 @@ function body_class($classes) {
     if (!in_array(basename(get_permalink()), $classes)) {
       $classes[] = basename(get_permalink());
     }
+
+
+	// Add species tax-slug to body to highlight proper item in left nav
+	if (get_post_type() == 'strategy_species') {
+		$custom_terms = get_the_terms(0, 'species');
+		if ($custom_terms) {
+		  foreach ($custom_terms as $custom_term) {
+			$classes[] = 'tax-species-' . $custom_term->slug;
+		  }
+		}
+	}
+
   }
 
   // Add class if sidebar is active
@@ -23,6 +35,10 @@ function body_class($classes) {
   return $classes;
 }
 add_filter('body_class', __NAMESPACE__ . '\\body_class');
+
+
+
+
 
 /**
  * Clean up the_excerpt()

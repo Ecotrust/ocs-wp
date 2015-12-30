@@ -59,6 +59,7 @@ else :
 		'post_type' => 'strategy_species',
 		'orderby' => 'title',
 		'order' => 'ASC',
+		'post_parent' => 0, //no subpages please
 		'posts_per_page'=> '-1', // -1 == show all
 		'tax_query' => array(
 			array(

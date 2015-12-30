@@ -224,3 +224,41 @@ function ocs_list_ecoregion_associated_COA ($ecoregion_id){
 	}
 
 }
+
+
+function ocs_list_sub_species ($species_id){
+	if (isset($species_id) && !empty($species_id) ) {
+
+		$out = "";
+
+		$args=array(
+			'post_type' => 'strategy_species',
+			'orderby' => 'post_title',
+			'post_parent' => $species_id,
+			'order' => 'ASC',
+			'posts_per_page' => -1,
+		);
+		$loop = new WP_Query($args);
+
+			if( $loop->have_posts() ):
+				echo "<section class='sub-species listings-wrap'>";
+				echo "<h2>Sub-Species</h2>";
+				echo "<div class='grid-layout'>";
+
+					while( $loop->have_posts() ): $loop->the_post();
+
+						//$out .= get_template_part('/templates/cpt-parts/part', 'species');
+						get_template_part('/templates/cpt-parts/part', 'species');
+
+					endwhile;
+
+				echo "</div></section>";
+			endif;
+
+
+		//echo $out;
+		/* Restore original Post Data */
+		wp_reset_postdata();
+	}
+
+}

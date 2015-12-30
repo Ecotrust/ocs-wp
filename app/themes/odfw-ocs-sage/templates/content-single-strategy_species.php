@@ -44,7 +44,8 @@
 		<?php endif; ?>
 	</figure>
 
-      <?php the_content(); ?>
+
+	<?php the_content(); ?>
 
 
 	<section class="species-overview">
@@ -82,7 +83,7 @@
 			if ( $cats[0]->term_id==19 ): ?>
 				<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-group', true );
 					if ( !empty($the_field) ): ?>
-					<li><strong>SMU/ESU/DPS/Group</strong>
+					<li><strong><abbr title="Species Management Unit for Native Fish">SMU</abbr>/<abbr title="Evolutionarily Significant Unity">ESU</abbr>/<abbr title="Distinct Population Segment">DPS</abbr>/Group</strong>
 						<?php echo esc_html( $the_field ); ?>
 					</li>
 				<?php endif; ?>
@@ -91,6 +92,9 @@
 		</ul>
 
 	</section>
+
+
+	<?php Roots\Sage\CPT\ocs_list_sub_species(get_the_ID()); ?>
 
 
 

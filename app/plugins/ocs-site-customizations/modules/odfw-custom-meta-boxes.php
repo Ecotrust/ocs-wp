@@ -32,7 +32,6 @@ function setupCustomFields () {
 		);
 		$species = get_categories( $args );
 		//$species = get_terms( 'species');
-		print_r($species);
 		return $species;
 	}
 	/**
