@@ -221,9 +221,14 @@
     },
 
 	inlineReadMore: function(){
+        var $readMore = $('.inline-read-more');
+        //if readMore exists, add class so a divider can be added to larger div
+        if ($readMore.length) {
+            $('.main-content > .hentry').addClass('has-read-more');
+        }
         //replace the WordPress <!--MORE--> Link with a readmore
         //content is wrapped inside of a div.read-more-wrap within lib/extras.php
-        $('.inline-read-more').on('click', function(){
+        $readMore.on('click', function(){
 			var $t = $(this),
 				newText = $t.text() === $t.attr('data-original') ? $t.attr("data-alternate") : $t.attr('data-original');
 

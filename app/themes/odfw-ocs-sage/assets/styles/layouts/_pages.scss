@@ -181,6 +181,10 @@ body.page-id-102.map-visible {
 	}
 }
 
+.hentry.has-read-more {
+	border-bottom: 1px solid $greyLight;
+}
+
 /*only slider shows*/
 body.home.page {
 	.main-content { display: none; }
