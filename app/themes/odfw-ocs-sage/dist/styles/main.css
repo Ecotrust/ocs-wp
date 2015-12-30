@@ -1553,6 +1553,7 @@ p+ul{margin-top:10px}
 h1{color:#414041;font-family:"TradeGothicBold","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:33px;height:62px;letter-spacing:.02em;line-height:62px}
 h1.entry-title{height:auto;margin:25px 0 0 0;line-height:1}
 h1+small{font-family:"HelveticaNeue-46Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;text-transform:uppercase;display:block;margin-bottom:24px}
+h1.search-results{font-size:22px;height:32px;line-height:32px;margin-bottom:0}
 .scroll-nav__heading,h2,h3,h4,h5{line-height:1.25;margin-top:1.9em}
 .scroll-nav__heading,h2{font-size:18px}
 h3,h4,h5{font-family:"HelveticaNeue-75Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;letter-spacing:-.02em;font-weight:700}
@@ -1872,8 +1873,8 @@ main.main{width:100%}
 .has-sidebar main.main:after{content:none}
 }
 @media screen and (max-width:600px){aside.inner-sidebar{display:none}
-.has-sidebar.sidebar-visible main.main .main-content{width:100%}
-.has-sidebar.sidebar-visible main.main:after{content:none}
+.has-sidebar main.main .main-content{width:100%}
+.has-sidebar main.main:after{content:none}
 }
 .draft-message{background-color:#EFF7ED;border-top:1px solid #C1E1BE;bottom:0;color:#111;font-family:"HelveticaNeue-75Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:11px;margin-left:-15px;margin-right:15px;min-height:67px;padding:10px;padding-left:18%;padding-top:15px;position:fixed;width:100%;z-index:2}
 .draft-message strong{background-color:#005130;color:#fff;font-weight:400;letter-spacing:.07em;padding:1px 3px}
@@ -1914,6 +1915,7 @@ body.page-id-102.map-visible section.post-102{display:none}
 .inline-read-more:hover{background-color:#EFF7ED;border-left:6px solid #000;color:#000}
 .read-more-wrap{max-height:0;opacity:0;overflow:hidden;-webkit-transition:max-height .9s ease-in-out,opacity 1s ease-in-out;-o-transition:max-height .9s ease-in-out,opacity 1s ease-in-out;transition:max-height .9s ease-in-out,opacity 1s ease-in-out}
 .read-more-wrap.visible{max-height:3000px;opacity:1;overflow:visible}
+.hentry.has-read-more{border-bottom:1px solid #9fa0a2}
 body.home.page .main-content{display:none}
 @media only screen and (max-width:768px){.content.row{padding-top:50px}
 }

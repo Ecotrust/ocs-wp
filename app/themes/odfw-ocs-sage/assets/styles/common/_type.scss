@@ -43,6 +43,12 @@ h1 {
 		display: block;
 		margin-bottom: 24px;
 	}
+    &.search-results {
+        font-size: 22px;
+        height: 32px;
+        line-height: 32px;
+        margin-bottom: 0;
+    }
 }
 h2, h3, h4, h5 {
 	line-height: 1.25;

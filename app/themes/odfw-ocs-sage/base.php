@@ -30,7 +30,7 @@ get_template_part('templates/header');
           get_template_part('templates/home', 'page');
         endif
         ?>
-        <div class="main-content">
+        <div class="main-content" id="mainContent" tabindex="-1">
           <?php include Wrapper\template_path(); ?>
         </div>
         <?php if (Config\display_sidebar()) : ?>

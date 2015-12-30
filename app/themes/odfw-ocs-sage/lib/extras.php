@@ -46,7 +46,7 @@ function replace_content($content) {
 	$count = 0;
 
 	$markupOpen = "<div class='read-more-wrap'>";
-	$markupClose = '</div><button class="inline-read-more" data-original="Continue Reading" data-alternate="Close Overivew">Continue Reading</button>';
+	$markupClose = '</div><button class="inline-read-more" data-original="READ MORE" data-alternate="READ LESS">READ MORE</button>';
 
 	$content = preg_replace('/<span id\=\"(more\-\d+)"><\/span>/', '<span id="\1"></span>'."\n\n". $markupOpen ."\n\n", $content, 1, $count);
 

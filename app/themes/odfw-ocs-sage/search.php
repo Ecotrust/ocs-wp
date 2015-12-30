@@ -5,6 +5,8 @@
     <?php _e('Sorry, no results were found.', 'sage'); ?>
   </div>
   <?php get_search_form(); ?>
+<?php else: ?>
+    <h1 class="search-results">SEARCH RESULTS:</h1>
 <?php endif; ?>
 
 <?php while (have_posts()) : the_post(); ?>
