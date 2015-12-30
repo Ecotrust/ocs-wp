@@ -3,8 +3,10 @@
 // @TODO: fix for smaller sizes
 
 .sidebar {
+    background-color: $greyDark;
 	line-height: 1.2;
 	padding: 0;
+    padding-bottom: $footerHeight;
 
 	ul,
 	ol { // @TODO OL is for on page scroll_nav_list only. Bloating CSS. Fix.
