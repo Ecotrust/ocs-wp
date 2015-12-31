@@ -2,7 +2,7 @@
   <article <?php post_class(); ?>>
 
     <header>
-	  <h1 class="entry-title"><?php the_title(); ?> </h1>
+	  <h1 class="entry-title" tabindex="6"><?php the_title(); ?> </h1>
     </header>
 
     <?php $the_compass_field = get_post_meta( get_the_ID(), 'species_meta_compass-link', true );

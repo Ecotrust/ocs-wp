@@ -1,7 +1,7 @@
 <?php while (have_posts()) : the_post(); ?>
   <article <?php post_class(); ?>>
     <header>
-      <h1 class="entry-title"><?php the_title(); ?></h1>
+      <h1 class="entry-title" tabindex="6"><?php the_title(); ?></h1>
     </header>
 
     <?php $the_compass_field = get_post_meta( get_the_ID(), 'ecoregion_meta_compass-link', true );
