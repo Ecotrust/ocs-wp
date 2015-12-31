@@ -34,9 +34,9 @@
 		//width: 16.6667%;
 		@include make-sm-column($sidebar-sm-columns);
 
-		&:hover {
-			background-color: $greenLight;
-			color: $green;
+		&:hover, &:focus {
+			background-color: $greenDark;
+			color: $greenLight;
 			text-decoration: none;
 		}
 	}
@@ -240,6 +240,23 @@ body.map-visible {
 	h1 { display: inline; }
 }
 
+#skip-to-content:focus {
+    background-color: #fbfbfb;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
+    color: #0073aa;
+    display: block;
+    font-size: 15px;
+    height: auto;
+    left: 10px;
+    line-height: normal;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    top: 10px;
+    width: 15em;
+    z-index: 100000;
+}
 
 /*min-width query is tied to .sidebars*/
 @media only screen and (max-width: 1050px) {

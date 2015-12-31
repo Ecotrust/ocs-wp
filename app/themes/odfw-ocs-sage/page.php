@@ -13,7 +13,7 @@
 
 	if ($isListingPage) :
 ?>
-		<section class="listings-wrap">
+		<section tabindex="8" class="listings-wrap">
 		<?php
 
 			// CPT listings

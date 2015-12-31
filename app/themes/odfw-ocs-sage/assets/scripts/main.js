@@ -47,10 +47,16 @@
           label: '',
           closeOnClick: "true",
           appendTo: "header#header",
-          allowParentLinks: "true"
+          allowParentLinks: "true",
+		  init: function(){
+			if ($('.slicknav_menu').is(':visible')) {
+			  //only move the #skip line from position 2 on the page if we're in a mobile view
+			  $('#skip-to-content').prependTo('.slicknav_menu');
+			}
+		  }
         });
 
-        $('<a href="#mainContent" class="sr-only sr-only-focusable" tabindex="0">Skip to Main Content</a>').prependTo('.slicknav_menu');
+
 
         /*
           toggling non-featured images added via media gallery

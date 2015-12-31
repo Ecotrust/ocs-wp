@@ -13,7 +13,7 @@
 				<?php if ( !empty($the_field_thumbnail) ): ?>
 					<img class="img-responsive" src="<?php echo esc_html( $the_field_thumbnail ); ?>">
 				<?php else: ?>
-					<img class="img-responsive" src="http://placehold.it/330x215/aaaaaa/ffffff?text=<? echo $post->post_title ?>">
+					<img class="img-responsive" src="http://placehold.it/330x215/aaaaaa/ffffff">
 				<?php endif; ?>
 			</div>
 			<h3 class="cpt-title"><?php the_title(); ?>

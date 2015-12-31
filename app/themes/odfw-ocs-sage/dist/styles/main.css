@@ -1742,7 +1742,7 @@ a.control_prev{left:5px;border-radius:0 2px 2px 0}
 #header .brand{background-color:#005130;display:inline-block;color:#fff;font-family:TradeGothicBold,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:33px;letter-spacing:.08em;line-height:63px;text-align:center;text-transform:uppercase;position:relative;min-height:1px;padding-left:15px;padding-right:15px}
 @media (min-width:560px){#header .brand{float:left;width:16.66667%}
 }
-#header .brand:hover{background-color:#D3E9D1;color:#005130;text-decoration:none}
+#header .brand:focus,#header .brand:hover{background-color:#00371a;color:#D3E9D1;text-decoration:none}
 #header .header-inner{position:relative;min-height:1px;padding-left:15px;padding-right:15px;padding-left:0;padding-right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}
 @media (min-width:560px){#header .header-inner{float:left;width:83.33333%}
 }
@@ -1774,6 +1774,7 @@ body.map-visible .view-map{background-position:0 -621px}
 .grid-available .view-switcher .view-grid,.list-available .view-switcher .view-list{display:inline-block}
 .page-header{border-bottom:0}
 .page-header h1{display:inline}
+#skip-to-content:focus{background-color:#fbfbfb;-webkit-box-shadow:0 0 1px 1px rgba(0,0,0,.3);box-shadow:0 0 1px 1px rgba(0,0,0,.3);color:#0073aa;display:block;font-size:15px;height:auto;left:10px;line-height:normal;padding:10px;position:absolute;text-align:center;text-decoration:none;top:10px;width:15em;z-index:100000}
 @media only screen and (max-width:1050px){#header a.brand{font-size:3vw}
 #header input#search-field{font-size:2.75vw}
 }
