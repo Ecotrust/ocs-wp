@@ -1734,9 +1734,9 @@ a.control_prev{left:5px;border-radius:0 2px 2px 0}
 }
 @media screen and (max-width:600px){body.home.page .content.row{padding-top:0}
 }
-::-webkit-input-placeholder{color:#414041}
-:-moz-placeholder{color:#414041}
-:-ms-input-placeholder{color:#414041}
+::-webkit-input-placeholder{color:#414041;font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif}
+:-moz-placeholder{color:#414041;font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif}
+:-ms-input-placeholder{color:#414041;font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif}
 #header{background-color:#D3E9D1;position:fixed;top:0;left:0;right:0;z-index:1040}
 .admin-bar #header{padding-top:31px}
 #header .brand{background-color:#005130;display:inline-block;color:#fff;font-family:TradeGothicBold,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:33px;letter-spacing:.08em;line-height:63px;text-align:center;text-transform:uppercase;position:relative;min-height:1px;padding-left:15px;padding-right:15px}
