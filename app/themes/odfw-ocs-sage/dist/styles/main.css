@@ -1881,7 +1881,7 @@ main.main{width:100%}
 .listings-wrap:after,.listings-wrap:before{content:" ";display:table}
 .listings-wrap:after{clear:both}
 .listings-wrap .grid-item{display:inline-block;max-width:325px;position:relative;vertical-align:top;width:33%}
-.listings-wrap .grid-item img{width:100%}
+.listings-wrap .grid-item img{width:100%;height:auto}
 .listings-wrap .grid-item .cpt-title{font-family:HelveticaNeue-65Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:500;letter-spacing:0;margin:16px 0 11px 0}
 .listings-wrap .grid-item .cpt-title+p{margin-top:0;overflow:hidden}
 .listings-wrap .grid-item p{max-width:100%}

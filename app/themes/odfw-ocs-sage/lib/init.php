@@ -29,7 +29,7 @@ function setup() {
   add_theme_support('post-thumbnails');
 
   add_image_size( 'hero', 1600, 580, true );
-  add_image_size( 'grid', 230, 117, true );
+  add_image_size( 'grid', 255, 185, true );
   add_image_size( 'listing', 116, 63, true );
 
   //if(get_option('medium_size_w')!=640) update_option('medium_size_w',640);
