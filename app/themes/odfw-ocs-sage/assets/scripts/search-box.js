@@ -90,16 +90,13 @@ $(document).ready(function() {
   if ($(window).width() > 767) {
     // Grab the content of the first h1 on the page and create
     // the search box's placeholder
-    $firstHeader = $('h1:eq(0)');
-
+    var page_title;
     //home page should show 'SEARCH', but should keep its H1 for SEO purposes
     if ($('.home').length) {
       page_title = "SEARCH";
     } else {
-      page_title = $firstHeader;
+      page_title = $('h1:eq(0)').hide().text();
     }
-    
-    $firstHeader.hide().text();
     $search_field = $('#search-field');
 
     // TODO: Should be black when it's a page title.
