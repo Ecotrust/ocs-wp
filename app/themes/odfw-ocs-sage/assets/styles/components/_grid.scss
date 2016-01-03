@@ -4,31 +4,11 @@
 	min-height: 100vh;
 
 	// clear the fixed footer
-	// @TODO MQs. 47px is the default for two lines but as the screen shrinks...
 	padding-bottom: 87px;
-
-	&::before {
-		@include sidebar-column;
-		width: 33%;
-		left: -33%;
-	}
-
 
 	.has-sidebar & {
 		padding: 0;
 
-		// Right sidebar
-		&::after{
-			@include sidebar-column;
-		}
-		&::before {
-			/*background-color: $greyDark;*/
-		}
-		&::after {
-			background-color: $greyLighter;
-			left: 75%;
-			left: $main-sm-columns - $sidebar-sm-columns;
-		}
 		.main-content {
 			@include make-sm-column(9);
 		}
@@ -37,9 +17,59 @@
 	.has-sidebar.sidebar-visible & {
 		padding-bottom: 300px;
 	}
+
 }
 
+// Faux columns
+// Nested BS columns complicates this some so doing a few resets here:
+$colWidth: 100/12;
+$mainWidth: 10 * $colWidth;
+$leftSidebarWidth: 2 * $colWidth;
+$innerSidebarWidth: $mainWidth * 0.75;
+$innserSidebarBgOffset: $innerSidebarWidth + $leftSidebarWidth;
 
+
+
+body {
+    position: relative;
+
+    //match slicknav MQ in sidebar.scss
+    @media screen and (min-width: 769px) {
+        &::before {
+            @include sidebar-column;
+            width: percentage((2/$grid-columns));
+
+        }
+    }
+
+    @media screen and (min-width: 600px) {
+
+      &.has-sidebar {
+          &::after{
+              @include sidebar-column;
+          }
+          &::after {
+              background-color: $greyLighter;
+              left: 75%;
+              width: 25%;
+          }
+      }
+    }
+
+    @media screen and (min-width: 769px) {
+
+      &.has-sidebar {
+          &::after{
+          }
+          &::after {
+              background-color: $greyLighter;
+              left: $innserSidebarBgOffset+%;
+              width: 100 - $innserSidebarBgOffset+%;
+          }
+      }
+    }
+
+}
 
 .sidebar {
   @include make-sm-column($sidebar-sm-columns);

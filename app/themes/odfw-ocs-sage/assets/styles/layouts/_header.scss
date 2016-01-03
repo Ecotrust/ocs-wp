@@ -51,8 +51,6 @@
 
 	.search-wrap {
 		border-bottom: 1px solid $greenMid;
-		//display: inline-block;
-		//@include make-sm-column(9);
         flex: 1;
 
 		form, input {
@@ -83,19 +81,26 @@
 
 		button {
 			@include top-button;
-			background: $greenLight url($nav-sprite) 0 -806px no-repeat;
+			background: $greenLight url($nav-sprite) 100% -806px no-repeat;
+            /*display: inline-block;*/
 			display: block;
-			//float: right;
-			padding: 0 15px;
-			margin-right: -15px;
+            margin: 0;
+			/*padding: 0 15px;*/
+            padding: 0;
 			text-indent: -999em;
-			width: 66px;
-            display: inline-block;
-            margin-right: 0;
-            //width: 10%;
+            width: auto !important; //override mixin
+            flex: 0 0 62px;
+
 			&:hover {
-				background: darken($greenLight, 5) url($nav-sprite) -61px -806px no-repeat;
+				background-color: darken($greenLight, 5);
+                background-position: 0 -806px;
 			}
+
+            @media screen and (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi){
+                background-image: url($nav-sprite-2x);
+                background-size: 200%;
+            }
+
 		}
 	}
 	&.mobile { display: none; }
@@ -103,49 +108,32 @@
 
 
 .view-switcher {
-	//@include make-sm-column(3);
+	background-color: $greenLighter;
 	padding: 0;
 
-	// @TODO these should be on the LIs once we sort out which can be used.
-	background-color: $greenLighter;
-
-    /*
-	ul {
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-	}
-	li {
-		border-bottom: 1px solid $greenLighter;
-		//float: left;
-		//width: 25%;
-        width: 50px;
-
-		&:hover {
-			border-bottom: 1px solid $greenMid;
-		}
-    }
-    */
 	a {
 		@include top-button;
-		/*@include make-sm-column(4);*/
         display: none; // default
-
-        line-height: 62px; // this is a bug
 		text-indent: -999em;
-        width: 66px;
+
+        background-image: url($nav-sprite);
+        background-repeat: no-repeat;
+
+        @media screen and (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi){
+            background-image: url($nav-sprite-2x);
+            background-size: 200%;
+        }
 
 		&:focus { outline: none;}
 
 		&.view-map,
 		&.view-grid,
 		&.view-list {
-			background: $greenLighter url($nav-sprite);
+			background-color: $greenLighter;
 		}
 
 		&.view-map {
-            //background-position: -55px -621px;
-			background-position: -61px -621px;
+			background-position: 100% -621px;
 
 			&:hover,
 			&:active {
@@ -154,7 +142,7 @@
 		}
 
 		&.view-grid {
-			background-position: -62px -680px;
+			background-position: 100% -680px;
 
 			&:hover,
 			.grid-layout &,
@@ -164,7 +152,7 @@
 		}
 
 		&.view-list {
-			background-position: -62px -742px;
+			background-position: 100% -742px;
 
 			&:hover,
 			.list-layout &,
@@ -175,7 +163,10 @@
 
 		&.my-ocs {
 
-            background: $green url($nav-sprite) 0 -871px no-repeat;
+            background-color: $green;
+            /*background-position: 0px -871px;*/
+            // er?
+            background-position: 0 -928px;
             display: inline-block;
             position: relative;
 			width: 66px;
@@ -195,7 +186,7 @@
             &:after {
                 // Hack to fade out the oregon icon on hover
                 // bgi on main element hidden on hover
-                background: transparent url($nav-sprite) 0 -871px no-repeat;
+                background: transparent url($nav-sprite) 0px -871px no-repeat;
                 content: "";
                 opacity: 1;
                 top: 0;
@@ -205,6 +196,11 @@
                 position: absolute;
                 transition: opacity 0.2s;
                 z-index: 0;
+                @media screen and (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi){
+                    background-image: url($nav-sprite-2x);
+                    background-position: 0 -928px;
+                    background-size: 200%;
+                }
             }
             &:hover:after{
                 opacity: 0.5;

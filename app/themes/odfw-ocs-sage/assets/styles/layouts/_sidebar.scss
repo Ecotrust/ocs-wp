@@ -40,14 +40,14 @@
 			@for $i from 0 through 9 {
 				>li:nth-child(#{$i+1}) > a:before,
 				{
-					background: url($nav-sprite) 0 $i*-62px no-repeat;
+					background-position: 0 $i*-62px;
 				}
 				>li:nth-child(#{$i+1}).active > a:before,
 				>li:nth-child(#{$i+1}).current-menu-item > a:before,
 				>li:nth-child(#{$i+1}).current-menu-parent > a:before,
 				>li:nth-child(#{$i+1}).current-menu-ancestor > a:before
 				{
-					background: url($nav-sprite) -62px $i*-62px no-repeat;
+					background-position: -62px $i*-62px;
 				}
 
 			}
@@ -74,12 +74,19 @@
 
 				> a:before {
 					content: " ";
+					background-image: url($nav-sprite);
+					background-repeat: no-repeat;
 					display: block;
 					height: 62px;
 					margin-left: -62px;
 					position: absolute;
 					top: -4px;
 					width: 62px;
+
+					@media screen and (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi){
+						background-image: url($nav-sprite-2x);
+						background-size: 200%;
+					}
 				}
 
 				// WP seems to be waffling on - and _. Late night says, "just add both"
