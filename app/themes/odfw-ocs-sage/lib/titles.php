@@ -16,7 +16,7 @@ function title() {
     return get_the_archive_title();
   } elseif (is_search()) {
     return sprintf(__('%s', 'sage'), get_search_query());
-  } elseif (is_404() || is_page('22')) {
+  } elseif (is_404()) {
     return 'SEARCH';
   } else {
     return get_the_title();

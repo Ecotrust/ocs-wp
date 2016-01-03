@@ -125,7 +125,7 @@
 
       },
       finalize: function() {
-        //OCS.showSpeciesTypeSidebar();
+        OCS.showSpeciesTypeSidebar();
       }
     },
     'conservation_opportunity_areas': {
@@ -172,7 +172,7 @@
     showSpeciesTypeSidebar: function() {
         var speciesArray = ['amphibian', 'bird', 'mammal', 'reptile', 'fish', 'invertebrate', 'plant'];
         for (var i=0; i<speciesArray.length; i++) {
-            var str = '.species-'+speciesArray[i];
+            var str = '.tax-species-'+speciesArray[i];
             if ($(str).length) {
                switch(i) {
                 case 0:
@@ -197,8 +197,8 @@
                     page = 'li.page-item-116';
                     break;
                 }
-                $(page).addClass('current_page_item');
-                $('.page-item-109').addClass('current_page_parent');
+                $(page).addClass('current_page_item current-menu-item');
+                $(page).parent().parent().addClass('current_page_parent current-menu-parent');
             }
         }
     },
