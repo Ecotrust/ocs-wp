@@ -1,7 +1,7 @@
 ::-webkit-input-placeholder {
    color: $greyDark;
 }
-:-moz-placeholder {
+::-moz-placeholder {
    color: $greyDark;
 }
 :-ms-input-placeholder {
@@ -12,7 +12,7 @@ body.home, body.error404 {
      color: $greyDark;
      font-family: $headings-font-family-lighter;
   }
-  :-moz-placeholder {
+  ::-moz-placeholder {
      color: $greyDark;
      font-family: $headings-font-family-lighter;
   }
@@ -21,7 +21,6 @@ body.home, body.error404 {
      font-family: $headings-font-family-lighter;
   }
 }
-
 
 #header {
 	background-color: $greenLight;
