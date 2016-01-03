@@ -20,16 +20,23 @@
 
 }
 
-// Faux columns
-// Nested BS columns complicates this some so doing a few resets here:
-$colWidth: 100/12;
+/*
+ *
+ * Faux columns
+ * Uses :before and :after on the body
+ *
+ * Nested BS columns complicates this some.
+ * [2+10] == cols for left nav and right area
+ * Right area is further split:
+ * [9+3] == cols for main-content and right (inner) sidebar
+ * Right sidebar faux column == 25% of the 10 in [2+10]
+ *
+ */
+$colWidth: 100/$grid-columns;
 $mainWidth: 10 * $colWidth;
 $leftSidebarWidth: 2 * $colWidth;
 $innerSidebarWidth: $mainWidth * 0.75;
 $innserSidebarBgOffset: $innerSidebarWidth + $leftSidebarWidth;
-
-
-
 body {
     position: relative;
 
@@ -38,10 +45,10 @@ body {
         &::before {
             @include sidebar-column;
             width: percentage((2/$grid-columns));
-
         }
     }
 
+    // no left sidebar in sidebar.css
     @media screen and (min-width: 600px) {
 
       &.has-sidebar {
