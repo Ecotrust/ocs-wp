@@ -1,26 +1,33 @@
 .main-content {
 	p, caption {
 		font-weight: 300;
-		max-width: 80%;
 		//quick fix. @TODO set with bootstrap vars/computation
 		margin-top: $line-height-px;
 		margin-bottom: 0;
 	}
-	li {
-		max-width: 80%;
+	p, caption, dt, dd {
+		max-width: 70ch;
+	}
+	h2, h3, h4, h5, h6 {
+		max-width: 67ch;
 	}
 	li {
 		margin-top: 0;
 		margin-bottom: $line-height-px/2;
+		max-width: 65ch; //make up for left margin a bit
 	}
 	a {
 		font-family: $body-font-bold;
 		font-weight: 600;
 	}
+	h2+ul, h3+ul, h4+ul, h5+ul, h6+ul, p+ul, ul + ul, ul ul {
+		margin-top: $line-height-px/2;
+	}
+	ul+p {
+		margin-top: $line-height-px/2;
+	}
 }
-p+ul{
-	margin-top: $line-height-px/2;
-}
+
 .page-header {
 	margin: 0;
 	padding-bottom: 0;
@@ -29,9 +36,10 @@ h1, h2 {
 	text-transform: uppercase;
 }
 h1 {
-	//temporary. Comps have no h1-title is in search box
+
 	@include h1Styles;
-	&.entry-title {
+
+	.main-content & {
 		height: auto;
 		margin: 25px 0 0 0 ;
 		line-height: 1;
