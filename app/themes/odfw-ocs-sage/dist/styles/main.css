@@ -1544,12 +1544,13 @@ td.visible-print,th.visible-print{display:table-cell!important}
 @media print{.hidden-print{display:none!important}
 }
 .main-content caption,.main-content p{font-weight:300;margin-top:20px;margin-bottom:0}
-.main-content caption,.main-content dd,.main-content dt,.main-content p{max-width:70ch}
-.main-content .scroll-nav__heading,.main-content h2,.main-content h3,.main-content h4,.main-content h5,.main-content h6{max-width:67ch}
-.main-content li{margin-top:0;margin-bottom:10px;max-width:65ch}
+.main-content caption,.main-content dd,.main-content dt,.main-content p{max-width:76ch}
+.main-content .scroll-nav__heading,.main-content h2,.main-content h3,.main-content h4,.main-content h5,.main-content h6{max-width:73ch}
+.main-content li{margin-top:0;margin-bottom:10px;max-width:71ch}
 .main-content a{font-family:"HelveticaNeue-65Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:600}
 .main-content .scroll-nav__heading+ul,.main-content h2+ul,.main-content h3+ul,.main-content h4+ul,.main-content h5+ul,.main-content h6+ul,.main-content p+ul,.main-content ul ul,.main-content ul+ul{margin-top:10px}
 .main-content ul+p{margin-top:10px}
+.main-content p:empty{display:none}
 .page-header{margin:0;padding-bottom:0}
 .scroll-nav__heading,h1,h2{text-transform:uppercase}
 h1{color:#414041;font-family:"TradeGothicBold","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:33px;height:62px;letter-spacing:.02em;line-height:62px}
@@ -1625,13 +1626,13 @@ span.attr-name>a{color:#7FA797}
 @media (min-width:560px){.has-sidebar .main .main-content{float:left;width:75%}
 }
 .has-sidebar.sidebar-visible .main{padding-bottom:300px}
-body{position:relative}
-@media screen and (min-width:769px){body::before{background-color:#414041;left:0;bottom:0;content:"";position:absolute;right:0;top:0;z-index:-1;width:16.66667%}
+body:not(#tinymce){position:relative}
+@media screen and (min-width:769px){body:not(#tinymce)::before{background-color:#414041;left:0;bottom:0;content:"";position:absolute;right:0;top:0;z-index:-1;width:16.66667%}
 }
-@media screen and (min-width:600px){body.has-sidebar::after{background-color:#414041;left:0;bottom:0;content:"";position:absolute;right:0;top:0;z-index:-1}
-body.has-sidebar::after{background-color:#E6E7E8;left:75%;width:25%}
+@media screen and (min-width:600px){body:not(#tinymce).has-sidebar::after{background-color:#414041;left:0;bottom:0;content:"";position:absolute;right:0;top:0;z-index:-1}
+body:not(#tinymce).has-sidebar::after{background-color:#E6E7E8;left:75%;width:25%}
 }
-@media screen and (min-width:769px){body.has-sidebar::after{background-color:#E6E7E8;left:79.16667%;width:20.83333%}
+@media screen and (min-width:769px){body:not(#tinymce).has-sidebar::after{background-color:#E6E7E8;left:79.16667%;width:20.83333%}
 }
 .sidebar{position:relative;min-height:1px;padding-left:15px;padding-right:15px}
 @media (min-width:560px){.sidebar{float:left;width:16.66667%}
@@ -1922,8 +1923,9 @@ main.main{width:100%}
 .ecoregions img#region-png-print{display:none}
 body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}
 body.page-id-102.map-visible section.post-102{display:none}
-.success-story{background:#eee;border:1px solid #ddd;clear:both;margin:2em;padding:5px 22px 22px}
-.link-box{border-left:4px solid #005130;margin-left:50px;padding-left:30px}
+.success-story{background:#fbfbfb;border-top:4px solid #005130;border-bottom:4px solid #005130;clear:both;margin:2em 0;padding:5px 50px 22px 50px}
+.link-box{border-left:4px solid #005130;margin:20px;margin-left:50px;padding:10px;padding-left:30px}
+.link-box>.scroll-nav__section:first-child .scroll-nav__heading,.link-box>.scroll-nav__section:first-child h2,.link-box>h3:first-child,.link-box>p:first-child+.scroll-nav__section>.scroll-nav__heading,.link-box>p:first-child+.scroll-nav__section>h2,.link-box>p:first-child+h3{margin-top:0}
 .coa-id{margin-top:20px}
 .coa-id .btn,.coa-id .comment-form input[type=submit],.comment-form .coa-id input[type=submit]{cursor:default}
 .coa-id span{font-family:"HelveticaNeue-45Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400}

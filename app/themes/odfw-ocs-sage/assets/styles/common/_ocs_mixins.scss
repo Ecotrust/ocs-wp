@@ -1,11 +1,11 @@
 //Media Query Mixin
 //
 // Call it like this
-//    @include @breakpoint(xs){
+//    @include breakpoint(xs){
 //      .foo {}
 //    }
 // or
-//    @include @breakpoint(300, 567){
+//    @include breakpoint(300, 567){
 //      .foo {}
 //    }
 // see also: https://gist.github.com/timknight/b8adb5df5600c37fd567#file-breakpoint-v2-scss
