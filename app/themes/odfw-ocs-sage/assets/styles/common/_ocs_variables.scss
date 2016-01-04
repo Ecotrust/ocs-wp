@@ -39,6 +39,7 @@ $font-size-base:        12px; // 12px in comps but wrong font
 $line-height-base:      1.5333; // 20/14
 $line-height-px:		20px; // 20/14
 $headings-color:		$greyDark;
+$char-length:			76ch;
 
 $font-size-h1:            floor(($font-size-base * 2  )) !default; // ~24px
 $font-size-h2:            floor(($font-size-base * 1.5)) !default; // ~18px

@@ -6,15 +6,15 @@
 		margin-bottom: 0;
 	}
 	p, caption, dt, dd {
-		max-width: 70ch;
+		max-width: $char-length;
 	}
 	h2, h3, h4, h5, h6 {
-		max-width: 67ch;
+		max-width: $char-length - 3;
 	}
 	li {
 		margin-top: 0;
 		margin-bottom: $line-height-px/2;
-		max-width: 65ch; //make up for left margin a bit
+		max-width: $char-length - 5; //make up for left margin a bit
 	}
 	a {
 		font-family: $body-font-bold;
@@ -25,6 +25,10 @@
 	}
 	ul+p {
 		margin-top: $line-height-px/2;
+	}
+    // Oh, WordPress
+	p:empty {
+		display: none;
 	}
 }
 
