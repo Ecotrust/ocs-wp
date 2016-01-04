@@ -107,19 +107,31 @@ body.page-id-102.map-visible {
 
 // Temporary. No style guide yet.
 .success-story {
-    background: #eeeeee;
-    border: 1px solid #dddddd;
+    background: #fbfbfb;
+    border-top: 4px solid $green;
+    border-bottom: 4px solid $green;
 	clear: both;
-	margin: 2em;
-    padding: 5px 22px 22px;
+	margin: 2em 0;
+    padding: 5px 50px 22px 50px;
 }
 .success-story-content {
 
 }
 .link-box {
 	border-left: 4px solid $green;
+	margin: $line-height-px;
 	margin-left: 50px;
+	padding: $line-height-px/2;
 	padding-left: 30px;
+
+	> .scroll-nav__section:first-child h2,
+	> h3:first-child,
+	// in case WP inserts an empty p at the start
+	> p:first-child + .scroll-nav__section > h2,
+	> p:first-child + h3,
+	{
+		margin-top: 0;
+	}
 }
 
 .coa-id {
