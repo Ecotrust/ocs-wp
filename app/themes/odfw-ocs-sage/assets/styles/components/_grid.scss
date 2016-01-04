@@ -37,7 +37,7 @@ $mainWidth: 10 * $colWidth;
 $leftSidebarWidth: 2 * $colWidth;
 $innerSidebarWidth: $mainWidth * 0.75;
 $innserSidebarBgOffset: $innerSidebarWidth + $leftSidebarWidth;
-body {
+body:not(#tinymce) {
     position: relative;
 
     //match slicknav MQ in sidebar.scss
