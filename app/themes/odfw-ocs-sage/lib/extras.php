@@ -92,5 +92,13 @@ function sage_wrap_base_cpts($templates) {
 
 
 
+function add_post_id_to_nav_items( $classes, $item ) {
+	$classes[] = 'page-item-' . $item->object_id;
+    return $classes;
+}
+add_filter( 'nav_menu_css_class',  __NAMESPACE__ . '\\add_post_id_to_nav_items', 10, 2 );
+
+
+
 
 
