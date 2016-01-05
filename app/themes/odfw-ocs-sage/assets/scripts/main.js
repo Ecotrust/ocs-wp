@@ -251,7 +251,7 @@
 
 	listAndGridToggle: function (){
 
-		if ($('.listings-wrap').length ) {
+		if ($('#cpt-listings-wrap').length ) {
 			OCS.$body.addClass('grid-available').addClass('list-available');
 			//temp for testing
 			OCS.$body.addClass('grid-layout');

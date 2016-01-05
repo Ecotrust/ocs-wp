@@ -139,7 +139,7 @@ Needs to be broken down by top level taxonomy (amphibian, bird, reptile...)
 			//set_query_var( 'coa-assoc', $strategy_species[$i]['coa_meta_strategy_species_association'] );
 			set_query_var( 'coa-assoc', $strategy_species[$i]['coa_meta_strategy_species_association'] );
 		}
-			$out .= get_template_part('/templates/cpt-parts/part', 'species');
+			$out .= get_template_part('/templates/cpt-parts/part', 'strategy_species');
 			//$out = include(locate_template('/templates/cpt-parts/part-species.php'));
 
 		$i++;
@@ -177,7 +177,7 @@ function ocs_list_ecoregion_associated_species ($ecoregion_id){
 			if( $loop->have_posts() ):
 				while( $loop->have_posts() ): $loop->the_post();
 
-					$out .= get_template_part('/templates/cpt-parts/part', 'species');
+					$out .= get_template_part('/templates/cpt-parts/part', 'strategy_species');
 
 				endwhile;
 			endif;
@@ -247,8 +247,8 @@ function ocs_list_sub_species ($species_id){
 
 					while( $loop->have_posts() ): $loop->the_post();
 
-						//$out .= get_template_part('/templates/cpt-parts/part', 'species');
-						get_template_part('/templates/cpt-parts/part', 'species');
+						//$out .= get_template_part('/templates/cpt-parts/part', 'strategy_species');
+						get_template_part('/templates/cpt-parts/part', 'strategy_species');
 
 					endwhile;
 

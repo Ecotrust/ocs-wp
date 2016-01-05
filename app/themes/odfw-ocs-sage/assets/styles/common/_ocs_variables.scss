@@ -37,7 +37,7 @@ $headings-font-family-lighter:	  "TradeGothic", "Helvetica Neue", Helvetica, Ari
 
 $font-size-base:        12px; // 12px in comps but wrong font
 $line-height-base:      1.5333; // 20/14
-$line-height-px:		20px; // 20/14
+$line-height-px:		18px; // 20/14
 $headings-color:		$greyDark;
 $char-length:			76ch;
 
@@ -79,3 +79,91 @@ $screen-md:		             992px !default;
 $screen-md-min:              $screen-md !default;
 
 $screen-lg:                  1200px !default;
+
+%search-label-block {
+    @extend %search-label;
+	bottom: 4px;
+	display: block;
+	position: absolute;
+	right: 4px;
+	text-align: right;
+	width: 160px;
+}
+%search-label {
+	color: $gray;
+	clear: none;
+	display: inline;
+	font-family: $body-font-italic;
+	font-size: $font-size-base * 0.8;
+	font-weight: normal;
+	letter-spacing: .04em;
+    padding-left: 4px;
+
+	&:hover:before {
+		color: #aaaaaa;
+	}
+}
+
+%search-section-label {
+    color: $greyDark;
+    display: block;
+    font-family: $headings-font-family;
+    font-size: $font-size-h2;
+    letter-spacing: 0.02em;
+    line-height: 2;
+    margin-left: $line-height-px/2;
+    margin-top: 1em;
+    text-transform: uppercase;
+}
+
+%remove-search-section-label {
+    &:before {
+        display: none;
+        content: none;
+        margin-top: 0;
+    }
+}
+
+%count-indicator {
+    background-color: $green;
+    background-color: #cccccc;
+    border-radius: 50%;
+    //border: 1px solid $grey;
+    color: #fff;
+    font-family: $body-font-bold;
+    font-weight: 500;
+    line-height: 25px;
+    text-align: center;
+    width: 25px;
+
+    &:hover {
+        background-color: $green;
+    }
+}
+%search-count-indicator {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+
+}
+
+$postTypesFlat: "post",
+				"page",
+				"attachment",
+				"ecoregion",
+				"kci",
+				"coa",
+				"strategy_habitat",
+				"strategy_species",
+				"success_story";
+
+$postTypes: (post, Post),
+			(page, Page),
+			(attachment, Attachment),
+			(ecoregion, Ecoregion),
+			(kci, Key Conservation Issue),
+			(coa, Conservation Opportunity Area),
+			(strategy_habitat, Strategy Habitat),
+			(strategy_species, Strategy Species),
+			(success_story, Success Story);
+

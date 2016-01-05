@@ -106,16 +106,18 @@
 		</section>
 
 
-		<section class="cmb2-wrap-textarea_small coa_meta_recommended_conservation_actions">
-			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-special-features') ?>">Recommended Conservation Actions</h2>
+		<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended_conservation_actions', true );
+		if ( !empty ($the_field) ): ?>
+			<section class="cmb2-wrap-textarea_small coa_meta_recommended_conservation_actions">
+				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-special-features') ?>">Recommended Conservation Actions</h2>
 
-			<ul class="coa-detail-listing">
-				<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended_conservation_actions', true );
-				foreach($the_field as $entry ) { ?>
-					<li><?php echo esc_html( $entry ); ?></li>
-				<?php } ?>
-			</ul>
-		</section>
+				<ul class="coa-detail-listing">
+					<?php foreach($the_field as $entry ) { ?>
+						<li><?php echo esc_html( $entry ); ?></li>
+					<?php } ?>
+				</ul>
+			</section>
+		<?php endif; ?>
 
 
 		<section class="associated-ecoregions listings-wrap">
@@ -181,14 +183,15 @@
 		</section>
 
 
+		<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_local_conservation_actions_and_plans', true );
+		if ( !empty ($the_field) ): ?>
 
 		<section class="cmb2-wrap-group coa_meta_local_conservation_actions_and_plans">
 			<h2 data-toggle="tooltip" data-placement="right"  title="<?php echo ocs_get_option('coa-conservations-actions') ?>">
 			Local Conservation Actions and Plans</h2>
 
 			<ul>
-			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_local_conservation_actions_and_plans', true );
-
+			<?php
 				foreach($the_field as $entries => $entry ) {
 					if ( ! empty ( $entry['coa_meta_local_plan_link'] ) ) : ?>
 						<li><a href="<?= $entry['coa_meta_local_plan_link']; ?>"><?= $entry['coa_meta_local_plan_title']; ?></a></li>
@@ -199,6 +202,7 @@
 			<?php } ?>
 			</ul>
 		</section>
+		<?php endif; ?>
 
 
 		<section class="cmb2-wrap-group coa_meta_potential_partners">
