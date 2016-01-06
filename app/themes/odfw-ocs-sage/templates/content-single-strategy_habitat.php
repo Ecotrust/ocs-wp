@@ -21,7 +21,7 @@
 
 			<p class="cmb2-textarea">
 				<?php $the_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_ecoregions', true );
-				echo esc_html( $the_field ); ?>
+				echo wpautop( $the_field ); ?>
 			</p>
 		</section>
 
