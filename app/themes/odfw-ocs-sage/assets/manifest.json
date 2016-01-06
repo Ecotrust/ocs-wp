@@ -16,7 +16,7 @@
 	"inline-head.js": {
 	  "files": [
 		"scripts/search-box.js",
-		"scripts/mt-fonts.js"
+		"scripts/mtiFontTrackingCode.js"
 	  ]
 	},
 	"main.css": {

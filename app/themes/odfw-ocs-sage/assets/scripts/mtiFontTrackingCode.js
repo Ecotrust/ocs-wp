@@ -1,5 +1,6 @@
 
-var projectId = window.MTIProjectId,
+//var projectId = window.MTIProjectId, //doesn't exist!
+var projectId = null,
 	mtiTracking = document.createElement('link');
 
 mtiTracking.type = 'text/css';
