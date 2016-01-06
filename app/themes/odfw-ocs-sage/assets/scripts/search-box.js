@@ -7,15 +7,21 @@ var setUpOCSsearch = {
 	// Hide the h1 immediately
 	this.h1.className = 'sr-only';
 
+	// hello world
+	document.documentElement.className = 'js';
+
 	this.search = document.querySelector('#search-field');
 	this.title = document.body.className.indexOf('home') !== -1 ? 'Search' : this.h1.firstChild.nodeValue;
+
+	// Little breathing room for grid/list buttons. Oh, flexbox.
+	this.widthOffset = document.querySelector('#cpt-listings-wrap') ? 150 : 42;
+	this.searchBoxWidth = this.search.clientWidth - self.widthOffset;
 	this.lenTest = document.getElementById('length-test');
-	this.searchBoxWidth = this.search.clientWidth - 40;
 	this.searchOriginalFontSize = window.getComputedStyle(this.search, null).getPropertyValue('font-size');
 	this.sizeChanged = false;
 
 
-	// Move it to the searchbox
+	// Move the title to the searchbox
 	this.search.setAttribute('placeholder', self.title);
 	this.search.setAttribute('data-og-font-size', self.searchOriginalFontSize);
 
@@ -50,8 +56,9 @@ var setUpOCSsearch = {
 
   handleSearchChange: function(evt) {
 	var text_length = self.search.value.length;
-	// Update our measuring div
+	// Update the measuring div
 	self.lenTest.innerHTML = self.search.value;
+	// Empty? reset it all
 	if (text_length === 0) {
 	  self.search.setAttribute('placeholder', self.title);
 	  self.lenTest.innerHTML = self.title;
@@ -60,8 +67,13 @@ var setUpOCSsearch = {
   }
 };
 
+// also on window.resize?
 if (window.innerWidth > 767) {
-  // also on window.resize?
+    //skip waiting for doc ready to hide the h1
+	document.documentElement.className = 'no-fouc';
+
+	// Only need to wait because of a body class check for .home
+	// probably better to update page-header.php with something else.
 	document.onreadystatechange = function () {
 		if (document.readyState === "interactive") {
 		  setUpOCSsearch.init();

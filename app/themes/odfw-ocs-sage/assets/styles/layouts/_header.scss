@@ -85,9 +85,11 @@ body.home, body.error404 {
 			}
 			*/
 		}
+        // used to measure the length of the text in the search box
         #length-test {
           position: absolute;
           height: auto;
+          left: -9999em;
           width: auto;
           white-space: nowrap;
         }
