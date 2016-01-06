@@ -55,6 +55,7 @@ function display_sidebar() {
       [
         'is_404',
 		'is_front_page',
+		'is_search',
 		['is_tax', 'species'],
 		['is_page',  get_the_cpt_listing_pages() ],
 		['is_page',  get_the_species_listing_pages() ],

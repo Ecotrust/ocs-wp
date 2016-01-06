@@ -55,11 +55,12 @@ h1 {
 		display: block;
 		margin-bottom: 24px;
 	}
-    &.search-results {
-        font-size: 22px;
-        height: 32px;
-        line-height: 32px;
-        margin-bottom: 0;
+    &.search-results-header {
+		font-family: $headings-font-family-lighter;
+        font-size: 14px;
+        margin-bottom: $line-height-px;
+		margin-left: $line-height-px/2;
+		text-transform: none;
     }
 	.no-fouc {
 		visibility: hidden;
@@ -91,7 +92,7 @@ section h4 {
 	margin-bottom: 0;
     margin-top: $line-height-px;
 }
-.main-content h5 + p {
+.main-content h5 + p, .factors_repeat_group h4 + p {
 	margin-top: 0;
 }
 

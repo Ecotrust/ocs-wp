@@ -72,26 +72,17 @@
 
 
 
-		<section class="cmb2-wrap-title _strategy_habitat_meta_limiting_factors">
-			<h2>Limiting Factors</h2>
-
-			<p class="cmb2-title">
-				<?php $the_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_limiting_factors', true );
-				echo esc_html( $the_field ); ?>
-			</p>
-		</section>
-
-
-
 		<section class="cmb2-wrap-group factors_repeat_group">
+
+			<h2>Limiting Factors and Recommended Approaches</h2>
 
 			<div class="cmb2-group">
 				<?php $the_field = get_post_meta( get_the_ID(), 'factors_repeat_group', true );
 				if ( ! empty( $the_field ) ) :
 				foreach($the_field as $entries => $entry ) : ?>
-					<h3><?php echo $entry['_strategy_habitat_meta_factor_title'];?></h3>
+					<h3>Limiting Factor: <?php echo $entry['_strategy_habitat_meta_factor_title'];?></h3>
 					<p><?php echo $entry['_strategy_habitat_meta_factor_description'];?></p>
-					<h4>Approach</h4>
+					<h4>Recommended Approach</h4>
 					<p><?php echo $entry['_strategy_habitat_meta_approach'];?></p>
 				<?php endforeach; endif; ?>
 			</div>
