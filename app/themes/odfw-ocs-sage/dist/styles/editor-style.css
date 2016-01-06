@@ -1935,6 +1935,7 @@ body.page-id-102.map-visible section.post-102{display:none}
 .species-overview strong{display:block}
 .species-overview ul{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;max-width:492px}
 .species-overview li{padding:0 20px 0 0;width:50%}
+.single-strategy_species .grid-item p{display:none}
 .inline-read-more{border:0 none;background-color:rgba(239,247,237,.48);border-left:4px solid #005130;clear:both;font-family:"HelveticaNeue-65Lt","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:600;display:inline-block;margin:15px 0;padding:6px 15px;text-transform:uppercase;-webkit-transition:all .3s ease;-o-transition:all .3s ease;transition:all .3s ease}
 .inline-read-more:hover{background-color:#EFF7ED;border-left:6px solid #000;color:#000}
 .read-more-wrap{max-height:0;opacity:0;overflow:hidden;-webkit-transition:max-height .9s ease-in-out,opacity 1s ease-in-out;-o-transition:max-height .9s ease-in-out,opacity 1s ease-in-out;transition:max-height .9s ease-in-out,opacity 1s ease-in-out}
