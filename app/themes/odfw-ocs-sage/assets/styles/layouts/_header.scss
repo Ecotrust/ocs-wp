@@ -3,6 +3,7 @@
 }
 ::-moz-placeholder {
    color: $greyDark;
+   opacity: 1; //oh, ff. Bugzilla 556145
 }
 :-ms-input-placeholder {
    color: $greyDark;
@@ -70,7 +71,7 @@ body.home, body.error404 {
 			display: flex;
             width: 100%;
 		}
-		input {
+		input, #length-test {
 			@include h1Styles;
 			background-color: $greenLight;
 			border: 0 none;
@@ -83,14 +84,13 @@ body.home, body.error404 {
 				font-family: $headings-font-family;
 			}
 			*/
-            &.search-40-65 { font-size: 30px }
-            &.search-65-90  { font-size: 27px }
-            &.search-90-115  { font-size: 24px }
-            &.search-over-115  { font-size: 21px }
-
-
 		}
-
+        #length-test {
+          position: absolute;
+          height: auto;
+          width: auto;
+          white-space: nowrap;
+        }
 
 		button {
 			@include top-button;

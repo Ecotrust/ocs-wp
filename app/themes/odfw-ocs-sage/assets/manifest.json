@@ -9,14 +9,14 @@
 	"main.js": {
 	  "files": [
 		"scripts/main.js",
-		"scripts/search-box.js",
-		"scripts/svgPopup.js"
+		"scripts/svgpopup.js"
 	  ],
 	  "main": true
 	},
-	"mtiFontTrackingCode.js": {
+	"inline-head.js": {
 	  "files": [
-		"scripts/mtiFontTrackingCode.js"
+		"scripts/search-box.js",
+		"scripts/mt-fonts.js"
 	  ]
 	},
 	"main.css": {

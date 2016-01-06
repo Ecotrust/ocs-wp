@@ -10,6 +10,7 @@
 					<label class="sr-only">Search for:</label>
 					<input type="search" required="" tabindex="3" placeholder="SEARCH" id="search-field" class="search-field" name="s" value="">
 					<button class="search-submit"  tabindex="4" type="submit">Search</button>
+					<div id="length-test"></div>
 				</form>
 			</div>
 

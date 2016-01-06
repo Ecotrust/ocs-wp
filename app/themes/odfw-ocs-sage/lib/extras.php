@@ -96,9 +96,33 @@ function add_post_id_to_nav_items( $classes, $item ) {
 	$classes[] = 'page-item-' . $item->object_id;
     return $classes;
 }
-add_filter( 'nav_menu_css_class',  __NAMESPACE__ . '\\add_post_id_to_nav_items', 10, 2 );
+//add_filter( 'nav_menu_css_class',  __NAMESPACE__ . '\\add_post_id_to_nav_items', 10, 2 );
 
+function highlight_cpt_parent( $classes, $item ) {
+	// Get the current post details
+	global $post;
 
+	// Get the species terms for the current post
+	$term_list = wp_get_post_terms($post->ID, 'species', array("fields" => "names"));
+
+	$current_post_term = strtolower(trim($term_list[0]));
+
+	// Get the URL of the menu item
+	$menu_slug = strtolower(trim($item->url));
+
+	// if we have a taxonomy term and the slug has 'ocs-strategy-species' and there is no parent, most be the main SS
+	// page. Need to start with turning that "on".
+	if ( $current_post_term !== "" && strpos($menu_slug, 'ocs-strategy-species') !== false && $item->post_parent == 0 ) {
+		$classes[] = 'current-menu-parent';
+	}
+	// If the menu item URL contains the current post taxonomy term, since we know they're 1:1
+	// set that item to active
+	else if (strpos($menu_slug,$current_post_term) !== false) {
+	   $classes[] = 'current-menu-item';
+	}
+    return $classes;
+}
+add_filter( 'nav_menu_css_class',  __NAMESPACE__ . '\\highlight_cpt_parent', 10, 2 );
 
 
 
