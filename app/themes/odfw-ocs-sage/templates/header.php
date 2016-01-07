@@ -9,7 +9,7 @@
 				<form action="/" class="search-form form-inline" method="get" role="search">
 					<label class="sr-only">Search for:</label>
 					<input type="search" required="" tabindex="3" placeholder="SEARCH" id="search-field" class="search-field" name="s" value="">
-					<button class="search-submit"  tabindex="4" type="submit">Search</button>
+					<button class="search-submit"  tabindex="4" type="submit"><span>Search</span></button>
 					<div id="length-test"></div>
 				</form>
 			</div>

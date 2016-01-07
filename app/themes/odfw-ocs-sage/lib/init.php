@@ -20,6 +20,7 @@ function setup() {
   // http://codex.wordpress.org/Function_Reference/register_nav_menus
   register_nav_menus([
     'primary_navigation' => __('Primary Navigation', 'odfw')
+    //'crumb_navigation' => __('BreadCrumbs', 'odfw')
   ]);
 
   // Add post thumbnails

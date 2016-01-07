@@ -19,6 +19,7 @@ var setUpOCSsearch = {
 	this.lenTest = document.getElementById('length-test');
 	this.searchOriginalFontSize = window.getComputedStyle(this.search, null).getPropertyValue('font-size');
 	this.sizeChanged = false;
+	this.searchForm = document.querySelector('.search-form');
 
 
 	// Move the title to the searchbox
@@ -35,6 +36,7 @@ var setUpOCSsearch = {
 	this.search.addEventListener('propertychange', self.handleSearchChange);
 	this.search.addEventListener('blur', self.handleSearchChange);
 	this.search.addEventListener('focus', self.focusInput);
+	this.searchForm.addEventListener('submit', self.handleSubmit);
 
   },
 
@@ -64,7 +66,26 @@ var setUpOCSsearch = {
 	  self.lenTest.innerHTML = self.title;
 	}
 	self.checkSearchBoxLength();
+  },
+
+  handleSubmit: function(evt) {
+	var main = document.querySelector('main');
+	var searching = document.createElement("span");
+	searching.className = "searching";
+	//searching.innerHTML = '<h2 class="searching"> Searching the OCS for ' + self.search.value + '.</h2>' + main.innerHTML;
+	searching.innerHTML = 'Searching the OCS for <mark>' + self.search.value + '</mark>.';
+
+	// Not yet...
+	//main.insertBefore(searching, main.firstChild);
+
+	window.setTimeout(function(){
+		document.body.className = document.body.className += ' search-submitted';
+	}, 100);
+	// easier testing:
+	//evt.preventDefault();
+	//return false;
   }
+
 };
 
 // also on window.resize?

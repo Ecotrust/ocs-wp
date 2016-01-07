@@ -125,16 +125,15 @@ $screen-lg:                  1200px !default;
 }
 
 %count-indicator {
-    background-color: $green;
     background-color: #cccccc;
     border-radius: 50%;
-    //border: 1px solid $grey;
     color: #fff;
     font-family: $body-font-bold;
     font-weight: 500;
     line-height: 25px;
     text-align: center;
     width: 25px;
+    transition: background-color 0.5s ease;
 
     &:hover {
         background-color: $green;
@@ -156,9 +155,9 @@ $postTypesFlat: "post",
 				"strategy_habitat",
 				"strategy_species",
 				"success_story";
-
+/*
 $postTypes: (post, Post),
-			(page, Page),
+			(page, More Result),
 			(attachment, Attachment),
 			(ecoregion, Ecoregion),
 			(kci, Key Conservation Issue),
@@ -167,3 +166,13 @@ $postTypes: (post, Post),
 			(strategy_species, Strategy Species),
 			(success_story, Success Story);
 
+*/
+$postTypes: (post, "Post"),
+			(page, "Page"),
+			(attachment, "Attachment"),
+			(ecoregion, "Ecoregion"),
+			(kci, "Key Conservation Issue"),
+			(coa, "Conservation Opportunity Area"),
+			(strategy_habitat, "Strategy Habitat"),
+			(strategy_species, "Strategy Species"),
+			(success_story, "Success Story");

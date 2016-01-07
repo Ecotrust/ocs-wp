@@ -62,11 +62,9 @@
 
 	.list-layout &, .search-results & {
 		.grid-item {
-
 			/*margin-bottom: $basePadding / 2;*/
 			max-width: none;
 			width: 100%;
-
 
 			a {
 				overflow: hidden;
@@ -82,11 +80,16 @@
 				margin-top: 0;
 			}
 
-
 		}
-		 .image-grid-container > img { height: auto;}
+        .image-grid-container > img {
+          height: auto;
+        }
 
 	}
+    // little bigger for search results:
+    .search-results & .grid-item .image-grid-container {
+        width: 100px;
+    }
 }
 
 
@@ -212,6 +215,19 @@ body.page-id-102.map-visible {
 .search-results-wrap {
 	counter-reset: results-counter;
 
+	.result-crumb {
+		color: #aaa;
+		clear: both;
+		font-family: $body-font-italic;
+		font-size: 11px;
+		font-weight: 400;
+		padding-top: 4px;
+
+		span {
+			text-transform: uppercase;
+			font-family: $body-font;
+		}
+	}
 	h2.search-section-label {
 		@extend %search-section-label;
 		text-transform: unset;
@@ -243,6 +259,8 @@ body.page-id-102.map-visible {
 			padding: $line-height-px/2;
 			padding-left: 43px; // (9+25+9)
 			position: relative;
+		    transition: background-color 0.3s ease;
+
 
 			&::after {
 				content: counter(results-counter);
@@ -281,14 +299,26 @@ body.page-id-102.map-visible {
 		counter-reset: results-counter;
 
 		@each $postType, $label in $postTypes {
+			$last: str-slice($label, str-length($label));
+			$pluralize: if($last != 's', s,  '');
 			.type-#{$postType}:before {
-				@include search-section-identify("#{$label}s");
+				@include search-section-identify("#{$label}#{$pluralize}");
 			}
+			// We don't really have sections. This is a hack to have the section
+			// only display before the first of each. Lordy.
 			.type-#{$postType} + .type-#{$postType}:before {
-				/*@extend %remove-search-section-label;*/
 				display: none;
 			}
 
+
+		}
+		// label the 'Pages' section differently
+		.type-page:before {
+			@include search-section-identify("More Results");
+		}
+		// but not if it's the only type in "Additonal Content..."
+		.search-section-label + .type-page:before {
+			content: "";
 		}
 		> .grid-item:before {
 			@extend %search-section-label;
@@ -317,6 +347,69 @@ body.page-id-102.map-visible {
 	border-radius: 1px;
 	color: #000000;
 	padding: 0.2em;
+}
+
+//just for search so including here
+#mainContent, .inner-sidebar {
+    -ms-transition: opacity 2s ease-in-out;
+    transition: opacity 2s ease-in-out;
+    opacity: 1;
+}
+main {
+    -ms-transition: background-color 1.5s ease-in-out;
+    transition: background-color 1.5s ease-in-out;
+}
+span.searching {
+    @include h1Styles;
+    -ms-transition: all 1.5s ease-in-out;
+    transition: all 1.5s ease-in-out;
+    opacity: 0;
+    top: 10%;
+    display: block;
+    position: fixed;
+    text-align: center;
+    width: inherit;
+}
+
+.search-submitted {
+    #mainContent, .inner-sidebar {
+        //opacity: 0.2;
+    }
+    main {
+        //background-color: $greenLight;
+
+        span.searching {
+            top: 15%;
+            opacity: 1;
+        }
+        .searching+.searching { display: none; }
+    }
+
+    #header .search-wrap #XXX input {
+      background-color: #ffff00;
+      bottom: 0;
+      height: auto;
+      max-height: none;
+      position: fixed;
+      top: 0;
+      z-index: 44444;
+    }
+    .search-submit {
+		position: relative;
+		  span {
+			  display: block;
+		  }
+    }
+
+
+
+
+}
+// END SEARCH
+
+.crumbs {
+	display: none; // still a WIP.
+	padding-top: 1em;
 }
 
 /*only slider shows*/

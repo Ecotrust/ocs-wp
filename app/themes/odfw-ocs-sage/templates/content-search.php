@@ -23,6 +23,12 @@ else:
 			<?php endif; ?>
 
 			<?php the_excerpt(); ?>
+			<?php if($postType == "page" && $post->post_parent): ?>
+				<footer class="result-crumb">
+					<span>Parent:</span>
+					<?php echo get_the_title($post->post_parent); ?>
+				</footer>
+			<?php endif; ?>
 		</div>
 
 	</a>

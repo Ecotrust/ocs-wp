@@ -102,33 +102,30 @@ function highlight_cpt_parent( $classes, $item ) {
 	// Get the current post details
 	global $post;
 
-	// Get the species terms for the current post
-	$term_list = wp_get_post_terms($post->ID, 'species', array("fields" => "names"));
-	if ( !empty($term_list)) {
-		$current_post_term = strtolower(trim($term_list[0]));
+	// no $post on a 404!
+	// Also, need to make sure a search for 'frog' doesn't open up the sidebar
+	if ( $post && !is_search() ):
+		// Get the species terms for the current post
+		$term_list = wp_get_post_terms($post->ID, 'species', array("fields" => "names"));
+		if ( !empty($term_list)) {
+			$current_post_term = strtolower(trim($term_list[0]));
 
-		// Get the URL of the menu item
-		$menu_slug = strtolower(trim($item->url));
+			// Get the URL of the menu item
+			$menu_slug = strtolower(trim($item->url));
 
-		// if we have a taxonomy term and the slug has 'ocs-strategy-species' and there is no parent, most be the main SS
-		// page. Need to start with turning that "on".
-		if ( $current_post_term !== "" && strpos($menu_slug, 'ocs-strategy-species') !== false && $item->post_parent == 0 ) {
-			$classes[] = 'current-menu-parent';
+			// if we have a taxonomy term and the slug has 'ocs-strategy-species' and there is no parent, most be the main SS
+			// page. Need to start with turning that "on".
+			if ( $current_post_term !== "" && strpos($menu_slug, 'ocs-strategy-species') !== false && $item->post_parent == 0 ) {
+				$classes[] = 'current-menu-parent';
+			}
+			// If the menu item URL contains the current post taxonomy term, since we know they're 1:1
+			// set that item to active
+			else if (strpos($menu_slug,$current_post_term) !== false) {
+			   $classes[] = 'current-menu-item';
+			}
 		}
-		// If the menu item URL contains the current post taxonomy term, since we know they're 1:1
-		// set that item to active
-		else if (strpos($menu_slug,$current_post_term) !== false) {
-		   $classes[] = 'current-menu-item';
-		}
-	}
+	endif;
     return $classes;
 }
 add_filter( 'nav_menu_css_class',  __NAMESPACE__ . '\\highlight_cpt_parent', 10, 2 );
-
-//Notice: Undefined offset: 0 in /var/www/ocs.ecotrust.org/app/themes/odfw-ocs-sage/lib/extras.php on line 108
-
-//Warning: strpos(): Empty needle in /var/www/ocs.ecotrust.org/app/themes/odfw-ocs-sage/lib/extras.php on line 120
-
-
-
 
