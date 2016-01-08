@@ -2,6 +2,7 @@
   <?php get_template_part('templates/page', 'header'); ?>
 
 <div class="hentry">
+	<?php get_template_part('templates/featured-thumbnail'); ?>
 	<div class="entry-content">
 		<?php the_content(); ?>
 
