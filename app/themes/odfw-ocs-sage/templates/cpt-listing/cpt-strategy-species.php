@@ -5,7 +5,7 @@
 	$i = 0;
 	$tempColors = array("27ae60", "58595B", "005130", "404041", "a3b9a1", "00371a", "bbbbbb");
 	// sub pages of Strategy Species but we only want the species taxonomy masters here
-	$non_species_pages = "117, 118, 119, 120";
+	$non_species_pages = "117, 118, 119, 120, 1887";
 
 
 // Is this the Species parent page?
