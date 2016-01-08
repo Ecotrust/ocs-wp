@@ -49,7 +49,7 @@ body:not(#tinymce) {
     }
 
     // no left sidebar in sidebar.css
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 769px) {
 
       &.has-sidebar {
           &::after{

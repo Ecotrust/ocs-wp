@@ -363,21 +363,10 @@
 
 /*tablet resolution*/
 @media screen and (max-width: 768px) {
-	.main-ocs-navigation, .content.row > aside.sidebar { display:none; }
+	.main-ocs-navigation, aside.sidebar { display:none; }
 
 	.slicknav_menu ,ul.slicknav_nav {
 		display:block;
-	}
-
-	main.main { width: 100%; }
-}
-
-@media only screen and (min-width: 601px) and (max-width: 768px) {
-	.has-sidebar.sidebar-visible {
-		main.main {
-			.main-content { width: 75%;}
-			&:after { content: ""; }
-		}
 	}
 
 	.has-sidebar {
@@ -390,7 +379,7 @@
 
 }
 
-@media screen and (max-width: 600px) {
+/*@media screen and (max-width: 600px) {
 	aside.inner-sidebar { display: none; }
 
 	.has-sidebar {
@@ -400,4 +389,4 @@
 		}
 	}
 
-}
+}*/

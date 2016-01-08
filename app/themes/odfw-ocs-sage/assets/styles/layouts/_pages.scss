@@ -423,6 +423,12 @@ span.searching {
 
 
 @media only screen and (max-width: 600px) {
-	.content.row { padding-top: 90px; }
+	.content.row { padding-top: 75px; }
 	.wrap.container-fluid { margin-top: 18px;}
+}
+
+@media only screen and (max-width: 600px) and (max-height: 500px) {
+    .content.row { padding-top: 25px; }
+    .wrap.container-fluid { margin-top: 5px; }
+    body { padding-top: 0;}
 }
