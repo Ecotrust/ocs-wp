@@ -137,8 +137,6 @@
         }
 	  },
 	  finalize: function() {
-        var $coaCompass = $('.compass-coa');
-        OCS.findAvailableHeight($coaCompass);
 	  }
     },
     // pages with a sidebar
@@ -200,25 +198,6 @@
                 }
                 $(page).addClass('current_page_item current-menu-item');
                 $(page).parent().parent().addClass('current_page_parent current-menu-parent');
-            }
-        }
-    },
-
-    //fill rest of COA main page with Compass iframe, with certain constraints
-    findAvailableHeight: function(elm) {
-        if ($(window).height() <= 767) {
-            elm.css('height', 400 + 'px');
-        } else {
-            var entryContentHeight = 0;
-            var viewHeight = $('main.main').height() - $('.draft-message').outerHeight() - $('header#header').height();
-            $('.entry-content > p').each(function() {
-                entryContentHeight += $(this).height();
-            });
-            var availableHeight = (viewHeight - entryContentHeight);
-            if (availableHeight < 400) {
-                elm.css('height', 400+'px');
-            } else {
-                elm.css('height', (availableHeight+'px'));
             }
         }
     },
