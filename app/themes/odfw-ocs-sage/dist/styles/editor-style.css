@@ -1898,8 +1898,8 @@ footer.content-info .draft-message{min-height:40px}
 .listings-wrap:after{clear:both}
 .listings-wrap .grid-item{display:inline-block;max-width:325px;position:relative;vertical-align:top;width:33%}
 .listings-wrap .grid-item img{width:100%;height:auto}
-.listings-wrap .grid-item .cpt-title{font-family:HelveticaNeue-65Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:500;letter-spacing:0;margin:16px 0 11px 0}
-.listings-wrap .grid-item .cpt-title+p{margin-top:0;overflow:hidden}
+.listings-wrap .grid-item .cpt-title{font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:900;letter-spacing:0;margin:16px 0 11px 0}
+.listings-wrap .grid-item .cpt-title+p{margin-top:0;overflow:hidden;font-family:HelveticaNeue-65Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400}
 .listings-wrap .grid-item p{max-width:100%}
 .listings-wrap a{color:#111;display:block;font-family:HelveticaNeue-45Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;padding:14px}
 .listings-wrap a:hover{background-color:#eee;text-decoration:none}

@@ -17,13 +17,15 @@
 			height: auto;
 		}
 		.cpt-title {
-			font-family: $body-font-bold;
-			font-weight: 500;
+			font-family: $body-font-bolder;
+			font-weight: 900;
 			letter-spacing: 0;
 			margin: 16px 0 11px 0;
 			& + p {
 				margin-top: 0;
 				overflow: hidden;
+				font-family: $body-font-bold;
+				font-weight: 400;
 			}
 		}
 		p {
