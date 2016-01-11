@@ -25,6 +25,7 @@ body {
 
     &.map-available {
        .view-map { display: block;}
+       .view-map.eco-link { display: inline; }
     }
 }
 
