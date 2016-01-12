@@ -139,6 +139,14 @@
 	  finalize: function() {
 	  }
     },
+    'single_ecoregion': {
+      init: function() {
+        // JavaScript to be fired on single ecoregion pages
+        $('body').addClass('grid-available list-available list-layout');
+      },
+      finalize: function() {
+      }
+    },
     // pages with a sidebar
 	'has_sidebar': {
 		init: function() {
