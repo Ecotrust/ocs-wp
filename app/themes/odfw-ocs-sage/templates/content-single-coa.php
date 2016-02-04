@@ -43,7 +43,6 @@
 			if ( !empty ($the_field) ): ?>
 			<h3>General</h3>
 			<ul class="coa-detail-listing">
-
 				<?php foreach($the_field as $entries => $entry ) { ?>
 					<li><?php echo $entry['coa_meta_special_features_title'];?>
 					<?php if ( !empty($entry['coa_meta_special_features_value']) ): ?>
