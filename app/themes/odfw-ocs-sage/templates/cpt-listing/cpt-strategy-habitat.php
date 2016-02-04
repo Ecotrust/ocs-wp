@@ -3,7 +3,7 @@
 <?php
 	$args = array(
 		'post_type' => 'strategy_habitat',
-		'orderby' => 'title',
+		'orderby' => 'menu_order',
 		'order' => 'ASC',
 		'posts_per_page'=> '-1',
 	);
@@ -13,7 +13,7 @@
 	if( $loop->have_posts() ):
 		while( $loop->have_posts() ): $loop->the_post();
 
-			get_template_part('/templates/cpt-parts/part', 'strategy_habitat');
+			get_template_part('menu_order', 'strategy_habitat');
 
 		endwhile;
 	endif;

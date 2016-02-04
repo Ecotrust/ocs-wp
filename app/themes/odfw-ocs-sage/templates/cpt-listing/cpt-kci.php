@@ -4,7 +4,7 @@
 <?php
 	$args = array(
 		'post_type' => 'kci',
-		'orderby' => 'title',
+		'orderby' => 'menu_order',
 		'order' => 'ASC',
 		'posts_per_page'=> '-1',
 	);
