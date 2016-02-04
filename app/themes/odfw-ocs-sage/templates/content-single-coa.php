@@ -7,7 +7,7 @@
       <h1 tabindex="6" class="entry-title"><?php the_title(); ?>, COA <?=$coa_id; ?></h1>
     </header>
 
-    <?php $the_compass_field = get_post_meta( get_the_ID(), 'coa_meta_compass-link', true );
+    <?php $the_compass_field = get_post_meta( get_the_ID(), 'coa_meta_compass_link', true );
         if ( ! empty($the_compass_field) ): ?>
         <?php include(locate_template('templates/compass-view.php')); ?>
     <?php endif; ?>
