@@ -13,7 +13,7 @@
 	if( $loop->have_posts() ):
 		while( $loop->have_posts() ): $loop->the_post();
 
-			get_template_part('menu_order', 'strategy_habitat');
+			get_template_part('/templates/cpt-parts/part', 'strategy_habitat');
 
 		endwhile;
 	endif;
