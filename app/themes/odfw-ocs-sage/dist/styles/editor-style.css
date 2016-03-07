@@ -1550,7 +1550,8 @@ td.visible-print,th.visible-print{display:table-cell!important}
 .main-content .scroll-nav__heading,.main-content h2,.main-content h3,.main-content h4,.main-content h5,.main-content h6{max-width:73ch}
 .main-content li{margin-top:0;margin-bottom:9px;max-width:71ch}
 .main-content a{font-family:HelveticaNeue-65Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:600}
-.main-content .scroll-nav__heading+ul,.main-content h2+ul,.main-content h3+ul,.main-content h4+ul,.main-content h5+ul,.main-content h6+ul,.main-content p+ul,.main-content ul ul,.main-content ul+ul{margin-top:9px}
+.main-content .scroll-nav__heading+ul,.main-content .tooltip+ul,.main-content h2+ul,.main-content h3+ul,.main-content h4+ul,.main-content h5+ul,.main-content h6+ul,.main-content p+ul,.main-content ul+ul{margin-top:9px}
+.main-content ul ul{margin-top:9px}
 .main-content ul+p{margin-top:9px}
 .main-content p:empty{display:none}
 .page-header{margin:0;padding-bottom:0}
@@ -1578,13 +1579,13 @@ abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-dec
 .on-hold.scroll-nav__heading+.tooltip,h2.on-hold+.tooltip{left:10px!important;margin-left:50px}
 .on-hold.scroll-nav__heading+.tooltip .tooltip-inner,h2.on-hold+.tooltip .tooltip-inner{max-width:70%;text-align:left}
 .on-hold.scroll-nav__heading+.tooltip .tooltip-arrow,h2.on-hold+.tooltip .tooltip-arrow{left:25px!important}
-[data-toggle=tooltip].scroll-nav__heading,h2[data-toggle=tooltip]{cursor:help;display:inline-block;width:auto}
-[data-toggle=tooltip].scroll-nav__heading:after,[data-toggle=tooltip].scroll-nav__heading:before,h2[data-toggle=tooltip]:after,h2[data-toggle=tooltip]:before{content:" ";display:table}
-[data-toggle=tooltip].scroll-nav__heading:after,h2[data-toggle=tooltip]:after{clear:both}
+.coa_meta_special_features h3,[data-toggle=tooltip].scroll-nav__heading,h2[data-toggle=tooltip]{cursor:help;display:inline-block;width:auto}
+.coa_meta_special_features h3:after,.coa_meta_special_features h3:before,[data-toggle=tooltip].scroll-nav__heading:after,[data-toggle=tooltip].scroll-nav__heading:before,h2[data-toggle=tooltip]:after,h2[data-toggle=tooltip]:before{content:" ";display:table}
+.coa_meta_special_features h3:after,[data-toggle=tooltip].scroll-nav__heading:after,h2[data-toggle=tooltip]:after{clear:both}
 .single-coa .scroll-nav__heading+.tooltip .tooltip-inner,.single-coa h2+.tooltip .tooltip-inner,.single-strategy_species .scroll-nav__heading+.tooltip .tooltip-inner,.single-strategy_species h2+.tooltip .tooltip-inner{max-width:400px;text-align:left;padding:8px 12px}
 .species-association{color:#58595B;font-size:10px}
 h3>.badge{margin-left:3px}
-.long-list,.long-list ol,.long-list ul{-moz-column-count:2;-webkit-column-count:2;column-count:2}
+.long-list,.long-list ol,.long-list ul{-moz-column-count:2;-webkit-column-count:2;column-count:2;padding-left:2em;list-style-position:inside}
 body{padding-top:62px}
 .tablepress,table{margin-top:15px;margin-bottom:15px}
 .tablepress>thead th,table>thead th{background-color:#58595B;color:#fff;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}

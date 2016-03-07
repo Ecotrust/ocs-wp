@@ -7,7 +7,7 @@
       <h1 tabindex="6" class="entry-title"><?php the_title(); ?>, COA <?=$coa_id; ?></h1>
     </header>
 
-    <?php $the_compass_field = get_post_meta( get_the_ID(), 'coa_meta_compass-link', true );
+    <?php $the_compass_field = get_post_meta( get_the_ID(), 'coa_meta_compass_link', true );
         if ( ! empty($the_compass_field) ): ?>
         <?php include(locate_template('templates/compass-view.php')); ?>
     <?php endif; ?>
@@ -33,17 +33,73 @@
 
 
 
+		<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended_conservation_actions', true );
+		if ( !empty ($the_field) ): ?>
+			<section class="cmb2-wrap-textarea_small coa_meta_recommended_conservation_actions">
+				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-conservations-actions') ?>">
+					Recommended Conservation Actions
+				</h2>
+
+				<ul class="coa-detail-listing">
+					<?php foreach($the_field as $entry ) { ?>
+						<li><?php echo esc_html( $entry ); ?></li>
+					<?php } ?>
+				</ul>
+			</section>
+		<?php endif; ?>
+
+
+
+		<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_local_conservation_actions_and_plans', true );
+		if ( !empty ($the_field) ): ?>
+
+		<section class="cmb2-wrap-group coa_meta_local_conservation_actions_and_plans">
+			<h2 data-toggle="tooltip" data-placement="right"  title="<?php echo ocs_get_option('coa-conservations-actions') ?>">
+			Local Conservation Actions and Plans</h2>
+
+			<ul>
+			<?php
+				foreach($the_field as $entries => $entry ) {
+					if ( ! empty ( $entry['coa_meta_local_plan_link'] ) ) : ?>
+						<li><a href="<?= $entry['coa_meta_local_plan_link']; ?>"><?= $entry['coa_meta_local_plan_title']; ?></a></li>
+					<?php else: ?>
+						<li><?php echo $entry['coa_meta_local_plan_title'];?></li>
+					<?php endif; ?>
+
+			<?php } ?>
+			</ul>
+		</section>
+		<?php endif; ?>
+
+
+		<section class="cmb2-wrap-group coa_meta_potential_partners">
+			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-potential-partners') ?>">Potential Partners</h2>
+
+			<ul>
+			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_potential_partners', true );
+
+				foreach($the_field as $entries => $entry ) {
+					if ( ! empty ( $entry['coa_meta_potential_partner_link'] ) ) : ?>
+						<li><a href="<?= $entry['coa_meta_potential_partner_link']; ?>"><?= $entry['coa_meta_potential_partner_title']; ?></a></li>
+					<?php else: ?>
+						<li><?php echo $entry['coa_meta_potential_partner_title'];?></li>
+					<?php endif; ?>
+
+			<?php } ?>
+			</ul>
+		</section>
+
 
 
 		<section class="cmb2-wrap-group coa_meta_special_features">
-			<h2 data-toggle="tooltip" data-placement="right" title="<?php echo ocs_get_option('coa-special-features') ?>">Special Features</h2>
-
+			<header>
+				<h2 data-toggle="tooltip" data-placement="right" title="<?php echo ocs_get_option('coa-special-features-main-header-tooltip'); ?>">Special Features</h2>
+			</header>
 
 			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_special_features', true );
 			if ( !empty ($the_field) ): ?>
-			<h3>General</h3>
+			<h3  data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-special-features-general-tooltip'); ?>">General</h3>
 			<ul class="coa-detail-listing">
-
 				<?php foreach($the_field as $entries => $entry ) { ?>
 					<li><?php echo $entry['coa_meta_special_features_title'];?>
 					<?php if ( !empty($entry['coa_meta_special_features_value']) ): ?>
@@ -58,9 +114,8 @@
 
 			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_special_features_2006', true );
 			if ( !empty ($the_field) ): ?>
-			<h3  data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-special-features-2006') ?>">2006
-				<abbr class="c2c-text-hover" title="Oregon Department of Fish and Wildlife">ODFW</abbr>
-				<abbr class="c2c-text-hover" title="Conservation Opportunity Area">COA</abbr>
+			<h3  data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-special-features-2006'); ?>">
+				Previously Associated With
 			</h3>
 			<ul class="coa-detail-listing">
 				<?php foreach($the_field as $entry ) { ?>
@@ -106,22 +161,8 @@
 		</section>
 
 
-		<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended_conservation_actions', true );
-		if ( !empty ($the_field) ): ?>
-			<section class="cmb2-wrap-textarea_small coa_meta_recommended_conservation_actions">
-				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-special-features') ?>">Recommended Conservation Actions</h2>
-
-				<ul class="coa-detail-listing">
-					<?php foreach($the_field as $entry ) { ?>
-						<li><?php echo esc_html( $entry ); ?></li>
-					<?php } ?>
-				</ul>
-			</section>
-		<?php endif; ?>
-
-
 		<section class="associated-ecoregions listings-wrap">
-			<h2 data-toggle="tooltip" data-placement="right" title="<?php echo ocs_get_option('') ?>">Ecoregions</h2>
+			<h2 data-toggle="tooltip" data-placement="right" title="<?php echo ocs_get_option('coa-ecoregions') ?>">Ecoregions</h2>
 
 			<div class="grid-layout">
 				<?php
@@ -182,45 +223,6 @@
 			</div>
 		</section>
 
-
-		<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_local_conservation_actions_and_plans', true );
-		if ( !empty ($the_field) ): ?>
-
-		<section class="cmb2-wrap-group coa_meta_local_conservation_actions_and_plans">
-			<h2 data-toggle="tooltip" data-placement="right"  title="<?php echo ocs_get_option('coa-conservations-actions') ?>">
-			Local Conservation Actions and Plans</h2>
-
-			<ul>
-			<?php
-				foreach($the_field as $entries => $entry ) {
-					if ( ! empty ( $entry['coa_meta_local_plan_link'] ) ) : ?>
-						<li><a href="<?= $entry['coa_meta_local_plan_link']; ?>"><?= $entry['coa_meta_local_plan_title']; ?></a></li>
-					<?php else: ?>
-						<li><?php echo $entry['coa_meta_local_plan_title'];?></li>
-					<?php endif; ?>
-
-			<?php } ?>
-			</ul>
-		</section>
-		<?php endif; ?>
-
-
-		<section class="cmb2-wrap-group coa_meta_potential_partners">
-			<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('coa-potential-partners') ?>">Potential Partners</h2>
-
-			<ul>
-			<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_potential_partners', true );
-
-				foreach($the_field as $entries => $entry ) {
-					if ( ! empty ( $entry['coa_meta_potential_partner_link'] ) ) : ?>
-						<li><a href="<?= $entry['coa_meta_potential_partner_link']; ?>"><?= $entry['coa_meta_potential_partner_title']; ?></a></li>
-					<?php else: ?>
-						<li><?php echo $entry['coa_meta_potential_partner_title'];?></li>
-					<?php endif; ?>
-
-			<?php } ?>
-			</ul>
-		</section>
 
 
 		<?php get_template_part('templates/content', 'success-story'); ?>

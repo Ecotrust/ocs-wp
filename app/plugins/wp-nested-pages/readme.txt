@@ -1,10 +1,10 @@
-=== Nested Pages ===
+﻿=== Nested Pages ===
 Contributors: kylephillips
 Donate link: http://nestedpages.com/
 Tags: pages, admin, nested, tree view, page tree, sort, quick edit, structure
 Requires at least: 3.8
-Tested up to: 4.3
-Stable tag: 1.5.2
+Tested up to: 4.4
+Stable tag: 1.5.4
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -38,6 +38,7 @@ For more information visit [nestedpages.com](http://nestedpages.com).
 * Italian (Francesco Canovi)
 * Portuguese (Luis Martins)
 * Russian (Алексей Катаев)
+* Spanish (Raúl Martínez)
 * Turkish (Yuksel Beyti)
 
 == Installation ==
@@ -88,6 +89,12 @@ If you have WordPress SEO by Yoast installed, your page score indicators are sho
 7. The Nested Pages interface can be enabled on a per-post-type basis, with customizable options for each type.
 
 == Changelog ==
+
+
+= 1.5.4 = 
+* Spanish translation added (Thanks to Raúl Martínez)
+* Various bug fixes related to WordPress 4.4 update
+* Duplicate menu items bug fix
 
 = 1.5.3 =
 * Confirmation modal added when deleting a link item.
@@ -337,4 +344,4 @@ After installing Nested Pages, a new menu will be available with the name `Neste
 
 **Editing the generated menu:** Any manual changes made to the menu outside of the Nested Pages interface will be overwritten after the synchronization runs.
 
-**Hiding Pages in the Menu:** To hide a page from the nestedpages menu, click “Quick Edit” on it’s row, select “Hide in Nav Menu”, and click “update”. If menu sync is disabled, enable it now to sync the setting. Hidden pages are marked “(Hidden)”. If a page with child pages is hidden from the menu, all of it’s child pages will also be hidden. 
+**Hiding Pages in the Menu:** To hide a page from the Nested Pages menu, click “Quick Edit” on it’s row, select “Hide in Nav Menu”, and click “update”. If menu sync is disabled, enable it now to sync the setting. Hidden pages are marked “(Hidden)”. If a page with child pages is hidden from the menu, all of it’s child pages will also be hidden. 

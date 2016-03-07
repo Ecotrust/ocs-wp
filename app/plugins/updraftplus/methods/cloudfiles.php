@@ -427,31 +427,6 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 
 	}
 
-	public function config_print_javascript_onready() {
-		?>
-		jQuery('#updraft-cloudfiles-test').click(function(){
-			jQuery(this).html('<?php echo esc_js(__('Testing - Please Wait...','updraftplus'));?>');
-			var data = {
-				action: 'updraft_ajax',
-				subaction: 'credentials_test',
-				method: 'cloudfiles',
-				nonce: '<?php echo wp_create_nonce('updraftplus-credentialtest-nonce'); ?>',
-				apikey: jQuery('#updraft_cloudfiles_apikey').val(),
-				user: jQuery('#updraft_cloudfiles_user').val(),
-				path: jQuery('#updraft_cloudfiles_path').val(),
-				authurl: jQuery('#updraft_cloudfiles_authurl').val(),
-				region: jQuery('#updraft_cloudfiles_region').val(),
-				useservercerts: jQuery('#updraft_ssl_useservercerts').val(),
-				disableverify: jQuery('#updraft_ssl_disableverify').val()
-			};
-			jQuery.post(ajaxurl, data, function(response) {
-				jQuery('#updraft-cloudfiles-test').html('<?php echo esc_js(sprintf(__('Test %s Settings','updraftplus'),'Cloud Files'));?>');
-				alert('<?php echo esc_js(sprintf(__('%s settings test result:', 'updraftplus'), 'Cloud Files'));?> ' + response);
-			});
-		});
-		<?php
-	}
-
 	public function config_print() {
 
 		$opts = $this->get_opts();
@@ -486,14 +461,14 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 		<tr class="updraftplusmethod cloudfiles">
 			<th><?php _e('US or UK Cloud','updraftplus');?>:</th>
 			<td>
-				<select id="updraft_cloudfiles_authurl" name="updraft_cloudfiles[authurl]">
+				<select data-updraft_settings_test="authurl" id="updraft_cloudfiles_authurl" name="updraft_cloudfiles[authurl]">
 					<option <?php if ($opts['authurl'] != 'https://lon.auth.api.rackspacecloud.com') echo 'selected="selected"'; ?> value="https://auth.api.rackspacecloud.com"><?php _e('US (default)','updraftplus'); ?></option>
 					<option <?php if ($opts['authurl'] =='https://lon.auth.api.rackspacecloud.com') echo 'selected="selected"'; ?> value="https://lon.auth.api.rackspacecloud.com"><?php _e('UK', 'updraftplus'); ?></option>
 				</select>
 			</td>
 		</tr>
 		
-		<input type="hidden" name="updraft_cloudfiles[region]" value="">
+		<input type="hidden" data-updraft_settings_test="region" name="updraft_cloudfiles[region]" value="">
 		<?php /*
 		// Can put a message here if someone asks why region storage is not available (only available on new SDK)
 		<tr class="updraftplusmethod cloudfiles">
@@ -505,42 +480,42 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 
 		<tr class="updraftplusmethod cloudfiles">
 			<th><?php _e('Cloud Files username','updraftplus');?>:</th>
-			<td><input type="text" autocomplete="off" style="width: 282px" id="updraft_cloudfiles_user" name="updraft_cloudfiles[user]" value="<?php echo htmlspecialchars($opts['user']) ?>" /></td>
+			<td><input data-updraft_settings_test="user" type="text" autocomplete="off" style="width: 282px" id="updraft_cloudfiles_user" name="updraft_cloudfiles[user]" value="<?php echo htmlspecialchars($opts['user']) ?>" /></td>
 		</tr>
 		<tr class="updraftplusmethod cloudfiles">
 			<th><?php _e('Cloud Files API key','updraftplus');?>:</th>
-			<td><input type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'password'); ?>" autocomplete="off" style="width: 282px" id="updraft_cloudfiles_apikey" name="updraft_cloudfiles[apikey]" value="<?php echo htmlspecialchars(trim($opts['apikey'])); ?>" /></td>
+			<td><input data-updraft_settings_test="apikey" type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'password'); ?>" autocomplete="off" style="width: 282px" id="updraft_cloudfiles_apikey" name="updraft_cloudfiles[apikey]" value="<?php echo htmlspecialchars(trim($opts['apikey'])); ?>" /></td>
 		</tr>
 		<tr class="updraftplusmethod cloudfiles">
 			<th><?php echo apply_filters('updraftplus_cloudfiles_location_description',__('Cloud Files container','updraftplus'));?>:</th>
-			<td><input type="text" style="width: 282px" name="updraft_cloudfiles[path]" id="updraft_cloudfiles_path" value="<?php echo htmlspecialchars($opts['path']); ?>" /></td>
+			<td><input data-updraft_settings_test="path" type="text" style="width: 282px" name="updraft_cloudfiles[path]" id="updraft_cloudfiles_path" value="<?php echo htmlspecialchars($opts['path']); ?>" /></td>
 		</tr>
 
 		<tr class="updraftplusmethod cloudfiles">
 		<th></th>
-		<td><p><button id="updraft-cloudfiles-test" type="button" class="button-primary" style="font-size:18px !important"><?php echo sprintf(__('Test %s Settings','updraftplus'),'Cloud Files');?></button></p></td>
+		<td><p><button id="updraft-cloudfiles-test" type="button" class="button-primary updraft-test-button" data-method="cloudfiles" data-method_label="<?php esc_attr_e('Cloud Files'); ?>"><?php echo sprintf(__('Test %s Settings','updraftplus'),'Cloud Files');?></button></p></td>
 		</tr>
 	<?php
 	}
 
-	public function credentials_test() {
+	public function credentials_test($posted_settings) {
 
-		if (empty($_POST['apikey'])) {
+		if (empty($posted_settings['apikey'])) {
 			printf(__("Failure: No %s was given.",'updraftplus'),__('API key','updraftplus'));
 			return;
 		}
 
-		if (empty($_POST['user'])) {
+		if (empty($posted_settings['user'])) {
 			printf(__("Failure: No %s was given.",'updraftplus'),__('Username','updraftplus'));
 			return;
 		}
 
-		$key = stripslashes($_POST['apikey']);
-		$user = $_POST['user'];
-		$path = $_POST['path'];
-		$authurl = $_POST['authurl'];
-		$useservercerts = $_POST['useservercerts'];
-		$disableverify = $_POST['disableverify'];
+		$key = stripslashes($posted_settings['apikey']);
+		$user = $posted_settings['user'];
+		$path = $posted_settings['path'];
+		$authurl = $posted_settings['authurl'];
+		$useservercerts = $posted_settings['useservercerts'];
+		$disableverify = $posted_settings['disableverify'];
 
 		if (preg_match("#^([^/]+)/(.*)$#", $path, $bmatches)) {
 			$container = $bmatches[1];
@@ -562,13 +537,13 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 			$container_object = $conn->create_container($container);
 		} catch(AuthenticationException $e) {
 			echo __('Cloud Files authentication failed','updraftplus').' ('.$e->getMessage().')';
-			die;
+			return;
 		} catch(NoSuchAccountException $s) {
 			echo __('Cloud Files authentication failed','updraftplus').' ('.$e->getMessage().')';
-			die;
+			return;
 		} catch (Exception $e) {
 			echo __('Cloud Files authentication failed','updraftplus').' ('.$e->getMessage().')';
-			die;
+			return;
 		}
 
 		$try_file = md5(rand()).'.txt';

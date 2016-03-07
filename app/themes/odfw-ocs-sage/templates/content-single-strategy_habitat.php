@@ -38,14 +38,22 @@
 
 
 
+		<?php $the_field = get_post_meta( get_the_ID(), 'ecoregional_characteristics_repeat_group', true );
+		// strlen Hack. These fields don't have a blank option so they all default to Blue Mountains. Oops!
+		// Let's make sure something is meant to be there by ensuring it's longer than the default storage
+		// length of a single ecoregion with no text (a two digit ecoregion id).
+		// a:1:{i:0;a:1:{s:40:"_strategy_habitat_meta_related_ecoregion";s:2:"57";}}
+
+		$the_field_length = strlen( implode('', $the_field[0] ) );
+		if ( !empty( $the_field ) && $the_field_length > 2 ): ?>
 		<section class="cmb2-wrap-group ecoregional_characteristics_repeat_group">
 			<h2>Ecoregional Characteristics</h2>
 
 			<div class="cmb2-group">
-				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregional_characteristics_repeat_group', true );
-				if ( !empty( $the_field ) ):
+				<?php
 					foreach($the_field as $entries => $entry ) :
 						$assoc_ecoregion = get_post($entry['_strategy_habitat_meta_related_ecoregion']);
+
 				?>
 						<h3><?php echo $assoc_ecoregion->post_title;?></h3>
 						<?php $characteristics = $entry['_strategy_habitat_meta_selected_ecoregional_characteristics'];
@@ -54,10 +62,10 @@
 				<?php
 						endif;
 					endforeach;
-				endif;
 				?>
 			</div>
 		</section>
+		<?php endif; ?>
 
 
 

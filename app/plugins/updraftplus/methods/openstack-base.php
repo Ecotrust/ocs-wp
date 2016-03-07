@@ -268,32 +268,6 @@ class UpdraftPlus_BackupModule_openstack_base {
 		return $ret;
 	}
 
-	public function config_print_javascript_onready($keys = array()) {
-		?>
-		jQuery('#updraft-<?php echo $this->method;?>-test').click(function(){
-			jQuery(this).html('<?php echo esc_js(__('Testing - Please Wait...','updraftplus'));?>');
-			var data = {
-				action: 'updraft_ajax',
-				subaction: 'credentials_test',
-				method: '<?php echo $this->method;?>',
-				nonce: '<?php echo wp_create_nonce('updraftplus-credentialtest-nonce'); ?>',
-				path: jQuery('#updraft_<?php echo $this->method;?>_path').val(),
-				<?php
-					foreach ($keys as $key) {
-						echo "\t\t\t\t$key: jQuery('#updraft_".$this->method."_$key').val(),\n";
-					}
-				?>
-				useservercerts: jQuery('#updraft_ssl_useservercerts').val(),
-				disableverify: jQuery('#updraft_ssl_disableverify').val()
-			};
-			jQuery.post(ajaxurl, data, function(response) {
-				jQuery('#updraft-<?php echo $this->method;?>-test').html('<?php echo esc_js(sprintf(__('Test %s Settings','updraftplus'), $this->desc));?>');
-				alert('<?php echo esc_js(sprintf(__('%s settings test result:', 'updraftplus'), $this->desc));?> ' + response);
-			});
-		});
-		<?php
-	}
-
 	public function download($file) {
 
 		global $updraftplus;
@@ -374,13 +348,13 @@ class UpdraftPlus_BackupModule_openstack_base {
 			} else {
 				echo __('Authorisation failed (check your credentials)', 'updraftplus')." ($code:$reason)";
 			}
-			die;
+			return;
 		} catch(AuthenticationError $e) {
 			echo sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.$e->getMessage().')';
-			die;
+			return;
 		} catch (Exception $e) {
 			echo sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.get_class($e).', '.$e->getMessage().')';
-			die;
+			return;
 		}
 
 		try {
@@ -393,16 +367,16 @@ class UpdraftPlus_BackupModule_openstack_base {
 				$container_object = $service->createContainer($container);
 			} else {
 				echo __('Authorisation failed (check your credentials)', 'updraftplus')." ($code:$reason)";
-				die;
+				return;
 			}
 		} catch (Exception $e) {
 			echo sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.get_class($e).', '.$e->getMessage().')';
-			die;
+			return;
 		}
 
 		if (!is_a($container_object, 'OpenCloud\ObjectStore\Resource\Container') && !is_a($container_object, 'Container')) {
 			echo sprintf(__('%s authentication failed', 'updraftplus'), $this->desc).' ('.get_class($container_object).')';
-			die;
+			return;
 		}
 
 		$try_file = md5(rand()).'.txt';
@@ -463,7 +437,7 @@ class UpdraftPlus_BackupModule_openstack_base {
 
 		<tr class="updraftplusmethod <?php echo $this->method;?>">
 		<th></th>
-		<td><p><button id="updraft-<?php echo $this->method;?>-test" type="button" class="button-primary" style="font-size:18px !important"><?php echo sprintf(__('Test %s Settings','updraftplus'), $this->desc);?></button></p></td>
+		<td><p><button id="updraft-<?php echo $this->method;?>-test" type="button" data-method="<?php echo $this->method;?>" class="button-primary updraft-test-button" data-method_label="<?php esc_attr_e($this->desc);?>"><?php echo sprintf(__('Test %s Settings','updraftplus'), $this->desc);?></button></p></td>
 		</tr>
 	<?php
 	}

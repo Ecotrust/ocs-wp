@@ -20,9 +20,16 @@
 		font-family: $body-font-bold;
 		font-weight: 600;
 	}
-	h2+ul, h3+ul, h4+ul, h5+ul, h6+ul, p+ul, ul + ul, ul ul {
-		margin-top: $line-height-px/2;
-	}
+    h2, h3, h4, h5,
+    h6, p, ul, .tooltip {
+        + ul {
+            margin-top: $line-height-px/2;
+        }
+    }
+    ul ul {
+        margin-top: $line-height-px/2;
+    }
+
 	ul+p {
 		margin-top: $line-height-px/2;
 	}
@@ -147,7 +154,7 @@ abbr[title], acronym[title] {
     text-decoration: none;
 }
 // When h2s have tooltips it shows up far from the text because it
-// presumes them to be inline. BS positioning does not really help.
+// presumes them to be inline. Bootstrap positioning does not really help.
 h2.on-hold + .tooltip {
 	left: 10px !important;
 	margin-left: 50px;
@@ -161,7 +168,8 @@ h2.on-hold + .tooltip {
 		left: 25px !important;
 	}
 }
-h2[data-toggle=tooltip]{
+
+h2[data-toggle=tooltip], .coa_meta_special_features h3 {
 	cursor: help;
 	display: inline-block;
 	width: auto;
@@ -186,4 +194,8 @@ h3>.badge { margin-left: 3px; }
 	-moz-column-count: 2;
 	-webkit-column-count: 2;
 	column-count: 2;
+
+    //webkit eats the second column's bullets
+    padding-left: 2em;
+    list-style-position: inside;
 }

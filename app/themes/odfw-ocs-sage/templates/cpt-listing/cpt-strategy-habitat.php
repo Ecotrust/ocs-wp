@@ -3,7 +3,7 @@
 <?php
 	$args = array(
 		'post_type' => 'strategy_habitat',
-		'orderby' => 'title',
+		'orderby' => 'menu_order',
 		'order' => 'ASC',
 		'posts_per_page'=> '-1',
 	);

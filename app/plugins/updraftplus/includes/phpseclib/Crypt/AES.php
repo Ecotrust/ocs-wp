@@ -1,5 +1,4 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * Pure-PHP implementation of AES.
@@ -8,19 +7,23 @@
  *
  * PHP versions 4 and 5
  *
- * If {@link Crypt_AES::setKeyLength() setKeyLength()} isn't called, it'll be calculated from
- * {@link Crypt_AES::setKey() setKey()}.  ie. if the key is 128-bits, the key length will be 128-bits.  If it's 136-bits
- * it'll be null-padded to 192-bits and 192 bits will be the key length until {@link Crypt_AES::setKey() setKey()}
+ * NOTE: Since AES.php is (for compatibility and phpseclib-historical reasons) virtually
+ * just a wrapper to Rijndael.php you may consider using Rijndael.php instead of
+ * to save one include_once().
+ *
+ * If {@link self::setKeyLength() setKeyLength()} isn't called, it'll be calculated from
+ * {@link self::setKey() setKey()}.  ie. if the key is 128-bits, the key length will be 128-bits.  If it's 136-bits
+ * it'll be null-padded to 192-bits and 192 bits will be the key length until {@link self::setKey() setKey()}
  * is called, again, at which point, it'll be recalculated.
  *
  * Since Crypt_AES extends Crypt_Rijndael, some functions are available to be called that, in the context of AES, don't
- * make a whole lot of sense.  {@link Crypt_AES::setBlockLength() setBlockLength()}, for instance.  Calling that function,
+ * make a whole lot of sense.  {@link self::setBlockLength() setBlockLength()}, for instance.  Calling that function,
  * however possible, won't do anything (AES has a fixed block length whereas Rijndael has a variable one).
  *
  * Here's a short example of how to use this library:
  * <code>
  * <?php
- *    include('Crypt/AES.php');
+ *    include 'Crypt/AES.php';
  *
  *    $aes = new Crypt_AES();
  *
@@ -54,25 +57,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * @category   Crypt
- * @package    Crypt_AES
- * @author     Jim Wigginton <terrafrost@php.net>
- * @copyright  MMVIII Jim Wigginton
- * @license    http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link       http://phpseclib.sourceforge.net
+ * @category  Crypt
+ * @package   Crypt_AES
+ * @author    Jim Wigginton <terrafrost@php.net>
+ * @copyright 2008 Jim Wigginton
+ * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link      http://phpseclib.sourceforge.net
  */
 
 /**
  * Include Crypt_Rijndael
  */
 if (!class_exists('Crypt_Rijndael')) {
-    require_once('Rijndael.php');
+    include_once 'Rijndael.php';
 }
 
 /**#@+
  * @access public
- * @see Crypt_AES::encrypt()
- * @see Crypt_AES::decrypt()
+ * @see self::encrypt()
+ * @see self::decrypt()
  */
 /**
  * Encrypt / decrypt using the Counter mode.
@@ -108,66 +111,23 @@ define('CRYPT_AES_MODE_CFB', CRYPT_MODE_CFB);
 define('CRYPT_AES_MODE_OFB', CRYPT_MODE_OFB);
 /**#@-*/
 
-/**#@+
- * @access private
- * @see Crypt_AES::Crypt_AES()
- */
-/**
- * Toggles the internal implementation
- */
-define('CRYPT_AES_MODE_INTERNAL', CRYPT_MODE_INTERNAL);
-/**
- * Toggles the mcrypt implementation
- */
-define('CRYPT_AES_MODE_MCRYPT', CRYPT_MODE_MCRYPT);
-/**#@-*/
-
 /**
  * Pure-PHP implementation of AES.
  *
- * @author  Jim Wigginton <terrafrost@php.net>
- * @version 0.1.0
- * @access  public
  * @package Crypt_AES
+ * @author  Jim Wigginton <terrafrost@php.net>
+ * @access  public
  */
-class Crypt_AES extends Crypt_Rijndael {
+class Crypt_AES extends Crypt_Rijndael
+{
     /**
      * The namespace used by the cipher for its constants.
      *
      * @see Crypt_Base::const_namespace
-     * @var String
+     * @var string
      * @access private
      */
     var $const_namespace = 'AES';
-
-    /**
-     * Default Constructor.
-     *
-     * Determines whether or not the mcrypt extension should be used.
-     *
-     * $mode could be:
-     *
-     * - CRYPT_AES_MODE_ECB
-     *
-     * - CRYPT_AES_MODE_CBC
-     *
-     * - CRYPT_AES_MODE_CTR
-     *
-     * - CRYPT_AES_MODE_CFB
-     *
-     * - CRYPT_AES_MODE_OFB
-     *
-     * If not explictly set, CRYPT_AES_MODE_CBC will be used.
-     *
-     * @see Crypt_Rijndael::Crypt_Rijndael()
-     * @see Crypt_Base::Crypt_Base()
-     * @param optional Integer $mode
-     * @access public
-     */
-    function Crypt_AES($mode = CRYPT_AES_MODE_CBC)
-    {
-        parent::Crypt_Rijndael($mode);
-    }
 
     /**
      * Dummy function
@@ -176,13 +136,62 @@ class Crypt_AES extends Crypt_Rijndael {
      *
      * @see Crypt_Rijndael::setBlockLength()
      * @access public
-     * @param Integer $length
+     * @param int $length
      */
     function setBlockLength($length)
     {
         return;
     }
-}
 
-// vim: ts=4:sw=4:et:
-// vim6: fdl=1:
+    /**
+     * Sets the key length
+     *
+     * Valid key lengths are 128, 192, and 256.  If the length is less than 128, it will be rounded up to
+     * 128.  If the length is greater than 128 and invalid, it will be rounded down to the closest valid amount.
+     *
+     * @see Crypt_Rijndael:setKeyLength()
+     * @access public
+     * @param int $length
+     */
+    function setKeyLength($length)
+    {
+        switch ($length) {
+            case 160:
+                $length = 192;
+                break;
+            case 224:
+                $length = 256;
+        }
+        parent::setKeyLength($length);
+    }
+
+    /**
+     * Sets the key.
+     *
+     * Rijndael supports five different key lengths, AES only supports three.
+     *
+     * @see Crypt_Rijndael:setKey()
+     * @see setKeyLength()
+     * @access public
+     * @param string $key
+     */
+    function setKey($key)
+    {
+        parent::setKey($key);
+
+        if (!$this->explicit_key_length) {
+            $length = strlen($key);
+            switch (true) {
+                case $length <= 16:
+                    $this->key_length = 16;
+                    break;
+                case $length <= 24:
+                    $this->key_length = 24;
+                    break;
+                default:
+                    $this->key_length = 32;
+            }
+            $this->_setEngine();
+        }
+    }
+}

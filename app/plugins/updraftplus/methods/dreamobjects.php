@@ -45,12 +45,8 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 		$this->config_print_engine('dreamobjects', 'DreamObjects', 'DreamObjects', 'DreamObjects', 'https://panel.dreamhost.com/index.cgi?tree=storage.dreamhostobjects', '<a href="http://dreamhost.com/cloud/dreamobjects/"><img alt="DreamObjects" src="'.UPDRAFTPLUS_URL.'/images/dreamobjects_logo-horiz-2013.png"></a>');
 	}
 
-	public function config_print_javascript_onready() {
-		$this->config_print_javascript_onready_engine('dreamobjects', 'DreamObjects');
-	}
-
-	public function credentials_test() {
-		$this->credentials_test_engine($this->get_config());
+	public function credentials_test($posted_settings) {
+		$this->credentials_test_engine($this->get_config(), $posted_settings);
 	}
 
 }

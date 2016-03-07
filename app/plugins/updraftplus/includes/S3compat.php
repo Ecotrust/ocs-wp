@@ -31,7 +31,7 @@
 * Amazon S3 is a trademark of Amazon.com, Inc. or its affiliates.
 */
 
-require_once(UPDRAFTPLUS_DIR.'/oc/autoload.php');
+require_once(UPDRAFTPLUS_DIR.'/vendor/autoload.php');
 
 # SDK uses namespacing - requires PHP 5.3 (actually the SDK states its requirements as 5.3.3)
 use Aws\S3;
@@ -423,12 +423,17 @@ class UpdraftPlus_S3_Compat
 	*/
 	public function putBucket($bucket, $acl = self::ACL_PRIVATE, $location = false)
 	{
+		if (!$location) {
+			$location = $this->region;
+		} else {
+			$this->setRegion($location);
+		}
 		$bucket_vars = array(
 			'Bucket' => $bucket,
 			'ACL' => $acl,
 		);
 		// http://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_createBucket
-		$location_constraint = apply_filters('updraftplus_s3_putbucket_defaultlocation', $this->region);
+		$location_constraint = apply_filters('updraftplus_s3_putbucket_defaultlocation', $location);
 		if ('us-east-1' != $location_constraint) $bucket_vars['LocationConstraint'] = $location_constraint;
 		try {
 			$result = $this->client->createBucket($bucket_vars);

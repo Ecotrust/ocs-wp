@@ -323,26 +323,32 @@ class ocs_Admin {
 		) );
 
 		$cmb->add_field( array(
-			'name'    => __( 'COA Special Features: 2006 COA Hover Text', 'ocs' ),
+			'name'    => __( 'COA Special Features: (Main Header) Hover Text', 'ocs' ),
+			'id'      => 'coa-special-features-main-header-tooltip',
+			'type'    => 'textarea_small',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => __( 'COA Special Features: (General) Hover Text', 'ocs' ),
+			'id'      => 'coa-special-features-general-tooltip',
+			'type'    => 'textarea_small',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => __( 'COA Special Features: (Previously Associated) Hover Text', 'ocs' ),
 			'id'      => 'coa-special-features-2006',
 			'type'    => 'textarea_small',
 		) );
 
 		$cmb->add_field( array(
-			'name'    => __( 'COA Special Features: Protected Areas Hover Text', 'ocs' ),
+			'name'    => __( 'COA Special Features: (Protected Areas) Hover Text', 'ocs' ),
 			'id'      => 'coa-special-features-protected-areas',
 			'type'    => 'textarea_small',
 		) );
 
 		$cmb->add_field( array(
-			'name'    => __( 'COA Special Features: KCI Connections Hover Text', 'ocs' ),
+			'name'    => __( 'COA Special Features: (KCI Connections) Hover Text', 'ocs' ),
 			'id'      => 'coa-special-features-KCI-connections',
-			'type'    => 'textarea_small',
-		) );
-
-		$cmb->add_field( array(
-			'name'    => __( 'COA Special Features (general) Hover Text', 'ocs' ),
-			'id'      => 'coa-special-features',
 			'type'    => 'textarea_small',
 		) );
 

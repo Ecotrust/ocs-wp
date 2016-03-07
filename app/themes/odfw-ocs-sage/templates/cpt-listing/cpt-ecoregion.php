@@ -5,7 +5,7 @@
 <?php
 	$args = array(
 		'post_type' => 'ecoregion',
-		'orderby' => 'title',
+		'orderby' => 'menu_order',
 		'order' => 'ASC',
 		'posts_per_page'=> '-1', // -1 == show all
 	);

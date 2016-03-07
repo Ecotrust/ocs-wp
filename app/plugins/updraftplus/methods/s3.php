@@ -190,6 +190,7 @@ class UpdraftPlus_BackupModule_s3 {
 			case 'ap-southeast-1':
 			case 'ap-southeast-2':
 			case 'ap-northeast-1':
+			case 'ap-northeast-2':
 			case 'sa-east-1':
 			case 'us-gov-west-1':
 			case 'eu-central-1':
@@ -630,36 +631,6 @@ class UpdraftPlus_BackupModule_s3 {
 
 	}
 
-	public function config_print_javascript_onready() {
-		$this->config_print_javascript_onready_engine('s3', 'S3');
-	}
-
-	public function config_print_javascript_onready_engine($key, $whoweare) {
-		?>
-		jQuery('#updraft-<?php echo $key; ?>-test').click(function(){
-			jQuery('#updraft-<?php echo $key; ?>-test').html('<?php echo esc_js(sprintf(__('Testing %s Settings...', 'updraftplus'),$whoweare)); ?>');
-			var data = {
-				action: 'updraft_ajax',
-				subaction: 'credentials_test',
-				method: '<?php echo $key; ?>',
-				nonce: '<?php echo wp_create_nonce('updraftplus-credentialtest-nonce'); ?>',
-				apikey: jQuery('#updraft_<?php echo $key; ?>_apikey').val(),
-				apisecret: jQuery('#updraft_<?php echo $key; ?>_apisecret').val(),
-				path: jQuery('#updraft_<?php echo $key; ?>_path').val(),
-				endpoint: jQuery('#updraft_<?php echo $key; ?>_endpoint').val(),
-				disableverify: (jQuery('#updraft_ssl_disableverify').is(':checked')) ? 1 : 0,
-				useservercerts: (jQuery('#updraft_ssl_useservercerts').is(':checked')) ? 1 : 0,
-				nossl: (jQuery('#updraft_ssl_nossl').is(':checked')) ? 1 : 0,
-				sse: jQuery('#updraft_<?php echo $key; ?>_server_side_encryption').is(':checked') ? 1 : 0,
-			};
-			jQuery.post(ajaxurl, data, function(response) {
-				jQuery('#updraft-<?php echo $key; ?>-test').html('<?php echo esc_js(sprintf(__('Test %s Settings', 'updraftplus'),$whoweare)); ?>');
-				alert('<?php echo esc_js(sprintf(__('%s settings test result:', 'updraftplus'), $whoweare));?> ' + response);
-			});
-		});
-		<?php
-	}
-
 	public function config_print() {
 	
 		# White: https://d36cz9buwru1tt.cloudfront.net/Powered-by-Amazon-Web-Services.jpg
@@ -678,7 +649,6 @@ class UpdraftPlus_BackupModule_s3 {
 				if ('s3generic' == $key) {
 					_e('Examples of S3-compatible storage providers:').' ';
 					echo '<a href="http://www.cloudian.com/">Cloudian</a>, ';
-					echo '<a href="https://cloud.google.com/storage">Google Cloud Storage</a>, ';
 					echo '<a href="https://www.mh.connectria.com/rp/order/cloud_storage_index">Connectria</a>, ';
 					echo '<a href="http://www.constant.com/cloud/storage/">Constant</a>, ';
 					echo '<a href="http://www.eucalyptus.com/eucalyptus-cloud/iaas">Eucalyptus</a>, ';
@@ -723,10 +693,10 @@ class UpdraftPlus_BackupModule_s3 {
 		<?php if ($include_endpoint_chooser) { ?>
 		<tr class="updraftplusmethod <?php echo $key; ?>">
 			<th><?php echo sprintf(__('%s end-point','updraftplus'), $whoweare_short);?>:</th>
-			<td><input type="text" style="width: 360px" id="updraft_<?php echo $key; ?>_endpoint" name="updraft_<?php echo $key; ?>[endpoint]" value="<?php if (!empty($opts['endpoint'])) echo esc_attr($opts['endpoint']); ?>" /></td>
+			<td><input data-updraft_settings_test="endpoint" type="text" style="width: 360px" id="updraft_<?php echo $key; ?>_endpoint" name="updraft_<?php echo $key; ?>[endpoint]" value="<?php if (!empty($opts['endpoint'])) echo esc_attr($opts['endpoint']); ?>" /></td>
 		</tr>
 		<?php } else { ?>
-			<input type="hidden" id="updraft_<?php echo $key; ?>_endpoint" name="updraft_<?php echo $key; ?>_endpoint" value="">
+			<input data-updraft_settings_test="endpoint" type="hidden" id="updraft_<?php echo $key; ?>_endpoint" name="updraft_<?php echo $key; ?>_endpoint" value="">
 		<?php } ?>
 		<?php if ('s3' == $key && version_compare(PHP_VERSION, '5.3.3', '>=') && class_exists('UpdraftPlus_Addon_S3_Enhanced')) { ?>
 			<tr class="updraftplusmethod <?php echo $key; ?>">
@@ -737,27 +707,27 @@ class UpdraftPlus_BackupModule_s3 {
 
 		<tr class="updraftplusmethod <?php echo $key; ?>">
 			<th><?php echo sprintf(__('%s access key','updraftplus'), $whoweare_short);?>:</th>
-			<td><input type="text" autocomplete="off" style="width: 360px" id="updraft_<?php echo $key; ?>_apikey" name="updraft_<?php echo $key; ?>[accesskey]" value="<?php echo esc_attr($opts['accesskey']); ?>" /></td>
+			<td><input data-updraft_settings_test="apikey" type="text" autocomplete="off" style="width: 360px" id="updraft_<?php echo $key; ?>_apikey" name="updraft_<?php echo $key; ?>[accesskey]" value="<?php echo esc_attr($opts['accesskey']); ?>" /></td>
 		</tr>
 		<tr class="updraftplusmethod <?php echo $key; ?>">
 			<th><?php echo sprintf(__('%s secret key','updraftplus'), $whoweare_short);?>:</th>
-			<td><input type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'text'); ?>" autocomplete="off" style="width: 360px" id="updraft_<?php echo $key; ?>_apisecret" name="updraft_<?php echo $key; ?>[secretkey]" value="<?php echo esc_attr($opts['secretkey']); ?>" /></td>
+			<td><input data-updraft_settings_test="apisecret" type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'text'); ?>" autocomplete="off" style="width: 360px" id="updraft_<?php echo $key; ?>_apisecret" name="updraft_<?php echo $key; ?>[secretkey]" value="<?php echo esc_attr($opts['secretkey']); ?>" /></td>
 		</tr>
 		<tr class="updraftplusmethod <?php echo $key; ?>">
 			<th><?php echo sprintf(__('%s location','updraftplus'), $whoweare_short);?>:</th>
-			<td><?php echo $key; ?>://<input title="<?php echo htmlspecialchars(__('Enter only a bucket name or a bucket and path. Examples: mybucket, mybucket/mypath', 'updraftplus')); ?>" type="text" style="width: 360px" name="updraft_<?php echo $key; ?>[path]" id="updraft_<?php echo $key; ?>_path" value="<?php echo esc_attr($opts['path']); ?>" /></td>
+			<td><?php echo $key; ?>://<input data-updraft_settings_test="path" title="<?php echo htmlspecialchars(__('Enter only a bucket name or a bucket and path. Examples: mybucket, mybucket/mypath', 'updraftplus')); ?>" type="text" style="width: 360px" name="updraft_<?php echo $key; ?>[path]" id="updraft_<?php echo $key; ?>_path" value="<?php echo esc_attr($opts['path']); ?>" /></td>
 		</tr>
 		<?php do_action('updraft_'.$key.'_extra_storage_options', $opts); ?>
 		<tr class="updraftplusmethod <?php echo $key; ?>">
 			<th></th>
-			<td><p><button id="updraft-<?php echo $key; ?>-test" type="button" class="button-primary" style="font-size:18px !important"><?php echo htmlspecialchars(sprintf(__('Test %s Settings','updraftplus'),$whoweare_short));?></button></p></td>
+			<td><p><button id="updraft-<?php echo $key; ?>-test" type="button" class="button-primary updraft-test-button" data-method_label="<?php esc_attr_e($whoweare_short);?>" data-method="<?php echo $key;?>"><?php echo htmlspecialchars(sprintf(__('Test %s Settings','updraftplus'),$whoweare_short));?></button></p></td>
 		</tr>
 
 	<?php
 	}
 
-	public function credentials_test() {
-		return $this->credentials_test_engine($this->get_config());
+	public function credentials_test($posted_settings) {
+		return $this->credentials_test_engine($this->get_config(), $posted_settings);
 	}
 
 	// This is not pretty, but is the simplest way to accomplish the task within the pre-existing structure (no need to re-invent the wheel of code with corner-cases debugged over years)
@@ -782,25 +752,25 @@ class UpdraftPlus_BackupModule_s3 {
 		return $s3;
 	}
 
-	public function credentials_test_engine($config) {
+	public function credentials_test_engine($config, $posted_settings) {
 
-		if (empty($_POST['apikey'])) {
+		if (empty($posted_settings['apikey'])) {
 			printf(__("Failure: No %s was given.",'updraftplus'),__('API key','updraftplus'));
 			return;
 		}
-		if (empty($_POST['apisecret'])) {
+		if (empty($posted_settings['apisecret'])) {
 			printf(__("Failure: No %s was given.",'updraftplus'),__('API secret','updraftplus'));
 			return;
 		}
 
-		$key = $_POST['apikey'];
-		$secret = stripslashes($_POST['apisecret']);
-		$path = $_POST['path'];
-		$useservercerts = (isset($_POST['useservercerts'])) ? absint($_POST['useservercerts']) : 0;
-		$disableverify = (isset($_POST['disableverify'])) ? absint($_POST['disableverify']) : 0;
-		$nossl = (isset($_POST['nossl'])) ? absint($_POST['nossl']) : 0;
-		$endpoint = (isset($_POST['endpoint'])) ? $_POST['endpoint'] : '';
-		$sse = !empty($_POST['sse']) ? true : false;
+		$key = $posted_settings['apikey'];
+		$secret = stripslashes($posted_settings['apisecret']);
+		$path = $posted_settings['path'];
+		$useservercerts = (isset($posted_settings['useservercerts'])) ? absint($posted_settings['useservercerts']) : 0;
+		$disableverify = (isset($posted_settings['disableverify'])) ? absint($posted_settings['disableverify']) : 0;
+		$nossl = (isset($posted_settings['nossl'])) ? absint($posted_settings['nossl']) : 0;
+		$endpoint = (isset($posted_settings['endpoint'])) ? $posted_settings['endpoint'] : '';
+		$sse = !empty($posted_settings['sse']) ? true : false;
 
 		if (preg_match("#^/*([^/]+)/(.*)$#", $path, $bmatches)) {
 			$bucket = $bmatches[1];

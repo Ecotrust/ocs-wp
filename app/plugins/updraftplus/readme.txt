@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, lcahill
 Tags: backup, backups, restore, amazon backup, s3 backup, dropbox backup, google drive backup, rackspace cloud files, rackspace backup, dreamhost, dreamobjects backup, ftp backup, webdav backup, google cloud storage, onedrive, microsoft one drive, microsoft azure, azure, back up, multisite, restoration, sftp backup, ftps, scp backup, migrate, duplicate, copy, mysql backup, database backup, db backups, website backup, wordpress backup, full backup, openstack backup, sicherung
 Requires at least: 3.2
 Tested up to: 4.4
-Stable tag: 1.11.20
+Stable tag: 1.11.28
 Author URI: https://updraftplus.com
 Donate link: http://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -14,9 +14,9 @@ Backup and restoration made easy. Complete backups; manual or scheduled (backup 
 
 <a href="https://updraftplus.com">UpdraftPlus</a> simplifies backups (and restoration). Backup into the cloud (Amazon S3 (or compatible), Dropbox, Google Drive, Rackspace Cloud, DreamObjects, FTP, Openstack Swift, UpdraftPlus Vault and email) and restore with a single click. Backups of files and database can have separate schedules. The paid version also backs up to Microsoft OneDrive, Microsoft Azure, Copy.Com, Google Cloud Storage, SFTP, SCP, and WebDAV.
 
-<strong>Top-quality:</strong> UpdraftPlus is the <a href="http://rankwp.com/plugins/updraftplus">highest-ranking backup plugin on wordpress.org</a> (ranks in the top 40 out of over 30,000 WordPress plugins for quality on rankwp.com).
+<strong>Top-quality:</strong> UpdraftPlus is the highest-ranking backup plugin on wordpress.org, with <strong>over 700,000 currently active installs</strong>. Widely tested and reliable, this is the world's #1 most popular and mostly highly rated scheduled backup plugin. Millions of backups completed!
 
-<strong>Over 600,000 currently active installs:</strong> widely tested and reliable (over 3.6 million downloads). The #1 most installed scheduled backup plugin, according to wordpress.org. Many millions of backups completed!
+[vimeo https://vimeo.com/154870690]
 
 * Supports WordPress backups to UpdraftPlus Vault, Amazon S3 (or compatible), Dropbox, Rackspace Cloud Files, Google Drive, Google Cloud Storage, DreamHost DreamObjects, FTP, OpenStack (Swift) and email. Also (via a paid add-on) backup to Microsoft OneDrive, Microsoft Azure, Google Cloud Storage, Copy.Com, FTP over SSL, SFTP, SCP, and WebDAV (and compatible services, e.g. Yandex, Cubby, OwnCloud). Examples of S3-compatible providers: Cloudian, Connectria, Constant, Eucalyptus, Nifty, Nimbula, Cloudn.
 * Quick restore (both file and database backups)
@@ -118,7 +118,79 @@ Thanks for asking; yes, we've got a few. Check out this profile page - https://p
 
 The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
 
-N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.11.20 of the free version correspond to changes made in 2.11.20.x of the paid version.
+N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.11.28 of the free version correspond to changes made in 2.11.28.x of the paid version.
+
+= 1.11.28 - 27/Feb/2016 =
+
+* FIX: When saving settings on multisite, some connections to remote storage could drop and need to be re-made
+* FIX: Fix an inoperative button in the Clone dialog box
+* TWEAK: Updated readme to reflect > 700,000 active sites
+* TWEAK: When cloning a site and mod_rewrite is not available, give a warning pre-restore
+* TWEAK: Options saving on multisite is now much more efficient (in terms of database requests required)
+* TWEAK: Improve the scheduling algorithm in the case of hosts that allow very long runs times, and a network outage on the cloud storage
+* TWEAK: When connecting to updraftplus.com to claim a licence (paid versions), use the newer JSON-based protocol
+* TWEAK: Many and various internal improvements to structure of the admin page HTML, CSS and JS
+* TWEAK: The boxes for adding extra addresses for reporting, and extra DBs, now fade in
+
+= 1.11.27 - 17/Feb/2016 =
+
+* FEATURE: Automatic backups can take place before updates commissioned via WordPress.Com/JetPack remote site management (requires a not-yet-released version of JetPack - all current releases are insufficient, so please don't file reports about this yet)
+* FIX: Fixed a further logic error in the advanced backup retention options, potentially relevant if you had more than one extra rule, affecting the oldest backups
+* TWEAK: Resolve issue on some sites with in-dashboard downloads being interfered with by other site components
+* TWEAK: Auto-backups now hook to a newly-added more suitable action, on WP 4.4+ (https://core.trac.wordpress.org/ticket/30441)
+* TWEAK: Make WebDAV library not use a language construct that's not supported by HHVM
+* TWEAK: Change options in the "Backup Now" dialog as main settings are changed
+* TWEAK: Show the file options in the "Backup Now" dialog if/when alerting the user that they've chosen inconsistent options
+* TWEAK: When pruning old backups, save the history to the database at least every 10 seconds, to help with sites with slow network communications and short PHP timeouts
+
+= 1.11.26 - 13/Feb/2016 =
+
+* TWEAK: Prevent HTTP 500 download errors on some very large file/hosting setups
+* TWEAK: A tiny number of users had a badly laid-out settings screen until they refreshed their browser cache. This release prevents that.
+
+= 1.11.24 - 10/Feb/2016 =
+
+* FIX: Fixed further logic errors in the advanced backup retention options, potentially relevant if you had more than one extra rule
+* TWEAK: Saving of settings is now done over AJAX (i.e. without a page reload)
+* TWEAK: In-dashboard downloads now process the HTTP Range: header, allowing resumption of failed  downloads via the browser
+* TWEAK: Tweak 'Existing Backups' table CSS, to allow more entities per row
+* TWEAK: Warn copy.com users of Barracuda ending the service - https://techlib.barracuda.com/CudaDrive/EOL
+* TWEAK: Rename the 'hidden' CSS class, to prevent clashes with other plugins/themes which load their CSS code onto UD's page (which they shouldn't be doing)
+* TWEAK: Fix newsletter sign-up link
+* TWEAK: Log and triple-click summary now mentions the total size of the backup (i.e. total of the compressed backup set)
+* TWEAK: Try to detect a very rare case of recoverable database read failure, and schedule a re-try
+* TWEAK: Suppress unnecessary warning message when Dropbox account info checking fails
+* TWEAK: Attempt to restart a large OneDrive upload in a particular case seen when OneDrive's end seems to get into confusion about state
+* TWEAK: Various bits of internal re-factoring to support future improvements
+
+= 1.11.23 - 26/Jan/2016 =
+
+* FIX: When migrating a sub-folder based multisite into a non-root install with different relative path to the source multisite (I can't think of any good reasons to do this), the search/replace could leave sub-sites unreachable without manual correction
+* FIX: Logic errors in the advanced backup retention options could lead to the oldest backups being deleted prematurely, and some backups not being deleted when they were overdue for deletion
+* FIX: Amazon S3 bucket creation wizard (in the S3 enhanced add-on) was not honouring the chosen region for new buckets
+* FIX: Upon restoration over an existing site, inactive plugins could remain post-restore (bug introduced in 1.11.20)
+* TWEAK: Various internal re-organisations, to improve modularity/re-use of the code
+* TWEAK: Internal CSS re-organisation to make future layout changes easier
+* TWEAK: The "stop" link in the backup progress indicator now halts the backup asap, instead of at the next scheduled resumption
+* TWEAK: Clarify the course of action needed if you attempt a Dropbox backup without Curl
+* TWEAK: Add support for the new Asia Pacific (Seoul) region to Amazon S3
+* TWEAK: Make the automatic backup option box appear on the updates page for users who can update plugins or themes (not just core - previously it was assumed that these would always go together in the real world, but some managed hosts are now removing the core update capability from the default admin user, whilst leaving the others)
+* TWEAK: Change default zip split size to 400Mb on new installs
+* TWEAK: Clean up use of composer, to conform to proper usage standards, and update to current version (to avoid causing a problem for plugins using PSR-4 autoloaders)
+* TWEAK: Provide direct links to cart when choosing UpdraftPlus Vault storage
+* TWEAK: Add debug.log to the default exclusions in wp-content (when people leave debug logging on and forget, it can get huge)
+* TWEAK: On multisite, make sure that the site/blogs tables are placed early in the backup (assists with quickly scanning backup info)
+* TWEAK: Update to phpseclib 1.0.1
+* TWEAK: Prevent a PHP notice when using SCP
+* TWEAK: Add new termmeta table to the default list of core tables (which is usually automatically detected)
+
+= 1.11.21 - 28/Dec/2015 =
+
+* TWEAK: If there's a problem connecting to UpdraftPlus Vault, in some situations the information on the cause was not easily readable
+* TWEAK: Slightly more logging on failed OneDrive operations, to aid problem-solving
+* TWEAK: Add wysija_email_user_stat to the list of potentially huge non-critical tables (which can get skipped in an emergency)
+* FIX: Package Pear/Exception.php, so that servers without it already can use Microsoft Azure blob storage
+* FIX: Prevent PHP fatal error on admin area in some restore scenarios
 
 = 1.11.20 - 21/Dec/2015 =
 
@@ -1700,7 +1772,7 @@ improvements
 
 == License ==
 
-    Copyright 2011-15 David Anderson
+    Copyright 2011-16 David Anderson
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1722,4 +1794,4 @@ We recognise and thank the following for code and/or libraries used and/or modif
 
 
 == Upgrade Notice ==
-* 1.11.20: Various tweaks and fixes, plus new multisite-related features in UpdraftPlus Premium
+* 1.11.28: Various tweaks, fixes and small improvements.
