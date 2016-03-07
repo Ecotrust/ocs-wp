@@ -26,7 +26,7 @@ if ( is_page('109') ) :
 					<!-- <?php $the_field = get_post_meta( $page->ID, 'species_meta_image', true ); ?> -->
 					<div class="image-grid-container">
 						<?php if ( has_post_thumbnail($page->ID) ) : ?>
-							<?php echo get_the_post_thumbnail($page->ID, 'large', array('class' => 'img-responsive')) ?>
+							<?php echo get_the_post_thumbnail($page->ID, 'grid', array('class' => 'img-responsive')) ?>
 						<?php else: ?>
 						<img class='img-responsive' src="http://placehold.it/230x115/<?php echo $tempColors[$i]; ?>/ffffff?text=species+placeholder">
 						<?php endif; ?>
