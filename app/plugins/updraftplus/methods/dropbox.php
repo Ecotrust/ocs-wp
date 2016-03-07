@@ -79,7 +79,7 @@ class UpdraftPlus_BackupModule_dropbox {
 		$opts = $this->get_opts();
 
 		if (empty($opts['tk_request_token'])) {
-			$updraftplus->log('You do not appear to be authenticated with Dropbox');
+			$updraftplus->log('You do not appear to be authenticated with Dropbox (1)');
 			$updraftplus->log(__('You do not appear to be authenticated with Dropbox','updraftplus'), 'error');
 			return false;
 		}
@@ -127,7 +127,7 @@ class UpdraftPlus_BackupModule_dropbox {
 				$updraftplus->log($message);
 			} catch (Exception $e) {
 				$updraftplus->log("Dropbox error: exception (".get_class($e).") occurred whilst getting account info: ".$e->getMessage());
-				$updraftplus->log(sprintf(__("%s error: %s", 'updraftplus'), 'Dropbox', $e->getMessage()).' ('.$e->getCode().')', 'warning', md5($e->getMessage()));
+				//$updraftplus->log(sprintf(__("%s error: %s", 'updraftplus'), 'Dropbox', $e->getMessage()).' ('.$e->getCode().')', 'warning', md5($e->getMessage()));
 			}
 
 			$file_success = 1;
@@ -230,7 +230,7 @@ class UpdraftPlus_BackupModule_dropbox {
 
 		$opts = $this->get_opts();
 
-		if (empty($opts['tk_access_token'])) return new WP_Error('no_settings', __('No settings were found', 'updraftplus'));
+		if (empty($opts['tk_access_token'])) return new WP_Error('no_settings', __('No settings were found', 'updraftplus').' (dropbox)');
 
 		global $updraftplus;
 		try {
@@ -290,7 +290,7 @@ class UpdraftPlus_BackupModule_dropbox {
 		$opts = $this->get_opts();
 
 		if (empty($opts['tk_request_token'])) {
-			$updraftplus->log('You do not appear to be authenticated with Dropbox');
+			$updraftplus->log('You do not appear to be authenticated with Dropbox (3)');
 			$updraftplus->log(sprintf(__('You do not appear to be authenticated with %s (whilst deleting)', 'updraftplus'), 'Dropbox'), 'warning');
 			return false;
 		}
@@ -331,7 +331,7 @@ class UpdraftPlus_BackupModule_dropbox {
 		$opts = $this->get_opts();
 
 		if (empty($opts['tk_request_token'])) {
-			$updraftplus->log('You do not appear to be authenticated with Dropbox');
+			$updraftplus->log('You do not appear to be authenticated with Dropbox (4)');
 			$updraftplus->log(sprintf(__('You do not appear to be authenticated with %s','updraftplus'), 'Dropbox'), 'error');
 			return false;
 		}

@@ -97,9 +97,8 @@ class UpdraftPlus_BackupModule_ViaAddon {
 		do_action('updraft_'.$this->method.'_config_javascript');
 	}
 
-	public function credentials_test() {
-		do_action('updraft_'.$this->method.'_credentials_test');
-		die;
+	public function credentials_test($posted_settings) {
+		do_action('updraft_'.$this->method.'_credentials_test', $posted_settings);
 	}
 
 }

@@ -41,7 +41,7 @@ class Dropbox_Curl extends Dropbox_ConsumerAbstract
     {
         // Check the cURL extension is loaded
         if (!extension_loaded('curl')) {
-            throw new Dropbox_Exception('The cURL OAuth consumer requires the cURL extension');
+            throw new Dropbox_Exception('The cURL OAuth consumer requires the cURL extension. Please speak to your web hosting provider so that this missing PHP component can be installed.');
         }
         
         $this->consumerKey = $key;

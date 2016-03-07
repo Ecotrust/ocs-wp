@@ -38,36 +38,42 @@ class NavMenuSyncListing extends NavMenuSync
 	/**
 	* Recursive function loops through pages/links and their children
 	*/
-	public function sync($parent = 0, $menu_parent = 0)
-	{
-		$this->count = $this->count + 1;
-		$page_q = new \WP_Query(array(
-			'post_type' => array('page', 'np-redirect'),
-			'posts_per_page' => -1,
-			'post_status' => 'publish',
-			'orderby' => 'menu_order',
-			'order' => 'ASC',
-			'post_parent' => $parent
-		));
-		if ( $page_q->have_posts() ) : while ( $page_q->have_posts() ) : $page_q->the_post();
-			global $post;
-			$this->post = $this->post_factory->build($post);
-			$this->syncPost($menu_parent);
-		endwhile; endif; wp_reset_postdata();
+	public function sync($parent = 0, $menu_parent = 0, $nest_level = 0)
+	{	
+		try {
+			$this->count = $this->count + 1;
+			$args = array(
+				'post_type' => array('page', 'np-redirect'),
+				'posts_per_page' => -1,
+				'post_status' => 'publish',
+				'orderby' => 'menu_order',
+				'order' => 'ASC',
+				'post_parent' => $parent
+			);
+			$page_q = new \WP_Query(apply_filters('nestedpages_menu_sync', $args, $nest_level));
+			if ( $page_q->have_posts() ) : while ( $page_q->have_posts() ) : $page_q->the_post();
+				$nest_level++;
+				global $post;
+				$this->post = $this->post_factory->build($post);
+				$this->syncPost($menu_parent, $nest_level);
+			endwhile; endif; wp_reset_postdata();
+		} catch ( \Exception $e ){
+			throw new \Exception($e->getMessage());
+		}
 	}
 
 	/**
 	* Sync an individual item
 	* @since 1.3.4
 	*/
-	private function syncPost($menu_parent)
+	private function syncPost($menu_parent, $nest_level)
 	{
 		// Get the Menu Item
 		$query_type = ( $this->post->type == 'np-redirect' ) ? 'xfn' : 'object_id';
 		$menu_item_id = $this->nav_menu_repo->getMenuItem($this->post->id, $query_type);
 		if ( $this->post->nav_status == 'hide' ) return $this->removeItem($menu_item_id);
 		$menu = $this->syncMenuItem($menu_parent, $menu_item_id);
-		$this->sync( $this->post->id, $menu );
+		$this->sync( $this->post->id, $menu, $nest_level );
 	}
 
 	/**
@@ -91,11 +97,14 @@ class NavMenuSyncListing extends NavMenuSync
 			$xfn = 'page';
 		}
 
+		// WP 4.4 Fix, empty nav title attribute causing post_excerpt null error
+		$attr_title = ( $this->post->nav_title_attr ) ? $this->post->nav_title_attr : '';
+
 		$args = array(
 			'menu-item-title' => $title,
 			'menu-item-position' => $this->count,
 			'menu-item-url' => $url,
-			'menu-item-attr-title' => $this->post->nav_title_attr,
+			'menu-item-attr-title' => $attr_title,
 			'menu-item-status' => 'publish',
 			'menu-item-classes' => $this->post->nav_css,
 			'menu-item-type' => $type,
@@ -103,7 +112,8 @@ class NavMenuSyncListing extends NavMenuSync
 			'menu-item-object-id' => $object_id,
 			'menu-item-parent-id' => $menu_parent,
 			'menu-item-xfn' => $xfn,
-			'menu-item-target' => $this->post->link_target
+			'menu-item-target' => $this->post->link_target,
+			'menu-item-description' => ' '
 		);
 		$menu = wp_update_nav_menu_item($this->id, $menu_item_id, $args);
 		return $menu;
