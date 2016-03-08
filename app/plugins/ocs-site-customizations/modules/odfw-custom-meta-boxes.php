@@ -10,9 +10,11 @@ function setupCustomFields () {
 	// A few helpers
 	//@TODO move this text to options page?
 	function get_compass_instructions () {
-		$compassDescription = 	'Include a Compass URL here. Only include the portion of the URL starting with the #. So, if the URL is <br> ';
-		$compassDescription .= '<small>http://52.25.124.64/visualize/#x=-121.65&y=44.11&z=7&logo=true&dls%5B%5D=true&dls%5B%5D=0.5&dls%5B%5D=456&basemap=ESRI+Ocean&themes%5Bids%5D%5B%5D=27&tab=data</small>';
-		$compassDescription .= '<br><strong>Remove:</strong><br><small> <strong><strike>http://52.25.124.64/visualize/</strike></strong>  before pasting.</small>';
+		$compassPrefix = ocs_get_option('ocs-compass-url-prefix');
+		$compassDescription  = 'Include a Compass URL here. Only include the portion of the URL ';
+		$compassDescription .= '<strong style="font-style: normal">starting with the #</strong>. <br>So, if the URL is: <br> ';
+		$compassDescription .= '<small>' . $compassPrefix . '#x=-121.65&y=44.11&z=7&logo=true&dls%5B%5D=true&dls%5B%5D=0.5&dls%5B%5D=456&basemap=ESRI+Ocean&themes%5Bids%5D%5B%5D=27&tab=data</small>';
+		$compassDescription .= '<br><strong>Remove:</strong><br><small> <strong><strike>' . $compassPrefix . '</strike></strong>  before (or after) pasting.</small>';
 		return 	$compassDescription;
 	}
 

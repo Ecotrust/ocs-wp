@@ -243,7 +243,7 @@ class ocs_Admin {
 		$cmb->add_field( array(
 			'name' => __( 'Compass URL', 'odfw' ),
 			'desc' => __('This url will prefix all compass links in the OCS', 'odfw'),
-			'id' => 'ocs-compass-url',
+			'id' => 'ocs-compass-url-prefix',
 			'type' => 'text'
 		) );
 

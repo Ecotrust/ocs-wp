@@ -59,7 +59,7 @@ class ODFW_customizations {
         include_once(ODFW_MODULES . 'odfw-options-page.php');
 
 
-		$this->adjust_species_CSV_imports();
+		// $this->adjust_species_CSV_imports();
 
 		//Uncomment this to debug CSV importing before it hits the database
 		//require_once('lib/rs-csv-importer-debug.php');
