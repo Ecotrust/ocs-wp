@@ -148,7 +148,7 @@
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-data-gaps') ?>">Data gaps</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
-					<?php echo esc_html( $the_field ); ?>
+					<?php echo wpautop( $the_field ); ?>
 				</p>
 			</section>
 	<?php endif; ?>
@@ -161,7 +161,7 @@
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-recommended-conservation-actions') ?>">Conservation actions</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
-					<?php echo esc_html( $the_field ); ?>
+					<?php echo wpautop( $the_field ); ?>
 				</p>
 			</section>
 	<?php endif; ?>
@@ -174,7 +174,8 @@
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-key-reference') ?>">Key reference or plan</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<?php //may contain links
-				$linkified = preg_replace('/(http[s]{0,1}\:\/\/\S{4,})\s{0,}/ims', '<a href="$1" >$1</a> ', $the_field); ?>
+				$content = wpautop($the_field);
+				$linkified = preg_replace('/(http[s]{0,1}\:\/\/\S{4,})\s{0,}/ims', '<a href="$1" >$1</a> ', $content); ?>
 				<p class="cmb2-textarea">
 					<?php echo $linkified; ?>
 				</p>
