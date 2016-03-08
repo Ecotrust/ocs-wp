@@ -1928,7 +1928,7 @@ body.page-id-102.map-visible section.post-102{display:none}
 body.single-ecoregion .grid-layout .grid-item p{display:block}
 body.single-ecoregion.list-layout .listings-wrap .grid-item .image-grid-container{display:none}
 .success-story{background:#fbfbfb;border-top:4px solid #005130;border-bottom:4px solid #005130;clear:both;margin:2em 0;padding:5px 50px 22px 50px}
-.link-box{border-left:4px solid #005130;margin:18px;margin-left:50px;padding:9px;padding-left:30px}
+.link-box{background:#fbfbfb;border-left:4px solid #005130;margin:18px;margin-left:50px;padding:9px;padding-left:30px}
 .link-box>.scroll-nav__section:first-child .scroll-nav__heading,.link-box>.scroll-nav__section:first-child h2,.link-box>h3:first-child,.link-box>p:first-child+.scroll-nav__section>.scroll-nav__heading,.link-box>p:first-child+.scroll-nav__section>h2,.link-box>p:first-child+h3{margin-top:0}
 .coa-id{margin-top:18px}
 .coa-id .btn,.coa-id .comment-form input[type=submit],.comment-form .coa-id input[type=submit]{cursor:default}

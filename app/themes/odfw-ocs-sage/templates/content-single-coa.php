@@ -21,17 +21,16 @@
 			<div class="col-sm-9">
 				<?php the_content(); ?>
 			</div>
-			<div class="col-sm-2 coa-id">
-				<div class="btn btn-primary">
 
-					<h3 class="panel-title" data-toggle="tooltip" data-placement="bottom" title="<?php echo ocs_get_option('coa-id') ?>">
-						COA ID <span class="badge"><?=$coa_id; ?></span>
-					</h3>
-				</div>
-			</div>
 		</div>
 
-
+		<div class="coa-id">
+			<div class="XX-btn XX-btn-primary">
+				<h3 class="panel-title" data-toggle="tooltip" data-placement="bottom" title="<?php echo ocs_get_option('coa-id') ?>">
+					COA ID: <span class="XX-badge"><?=$coa_id; ?></span>
+				</h3>
+			</div>
+		</div>
 
 		<?php $the_field = get_post_meta( get_the_ID(), 'coa_meta_recommended_conservation_actions', true );
 		if ( !empty ($the_field) ): ?>
