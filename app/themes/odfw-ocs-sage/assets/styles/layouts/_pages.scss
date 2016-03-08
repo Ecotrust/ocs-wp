@@ -59,7 +59,6 @@
 		.grid-item:nth-child(3n+1){
 			clear: both;
 		}
-
 	}
 
 	.list-layout &, .search-results & {
@@ -108,6 +107,20 @@ body.ecoregions {
 
 body.page-id-102.map-visible {
 	section.post-102 { display: none;}
+}
+body.single-ecoregion {
+	.grid-layout {
+		.grid-item {
+			p { display: block; }
+		}
+	}
+	&.list-layout {
+		.listings-wrap {
+			.grid-item {
+				.image-grid-container { display: none; }
+			}
+		}
+	}
 }
 
 // Temporary. No style guide yet.
