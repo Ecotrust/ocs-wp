@@ -173,11 +173,8 @@
 			<section class="cmb2-wrap-textarea species_meta_key-reference">
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-key-reference') ?>">Key reference or plan</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
-				<?php //may contain links
-				$content = wpautop($the_field);
-				$linkified = preg_replace('/(http[s]{0,1}\:\/\/\S{4,})\s{0,}/ims', '<a href="$1" >$1</a> ', $content); ?>
 				<p class="cmb2-textarea">
-					<?php echo $linkified; ?>
+					<?php echo wpautop($the_field); ?>
 				</p>
 			</section>
 	<?php endif; ?>
