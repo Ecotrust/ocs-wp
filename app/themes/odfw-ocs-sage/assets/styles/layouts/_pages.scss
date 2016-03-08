@@ -177,6 +177,15 @@ body.single-ecoregion {
 	}
 
 }
+// Quick "remove list view from strategy species"
+.parent-pageid-109, .page-id-109 {
+    .header-inner {
+        // Defaults to grid so no need for the grid toggle
+        .view-grid, .view-list {
+            display: none;
+        }
+    }
+}
 .single-strategy_species .grid-item p {
 	display: none;
 }
