@@ -1588,6 +1588,7 @@ abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-dec
 .coa_meta_special_features h3:after,[data-toggle=tooltip].scroll-nav__heading:after,h2[data-toggle=tooltip]:after{clear:both}
 .single-coa .scroll-nav__heading+.tooltip .tooltip-inner,.single-coa h2+.tooltip .tooltip-inner,.single-strategy_species .scroll-nav__heading+.tooltip .tooltip-inner,.single-strategy_species h2+.tooltip .tooltip-inner{max-width:400px;text-align:left;padding:8px 12px}
 .species-association{color:#58595B;font-size:10px}
+h3>.coa-id{color:#9fa0a2}
 h3>.badge{margin-left:3px}
 .long-list,.long-list ol,.long-list ul{-moz-column-count:2;-webkit-column-count:2;column-count:2;padding-left:2em;list-style-position:inside}
 body{padding-top:62px}

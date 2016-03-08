@@ -150,7 +150,7 @@ dd {
 
 // species 'family' pages should not have featured images
 // however they can't be excluded completely as the main
-// strategy-species page uses them 
+// strategy-species page uses them
 .page-id-116,
 .page-id-115,
 .page-id-114,
@@ -200,6 +200,9 @@ h2[data-toggle=tooltip], .coa_meta_special_features h3 {
 .species-association {
     color: $grey;
     font-size: 10px;
+}
+h3 > .coa-id {
+    color: $greyLight;
 }
 
 h3>.badge { margin-left: 3px; }

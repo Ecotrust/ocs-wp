@@ -6,7 +6,13 @@
 						<?php //echo get_the_post_thumbnail($post->ID, 'grid') ?>
 					</div>
 				<?php endif; ?>
-				<h3 class="cpt-title"><?php the_title(); ?></h3>
+
+				<?php //$incAssoc =  get_query_var('coa-assoc', false); ?>
+				<?php $coa_id = get_post_meta( get_the_ID(), 'coa_meta_coa_id', true );?>
+
+				<h3 class="cpt-title"><?php the_title(); ?>
+					<span class="coa-id">[COA ID: <?=$coa_id ?>]</span>
+				</h3>
 				<p><?php echo get_the_excerpt(); ?></p>
 			</a>
 	</article>
