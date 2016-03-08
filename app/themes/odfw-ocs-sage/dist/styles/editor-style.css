@@ -1575,6 +1575,7 @@ dt b,dt>strong,li b,li>strong,p b,p>strong,td b,td>strong{font-family:HelveticaN
 dt{font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
 dd{margin-bottom:1em}
 .page-id-108 h3{border-bottom:1px solid #ccc;font-size:18px;margin-bottom:10px;margin-top:0;padding-bottom:4px;padding-top:70px;text-transform:uppercase}
+.page-id-109 .hentry>figure.feature-thumb,.page-id-110 .hentry>figure.feature-thumb,.page-id-111 .hentry>figure.feature-thumb,.page-id-112 .hentry>figure.feature-thumb,.page-id-114 .hentry>figure.feature-thumb,.page-id-115 .hentry>figure.feature-thumb,.page-id-116 .hentry>figure.feature-thumb{display:none}
 abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-decoration:none}
 .on-hold.scroll-nav__heading+.tooltip,h2.on-hold+.tooltip{left:10px!important;margin-left:50px}
 .on-hold.scroll-nav__heading+.tooltip .tooltip-inner,h2.on-hold+.tooltip .tooltip-inner{max-width:70%;text-align:left}
