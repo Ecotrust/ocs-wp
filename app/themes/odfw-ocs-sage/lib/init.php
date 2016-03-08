@@ -30,8 +30,16 @@ function setup() {
   add_theme_support('post-thumbnails');
 
   add_image_size( 'hero', 1600, 580, true );
-  add_image_size( 'grid', 255, 185, true );
-  add_image_size( 'listing', 116, 63, true );
+  add_image_size( 'grid', 255, 185, false );
+  add_image_size( 'listing', 116, 63, false );
+
+
+  add_filter('image_size_names_choose', function($sizes) {
+	return array_merge( $sizes, array(
+		"listing" => __( "Listing"),
+		"grid" => __( "Grid")
+	));
+  });
 
   //if(get_option('medium_size_w')!=640) update_option('medium_size_w',640);
   //if(get_option('medium_size_h')!=320) update_option('medium_size_h',320);
