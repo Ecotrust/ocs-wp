@@ -2,7 +2,13 @@
   <?php get_template_part('templates/page', 'header'); ?>
 
 <div class="hentry">
-	<?php get_template_part('templates/featured-thumbnail'); ?>
+	<?php
+		// No featured image on species sub-pages (Taxonomy overview pages)
+		//$parent = $post->post_parent;
+		if ($post->post_parent != 109):
+			get_template_part('templates/featured-thumbnail');
+		endif;
+	?>
 	<div class="entry-content">
 		<?php the_content(); ?>
 

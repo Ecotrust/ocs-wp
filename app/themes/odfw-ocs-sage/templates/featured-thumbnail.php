@@ -15,10 +15,10 @@
         <figcaption>
             <span class="photo-info glyphicon glyphicon-remove-circle"></span>
             <?php if ( !empty($caption) ) : ?>
-                <?php echo $caption; ?> 
+                <?php echo $caption; ?>
             <?php endif; ?>
             <?php if ( !empty($attrName) ) : ?>
-                Photo Credit: <?php echo $attrName; ?> 
+                Photo Credit: <?php echo $attrName; ?>
             <?php endif; ?>
         </figcaption>
     </figure>
