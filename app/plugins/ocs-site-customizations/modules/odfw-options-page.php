@@ -249,14 +249,13 @@ class ocs_Admin {
 
 		$cmb->add_field( array(
 			'name' => __( 'Google Analytics Production Account', 'odfw' ),
-			'desc' => __('This url will prefix all compass links in the OCS', 'odfw'),
+			'desc' => __('In the form of: <b>UA-73552793-1</b>', 'odfw'),
 			'id' => 'ocs-ga-account-production',
 			'type' => 'text'
 		) );
 
 		$cmb->add_field( array(
 			'name' => __( 'Google Analytics Dev Account', 'odfw' ),
-			'desc' => __('This url will prefix all compass links in the OCS', 'odfw'),
 			'id' => 'ocs-ga-account-development',
 			'type' => 'text'
 		) );
