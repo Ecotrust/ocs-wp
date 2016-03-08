@@ -148,6 +148,20 @@ dd {
 
 }
 
+// species 'family' pages should not have featured images
+// however they can't be excluded completely as the main
+// strategy-species page uses them 
+.page-id-116,
+.page-id-115,
+.page-id-114,
+.page-id-112,
+.page-id-110,
+.page-id-111,
+.page-id-109 {
+    .hentry > figure.feature-thumb { display: none; }
+}
+
+
 abbr[title], acronym[title] {
 	border-bottom: 1px dotted $grey;
 	cursor: help;
