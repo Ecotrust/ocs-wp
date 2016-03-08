@@ -26,6 +26,9 @@ function cmb2_post_search_render_field( $field, $escaped_value, $object_id, $obj
 	if ( $field->args('include_post_title') ) {
 		$title =  !empty($field->escaped_value) ?  get_the_title($field->escaped_value) : "";
 		echo "<label class='attached-post-title' for='" . $field->args('id') . "'>" . $title . "</label>";
+		if( !empty($title) ) {
+			echo '<div id="find-posts-clear"  class="dashicons cmb2-post-remove-button dashicons-trash"></div>';
+		}
 	}
 	echo $field_type->input( array(
 		'data-search' => json_encode( array(
@@ -111,7 +114,7 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 				'keyup #find-posts-input'  : 'escClose',
 				'click #find-posts-submit' : 'selectPost',
 				'click #find-posts-search' : 'send',
-				'click #find-posts-close'  : 'close',
+				'click #find-posts-close'  : 'close'
 			},
 
 			initialize: function() {
@@ -149,6 +152,8 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 				}
 
 				this.$overlay.show();
+
+				$('#find-posts-clear').remove();
 
 				// Pull some results up by default
 				this.send();
@@ -240,6 +245,8 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 					}
 
 					this.$titleLabel.text(title);
+					// Add a clear icon (because the input field is masked by the title)
+					$('.dashicons-search', '.cmb-td' ).after( '<div id="find-posts-clear"  class="dashicons cmb2-post-remove-button dashicons-trash"></div>');
 				}
 
 				this.close();
@@ -267,6 +274,19 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 			search.trigger( 'open' );
 		};
 
+		window.cmb2_post_search.clear = function ( ) {
+			var $this = $( this );
+
+			//var search = window.cmb2_post_search;
+//attached-post-title
+			$( '.cmb-type-post-search-text .cmb-td input[type="text"]' ).val('')
+				.parents().find('.attached-post-title').text('')
+				.end().find('#find-posts-clear').remove();
+
+			console.log('hi there. Clearing. $this', $this);
+			//console.log('hi there. Clearing. search.$titleLabel', search.$titleLabel);
+		};
+
 		window.cmb2_post_search.addSearchButtons = function() {
 			var $this = $( this );
 			var data = $this.data( 'search' );
@@ -275,17 +295,22 @@ function cmb2_post_search_render_js(  $cmb_id, $object_id, $object_type, $cmb ) 
 
 		$( '.cmb-type-post-search-text .cmb-td input[type="text"]' ).each( window.cmb2_post_search.addSearchButtons );
 
-		$( '.cmb2-wrap' ).on( 'click', '.cmb-type-post-search-text .cmb-td .dashicons-search', window.cmb2_post_search.openSearch );
-		$( '.cmb2-wrap' ).on( 'click', '.cmb-type-post-search-text .cmb-td .attached-post-title', window.cmb2_post_search.openSearch );
+		$( '.cmb2-wrap' )
+			.on( 'click', '.cmb-type-post-search-text .cmb-td .dashicons-search', window.cmb2_post_search.openSearch )
+			.on( 'click', '.cmb-type-post-search-text .cmb-td .attached-post-title', window.cmb2_post_search.openSearch )
+			.on( 'click', '.cmb-type-post-search-text .cmb2-post-remove-button', window.cmb2_post_search.clear );
+
 		$( 'body' ).on( 'click', '.ui-find-overlay', window.cmb2_post_search.closeSearch );
 
 	});
 	</script>
 	<style type="text/css" media="screen">
-		.cmb2-post-search-button {
+		.cmb2-post-search-button, .cmb2-post-remove-button {
 			color: #999;
 			margin: .3em 0 0 2px;
 			cursor: pointer;
+		}
+		.cmb2-post-remove-button {
 		}
 	</style>
 	<?php
