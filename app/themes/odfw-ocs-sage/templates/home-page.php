@@ -10,7 +10,7 @@
     </a>
     <div class="carousel-wrapper">
         <div class="carousel-inner" role="listbox">
-            <img class="carousel-overlay" src="app/themes/odfw-ocs-sage/dist/images/oregon.png"/>
+            <img class="carousel-overlay" src="/app/themes/odfw-ocs-sage/dist/images/oregon.png"/>
 
     	<?php $i=0;
     		foreach($the_items as $item): ?>
@@ -23,10 +23,10 @@
     				<div class="carousel-caption">
                         <?php if ( !empty($item['_home_headline']) ) : ?>
     					   <h3 class="carousel-headline"><?php echo esc_html($item['_home_headline']); ?></h3>
-                        <?php endif; ?> 
-                        <?php if ( !empty($item['_home_caption']) ) : ?>  
+                        <?php endif; ?>
+                        <?php if ( !empty($item['_home_caption']) ) : ?>
     					   <p class="carousel-subtext"><?php echo esc_html($item['_home_caption']); ?></p>
-                        <?php endif; ?> 
+                        <?php endif; ?>
     				</div>
 
     				<image src="<?php echo esc_html($item['_home_image']); ?>" />
