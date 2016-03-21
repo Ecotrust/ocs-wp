@@ -34,6 +34,12 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
+	a {
+		color: #cceecc;
+	}
+	a:hover {
+		color: #aaeeaa;
+	}
 
 </style>
 </head>
