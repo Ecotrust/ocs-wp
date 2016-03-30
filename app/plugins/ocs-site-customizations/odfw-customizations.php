@@ -42,6 +42,8 @@ class ODFW_customizations {
             define('ODFW_MODULES', ODFW_CUSTOMIZATIONS_PLUGIN_URL . 'modules/');
         }
 
+        include_once(ODFW_MODULES . 'odfw-options-page.php');
+
         include_once(ODFW_MODULES . 'odfw-custom-post-types.php');
 
         include_once(ODFW_MODULES . 'odfw-custom-taxonomies.php');
@@ -56,7 +58,6 @@ class ODFW_customizations {
 
         include_once(ODFW_MODULES . 'odfw-search.php');
 
-        include_once(ODFW_MODULES . 'odfw-options-page.php');
 
 
 		// $this->adjust_species_CSV_imports();
