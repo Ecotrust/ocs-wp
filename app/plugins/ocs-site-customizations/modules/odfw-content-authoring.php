@@ -8,35 +8,18 @@
  */
 
 
-/**
- * Define Prefix and Suffix for Compass URL inclusions
- * Inititally defined in wp-config.php but just in case.
- */
-
-	// This prefix has been moved to the OCS settings page but not yet implemented.
-	// Use it like:
-	// echo ocs_get_option('ocs-compass-url');
-	//
-	if (!defined('COMPASS_URL_PREFIX')) {
-	  // Path to the build directory for front-end assets
-		// define('COMPASS_URL_PREFIX', 'http://52.25.124.64/visualize/');
-
-		define('COMPASS_URL_PREFIX', ocs_get_option('ocs-compass-url-prefix'));
-	}
-	if (!defined('COMPASS_URL_SUFFIX')) {
-	  // Path to the build directory for front-end assets
-	  define('COMPASS_URL_SUFFIX', '&print=true');
-	}
-
 function external_odfw_compass_url ($url) {
-    //external compass should always display 0.75 opacity with Oregon Mask Layer
-    return COMPASS_URL_PREFIX . $url . '&print=false&dls%5B%5D=true&dls%5B%5D=0.75&dls%5B%5D=549';
+	$prefix = ocs_get_option('ocs-compass-url-prefix');
+	//external compass should always display 0.75 opacity with Oregon Mask Layer
+	return $prefix . $url . '&print=false&dls%5B%5D=true&dls%5B%5D=0.75&dls%5B%5D=549';
 }
+
 function get_the_odfw_compass_iframe ($url) {
 	//$cleanURL = esc_html( $url );
-	$fullURL = COMPASS_URL_PREFIX . $url . COMPASS_URL_SUFFIX;
+	$prefix = ocs_get_option('ocs-compass-url-prefix');
+	$fullURL = $prefix . $url . '&print=true';
 
-	$out = '<section class="compass-wrap">';
+	$out  = '<section class="compass-wrap">';
 	$out .= '<iframe class="compass-iframe" frameborder="0" src="' . $fullURL .'"></iframe>';
 	$out .= '</section>';
 
@@ -52,6 +35,8 @@ function the_odfw_compass_iframe_shortcode($atts, $content = null) {
 	return get_the_odfw_compass_iframe($url);
 }
 add_shortcode('compassMap', 'the_odfw_compass_iframe_shortcode');
+
+
 
 /*
 	can use this to allow the shortcode (and paragraph tags) to be
@@ -108,8 +93,3 @@ function the_odfw_link_box_shortcode($atts, $content = null) {
 }
 
 add_shortcode('linkbox', 'the_odfw_link_box_shortcode');
-
-
-
-
-

@@ -474,4 +474,3 @@ function ocs_get_option( $key = '' ) {
 
 // Get it started
 ocs_admin();
-
