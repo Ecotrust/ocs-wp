@@ -75,10 +75,14 @@ function group_results_by_post_type($hits) {
     // Split the post types in array $types
     if (!empty($hits)) {
         foreach ($hits[0] as $hit) {
+			if ($hit->post_type == 'coa' && is_numeric($searchTerm) && get_post_meta($hit->ID, 'coa_meta_coa_id', true) == $searchTerm ) {
+		   		array_push($types['titles'], $hit);
+			}
 			//Pull anything with the term in the title up top
-			if(stripos($hit->post_title, $searchTerm) !== false ){
+			else if(stripos($hit->post_title, $searchTerm) !== false ){
 				array_push($types['titles'], $hit);
-			} else {
+			}
+			else {
 				array_push($types[$hit->post_type], $hit);
 			}
         }
