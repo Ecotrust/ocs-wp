@@ -242,7 +242,7 @@ function ocs_list_sub_species ($species_id){
 
 			if( $loop->have_posts() ):
 				echo "<section class='sub-species listings-wrap'>";
-				echo "<h2>Sub-Species</h2>";
+				echo "<h2>SMU/ESU/DPS/Group</h2>";
 				echo "<div class='grid-layout'>";
 
 					while( $loop->have_posts() ): $loop->the_post();
