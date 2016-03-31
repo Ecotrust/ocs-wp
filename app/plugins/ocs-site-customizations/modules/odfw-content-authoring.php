@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * Create function and shortcode for displaying Compass URLs
  *
@@ -19,9 +19,7 @@
 	//
 	if (!defined('COMPASS_URL_PREFIX')) {
 	  // Path to the build directory for front-end assets
-		// define('COMPASS_URL_PREFIX', 'http://52.25.124.64/visualize/');
-
-		define('COMPASS_URL_PREFIX', ocs_get_option('ocs-compass-url-prefix'));
+	    define('COMPASS_URL_PREFIX', ocs_get_option('ocs-compass-url-prefix'));
 	}
 	if (!defined('COMPASS_URL_SUFFIX')) {
 	  // Path to the build directory for front-end assets

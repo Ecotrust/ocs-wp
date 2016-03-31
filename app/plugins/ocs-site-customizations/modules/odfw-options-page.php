@@ -465,7 +465,11 @@ function ocs_admin() {
  * @return mixed        Option value
  */
 function ocs_get_option( $key = '' ) {
-	return cmb2_get_option( ocs_admin()->key, $key );
+    if (function_exists('cmb2_get_option')) {
+        return cmb2_get_option( ocs_admin()->key, $key );
+    } else {
+        return get_option(ocs_admin()->key.$key);
+    }
 }
 
 // Get it started
