@@ -15,129 +15,125 @@
   var $iframe = $("iframe.compass-iframe"); //iframe element
   var $nonFeatureFig = $('figure.wp-caption'); //non featured images
 
-    var OCS = {
-        $body : $('body'),
+  var OCS = {
+    $body : $('body'),
 		// "99" => "kci", "101" => "ecoregion", "102" => "coa", "105" => "strategy_habitat", "109" = "Strategy Species Parent Page"
-        landingPages : ['page-id-99','page-id-101','page-id-102','page-id-105', 'page-id-109' ],
+    landingPages : ['page-id-99','page-id-101','page-id-102','page-id-105', 'page-id-109' ],
 
 
-	// All pages
-	'common': {
-	  init: function() {
-		// JavaScript to be fired on all pages
+  	// All pages
+  	'common': {
+  	  init: function() {
+  		// JavaScript to be fired on all pages
 
-        if ($compass.length || ($(".compass-coa").length)) {
-            OCS.$body.toggleClass('map-available');
-            if ($compass) {
-                $compass.insertAfter("main");
-            }
-        }
+          if ($compass.length || ($(".compass-coa").length)) {
+              OCS.$body.toggleClass('map-available');
+              if ($compass) {
+                  $compass.insertAfter("main");
+              }
+          }
 
-        OCS.listAndGridToggle();
-        OCS.inlineReadMore();
-        OCS.fixLeftNav();
+          OCS.listAndGridToggle();
+          OCS.inlineReadMore();
 
-        $('body').tooltip({
-            selector: '[data-toggle="tooltip"]'
-        });
-
-        //mobile menu navigation plugin
-        $('.main-ocs-navigation').slicknav({
-          easingOpen: 'linear',
-          label: '',
-          closeOnClick: "true",
-          appendTo: "header#header",
-          allowParentLinks: "true",
-		  init: function(){
-			if ($('.slicknav_menu').is(':visible')) {
-			  //only move the #skip line from position 2 on the page if we're in a mobile view
-			  $('#skip-to-content').prependTo('.slicknav_menu');
-			}
-		  }
-        });
-
-
-
-        /*
-          toggling non-featured images added via media gallery
-          '.image-container' wrapper added to all media via functions.php
-        */
-        if ($nonFeatureFig.length) {
-          $nonFeatureFig.each(function(i,figure) {
-            $(figure).find('.image-container')
-              .append('<span class="photo-info show-info glyphicon glyphicon-info-sign"></span>');
-            $(figure).find('figcaption')
-              .append('<span class="photo-info glyphicon glyphicon-remove-circle"></span>');
+          $('body').tooltip({
+              selector: '[data-toggle="tooltip"]'
           });
-        }
-    /*
-     * Image Attribution
-     * Check https://github.com/Ecotrust/commonplace-magazine/search?utf8=%E2%9C%93&q=photo-info
-		CP.$body.on('click touchstart', '.photo-info', function () {
-			$(this).toggleClass('visible');
-		});
-    */
 
-        //temp hack until HTML is updated!
-        $('table').attr('border', 0);
-	  },
-	  finalize: function() {
-		// JavaScript to be fired on all pages, after page specific JS is fired
+          //mobile menu navigation plugin
+          $('.main-ocs-navigation').slicknav({
+            easingOpen: 'linear',
+            label: '',
+            closeOnClick: "true",
+            appendTo: "header#header",
+            allowParentLinks: "true",
+  		      init: function(){
+    			   if ($('.slicknav_menu').is(':visible')) {
+    			     //only move the #skip line from position 2 on the page if we're in a mobile view
+    			     $('#skip-to-content').prependTo('.slicknav_menu');
+    			   }
+  		      }
+          });
 
-        //Toggle class for switching between compass and main content
-        $('.view-map, span.compass-close').click(function(){
-            OCS.$body.toggleClass('map-visible');
-            if ($iframe.length) {
-                //$iframe has to be added, not just hidden for fullscreen view of oregon
-                $('.compass-wrap').append($iframe);
-            }
-        });
+          /*
+            toggling non-featured images added via media gallery
+            '.image-container' wrapper added to all media via functions.php
+          */
+          if ($nonFeatureFig.length) {
+            $nonFeatureFig.each(function(i,figure) {
+              $(figure).find('.image-container')
+                .append('<span class="photo-info show-info glyphicon glyphicon-info-sign"></span>');
+              $(figure).find('figcaption')
+                .append('<span class="photo-info glyphicon glyphicon-remove-circle"></span>');
+            });
+          }
+      /*
+       * Image Attribution
+       * Check https://github.com/Ecotrust/commonplace-magazine/search?utf8=%E2%9C%93&q=photo-info
+  		CP.$body.on('click touchstart', '.photo-info', function () {
+  			$(this).toggleClass('visible');
+  		});
+      */
 
-        $('.photo-info').click(function() {
-            $(this).parents('figure').toggleClass('close-caption');
-        });
+          //temp hack until HTML is updated!
+          $('table').attr('border', 0);
+  	  },
+  	  finalize: function() {
+  		// JavaScript to be fired on all pages, after page specific JS is fired
 
-        $nonFeatureFig.find(' > a').removeAttr('href'); //deactivate hrefs by default
+          //Toggle class for switching between compass and main content
+          $('.view-map, span.compass-close').click(function(){
+              OCS.$body.toggleClass('map-visible');
+              if ($iframe.length) {
+                  //$iframe has to be added, not just hidden for fullscreen view of oregon
+                  $('.compass-wrap').append($iframe);
+              }
+          });
 
-        // BootStrap ToolTips
-        $('[title]').tooltip();
+          $('.photo-info').click(function() {
+              $(this).parents('figure').toggleClass('close-caption');
+          });
 
-        $('.slicknav_nav').slicknav('toggle');
-	  }
-	},
-	'home': {
-	  init: function() {
-		// JavaScript to be fired on the home page
+          $nonFeatureFig.find(' > a').removeAttr('href'); //deactivate hrefs by default
 
-	  },
-	  finalize: function() {
+          // BootStrap ToolTips
+          $('[title]').tooltip();
+
+          $('.slicknav_nav').slicknav('toggle');
+          OCS.fixLeftNavFlyout();
+  	  }
+  	},
+	  'home': {
+	   init: function() {
+		  // JavaScript to be fired on the home page
+	   },
+	   finalize: function() {
 
 		  // Don't show slide arrows or dots if there's only one slide
 		  if ($('.carousel-inner .item').length <= 1) {
 		      $('a.control_next, a.control_prev, ol.carousel-indicators').addClass('single-item');
 		  }
-
-	  }
-	},
+	   }
+	  },
     'single_strategy_species': {
       init: function() {
         // JavaScript to be fired on the single species page
 
       },
       finalize: function() {
-		// Done in PHP to avoid flash of no-nav + those w/o js.
+		    // Done in PHP to avoid flash of no-nav + those w/o js.
         //OCS.showSpeciesTypeSidebar();
       }
     },
     'conservation_opportunity_areas': {
-	  init: function() {
-		// JavaScript to be fired on COA pages
+	   init: function() {
+		  // JavaScript to be fired on COA pages
         if ($('body.page-id-102').length) {
             $('body').addClass('map-visible').removeClass('grid-layout');
         }
-	  },
-	  finalize: function() {
-	  }
+	   },
+	   finalize: function() {
+      },
     },
     'single_ecoregion': {
       init: function() {
@@ -148,32 +144,34 @@
       }
     },
     // pages with a sidebar
-	'has_sidebar': {
-		init: function() {
-			$('.entry-content').scrollNav({
-				sections: 'h2, .toc-item',
-				subSections: false,
-				sectionElem: 'section',
-				className: 'scroll-nav',
-				headlineText: 'On This Page',
-				showTopLink: false,
-				//fixedMargin: 60,
-				fixedMargin: 97,
-				scrollOffset: 75,
-				fixedHeaderSize: 60,
-				animated: true,
-				speed: 300,
-				insertTarget: '.on-page-nav',
-				insertLocation: 'prependTo',
-				activeClass: 'current_page_item',
-				scrollToHash: true,
-				onRender: function(){
-					OCS.$body.addClass('sidebar-visible');
-				}
-			});
-
-		}
-	},
+	  'has_sidebar': {
+		  init: function() {
+			 $('.entry-content').scrollNav({
+  				sections: 'h2, .toc-item',
+  				subSections: false,
+  				sectionElem: 'section',
+  				className: 'scroll-nav',
+  				headlineText: 'On This Page',
+  				showTopLink: false,
+  				//fixedMargin: 60,
+  				fixedMargin: 97,
+  				scrollOffset: 75,
+  				fixedHeaderSize: 60,
+  				animated: true,
+  				speed: 300,
+  				insertTarget: '.on-page-nav',
+  				insertLocation: 'prependTo',
+  				activeClass: 'current_page_item',
+  				scrollToHash: true,
+  				onRender: function(){
+  					OCS.$body.addClass('sidebar-visible');
+  				}
+			 });
+		  },
+      finalize: function(){
+        OCS.fixLeftNavFlyout();
+      }
+	  },
 
     //show species type reference in sidebar on single-strategy-species pages
     showSpeciesTypeSidebar: function() {
@@ -210,61 +208,82 @@
         }
     },
 
-    fixLeftNav: function(){
+    fixLeftNavFlyout: function(){
+      $mainMenuHasChildren = $('#menu-ocs-navigation > .menu-item-has-children')
+      if ($mainMenuHasChildren.length > 0) {
+        var $subMenu,
+            height,
+            newTopLocation;
 
+        $mainMenuHasChildren.each(function(index) {
+          if ($(this).is($('#menu-item-3393')) || $(this).is($('#menu-item-3397')) || $(this).is($('#menu-item-3451'))) {
+            //strategy habitats || strategy species
+            $subMenu = $(this).children().closest('.sub-menu');
+            newTopLocation = -($subMenu.height()/3.5)
+            $subMenu.css("top", ""+newTopLocation+"px" );
+          } else {
+            //nearshore strategy
+            // $subMenu = $(this).children().closest('.sub-menu');
+            // newTopLocation = -height + $(this).height();
+            // console.log(newTopLocation)
+            // $subMenu.css("top", ""+newTopLocation+"px")
+          }
+        })
+
+      }
     },
 
-	inlineReadMore: function(){
-        var $readMore = $('.inline-read-more');
-        //if readMore exists, add class so a divider can be added to larger div
-        if ($readMore.length) {
-            $('.main-content > .hentry').addClass('has-read-more');
-        }
-        //replace the WordPress <!--MORE--> Link with a readmore
-        //content is wrapped inside of a div.read-more-wrap within lib/extras.php
-        $readMore.on('click', function(){
-			var $t = $(this),
-				newText = $t.text() === $t.attr('data-original') ? $t.attr("data-alternate") : $t.attr('data-original');
+  	inlineReadMore: function(){
+          var $readMore = $('.inline-read-more');
+          //if readMore exists, add class so a divider can be added to larger div
+          if ($readMore.length) {
+              $('.main-content > .hentry').addClass('has-read-more');
+          }
+          //replace the WordPress <!--MORE--> Link with a readmore
+          //content is wrapped inside of a div.read-more-wrap within lib/extras.php
+          $readMore.on('click', function(){
+  			  var $t = $(this),
+  				newText = $t.text() === $t.attr('data-original') ? $t.attr("data-alternate") : $t.attr('data-original');
 
-                $('.read-more-wrap').toggleClass('visible');
+                  $('.read-more-wrap').toggleClass('visible');
 
-                //need to scroll back up?
-                if (newText === $t.attr("data-original") ) {
-                    $('html, body').animate({scrollTop: '0px'}, 600);
-                }
+                  //need to scroll back up?
+                  if (newText === $t.attr("data-original") ) {
+                      $('html, body').animate({scrollTop: '0px'}, 600);
+                  }
 
-				$t.text(newText);
-        }).blur();
-	},
+  				$t.text(newText);
+          }).blur();
+  	},
 
-	listAndGridToggle: function (){
+  	listAndGridToggle: function (){
 
-		if ($('#cpt-listings-wrap').length ) {
-			OCS.$body.addClass('grid-available').addClass('list-available');
-			//temp for testing
-			OCS.$body.addClass('grid-layout');
-		}
-		$('.view-grid').on('click', function() {
-            if ($('.compass-coa') || $('.ecoregion-svg').length) {
-                OCS.$body.removeClass('map-visible');
-            }
-			OCS.$body.addClass('grid-layout').removeClass('list-layout');
-			return false;
-		});
-		$('.view-list').on('click', function() {
-            if ($('.compass-coa') || $('.ecoregion-svg').length) {
-                OCS.$body.removeClass('map-visible');
-            }
-			OCS.$body.addClass('list-layout').removeClass('grid-layout');
-			return false;
-		});
-        $('.view-map').on('click', function() {
-            if ($('.compass-coa') || $('.ecoregion-svg').length) {
-                OCS.$body.removeClass('list-layout grid-layout');
-            }
-            return false;
-        });
-	}
+  		if ($('#cpt-listings-wrap').length ) {
+  			OCS.$body.addClass('grid-available').addClass('list-available');
+  			//temp for testing
+  			OCS.$body.addClass('grid-layout');
+  		}
+  		$('.view-grid').on('click', function() {
+              if ($('.compass-coa') || $('.ecoregion-svg').length) {
+                  OCS.$body.removeClass('map-visible');
+              }
+  			OCS.$body.addClass('grid-layout').removeClass('list-layout');
+  			return false;
+  		});
+  		$('.view-list').on('click', function() {
+              if ($('.compass-coa') || $('.ecoregion-svg').length) {
+                  OCS.$body.removeClass('map-visible');
+              }
+  			OCS.$body.addClass('list-layout').removeClass('grid-layout');
+  			return false;
+  		});
+          $('.view-map').on('click', function() {
+              if ($('.compass-coa') || $('.ecoregion-svg').length) {
+                  OCS.$body.removeClass('list-layout grid-layout');
+              }
+              return false;
+          });
+  	}
   };
 
   // The routing fires all common scripts, followed by the page specific scripts.
