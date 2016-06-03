@@ -216,7 +216,7 @@ function setupCustomFields () {
 		$ss_cmb->add_field( array(
 			'name' => __( 'Limiting factors', 'odfw' ),
 			'id' => $prefix . 'limiting-factors',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 			'row_classes' => 'species-textarea',
 		));
 		$ss_cmb->add_field( array(
@@ -320,7 +320,7 @@ function setupCustomFields () {
 				array(
 					'name' => __( 'Limiting factors', 'odfw' ),
 					'id' => $prefix . 'limiting-factors',
-					'type' => 'textarea',
+					'type' => 'wysiwyg',
 					'row_classes' => 'species-textarea',
 				),
 				array(
@@ -845,20 +845,20 @@ function setupCustomFields () {
 		   $ecoregion_cmb->add_group_field( $factor_group_field_id, array(
 				'name' => __( 'Factor Title', 'odfw' ),
 				'id' => $prefix . 'factor_title',
-				'type' => 'text'
+				'type' => 'wysiwyg'
 			) );
 
 		   $ecoregion_cmb->add_group_field( $factor_group_field_id, array(
 				'name' => __( 'Factor Description', 'odfw' ),
 				'id' => $prefix . 'factor_description',
-				'type' => 'textarea'
+				'type' => 'wysiwyg'
 			) );
 
 		   $ecoregion_cmb->add_group_field( $factor_group_field_id, array(
 				'name' => __( 'Approach', 'odfw' ),
 				'id' => $prefix . 'approach',
 				'desc' => 'The word "approach" will be output automatically',
-				'type' => 'textarea'
+				'type' => 'wysiwyg'
 			) );
 
 	}
@@ -935,7 +935,7 @@ function setupCustomFields () {
 		$strategy_habitat_cmb->add_field( array(
 			'name' => __( 'Limiting Factors', 'odfw' ),
 			'id' => $prefix . 'limiting_factors',
-			'type' => 'title',
+			'type' => 'wysiwyg',
 		) );
 
 		$factor_group_field_id = $strategy_habitat_cmb->add_field( array(
