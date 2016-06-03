@@ -162,13 +162,31 @@
 					position: relative;
 
 					ul {
-						background-color: $greyDark;
 						display: block;
 						position: absolute;
 						left: 100%;
 						top: 1px;
 						width: 250px;
 						z-index: 1111;
+
+						&.flyout {
+							display: table-row-group;
+							position: relative;
+							background-color: $greyDark;
+							li.menu-item {
+								background-color: #9fa0a2;
+								> a { 
+									color: #FFF;
+									&:hover { 
+										background-color: #d6d7d8;
+										color: #000; 
+									}
+								}
+								&:hover {
+									background-color: #d6d7d8;
+								}
+							}
+						}
 
 						// SUB SUB nav, ONS mostly
 						> .menu-item-has-children {

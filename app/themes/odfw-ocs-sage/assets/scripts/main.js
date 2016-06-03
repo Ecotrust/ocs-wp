@@ -211,25 +211,11 @@
     fixLeftNavFlyout: function(){
       $mainMenuHasChildren = $('#menu-ocs-navigation > .menu-item-has-children')
       if ($mainMenuHasChildren.length > 0) {
-        var $subMenu,
-            height,
-            newTopLocation;
 
         $mainMenuHasChildren.each(function(index) {
-          if ($(this).is($('#menu-item-3393')) || $(this).is($('#menu-item-3397')) || $(this).is($('#menu-item-3451'))) {
-            //strategy habitats || strategy species
-            $subMenu = $(this).children().closest('.sub-menu');
-            newTopLocation = -($subMenu.height()/3.5)
-            $subMenu.css("top", ""+newTopLocation+"px" );
-          } else {
-            //nearshore strategy
-            // $subMenu = $(this).children().closest('.sub-menu');
-            // newTopLocation = -height + $(this).height();
-            // console.log(newTopLocation)
-            // $subMenu.css("top", ""+newTopLocation+"px")
-          }
+          var $subMenu = $(this).children().closest('.sub-menu');
+          $subMenu.addClass('flyout');
         })
-
       }
     },
 
