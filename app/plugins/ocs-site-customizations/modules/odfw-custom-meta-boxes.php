@@ -181,7 +181,7 @@ function setupCustomFields () {
 			'type' => 'text',
 		));
 		$ss_cmb->add_field( array(
-			'name' => __( 'SMU/ESU/DPS/Group', 'odfw' ),
+			'name' => __( 'SMU/ESU/DPS/Subspecies', 'odfw' ),
 			'id' => $prefix . 'species-group',
 			'type' => 'text',
 		));
@@ -297,7 +297,7 @@ function setupCustomFields () {
 					'type' => 'text',
 				),
 				array(
-					'name' => __( 'SMU/ESU/DPS/Group', 'odfw' ),
+					'name' => __( 'SMU/ESU/DPS/Subspecies', 'odfw' ),
 					'id' => $prefix . 'species-group',
 					'type' => 'text',
 				),
