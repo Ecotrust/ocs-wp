@@ -109,19 +109,21 @@ ol.carousel-indicators {
   left: 30%;
   right: 30%;
   padding-bottom: 5px;
+  font-family: $headings-font-family;
 
   .carousel-headline {
     bottom: 35%;
     color: $off-white;
-    font-family: $headings-font-family;
     font-size: 36px;
     text-transform: uppercase;
+    text-shadow: rgb(3, 3, 3) 4px 4px 4px;
   }
 
   .carousel-subtext {
     font-size: 20px;
     bottom: 25%;
-    color: $greyLighter;
+    color: $off-white;
+    text-shadow: rgb(3, 3, 3) 4px 4px 4px; 
   }
 
 }

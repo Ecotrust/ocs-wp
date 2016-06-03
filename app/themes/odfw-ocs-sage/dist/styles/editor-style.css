@@ -1736,9 +1736,9 @@ ol.carousel-indicators li,ol.carousel-indicators li.active{height:12px;width:12p
 ol.carousel-indicators li{background-color:#D3E9D1}
 ol.carousel-indicators li:hover{height:15px;width:15px}
 ol.carousel-indicators li.active{background-color:#00371a}
-.carousel-caption{left:30%;right:30%;padding-bottom:5px}
-.carousel-caption .carousel-headline{bottom:35%;color:#f1f1f2;font-family:TradeGothicBold,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:36px;text-transform:uppercase}
-.carousel-caption .carousel-subtext{font-size:20px;bottom:25%;color:#E6E7E8}
+.carousel-caption{left:30%;right:30%;padding-bottom:5px;font-family:TradeGothicBold,"Helvetica Neue",Helvetica,Arial,sans-serif}
+.carousel-caption .carousel-headline{bottom:35%;color:#f1f1f2;font-size:36px;text-transform:uppercase;text-shadow:#030303 4px 4px 4px}
+.carousel-caption .carousel-subtext{font-size:20px;bottom:25%;color:#f1f1f2;text-shadow:#030303 4px 4px 4px}
 a.control_next,a.control_prev{display:none}
 a.control_next:hover,a.control_prev:hover{opacity:1!important}
 a.control_next{right:5px;border-radius:2px 0 0 2px}
