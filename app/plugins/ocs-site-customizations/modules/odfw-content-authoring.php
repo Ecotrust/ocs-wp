@@ -80,7 +80,7 @@ function the_odfw_success_story ($id) {
 }
 function the_odfw_success_story_shortcode($atts, $content = null) {
     extract(shortcode_atts(array(
-        "id" => 'Please Include A Success Story ID'
+        "id" => 'Please Include A Strategy Spotlight ID'
     ), $atts));
 	return get_the_odfw_success_story($id);
 }

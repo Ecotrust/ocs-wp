@@ -1964,7 +1964,7 @@ body.single-ecoregion.list-layout .listings-wrap .grid-item .image-grid-containe
 .search-results-wrap .in-title-section .type-coa h3:after{content:"Conservation Opportunity Area"}
 .search-results-wrap .in-title-section .type-strategy_habitat h3:after{content:"Strategy Habitat"}
 .search-results-wrap .in-title-section .type-strategy_species h3:after{content:"Strategy Species"}
-.search-results-wrap .in-title-section .type-success_story h3:after{content:"Success Story"}
+.search-results-wrap .in-title-section .type-success_story h3:after{content:"Strategy Spotlight"}
 .search-results-wrap .the-rest-section{margin-top:36px;counter-reset:results-counter}
 .search-results-wrap .the-rest-section .type-post:before{content:"Posts"}
 .search-results-wrap .the-rest-section .type-post+.type-post:before{display:none}
@@ -1982,7 +1982,7 @@ body.single-ecoregion.list-layout .listings-wrap .grid-item .image-grid-containe
 .search-results-wrap .the-rest-section .type-strategy_habitat+.type-strategy_habitat:before{display:none}
 .search-results-wrap .the-rest-section .type-strategy_species:before{content:"Strategy Species"}
 .search-results-wrap .the-rest-section .type-strategy_species+.type-strategy_species:before{display:none}
-.search-results-wrap .the-rest-section .type-success_story:before{content:"Success Storys"}
+.search-results-wrap .the-rest-section .type-success_story:before{content:"Strategy Spotlights"}
 .search-results-wrap .the-rest-section .type-success_story+.type-success_story:before{display:none}
 .search-results-wrap .the-rest-section .type-page:before{content:"More Results"}
 .search-results-wrap .the-rest-section .search-section-label+.type-page:before{content:""}

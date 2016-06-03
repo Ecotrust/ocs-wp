@@ -674,7 +674,7 @@ function setupCustomFields () {
 
 	/*
 	 *
-	 * Success Story Boxes
+	 * Success Story (Strategy Spotlight) Boxes
 	 *
 	 */
 
@@ -682,8 +682,8 @@ function setupCustomFields () {
 	function success_story_metabox() {
 		$success_story_cmb = new_cmb2_box( array(
 			'id'           => 'posts_success_story',
-			'title'        => __('Associate a Success Story', 'odfw'),
-			'desc'         => __('Select a success story to go with this post', 'odfw'),
+			'title'        => __('Associate a Strategy Spotlight', 'odfw'),
+			'desc'         => __('Select a strategy spotlight to go with this post', 'odfw'),
 			'object_types' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
 			'context'      => 'normal',
 			'priority'     => 'low',
@@ -691,14 +691,14 @@ function setupCustomFields () {
 		));
 
 		$success_story_cmb->add_field(array(
-			'name' => __('Success Story', 'odfw'),
-			'desc' => __('Use the spyglass icon to select a success story to include with this post.', 'odfw'),
+			'name' => __('Strategy Spotlight', 'odfw'),
+			'desc' => __('Use the spyglass icon to select a strategy spotlight to include with this post.', 'odfw'),
 			'post_type'   => 'success_story',
 			'id' => 'success_story',
 			'type'               => 'post_search_text',
 			'select_type'        => 'radio',
 			'select_behavior'    => 'replace',
-			'find_text'          => 'Find Success Stories',
+			'find_text'          => 'Find Strategy Spotlights',
 			'include_post_title' => true,
 
 		));
@@ -1030,8 +1030,8 @@ function setupCustomFields () {
 		) );
 
 		$home_cmb->add_group_field( $home_group_field_id, array(
-			'name' => __( 'Link Success Story?', 'odfw' ),
-			'desc' => __( 'Should this link jump to the Success Story on this page?', 'odfw' ),
+			'name' => __( 'Link Strategy Spotlight?', 'odfw' ),
+			'desc' => __( 'Should this link jump to the Strategy Spotlight on this page?', 'odfw' ),
 			'id' => $prefix . 'success-story',
 			'type' => 'checkbox',
 		) );

@@ -96,8 +96,8 @@ function setupCustomPostTypes () {
 
 	$success_story = new CPT(array(
 		'post_type_name' => 'success_story',
-		'singular'       => 'Success Story',
-		'plural'         => 'Success Stories',
+		'singular'       => 'Strategy Spotlight',
+		'plural'         => 'Strategy Spotlights',
 		'slug'           => 'success-story'
 	), array_merge($global_cpt_args, array(
 		'menu_position'  => 9,
