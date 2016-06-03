@@ -4,35 +4,27 @@
 
 	$i = 0;
 	$tempColors = array("27ae60", "58595B", "005130", "404041", "a3b9a1", "00371a", "bbbbbb");
-	// sub pages of Strategy Species but we only want the species taxonomy masters here
-	$non_species_pages = "117, 118, 119, 120, 1887";
-
 
 // Is this the Species parent page?
 if ( is_page('109') ) :
 
-	$species_pages = get_pages(
-		array(
-			'child_of'=>$post->ID,
-			'exclude' => $non_species_pages
-		)
-	);
+	$species_pages = array("112", "110", "111", "113", "114", "115", "116");
 
-		foreach( $species_pages as $page ) :
+			foreach( $species_pages as $id ) :
 	?>
-			<article id="strategy-species-overview-<?php echo $page->post_name; ?>"  <?php post_class('grid-item', $page->ID); ?>>
+			<article id="strategy-species-overview-<?php echo get_post($id)->post_name; ?>"  <?php post_class('grid-item', $id); ?>>
 
-				<a href="<?php echo get_page_link( $page->ID ); ?>">
+				<a href="<?php echo get_page_link( $id ); ?>">
 					<!-- <?php $the_field = get_post_meta( $page->ID, 'species_meta_image', true ); ?> -->
 					<div class="image-grid-container">
-						<?php if ( has_post_thumbnail($page->ID) ) : ?>
-							<?php echo get_the_post_thumbnail($page->ID, 'grid', array('class' => 'img-responsive')) ?>
+						<?php if ( has_post_thumbnail($id) ) : ?>
+							<?php echo get_the_post_thumbnail($id, 'grid', array('class' => 'img-responsive')) ?>
 						<?php else: ?>
 						<img class='img-responsive' src="http://placehold.it/230x115/<?php echo $tempColors[$i]; ?>/ffffff?text=species+placeholder">
 						<?php endif; ?>
 					</div>
-					<h4><?php echo $page->post_title; ?></h4>
-					<?php $summary = $page->post_excerpt;
+					<h4><?php echo get_post($id)->post_title; ?></h4>
+					<?php $summary = get_post($id)->post_excerpt;
 					if ( !empty( $summary ) ): ?>
 						<p class="summary"><?php echo $summary; ?></p>
 					<?php endif; ?>
