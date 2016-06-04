@@ -79,8 +79,7 @@
 			<?php endif; ?>
 
 		<?php $cats = get_the_terms($post->ID, 'species');
-			//only need this one for fish, catID=19
-			if ( $cats[0]->term_id==19 ): ?>
+			if ( $cats[0] ): ?>
 				<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-group', true );
 					if ( !empty($the_field) ): ?>
 					<li><strong><abbr title="Species Management Unit for Native Fish">SMU</abbr>/<abbr title="Evolutionarily Significant Unity">ESU</abbr>/<abbr title="Distinct Population Segment">DPS</abbr>/Group</strong>
