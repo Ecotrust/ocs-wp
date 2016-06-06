@@ -244,6 +244,31 @@
 
   	listAndGridToggle: function (){
 
+      function coaSort(type) {
+        if ($('body.page-id-102')) {
+          $coaContainer = $('section.post-102');
+          $coas = $coaContainer.children('article.coa');
+          var type = type;
+          $coas.sort(function (a,b) {
+            if (type === 'list') {
+              a = parseInt($(a).attr('coa'), 10);
+              b = parseInt($(b).attr('coa'), 10);
+            } else {
+              a = parseInt($(a).attr('item-name'), 10);
+              b = parseInt($(b).attr('item-name'), 10);
+            }
+
+            if(a > b) {
+                return 1;
+            } else if(a < b) {
+                return -1;
+            } 
+            return 0;
+          });
+          $coas.detach().appendTo($coaContainer);
+        }
+      }
+
   		if ($('#cpt-listings-wrap').length ) {
   			OCS.$body.addClass('grid-available').addClass('list-available');
   			//temp for testing
@@ -252,14 +277,22 @@
   		$('.view-grid').on('click', function() {
               if ($('.compass-coa') || $('.ecoregion-svg').length) {
                   OCS.$body.removeClass('map-visible');
+
+                  //grids for COAs needs to be alphabetical
+                  var type = "grid";
+                  coaSort(type);
               }
   			OCS.$body.addClass('grid-layout').removeClass('list-layout');
   			return false;
   		});
   		$('.view-list').on('click', function() {
-              if ($('.compass-coa') || $('.ecoregion-svg').length) {
-                  OCS.$body.removeClass('map-visible');
-              }
+          if ($('.compass-coa') || $('.ecoregion-svg').length) {
+            OCS.$body.removeClass('map-visible');
+
+            //list for COAs needs to be numeric
+            var type = 'list';
+            coaSort(type);
+          }
   			OCS.$body.addClass('list-layout').removeClass('grid-layout');
   			return false;
   		});
