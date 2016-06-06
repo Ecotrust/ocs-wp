@@ -254,8 +254,8 @@
               a = parseInt($(a).attr('coa'), 10);
               b = parseInt($(b).attr('coa'), 10);
             } else {
-              a = parseInt($(a).attr('item-name'), 10);
-              b = parseInt($(b).attr('item-name'), 10);
+              a = ($(a).attr('item-name'));
+              b = ($(b).attr('item-name'));
             }
 
             if(a > b) {
