@@ -14,19 +14,13 @@
 
 	<figure class="species-hero">
 		<?php
-            $the_field = get_post_meta( get_the_ID(), 'species_meta_image-url', true );
-            $the_field_thumbnail = get_post_meta( get_the_ID(), 'species_meta_image-thumb-url', true );
+			$thumbnail = get_post( get_post_thumbnail_id() );
         ?>
 
-		<?php if ( !empty($the_field) ): ?>
+		<?php if ( has_post_thumbnail() ) : ?>
             <div class="image-container">
                 <span class="photo-info show-info glyphicon glyphicon-info-sign"></span>
-			    <img src="<?php echo esc_html( $the_field ); ?>">
-            </div>
-        <?php elseif ( !empty($the_field_thumbnail) ): ?>
-            <div class="image-container">
-                <span class="photo-info show-info glyphicon glyphicon-info-sign"></span>
-                <img src="<?php echo esc_html( $the_field_thumbnail ); ?>">
+			    <?php echo the_post_thumbnail('large') ?>
             </div>
 		<?php else: ?>
             <div class="image-container">
@@ -82,7 +76,7 @@
 			if ( $cats[0] ): ?>
 				<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_species-group', true );
 					if ( !empty($the_field) ): ?>
-					<li><strong><abbr title="Species Management Unit for Native Fish">SMU</abbr>/<abbr title="Evolutionarily Significant Unity">ESU</abbr>/<abbr title="Distinct Population Segment">DPS</abbr>/Group</strong>
+					<li><strong><abbr title="Species Management Unit for Native Fish">SMU</abbr>/<abbr title="Evolutionarily Significant Unity">ESU</abbr>/<abbr title="Distinct Population Segment">DPS</abbr>/Subspecies</strong>
 						<?php echo esc_html( $the_field ); ?>
 					</li>
 				<?php endif; ?>
