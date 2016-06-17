@@ -15,11 +15,15 @@
 	<figure class="species-hero">
 		<?php
 			$thumbnail = get_post( get_post_thumbnail_id() );
+			$caption = $thumbnail->post_excerpt;
+			$attrName = get_post_meta( $thumbnail->ID, 'odfw_attribution_name', true );
         ?>
 
 		<?php if ( has_post_thumbnail() ) : ?>
             <div class="image-container">
-                <span class="photo-info show-info glyphicon glyphicon-info-sign"></span>
+            	<?php if ( !empty($caption) || (!empty($attrName)) ) : ?>
+                	<span class="photo-info show-info glyphicon glyphicon-info-sign"></span>
+                <?php endif; ?>
 			    <?php echo the_post_thumbnail('large') ?>
             </div>
 		<?php else: ?>
@@ -29,13 +33,15 @@
             </div>
 		<?php endif; ?>
 
-		<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_image-attribution', true );?>
-		<?php if ( !empty($the_field) ): ?>
-			<figcaption>
-                <span class="photo-info glyphicon glyphicon-remove-circle"></span>
-				<?php echo esc_html( $the_field ); ?>
-			</figcaption>
-		<?php endif; ?>
+		<figcaption>
+		    <span class="photo-info glyphicon glyphicon-remove-circle"></span>
+		    <?php if ( !empty($caption) ) : ?>
+		        <?php echo $caption; ?>
+		    <?php endif; ?>
+		    <?php if ( !empty($attrName) ) : ?>
+		        Photo Credit: <?php echo $attrName; ?>
+		    <?php endif; ?>
+		</figcaption>
 	</figure>
 
 

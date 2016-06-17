@@ -132,14 +132,7 @@ function filter_image_send_to_editor($html, $id, $caption, $title, $align, $url,
 	$meta = get_post_meta($id);
 	if ( !empty( $meta["odfw_attribution_name"] ) ) {
 		$html .= "<span class='photo-attribution'><span class='attr-name'>";
-
-		if ( !empty( $meta["odfw_attribution_url"] ) ) {
-			$html .= "<a href='" . $meta["odfw_attribution_url"][0] . "'>" . $meta["odfw_attribution_name"][0]  . "</a>";
-			$html .= "</span>";
-		}
-		else {
-			$html .= $meta["odfw_attribution_name"][0] . "</span>";
-		}
+		$html .= "Photo Credit: " . $meta["odfw_attribution_name"][0] . ".</span>";
 	}
 	return $html;
 }

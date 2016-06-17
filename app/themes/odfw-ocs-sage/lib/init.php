@@ -30,7 +30,7 @@ function setup() {
   add_theme_support('post-thumbnails');
 
   add_image_size( 'hero', 1600, 580, true );
-  add_image_size( 'grid', 255, 185, false );
+  add_image_size( 'grid', 255, 185, true );
   add_image_size( 'listing', 116, 63, false );
 
 
