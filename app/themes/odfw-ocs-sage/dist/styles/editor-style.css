@@ -1605,6 +1605,7 @@ figure.wp-caption>a{color:#000}
 .feature-thumb.close-caption figcaption,.species-hero.close-caption figcaption,.wp-caption.close-caption figcaption{display:block}
 .feature-thumb.close-caption figcaption .glyphicon,.species-hero.close-caption figcaption .glyphicon,.wp-caption.close-caption figcaption .glyphicon{color:#FFF;text-shadow:none;bottom:30%}
 .feature-thumb.close-caption .show-info,.species-hero.close-caption .show-info,.wp-caption.close-caption .show-info{display:none}
+.species-hero .image-container img{width:100%}
 .ecoregion-svg{position:relative;height:100%;width:100%}
 .ecoregion-svg .eco-container,.ecoregion-svg svg,.ecoregion-svg>img{display:block;max-width:98%;max-height:98%;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto}
 .ecoregion-svg svg{opacity:0}
