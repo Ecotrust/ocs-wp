@@ -237,26 +237,26 @@ function setupCustomFields () {
 			'type' => 'textarea',
 			'desc' => __( 'URLs in this field will be automatically converted to clickable links', 'odfw' ),
 		));
-		$ss_cmb->add_field( array(
-			'name' => __( 'Full URL to Thumbnail Image', 'odfw' ),
-			'id' => $prefix . 'image-thumb-url',
-			'type' => 'text_url',
-			'show_on_cb' => 'speciesimageloaded',
-			'row_classes' => 'species-image',
-		));
-		$ss_cmb->add_field( array(
-			'name' => __( 'Full URL to Image', 'odfw' ),
-			'id' => $prefix . 'image-url',
-			'type' => 'text_url',
-			'show_on_cb' => 'speciesimageloaded',
-			'row_classes' => 'species-image',
-		));
-		$ss_cmb->add_field( array(
-			'name' => __( 'Image Attribution', 'odfw' ),
-			'id' => $prefix . 'image-attribution',
-			'type' => 'text',
-			'desc' => __( 'URLs in this field will be automatically converted to clickable links', 'odfw' ),
-		));
+		// $ss_cmb->add_field( array(
+		// 	'name' => __( 'Full URL to Thumbnail Image', 'odfw' ),
+		// 	'id' => $prefix . 'image-thumb-url',
+		// 	'type' => 'text_url',
+		// 	'show_on_cb' => 'speciesimageloaded',
+		// 	'row_classes' => 'species-image',
+		// ));
+		// $ss_cmb->add_field( array(
+		// 	'name' => __( 'Full URL to Image', 'odfw' ),
+		// 	'id' => $prefix . 'image-url',
+		// 	'type' => 'text_url',
+		// 	'show_on_cb' => 'speciesimageloaded',
+		// 	'row_classes' => 'species-image',
+		// ));
+		// $ss_cmb->add_field( array(
+		// 	'name' => __( 'Image Attribution', 'odfw' ),
+		// 	'id' => $prefix . 'image-attribution',
+		// 	'type' => 'text',
+		// 	'desc' => __( 'URLs in this field will be automatically converted to clickable links', 'odfw' ),
+		// ));
 
 
 

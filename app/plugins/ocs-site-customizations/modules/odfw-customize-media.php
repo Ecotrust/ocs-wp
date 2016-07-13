@@ -32,12 +32,12 @@
 			'helps' => 'If provided, photo credit will be displayed',
 		);
 
-		$form_fields['odfw-attribution-url'] = array(
-			'label' => 'Attribution URL',
-			'input' => 'text',
-			'value' => get_post_meta( $post->ID, 'odfw_attribution_url', true ),
-			'helps' => 'Add URL, not required',
-		);
+		// $form_fields['odfw-attribution-url'] = array(
+		// 	'label' => 'Attribution URL',
+		// 	'input' => 'text',
+		// 	'value' => get_post_meta( $post->ID, 'odfw_attribution_url', true ),
+		// 	'helps' => 'Add URL, not required',
+		// );
 
 
 		return $form_fields;
@@ -58,9 +58,9 @@
 		if( isset( $attachment['odfw-attribution-name'] ) ) {
 			update_post_meta( $post['ID'], 'odfw_attribution_name', $attachment['odfw-attribution-name'] );
 		}
-		if( isset( $attachment['odfw-attribution-url'] ) ) {
-			update_post_meta( $post['ID'], 'odfw_attribution_url', esc_url( $attachment['odfw-attribution-url'] ) );
-		}
+		// if( isset( $attachment['odfw-attribution-url'] ) ) {
+		// 	update_post_meta( $post['ID'], 'odfw_attribution_url', esc_url( $attachment['odfw-attribution-url'] ) );
+		// }
 		return $post;
 	}
 
