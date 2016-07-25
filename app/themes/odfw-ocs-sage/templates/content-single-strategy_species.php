@@ -120,7 +120,7 @@
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-special-needs') ?>">Special needs</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
-					<?php echo esc_html( $the_field ); ?>
+					<?php echo wpautop( $the_field ); ?>
 				</p>
 			</section>
 	<?php endif; ?>
@@ -133,7 +133,7 @@
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-limiting-factors') ?>">Limiting factors</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
-					<?php echo esc_html( $the_field ); ?>
+					<?php echo ( $the_field ); ?>
 				</p>
 			</section>
 	<?php endif; ?>
