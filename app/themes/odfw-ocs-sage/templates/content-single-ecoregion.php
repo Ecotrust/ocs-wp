@@ -106,7 +106,7 @@
 			</p>
 
 			<div class="cmb2-wysiwyg">
-				<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_conservation-issues-overview', true );
+				<?php $the_field = apply_filters('the_content', get_post_meta( get_the_ID(), 'ecoregion_meta_conservation-issues-overview', true ));
 				echo wpautop( $the_field ); ?>
 			</div>
 		</section>
