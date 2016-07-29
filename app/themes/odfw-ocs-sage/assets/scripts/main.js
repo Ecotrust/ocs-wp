@@ -65,6 +65,9 @@
                 .append('<span class="photo-info show-info glyphicon glyphicon-info-sign"></span>');
               $(figure).find('figcaption')
                 .append('<span class="photo-info glyphicon glyphicon-remove-circle"></span>');
+				var caption = $(figure).find('figcaption .attr-name').html();
+				$(figure).find('figcaption .attr-name').remove();
+				$(figure).find('figcaption .photo-attribution').append(' '+caption);
             });
           }
       /*
