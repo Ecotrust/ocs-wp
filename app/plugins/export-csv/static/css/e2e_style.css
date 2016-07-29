@@ -1,0 +1,55 @@
+#wp-ocs-write-page {
+	padding-top: 20px;
+}
+#wp-ocs-write-page .wp-menu-name, #wp-ocs-write-page h2 {
+	border-bottom: 1px solid #eee;
+	font-size: 1.5em;
+	margin: 0;
+	overflow: hidden;
+	padding: 10px;
+}
+
+#wp-ocs-write-page h2 span {
+	font-size:12px;
+	font-weight:400;
+}
+
+#wp-ocs-write-page div.wp-menu-image {
+	float: left;
+	height: 34px;
+	margin: 0;
+	text-align: center;
+	width: 36px;
+}
+#wp-ocs-write-page div.wp-menu-image::before {
+	color: rgba(40, 45, 50, 0.6);
+	font-size: 25px;
+}
+#wp-ocs-write-page .button div.wp-menu-image::before {
+	color: rgba(242,242,242,0.5);
+	font-size: 20px;
+}
+#wp-ocs-write-page section{
+	border: 1px solid #eee;
+	border-radius: 5px;
+	float: left;
+	margin-right: 2%;
+	margin-bottom: 30px;
+	width: 30%;
+}
+#wp-ocs-write-page .body {
+	padding: 5px;
+}
+#wp-ocs-write-page .button-large{
+	font-size: 1.2em;
+	line-height: 2;
+	height: 2.2em;
+	display: block;
+	text-align: left;
+	margin-bottom: 4px;
+	width:100%;
+}
+#wp-ocs-write-page h2 .dashicons {
+	margin-right: 5px;
+	margin-top: -12px;
+}
