@@ -24,25 +24,20 @@
   	} else {
   		include('loop.php');
   		$filename = sanitize_file_name(get_bloginfo('name') ) . '.' . $ext;
-		//header('Content-Type: application/excel');
 		header("Content-type: text/csv");
 		header('Content-Disposition: attachment; filename="'.$filename.'"');
 		$fp = fopen('php://output', 'w');
-		
 		foreach ($data as $line) {
 		    $val = explode(",", $line);
 		    fputcsv($fp, $val);
 		}
-		
-		//fputcsv($fp, $str);
-		fclose($fp);
-		//		print $str;
+ 		fclose($fp);
   		exit();
   	}
   } else { ?>
+<!-- match to Write Panel -->
   <div id="wp-ocs-write-page" role="navigation">
 	<section>
-		<?php //$name = $type->labels->name == "Posts" ? "Blog Posts" : $type->labels->name; ?>
 		<h2><div class="wp-menu-image dashicons-before dashicons dashicons-download"><br></div>Export to CSV
 			<br><span><em>Dowload CSV file of complete COA data.</em></span></h2>
 		<div class="body">
