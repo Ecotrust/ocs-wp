@@ -112,5 +112,16 @@
 		</section>
 
 <?php endforeach; ?>
+		<section>
+			<?php //$name = $type->labels->name == "Posts" ? "Blog Posts" : $type->labels->name; ?>
+			<h2><div class="wp-menu-image dashicons-before dashicons dashicons-editor-ul"><br></div>Export to CSV</h2>
+			<div class="body">
+				<a class="button button-primary button-large" href="tools.php?page=export-csv">
+					<span class="dashicons dashicons-download" alt="f119"></span>
+					<?php echo 'Export Profiles'; ?>
+				</a>
+			</div>
+		</section>
 
-<?php // include( ABSPATH . 'wp-admin/admin-footer.php' );
+<?php 
+// include( ABSPATH . 'wp-admin/admin-footer.php' );
