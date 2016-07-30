@@ -8,7 +8,7 @@
  *
  * Plugin Name:  CMB2
  * Plugin URI:   https://github.com/WebDevStudios/CMB2
- * Description:  CMB2 will create metaboxes and forms with custom fields that will blow your mind.
+ * Description:  UPDATE ALERT: cmb2.js (cmb2.min.js) -> CUSTOM: 630-651: Add function to change labels on COA Strategy Species sort: CMB2 will create metaboxes and forms with custom fields that will blow your mind.
  * Author:       WebDevStudios
  * Author URI:   http://webdevstudios.com
  * Contributors: WebDevStudios (@webdevstudios / webdevstudios.com)
