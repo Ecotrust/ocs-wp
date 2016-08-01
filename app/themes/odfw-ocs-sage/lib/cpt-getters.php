@@ -75,82 +75,34 @@ function ocs_list_strategy_habitats ($strategy_habitats) {
 
 function ocs_list_coa_strategy_species ($strategy_species, $meta="", $coa=false) {
 	$out = "";
-	//$out .=	'<ul class="associated-strategy-species long-list">';
-
-	//$incAssoc = get_query_var('coa-listing', false);
-
-
-
-
-/*
-
-Needs to be broken down by top level taxonomy (amphibian, bird, reptile...)
-	These are taxonomies currently. Either need to:
-		Add other 'parents' to the taxonomy for (special grouped fish)
-		Create top level CPTs for existing taxonomy items
-			Either way, page listings could/should be cleaned up
-
-*/
-
-	/*
-	 * For COAs, the species array looks like this:
-	 * [0] => Array (
-            [coa_meta_strategy_species_id] => 1004
-            [coa_meta_strategy_species_association] => Observed
-        )
-	    [1] => Array (
-            [coa_meta_strategy_species_id] => 1013
-            [coa_meta_strategy_species_association] => Observed
-        )
-	 *
-	 * This array map is to pull the species IDs out.
-	 */
 
 	if ( $coa ) {
 		$species_ids = array_map(
 			function($species) { return $species['coa_meta_strategy_species_id']; },
 			$strategy_species
 		);
+		$species_asc = array_map(
+			function($species) { return $species['coa_meta_strategy_species_association']; },
+			$strategy_species
+		);
 	} else {
 		$species_ids = $strategy_species;
 	}
-
-	// Get the associated ecoregion names
-	$args = array(
-		'post_type' => 'strategy_species',
-		'post__in' => $species_ids,
-		'orderby' => 'title',
-		'order' => 'ASC',
-		'posts_per_page'=> '-1', // -1 == show all
-	);
-
-	$loop = new WP_Query( $args );
-
+	
 	$i = 0;
-	if( $loop->have_posts() ):
-		while( $loop->have_posts() ): $loop->the_post();
-
-		//global $post;
-		//$asso =  $strategy_species[$i]['coa_meta_strategy_species_association'];
-		//$out .= "<li><a id='$post->ID' href='/strategy-species/$post->post_name'>$post->post_title</a>";
-		//$out .= " <span class='species-association'>($asso)</span></li>";
-
-		if($coa) {
-			//set_query_var( 'coa-assoc', $strategy_species[$i]['coa_meta_strategy_species_association'] );
-			set_query_var( 'coa-assoc', $strategy_species[$i]['coa_meta_strategy_species_association'] );
-		}
-			$out .= get_template_part('/templates/cpt-parts/part', 'strategy_species');
-			//$out = include(locate_template('/templates/cpt-parts/part-species.php'));
-
+	foreach ($species_ids as $specID) {
+		$specAsc = $species_asc[$i];
+		global $specID,$specAsc;
+		$out .= get_template_part('/templates/cpt-parts/part', 'strategy_species');
 		$i++;
-		endwhile;
-	endif;
+	}
 
-	//$out .= '</ul>';
-	echo $out;
+	if($coa) {
+		echo $out;		
+	}
 
-	/* Restore original Post Data */
-	wp_reset_postdata();
+	// /* Restore original Post Data */
+// 	wp_reset_postdata();
 
 }
 
