@@ -1,15 +1,10 @@
 <?php
 
   ini_set('memory_limit', '512M');
-
   ini_set('max_execution_time', 300); //300 seconds = 5 minutes
-
   $extensions = array('xls' => '.xls', 'xlsx' => '.xlsx');
-
   $args = array (
-
       'public'   => true
-
   );
 
   $output = 'objects';
@@ -28,7 +23,7 @@
 		header('Content-Disposition: attachment; filename="'.$filename.'"');
 		$fp = fopen('php://output', 'w');
 		foreach ($data as $line) {
-		    $val = explode(",", $line);
+		    $val = explode('",', $line);
 		    fputcsv($fp, $val);
 		}
  		fclose($fp);

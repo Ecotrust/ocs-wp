@@ -1,5 +1,6 @@
 <?php
-$data = array('COAName,COAID,Category,SubCategory,Item,Link,SpeciesType');
+//$data = array('COAName,COAID,Category,SubCategory,Item,Link,SpeciesType');
+$data = array('COAName",COAID",Category",SubCategory",Item",Link",SpeciesType"');
 
 $coas = $wpdb->get_results("SELECT `ID` AS 'ID', `post_title` AS 'COAName', `post_content` AS 'COADesc' FROM `wp_posts` WHERE `post_status` = 'publish' AND `post_type` = 'coa' ORDER BY `post_title` ASC");
 
@@ -9,7 +10,7 @@ foreach ($coas as $coa ) {
 	$category = 'COA Description';
 	$subCat = '';
 	//$item = str_replace(',','',$coa->COADesc); //xls test
-	$item = str_replace('"','\"',$coa->COADesc); // escape "
+	$item = str_replace('"','""',$coa->COADesc); // escape "
 	$link = '';
 	$speciesType = '';	
 	
@@ -21,16 +22,16 @@ foreach ($coas as $coa ) {
 	foreach ($coa_id as $id_coa) {
 		// NOTE: xls, need to send as text to maintail leading zero. 
 		//For txt:
-		$coaID = $id_coa->value; 
+		$coaID = "'".$id_coa->value; 
 	}
 
 	// COA Description
-	$output = $coaName.',';
-	$output .= $coaID.',';
-	$output .= $category.',';
-	$output .= $subCat.',';
-	$output .= $item.',';
-	$output .= $link.',';
+	$output = $coaName.'",';
+	$output .= $coaID.'",';
+	$output .= $category.'",';
+	$output .= $subCat.'",';
+	$output .= $item.'",';
+	$output .= $link.'",';
 	$output .= $speciesType;
 
 	$data[]=$output;
@@ -93,25 +94,29 @@ foreach ($coas as $coa ) {
 								foreach ($se as $saValue) {
 									foreach ((array) $saValue as $seKey => $seValue) {
 										if(!$seKey) {
-											$item= $seValue;
-											if($seKey == 'coa_meta_attached_ecoregions') {
-												$ecoregions = $wpdb->get_results("SELECT `post_title` AS 'title'
-													FROM `wp_posts`
-													WHERE `ID` = $seValue");
-													foreach ($ecoregions as $ecoregion) {
-														$item = $ecoregion->title;
-													}
-													$link = '';
+											if (is_numeric($seValue)){
+												if($seKey == 'coa_meta_attached_ecoregions') {
+													$ecoregions = $wpdb->get_results("SELECT `post_title` AS 'title'
+														FROM `wp_posts`
+														WHERE `ID` = $seValue");
+														foreach ($ecoregions as $ecoregion) {
+															$item = $ecoregion->title;
+														}
+														$link = '';
+												}
+												if($seKey == 'coa_meta_attached_habitats') {
+													$habits = $wpdb->get_results("SELECT `post_title` AS 'title'
+														FROM `wp_posts`
+														WHERE `ID` = $seValue");
+														foreach ($habits as $habit) {
+															$item = $habit->title;
+														}
+														$link = '';
+												}												
+											} else {
+												$item= $seValue;
 											}
-											if($seKey == 'coa_meta_attached_habitats') {
-												$habits = $wpdb->get_results("SELECT `post_title` AS 'title'
-													FROM `wp_posts`
-													WHERE `ID` = $seValue");
-													foreach ($habits as $habit) {
-														$item = $habit->title;
-													}
-													$link = '';
-											}
+
 										} else {
 											if (strpos($seKey, 'title') !== false) {
 											  	$item = $seValue;
@@ -155,13 +160,13 @@ foreach ($coas as $coa ) {
 										$item = str_replace('"','\"',$item); // escape "
 									}
 									
-									$output = $coaName.',';
-									$output .= $coaID.',';
-									$output .= $category.',';
-									$output .= $subCat.',';
-									$output .= $item.',';
-									$output .= $link.',';
-									$output .= $speciesType;
+									$output = $coaName.'",';
+									$output .= $coaID.'",';
+									$output .= $category.'",';
+									$output .= $subCat.'",';
+									$output .= $item.'",';
+									$output .= $link.'",';
+									$output .= $speciesType.'';
 									
 									$data[]=$output;
 									
