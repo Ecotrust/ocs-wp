@@ -141,7 +141,7 @@
     'single_ecoregion': {
       init: function() {
         // JavaScript to be fired on single ecoregion pages
-        $('body').addClass('grid-available list-available list-layout');
+        $('body').addClass('grid-available list-available grid-layout');
       },
       finalize: function() {
       }

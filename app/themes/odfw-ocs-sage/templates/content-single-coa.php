@@ -60,7 +60,7 @@
 			<?php
 				foreach($the_field as $entries => $entry ) {
 					if ( ! empty ( $entry['coa_meta_local_plan_link'] ) ) : ?>
-						<li><a href="<?= $entry['coa_meta_local_plan_link']; ?>"><?= $entry['coa_meta_local_plan_title']; ?></a></li>
+						<li><a target="_blank" href="<?= $entry['coa_meta_local_plan_link']; ?>"><?= $entry['coa_meta_local_plan_title']; ?></a></li>
 					<?php else: ?>
 						<li><?php echo $entry['coa_meta_local_plan_title'];?></li>
 					<?php endif; ?>
@@ -79,7 +79,7 @@
 
 				foreach($the_field as $entries => $entry ) {
 					if ( ! empty ( $entry['coa_meta_potential_partner_link'] ) ) : ?>
-						<li><a href="<?= $entry['coa_meta_potential_partner_link']; ?>"><?= $entry['coa_meta_potential_partner_title']; ?></a></li>
+						<li><a target="_blank" href="<?= $entry['coa_meta_potential_partner_link']; ?>"><?= $entry['coa_meta_potential_partner_title']; ?></a></li>
 					<?php else: ?>
 						<li><?php echo $entry['coa_meta_potential_partner_title'];?></li>
 					<?php endif; ?>
@@ -102,7 +102,7 @@
 				<?php foreach($the_field as $entries => $entry ) { ?>
 					<li><?php echo $entry['coa_meta_special_features_title'];?>
 					<?php if ( !empty($entry['coa_meta_special_features_value']) ): ?>
-						<a href="<?=$entry['coa_meta_special_features_value'];?>"><?=$entry['coa_meta_special_features_value'];?></a>
+						<a target="_blank" href="<?=$entry['coa_meta_special_features_value'];?>"><?=$entry['coa_meta_special_features_value'];?></a>
 					<?php endif; ?>
 					</li>
 				<?php } ?>
@@ -133,7 +133,7 @@
 				<?php foreach($the_field as $entries => $entry ) { ?>
 					<li><?php echo $entry['coa_meta_special_features_protected_area_title'];?>
 					<?php if ( !empty($entry['coa_meta_special_features_protected_area_link']) ): ?>
-						<a href="<?=$entry['coa_meta_special_features_protected_area_link'];?>">
+						<a target="_blank" href="<?=$entry['coa_meta_special_features_protected_area_link'];?>">
 							<?=$entry['coa_meta_special_features_protected_area_link'];?>
 						</a>
 					<?php endif; ?>

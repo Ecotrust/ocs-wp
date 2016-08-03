@@ -36,7 +36,9 @@ if ($success_story_post_id):
             <?php endif; ?>
 
 			<div class="success-story-content">
-				<?php echo wpautop($success_story->post_content); ?>
+				<?php $field = apply_filters('the_content', $success_story->post_content);
+                      echo wpautop ($field); 
+                ?>
 			</div>
 		</aside>
 
