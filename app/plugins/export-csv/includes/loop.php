@@ -2,7 +2,7 @@
 //$data = array('COAName,COAID,Category,SubCategory,Item,Link,SpeciesType');
 $data = array('COAName",COAID",Category",SubCategory",Item",Link",SpeciesType"');
 
-$coas = $wpdb->get_results("SELECT `ID` AS 'ID', `post_title` AS 'COAName', `post_content` AS 'COADesc' FROM `wp_posts` WHERE `post_status` = 'publish' AND `post_type` = 'coa' ORDER BY `post_title` ASC");
+$coas = $wpdb->get_results("SELECT `ID` AS 'ID', `post_title` AS 'COAName', `post_content` AS 'COADesc', `guid` AS 'permalink' FROM `wp_posts` WHERE `post_status` = 'publish' AND `post_type` = 'coa' ORDER BY `post_title` ASC");
 
 foreach ($coas as $coa ) {
 	//$coaName = str_replace(',','',$coa->COAName); //xls test
@@ -34,6 +34,20 @@ foreach ($coas as $coa ) {
 	$output .= $link.'",';
 	$output .= $speciesType;
 
+	$data[]=$output;
+	
+	// COA permalink
+	$link = $coa->permalink;
+	$category = 'Permalink';
+	$item = '';
+	
+	$output = $coaName.'",';
+	$output .= $coaID.'",';
+	$output .= $category.'",';
+	$output .= $subCat.'",';
+	$output .= $item.'",';
+	$output .= $link.'",';
+	$output .= $speciesType;
 	$data[]=$output;
 	
 	$coa_meta = $wpdb->get_results("SELECT DISTINCT `meta_key` AS 'key', `meta_value` AS 'value' 
@@ -82,8 +96,7 @@ foreach ($coas as $coa ) {
 			} elseif($meta->key == 'coa_meta_strategy_species') {
 				$category = 'Strategy Species';
 				$subCat = '';
-			}
-			
+			} 
 			
 			foreach((array) $meta->key as $metaKey) {
 				if(is_serialized($meta->value)) {
@@ -144,11 +157,20 @@ foreach ($coas as $coa ) {
 													foreach ($metaSpecies as $common) {
 														$item = $common->name;
 													}
-													$link = '';
-
+													$compass = $wpdb->get_results("SELECT `meta_value` AS 'compassLink'
+														FROM `wp_postmeta`
+														WHERE `meta_key` = 'species_meta_compass-link'
+														AND `post_id` = $seValue");
+														foreach ($compass as $comp) {
+															if($comp->compassLink) {
+																$link = 'http://www.compass.dfw.state.or.us/visualize/'.$comp->compassLink;		
+															} else {
+																$link = '';
+															}
+														}										
 											}
+											
 											if($seKey == 'coa_meta_strategy_species_association') {
-												$link = '';
 												$speciesType = $seValue;
 											}
 										
