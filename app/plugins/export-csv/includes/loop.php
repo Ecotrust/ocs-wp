@@ -50,6 +50,30 @@ foreach ($coas as $coa ) {
 	$output .= $speciesType;
 	$data[]=$output;
 	
+	// COA Compass Link
+	$compass = $wpdb->get_results("SELECT `meta_value` AS 'compassLink'
+		FROM `wp_postmeta`
+		WHERE `meta_key` = 'coa_meta_compass_link'
+		AND `post_id` = $coa->ID");
+		foreach ($compass as $comp) {
+			if($comp->compassLink) {
+				$link = 'http://www.compass.dfw.state.or.us/visualize/'.$comp->compassLink;
+				$category = 'Compass Link';
+				$item = '';
+	
+				$output = $coaName.'",';
+				$output .= $coaID.'",';
+				$output .= $category.'",';
+				$output .= $subCat.'",';
+				$output .= $item.'",';
+				$output .= $link.'",';
+				$output .= $speciesType;
+				$data[]=$output;
+			} else {
+				$link = '';
+			}
+		}
+		
 	$coa_meta = $wpdb->get_results("SELECT DISTINCT `meta_key` AS 'key', `meta_value` AS 'value' 
 		FROM `wp_postmeta` 
 		WHERE `post_id` = $coa->ID
@@ -157,7 +181,7 @@ foreach ($coas as $coa ) {
 													foreach ($metaSpecies as $common) {
 														$item = $common->name;
 													}
-													$compass = $wpdb->get_results("SELECT `meta_value` AS 'compassLink'
+													/*$compass = $wpdb->get_results("SELECT `meta_value` AS 'compassLink'
 														FROM `wp_postmeta`
 														WHERE `meta_key` = 'species_meta_compass-link'
 														AND `post_id` = $seValue");
@@ -167,10 +191,11 @@ foreach ($coas as $coa ) {
 															} else {
 																$link = '';
 															}
-														}										
+														}*/										
 											}
 											
 											if($seKey == 'coa_meta_strategy_species_association') {
+												//$link = '';
 												$speciesType = $seValue;
 											}
 										
