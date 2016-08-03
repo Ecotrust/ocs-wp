@@ -120,9 +120,9 @@
 
 				foreach($the_field as $entries => $entry ) { ?>
 					<h3>Limiting Factor: <?php echo $entry['ecoregion_meta_factor_title'];?></h3>
-					<p><?php echo $entry['ecoregion_meta_factor_description'];?></p>
+					<p><?php echo apply_filters('the_content', $entry['ecoregion_meta_factor_description']);?></p>
 					<h4>Recommended Approach</h4>
-					<p><?php echo $entry['ecoregion_meta_approach'];?></p>
+					<p><?php echo apply_filters('the_content', $entry['ecoregion_meta_approach']);?></p>
 
 				<?php } ?>
 			</div>
