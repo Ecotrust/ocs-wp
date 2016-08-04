@@ -9,6 +9,10 @@
 					<div class="image-grid-container">
 						<?php echo get_the_post_thumbnail($post->ID, 'grid') ?>
 					</div>
+				<?php else: ?>
+					<div class="image-grid-container">
+						<img class='img-responsive coa-placeholder' src="http://dummyimage.com/297x215/D5D5D5/fff&text=+">
+					</div>
 				<?php endif; ?>
 
 				<h3 class="cpt-title"><?php the_title(); ?>

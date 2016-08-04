@@ -11,38 +11,33 @@
     <?php endif; ?>
 
     <div class="entry-content">
+	
+	<?php
+		$thumbnail = get_post( get_post_thumbnail_id() );
+		$caption = $thumbnail->post_excerpt;
+		$attrName = get_post_meta( $thumbnail->ID, 'odfw_attribution_name', true );
+    ?>
+	
+	<?php if ( has_post_thumbnail() ) : ?>
+		<figure class="species-hero">
+	            <div class="image-container">
+	            	<?php if ( !empty($caption) || (!empty($attrName)) ) : ?>
+	                	<span class="photo-info show-info glyphicon glyphicon-info-sign"></span>
+	                <?php endif; ?>
+				    <?php echo the_post_thumbnail('large') ?>
+	            </div>
 
-	<figure class="species-hero">
-		<?php
-			$thumbnail = get_post( get_post_thumbnail_id() );
-			$caption = $thumbnail->post_excerpt;
-			$attrName = get_post_meta( $thumbnail->ID, 'odfw_attribution_name', true );
-        ?>
-
-		<?php if ( has_post_thumbnail() ) : ?>
-            <div class="image-container">
-            	<?php if ( !empty($caption) || (!empty($attrName)) ) : ?>
-                	<span class="photo-info show-info glyphicon glyphicon-info-sign"></span>
-                <?php endif; ?>
-			    <?php echo the_post_thumbnail('large') ?>
-            </div>
-		<?php else: ?>
-            <div class="image-container">
-                <span class="photo-info"></span>
-			    <img src="http://placehold.it/492x354/58595B/ffffff?text=species+placeholder">
-            </div>
-		<?php endif; ?>
-
-		<figcaption>
-		    <span class="photo-info glyphicon glyphicon-remove-circle"></span>
-		    <?php if ( !empty($caption) ) : ?>
-		        <?php echo $caption; ?>
-		    <?php endif; ?>
-		    <?php if ( !empty($attrName) ) : ?>
-		        Photo Credit: <?php echo $attrName; ?>
-		    <?php endif; ?>
-		</figcaption>
-	</figure>
+			<figcaption>
+			    <span class="photo-info glyphicon glyphicon-remove-circle"></span>
+			    <?php if ( !empty($caption) ) : ?>
+			        <?php echo $caption; ?>
+			    <?php endif; ?>
+			    <?php if ( !empty($attrName) ) : ?>
+			        Photo Credit: <?php echo $attrName; ?>
+			    <?php endif; ?>
+			</figcaption>
+		</figure>
+	<?php endif; ?>
 
 
 	<?php the_content(); ?>

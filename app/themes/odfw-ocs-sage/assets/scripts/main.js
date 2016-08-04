@@ -133,6 +133,12 @@
 		  // JavaScript to be fired on COA pages
         if ($('body.page-id-102').length) {
             $('body').addClass('map-visible').removeClass('grid-layout');
+
+            if ($('body.list-layout').length) {
+              $('.image-grid-container.coa-placeholder').hide();
+            } else {
+              $('.image-grid-container.coa-placeholder').show();
+            }
         }
 	   },
 	   finalize: function() {
@@ -284,6 +290,10 @@
                   //grids for COAs needs to be alphabetical
                   var type = "grid";
                   coaSort(type);
+
+                  if ($('.compass-coa').length) {
+                    $('.image-grid-container.coa-placeholder').show();
+                  }
               }
   			OCS.$body.addClass('grid-layout').removeClass('list-layout');
   			return false;
@@ -295,6 +305,10 @@
             //list for COAs needs to be numeric
             var type = 'list';
             coaSort(type);
+
+            if ($('.compass-coa').length) {
+              $('.image-grid-container .coa-placeholder').hide();
+            }
           }
   			OCS.$body.addClass('list-layout').removeClass('grid-layout');
   			return false;
