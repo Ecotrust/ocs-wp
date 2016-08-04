@@ -292,7 +292,7 @@
                   coaSort(type);
 
                   if ($('.compass-coa').length) {
-                    $('.image-grid-container.coa-placeholder').show();
+                    $('.image-grid-container .coa-placeholder').show();
                   }
               }
   			OCS.$body.addClass('grid-layout').removeClass('list-layout');
