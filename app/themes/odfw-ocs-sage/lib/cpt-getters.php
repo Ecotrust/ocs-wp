@@ -96,14 +96,7 @@ function ocs_list_coa_strategy_species ($strategy_species, $meta="", $coa=false)
 		$out .= get_template_part('/templates/cpt-parts/part', 'strategy_species');
 		$i++;
 	}
-
-	if($coa) {
-		echo $out;		
-	}
-
-	// /* Restore original Post Data */
-// 	wp_reset_postdata();
-
+	echo $out;
 }
 
 function ocs_list_ecoregion_associated_species ($ecoregion_id){
