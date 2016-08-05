@@ -13,7 +13,6 @@
 (function($) {
   var $compass = $(".compass.main"); //compass component
   var $iframe = $("iframe.compass-iframe"); //iframe element
-  var $nonFeatureFig = $('figure.wp-caption'); //non featured images
 
   var OCS = {
     $body : $('body'),
@@ -59,24 +58,18 @@
             toggling non-featured images added via media gallery
             '.image-container' wrapper added to all media via functions.php
           */
+          var $nonFeatureFig = $('figure.wp-caption'); 
           if ($nonFeatureFig.length) {
-            $nonFeatureFig.each(function(i,figure) {
-              $(figure).find('.image-container')
-                .append('<span class="photo-info show-info glyphicon glyphicon-info-sign"></span>');
-              $(figure).find('figcaption')
-                .append('<span class="photo-info glyphicon glyphicon-remove-circle"></span>');
-				var caption = $(figure).find('figcaption .attr-name').html();
-				$(figure).find('figcaption .attr-name').remove();
-				$(figure).find('figcaption .photo-attribution').append(' '+caption);
+            $nonFeatureFig.each(function() {
+              var caption = $(this).find('figcaption .attr-name').html();
+              $(this).find('.image-container')
+                     .append('<span class="photo-info show-info glyphicon glyphicon-info-sign"></span>');
+              $(this).find('figcaption')
+                     .append('<span class="photo-info glyphicon glyphicon-remove-circle"></span>');
+              $(this).find('figcaption .attr-name').remove();
+              $(this).find('figcaption .photo-attribution').append(' '+caption);
             });
-          }
-      /*
-       * Image Attribution
-       * Check https://github.com/Ecotrust/commonplace-magazine/search?utf8=%E2%9C%93&q=photo-info
-  		CP.$body.on('click touchstart', '.photo-info', function () {
-  			$(this).toggleClass('visible');
-  		});
-      */
+          }  
 
           //temp hack until HTML is updated!
           $('table').attr('border', 0);
@@ -97,7 +90,7 @@
               $(this).parents('figure').toggleClass('close-caption');
           });
 
-          $nonFeatureFig.find(' > a').removeAttr('href'); //deactivate hrefs by default
+          $('figure.wp-caption').find(' > a').removeAttr('href'); //deactivate hrefs by default
 
           // BootStrap ToolTips
           $('[title]').tooltip();
@@ -133,12 +126,6 @@
 		  // JavaScript to be fired on COA pages
         if ($('body.page-id-102').length) {
             $('body').addClass('map-visible').removeClass('grid-layout');
-
-            if ($('body.list-layout').length) {
-              $('.image-grid-container.coa-placeholder').hide();
-            } else {
-              $('.image-grid-container.coa-placeholder').show();
-            }
         }
 	   },
 	   finalize: function() {
