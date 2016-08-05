@@ -18,7 +18,7 @@
   		wp_die('Sorry, your nonce did not verify.');
   	} else {
   		include('loop.php');
-  		$filename = sanitize_file_name(get_bloginfo('name') ) . '.' . $ext;
+  		$filename = 'ODFW_COA_Profiles'.'.'. $ext;
 		header("Content-type: text/csv");
 		header('Content-Disposition: attachment; filename="'.$filename.'"');
 		$fp = fopen('php://output', 'w');
@@ -34,7 +34,7 @@
   <div id="wp-ocs-write-page" role="navigation">
 	<section>
 		<h2><div class="wp-menu-image dashicons-before dashicons dashicons-download"><br></div>Export to CSV
-			<br><span><em>Dowload CSV file of complete COA data.</em></span></h2>
+			<br><span><em>Dowload CSV file of complete COA profiles.</em></span></h2>
 		<div class="body">
     		<form name="export" action="<?php echo $form_action; ?>" method="post">
 		            <?php wp_nonce_field('e2e_export_data'); ?>
@@ -43,6 +43,4 @@
 		</div>
 	</section>
 </div>
-  
-  
     <?php } ?>
