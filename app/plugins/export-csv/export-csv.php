@@ -27,7 +27,7 @@ Version: 1.0
     global $network_admin, $form_action;
     $network_admin = 0;
     $form_action = admin_url('tools.php?page=export-csv&noheader=true');
-    $e2e_mypage = add_menu_page('Export CSV', 'Export CSV', 'manage_options', 'export-csv', 'e2e_custom_optons');
+    $e2e_mypage = add_menu_page('Export COA Profiles', 'Export COA Profiles', 'manage_options', 'export-csv', 'e2e_custom_optons');
     //loads JS and CSS only on this page not on all Admin pages.
     add_action( "admin_print_scripts-$e2e_mypage", 'e2e_custom_scripts');
   }

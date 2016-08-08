@@ -118,7 +118,7 @@
 			<div class="body">
 				<a class="button button-primary button-large" href="tools.php?page=export-csv">
 					<span class="dashicons dashicons-download" alt="f119"></span>
-					<?php echo 'Export Profiles'; ?>
+					<?php echo 'Export COA Profiles'; ?>
 				</a>
 			</div>
 		</section>
