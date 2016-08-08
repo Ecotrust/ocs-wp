@@ -57,7 +57,7 @@ $term = get_search_query();
 
 		if ( $post->relevance_score > 1000 && $inTitle==false){
 			echo '<div class="in-title-section">';
-			echo '<h2 class="search-section-label">Content with <mark>' . $term . '</mark> in the title:</h2>';
+			echo '<h2 class="search-section-label">Content featuring <mark>' . $term . '</mark>:</h2>';
 			$inTitle = true;
 			$hadTitles = true;
 		} elseif( $post->relevance_score < 1001 && $theRest==false && $hadTitles==true ){
