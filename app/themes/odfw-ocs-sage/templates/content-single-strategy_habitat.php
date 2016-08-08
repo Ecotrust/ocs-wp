@@ -32,7 +32,7 @@
 
 			<div class="cmb2-wysiwyg">
 				<?php $the_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_characteristics', true );
-				echo wpautop( $the_field ); ?>
+				echo wpautop( apply_filters('the_content', $the_field ) ); ?>
 			</div>
 		</section>
 
@@ -74,7 +74,7 @@
 
 			<div class="cmb2-wysiwyg">
 				<?php $the_field = get_post_meta( get_the_ID(), '_strategy_habitat_meta_conservation_overview', true );
-				echo wpautop( $the_field ); ?>
+				echo wpautop( apply_filters('the_content', $the_field ) ); ?>
 			</div>
 		</section>
 

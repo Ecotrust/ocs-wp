@@ -62,7 +62,7 @@
           if ($nonFeatureFig.length) {
             $nonFeatureFig.each(function() {
               var caption = $(this).find('figcaption .attr-name').html();
-              
+
               //kci's??
               if (!$(this).has('.image-container').length) {
                 $(this).find('img').wrap("<div class='image-container'></div>");
@@ -73,7 +73,11 @@
               $(this).find('figcaption')
                      .append('<span class="photo-info glyphicon glyphicon-remove-circle"></span>');
               $(this).find('figcaption .attr-name').remove();
-              $(this).find('figcaption .photo-attribution').append(' '+caption);
+
+              if (caption.length > 15) {
+                $(this).find('figcaption .photo-attribution').append(' '+caption);
+              }
+
             });
           }  
 
