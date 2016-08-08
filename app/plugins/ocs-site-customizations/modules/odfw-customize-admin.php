@@ -132,7 +132,7 @@ function filter_image_send_to_editor($html, $id, $caption, $title, $align, $url,
 	$meta = get_post_meta($id);
 	if ( !empty( $meta["odfw_attribution_name"] ) || !empty( $caption)) {
 		$html .= "<span class='photo-attribution'><span class='attr-name'>";
-		if (!isset($meta["odfw_attribution_name"][0])) {
+		if (!empty($meta["odfw_attribution_name"])) {
 			$html .= "Photo Credit: " . $meta["odfw_attribution_name"][0] . ".</span>";
 		} else {
 			$html .= "</span>";

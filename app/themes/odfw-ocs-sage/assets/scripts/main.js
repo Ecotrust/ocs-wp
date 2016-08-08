@@ -74,6 +74,10 @@
                      .append('<span class="photo-info glyphicon glyphicon-remove-circle"></span>');
               $(this).find('figcaption .attr-name').remove();
 
+              if (typeof caption !== 'undefined' && caption.length > 1) {
+                $(this).find('figcaption .photo-attribution').append(' '+caption);
+              }
+
             });
           }  
 
