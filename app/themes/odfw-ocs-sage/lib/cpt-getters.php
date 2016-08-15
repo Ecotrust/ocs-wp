@@ -85,6 +85,7 @@ function ocs_list_coa_strategy_species ($strategy_species, $meta="", $coa=false)
 			function($species) { return $species['coa_meta_strategy_species_association']; },
 			$strategy_species
 		);
+
 	} else {
 		$species_ids = $strategy_species;
 	}
@@ -92,7 +93,7 @@ function ocs_list_coa_strategy_species ($strategy_species, $meta="", $coa=false)
 	$i = 0;
 	foreach ($species_ids as $specID) {
 		$specAsc = $species_asc[$i];
-		global $specID,$specAsc;
+		set_query_var('specID', $specID );
 		$out .= get_template_part('/templates/cpt-parts/part', 'strategy_species');
 		$i++;
 	}

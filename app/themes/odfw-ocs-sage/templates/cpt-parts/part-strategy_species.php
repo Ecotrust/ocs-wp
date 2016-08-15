@@ -1,5 +1,5 @@
 <?php
-	global $specID,$specAsc;
+	//global $specID,$specAsc; //Using set_query_var() instead of global
 	$spec = get_post($specID);
 	if($spec->post_type == 'strategy_species') {
 			
