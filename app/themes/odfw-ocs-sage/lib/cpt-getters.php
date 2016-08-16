@@ -93,7 +93,8 @@ function ocs_list_coa_strategy_species ($strategy_species, $meta="", $coa=false)
 	$i = 0;
 	foreach ($species_ids as $specID) {
 		$specAsc = $species_asc[$i];
-		set_query_var('specID', $specID );
+		set_query_var('specID', $specID);
+		set_query_var('specAsc', $specAsc);
 		$out .= get_template_part('/templates/cpt-parts/part', 'strategy_species');
 		$i++;
 	}
