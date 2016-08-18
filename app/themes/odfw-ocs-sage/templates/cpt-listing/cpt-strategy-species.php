@@ -66,14 +66,25 @@ else :
 	$loop = new WP_Query( $args );
 
 	if( $loop->have_posts() ):
+		
 		while( $loop->have_posts() ): $loop->the_post();
-
+			$specID = get_the_ID();
+			/*
+			//leaving as note
+			$speciesArgs = array(
+				'taxonomy'=> 'species',
+			);
+			$species = get_categories($speciesArgs);			
+			$specAsc = $species[0]->name;*/
+			$specAsc = '';
+			set_query_var('specID', $specID);
+			set_query_var('specAsc', $specAsc);
 			get_template_part('/templates/cpt-parts/part', 'strategy_species');
-
 		endwhile;
 	endif;
 
 
 endif; // page check
+
 ?>
 </section>
