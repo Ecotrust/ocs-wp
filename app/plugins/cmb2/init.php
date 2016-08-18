@@ -8,7 +8,7 @@
  *
  * Plugin Name:  CMB2
  * Plugin URI:   https://github.com/WebDevStudios/CMB2
- * Description:  UPDATE ALERT: cmb2.js (cmb2.min.js) -> CUSTOM: 630-651: Add function to change labels on COA Strategy Species sort: CMB2 will create metaboxes and forms with custom fields that will blow your mind.
+ * Description:  Custom Metabox and Fields - *UPDATE ALERT: Modified to work with OCS* 
  * Author:       WebDevStudios
  * Author URI:   http://webdevstudios.com
  * Contributors: WebDevStudios (@webdevstudios / webdevstudios.com)
@@ -47,6 +47,14 @@
                   (or any code in the included files)
                   or things might explode!
 *************************************************************************/
+
+//remove ability to update plugin
+add_filter('site_transient_update_plugins', 'remove_update_notification');
+function remove_update_notification($value) {
+ unset($value->response[ plugin_basename(__FILE__) ]);
+ return $value;
+}
+
 
 if ( ! class_exists( 'CMB2_Bootstrap_221', false ) ) {
 
@@ -182,3 +190,5 @@ if ( ! class_exists( 'CMB2_Bootstrap_221', false ) ) {
 	CMB2_Bootstrap_221::initiate();
 
 }
+
+
