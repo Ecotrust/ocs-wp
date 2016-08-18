@@ -1,8 +1,13 @@
 <?php
 $postType = get_post_type();
 // if exists:
-
-if (locate_template('templates/cpt-parts/part-' . $postType . '.php') != '') :
+if ($postType == 'strategy_species'):
+	$specID = get_the_ID();
+	$specAsc = '';
+	set_query_var('specID', $specID);
+	set_query_var('specAsc', $specAsc);
+	echo get_template_part('templates/cpt-parts/part', 'strategy_species');
+elseif (locate_template('templates/cpt-parts/part-' . $postType . '.php') != '') :
 	echo get_template_part('templates/cpt-parts/part', $postType);
 else:
 ?>
