@@ -123,6 +123,10 @@ function ocs_list_ecoregion_associated_species ($ecoregion_id){
 
 			if( $loop->have_posts() ):
 				while( $loop->have_posts() ): $loop->the_post();
+					$specID = get_the_ID();
+					$specAsc = '';
+					set_query_var('specID', $specID);
+					set_query_var('specAsc', $specAsc);
 
 					$out .= get_template_part('/templates/cpt-parts/part', 'strategy_species');
 
@@ -193,7 +197,10 @@ function ocs_list_sub_species ($species_id){
 				echo "<div class='grid-layout'>";
 
 					while( $loop->have_posts() ): $loop->the_post();
-
+						$specID = get_the_ID();
+						$specAsc = '';
+						set_query_var('specID', $specID);
+						set_query_var('specAsc', $specAsc);
 						//$out .= get_template_part('/templates/cpt-parts/part', 'strategy_species');
 						get_template_part('/templates/cpt-parts/part', 'strategy_species');
 
