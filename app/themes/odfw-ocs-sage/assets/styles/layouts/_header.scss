@@ -179,46 +179,21 @@ body.home, body.error404 {
 		&.my-ocs {
 
             background-color: $green;
-            /*background-position: 0px -871px;*/
-            // er?
-            background-position: 0 -928px;
             display: inline-block;
             position: relative;
 			width: 66px;
-
-			&:hover {
-                background-image: none;
-				color: #ffffff;
-                font-family: $body-font-bold;
-                font-size: 16px;
-                font-weight: 500;
-                letter-spacing: 0.03em;
-				text-indent: 0;
-                text-decoration: none;
-                text-transform: uppercase;
-			}
+            line-height: 63px;
 
             &:after {
-                // Hack to fade out the oregon icon on hover
-                // bgi on main element hidden on hover
-                background: transparent url($nav-sprite) 0px -871px no-repeat;
+                background-image: url('../images/ODFW_info_icon.png');
                 content: "";
                 opacity: 1;
                 top: 0;
                 left: 0;
-                bottom: 0;
+                bottom: 1px;
                 right: 0;
                 position: absolute;
-                transition: opacity 0.2s;
                 z-index: 0;
-                @media screen and (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 192dpi){
-                    background-image: url($nav-sprite-2x);
-                    background-position: 0 -928px;
-                    background-size: 200%;
-                }
-            }
-            &:hover:after{
-                opacity: 0.5;
             }
 		}
 	}

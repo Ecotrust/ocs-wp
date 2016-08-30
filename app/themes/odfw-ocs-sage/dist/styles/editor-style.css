@@ -1789,12 +1789,8 @@ body.error404 :-ms-input-placeholder,body.home :-ms-input-placeholder{color:#414
 .grid-layout .view-switcher a.view-grid,.view-switcher a.view-grid:active,.view-switcher a.view-grid:hover{background-position:0 -680px}
 .view-switcher a.view-list{background-position:100% -742px}
 .list-layout .view-switcher a.view-list,.view-switcher a.view-list:active,.view-switcher a.view-list:hover{background-position:0 -742px}
-.view-switcher a.my-ocs{background-color:#005130;background-position:0 -928px;display:inline-block;position:relative;width:66px}
-.view-switcher a.my-ocs:hover{background-image:none;color:#fff;font-family:HelveticaNeue-65Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:16px;font-weight:500;letter-spacing:.03em;text-indent:0;text-decoration:none;text-transform:uppercase}
-.view-switcher a.my-ocs:after{background:transparent url(../images/icons-nav.png) 0 -871px no-repeat;content:"";opacity:1;top:0;left:0;bottom:0;right:0;position:absolute;-webkit-transition:opacity .2s;-o-transition:opacity .2s;transition:opacity .2s;z-index:0}
-@media screen and (-webkit-min-device-pixel-ratio:1.5),(-webkit-min-device-pixel-ratio:2),(-o-min-device-pixel-ratio:2/1),(min-resolution:192dpi){.view-switcher a.my-ocs:after{background-image:url(../images/icons-nav@2x.png);background-position:0 -928px;-webkit-background-size:200% 200%;background-size:200%}
-}
-.view-switcher a.my-ocs:hover:after{opacity:.5}
+.view-switcher a.my-ocs{background-color:#005130;display:inline-block;position:relative;width:66px;line-height:63px}
+.view-switcher a.my-ocs:after{background-image:url(../images/ODFW_info_icon.png);content:"";opacity:1;top:0;left:0;bottom:1px;right:0;position:absolute;z-index:0}
 body.map-visible .view-map{background-position:0 -621px}
 .grid-available .view-switcher .view-grid,.list-available .view-switcher .view-list{display:inline-block}
 .page-header{border-bottom:0}
