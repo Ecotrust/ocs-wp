@@ -185,12 +185,12 @@ body.home, body.error404 {
             line-height: 63px;
 
             &:after {
-                background-image: url('../images/ODFW_info_icon.png');
+                background-image: url('../images/ODFW_info_icon_smaller.png');
                 content: "";
                 opacity: 1;
                 top: 0;
                 left: 0;
-                bottom: 1px;
+                bottom: 0;
                 right: 0;
                 position: absolute;
                 z-index: 0;
