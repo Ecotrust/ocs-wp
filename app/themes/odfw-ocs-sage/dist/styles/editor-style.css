@@ -1790,7 +1790,7 @@ body.error404 :-ms-input-placeholder,body.home :-ms-input-placeholder{color:#414
 .view-switcher a.view-list{background-position:100% -742px}
 .list-layout .view-switcher a.view-list,.view-switcher a.view-list:active,.view-switcher a.view-list:hover{background-position:0 -742px}
 .view-switcher a.my-ocs{background-color:#005130;display:inline-block;position:relative;width:66px;line-height:63px}
-.view-switcher a.my-ocs:after{background-image:url(../images/ODFW_info_icon_smaller.png);content:"";opacity:1;top:0;left:0;bottom:1px;right:0;position:absolute;z-index:0}
+.view-switcher a.my-ocs:after{background-image:url(../images/ODFW_info_icon_refine.png);content:"";opacity:1;top:0;left:0;bottom:0;right:0;position:absolute;z-index:0}
 body.map-visible .view-map{background-position:0 -621px}
 .grid-available .view-switcher .view-grid,.list-available .view-switcher .view-list{display:inline-block}
 .page-header{border-bottom:0}
