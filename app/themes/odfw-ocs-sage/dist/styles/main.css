@@ -1638,6 +1638,7 @@ body:not(#tinymce){position:relative}
 }
 @media screen and (min-width:769px){body:not(#tinymce).has-sidebar::after{background-color:#414041;left:0;bottom:0;content:"";position:absolute;right:0;top:0;z-index:-1}
 body:not(#tinymce).has-sidebar::after{background-color:#E6E7E8;left:75%;width:25%}
+body:not(#tinymce).has-sidebar.map-visible::after{content:none}
 }
 @media screen and (min-width:769px){body:not(#tinymce).has-sidebar::after{background-color:#E6E7E8;left:79.16667%;width:20.83333%}
 }

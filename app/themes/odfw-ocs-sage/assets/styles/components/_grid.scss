@@ -60,6 +60,11 @@ body:not(#tinymce) {
               left: 75%;
               width: 25%;
           }
+          &.map-visible {
+            &::after {
+              content: none;
+            }
+          }
       }
     }
 
