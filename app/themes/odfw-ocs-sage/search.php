@@ -64,7 +64,7 @@ $term = get_search_query();
 			//no longer over 1000? Close and start the next div
 			echo '</div>';
 			echo '<div class="the-rest-section">';
-			echo '<h2 class="search-section-label">Additional' . $term . '</mark>:</h2>';
+			echo '<h2 class="search-section-label">Additional content related to <mark>' . $term . '</mark>:</h2>';
 			$theRest = true;
 		}
 		$count++;
