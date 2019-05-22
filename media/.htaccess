@@ -1,0 +1,8 @@
+# Attempt to load files from production if they're not in our local version
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  # Replace http://example.com with your production site's domain name
+  RewriteRule (.*) http://example.com/media/$1
+</IfModule>
