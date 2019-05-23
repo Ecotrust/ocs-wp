@@ -175,11 +175,11 @@
 							background-color: $greyDark;
 							li.menu-item {
 								background-color: #9fa0a2;
-								> a { 
+								> a {
 									color: #FFF;
-									&:hover { 
+									&:hover {
 										background-color: #d6d7d8;
-										color: #000; 
+										color: #000;
 									}
 								}
 								&:hover {
@@ -408,3 +408,8 @@
 	}
 
 }*/
+
+/* ====== Sticky ======== */
+#sticky-stopper {
+	float: left;
+}

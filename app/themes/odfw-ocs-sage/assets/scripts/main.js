@@ -58,7 +58,7 @@
             toggling non-featured images added via media gallery
             '.image-container' wrapper added to all media via functions.php
           */
-          var $nonFeatureFig = $('figure.wp-caption'); 
+          var $nonFeatureFig = $('figure.wp-caption');
           if ($nonFeatureFig.length) {
             $nonFeatureFig.each(function() {
               var caption = $(this).find('figcaption .attr-name').html();
@@ -79,7 +79,7 @@
               }
 
             });
-          }  
+          }
 
           //temp hack until HTML is updated!
           $('table').attr('border', 0);
@@ -171,6 +171,41 @@
   				scrollToHash: true,
   				onRender: function(){
   					OCS.$body.addClass('sidebar-visible');
+            // make sidebar sticky
+            var $sticky = jQuery('#menu-ocs-navigation');
+            var $stickyStopper = jQuery('#sticky-stopper');
+            var $brandBtn = jQuery('.brand');
+            if (!!$sticky.offset()) { // make sure sidebar exists element exists
+              var generalSidebarHeight = $sticky.innerHeight();
+              var stickyTop = $sticky.offset().top;
+              var stickOffset = stickyTop;
+              var stickyStopperPosition = $stickyStopper.offset().top;
+              var stopPoint = stickyStopperPosition - generalSidebarHeight;
+              var diff = $(window).innerHeight() - generalSidebarHeight - $brandBtn.height();
+              jQuery(window).scroll(function() {
+                var windowTop = jQuery(window).scrollTop();
+                if (stopPoint < windowTop) {
+                    $sticky.css({
+                      position: 'fixed',
+                      top: diff,
+                      width: '16.66%'
+                    });
+                } else if (stickyTop < windowTop) {
+                    $sticky.css({
+                      position: 'absolute',
+                      top: stickyTop,
+                      width: '100%'
+                    });
+                } else {
+                    $sticky.css({
+                      position: 'fixed',
+                      top: stickyTop,
+                      width: '16.66%'
+                    });
+                }
+              });
+
+            }
   				}
 			 });
 		  },
@@ -268,7 +303,7 @@
                 return 1;
             } else if(a < b) {
                 return -1;
-            } 
+            }
             return 0;
           });
           $coas.detach().appendTo($coaContainer);

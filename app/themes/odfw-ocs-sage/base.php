@@ -22,6 +22,7 @@ get_template_part('templates/header');
 
       <aside class="sidebar" role="complementary">
         <?php include Wrapper\sidebar_path(); ?>
+        <div id="sticky-stopper"></div>
       </aside><!-- /.sidebar -->
 
       <main class="main" role="main">
@@ -38,8 +39,8 @@ get_template_part('templates/header');
             <?php get_template_part('templates/nav-inner'); ?>
           </aside>
         <?php endif; ?>
-      </main><!-- /.main -->
 
+      </main><!-- /.main -->
     </div><!-- /.content -->
   </div><!-- /.wrap -->
 <?php
