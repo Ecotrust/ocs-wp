@@ -83,6 +83,55 @@
 
           //temp hack until HTML is updated!
           $('table').attr('border', 0);
+
+          // make sidebar sticky
+          var $sticky = jQuery('#menu-ocs-navigation');
+          // waypoint for stick
+          var $stickyStopper = jQuery('#sticky-stopper');
+          // get logo elements from sidebar
+          var $brandBtn = jQuery('.brand');
+          if (!!$sticky.offset() && !!$stickyStopper.offset()) { // make sure sidebar exists element exists
+            var generalSidebarHeight = $sticky.innerHeight();
+            var stickyTop = $sticky.offset().top;
+            var stickyStopperPosition = $stickyStopper.offset().top;
+            // styles for stopper
+            $stickyStopper.css({
+              top: generalSidebarHeight,
+              position: 'absolute'
+            });
+            var stickOffset = 0;
+            var stopPoint = generalSidebarHeight;
+            var offsetBottom = $brandBtn.innerHeight();
+            var diff =  generalSidebarHeight + offsetBottom + offsetBottom;
+            jQuery(window).scroll(function() {
+              var windowTop = jQuery(window).scrollTop();
+              var windowHeight = jQuery(window).innerHeight();
+              var difference = diff - windowHeight;
+              console.log(difference);
+              if (difference < windowTop) {
+                  $sticky.css({
+                    bottom: offsetBottom,
+                    position: 'fixed',
+                    top: 'auto',
+                    width: '16.66%'
+                  });
+              } else if (stopPoint < windowTop) {
+                  $sticky.css({
+                    bottom: offsetBottom,
+                    position: 'fixed',
+                    top: 'auto',
+                    width: '16.66%'
+                  });
+              } else {
+                  $sticky.css({
+                    bottom: 'auto',
+                    position: 'absolute',
+                    top: 'initial',
+                    width: '100%'
+                  });
+              }
+            });
+          }
   	  },
   	  finalize: function() {
   		// JavaScript to be fired on all pages, after page specific JS is fired
@@ -171,55 +220,6 @@
   				scrollToHash: true,
   				onRender: function(){
   					OCS.$body.addClass('sidebar-visible');
-
-            // make sidebar sticky
-            var $sticky = jQuery('#menu-ocs-navigation');
-            // waypoint for stick
-            var $stickyStopper = jQuery('#sticky-stopper');
-            var $brandBtn = jQuery('.brand');
-            if (!!$sticky.offset()) { // make sure sidebar exists element exists
-              var generalSidebarHeight = $sticky.innerHeight();
-              var stickyTop = $sticky.offset().top;
-              var stickyStopperPosition = $stickyStopper.offset().top;
-              // styles for stopper
-              $stickyStopper.css({
-                top: generalSidebarHeight,
-                position: 'absolute'
-              });
-              var stickOffset = 0;
-              var stopPoint = generalSidebarHeight;
-              var offsetBottom = $brandBtn.innerHeight();
-              var diff =  generalSidebarHeight + offsetBottom + offsetBottom;
-              jQuery(window).scroll(function() {
-                var windowTop = jQuery(window).scrollTop();
-                var windowHeight = jQuery(window).innerHeight();
-                var difference = diff - windowHeight;
-                console.log(difference);
-                if (difference < windowTop) {
-                    $sticky.css({
-                      bottom: offsetBottom,
-                      position: 'fixed',
-                      top: 'auto',
-                      width: '16.66%'
-                    });
-                } else if (stopPoint < windowTop) {
-                    $sticky.css({
-                      bottom: offsetBottom,
-                      position: 'fixed',
-                      top: 'auto',
-                      width: '16.66%'
-                    });
-                } else {
-                    $sticky.css({
-                      bottom: 'auto',
-                      position: 'absolute',
-                      top: 'initial',
-                      width: '100%'
-                    });
-                }
-              });
-
-            }
   				}
 			 });
 		  },
