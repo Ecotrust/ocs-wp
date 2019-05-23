@@ -86,23 +86,15 @@
 
           // make sidebar sticky
           var $sticky = jQuery('#menu-ocs-navigation');
-          // waypoint for stick
-          var $stickyStopper = jQuery('#sticky-stopper');
           // get logo elements from sidebar
           var $brandBtn = jQuery('.brand');
-          if (!!$sticky.offset() && !!$stickyStopper.offset()) { // make sure sidebar exists element exists
+          if (!!$sticky.offset()) { // make sure sidebar exists element exists
             var generalSidebarHeight = $sticky.innerHeight();
             var stickyTop = $sticky.offset().top;
-            var stickyStopperPosition = $stickyStopper.offset().top;
-            // styles for stopper
-            $stickyStopper.css({
-              top: generalSidebarHeight,
-              position: 'absolute'
-            });
             var stickOffset = 0;
             var stopPoint = generalSidebarHeight;
             var offsetBottom = $brandBtn.innerHeight();
-            var diff =  generalSidebarHeight + offsetBottom + offsetBottom;
+            var diff =  generalSidebarHeight + offsetBottom * 2;
             jQuery(window).scroll(function() {
               var windowTop = jQuery(window).scrollTop();
               var windowHeight = jQuery(window).innerHeight();

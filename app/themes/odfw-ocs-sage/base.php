@@ -22,7 +22,6 @@ get_template_part('templates/header');
 
       <aside class="sidebar" role="complementary">
         <?php include Wrapper\sidebar_path(); ?>
-        <div id="sticky-stopper"></div>
       </aside><!-- /.sidebar -->
 
       <main class="main" role="main">
