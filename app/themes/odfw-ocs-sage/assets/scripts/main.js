@@ -92,33 +92,69 @@
             var generalSidebarHeight = $sticky.innerHeight();
             var offsetBottom = $brandBtn.innerHeight();
             var diff =  generalSidebarHeight + offsetBottom * 2;
+            // store last known Y coords so we know if scrolling up or down
+            var lastKnownY = 0;
+            var yBeforeLast = lastKnownY;
+            var lastKnownBottom = offsetBottom;
+            var bottomPos = offsetBottom;
             jQuery(window).scroll(function() {
               var windowTop = jQuery(window).scrollTop();
               var windowHeight = jQuery(window).innerHeight();
               var windowSidebarDifference = diff - windowHeight;
-              console.log(difference);
-              if (windowSidebarDifference < windowTop) {
-                  $sticky.css({
-                    bottom: offsetBottom,
-                    position: 'fixed',
-                    top: 'auto',
-                    width: '16.66%'
-                  });
-              } else if (generalSidebarHeight < windowTop) {
-                  $sticky.css({
-                    bottom: offsetBottom,
-                    position: 'fixed',
-                    top: 'auto',
-                    width: '16.66%'
-                  });
+              var upDiff = yBeforeLast - lastKnownY;
+              if (windowTop > lastKnownY) {
+                // reset for up scroll
+                lastKnownBottom = offsetBottom;
+                if (windowSidebarDifference < windowTop) {
+                    $sticky.css({
+                      bottom: offsetBottom,
+                      position: 'fixed',
+                      top: 'auto',
+                      width: '16.66%'
+                    });
+                } else {
+                    $sticky.css({
+                      bottom: 'auto',
+                      position: 'absolute',
+                      top: 'initial',
+                      width: '100%'
+                    });
+                }
               } else {
+                if (windowSidebarDifference < windowTop) {
+                  lastKnownBottom = lastKnownBottom - upDiff;
+                  var negSidebarHeight = windowSidebarDifference * -1;
+                  if (lastKnownBottom > negSidebarHeight) {
+                    // sidebar has not yet scroll to the top of content, keep scrolling
+                    // scroll the difference
+                    bottomPos = lastKnownBottom
+                    $sticky.css({
+                      bottom: bottomPos,
+                      position: 'fixed',
+                      top: 'auto',
+                      width: '16.66%'
+                    });
+                  } else {
+                    $sticky.css({
+                      bottom: 'auto',
+                      position: 'fixed',
+                      top: 'initial',
+                      width: '16.66%'
+                    });
+                  }
+                  console.log(bottomPos);
+
+                } else {
                   $sticky.css({
                     bottom: 'auto',
                     position: 'absolute',
-                    top: 'initial',
+                    top: 'auto',
                     width: '100%'
                   });
+                }
               }
+              yBeforeLast = lastKnownY;
+              lastKnownY = windowTop;
             });
           }
   	  },
