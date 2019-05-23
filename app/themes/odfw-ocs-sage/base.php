@@ -39,7 +39,6 @@ get_template_part('templates/header');
             <?php get_template_part('templates/nav-inner'); ?>
           </aside>
         <?php endif; ?>
-
       </main><!-- /.main -->
     </div><!-- /.content -->
   </div><!-- /.wrap -->
