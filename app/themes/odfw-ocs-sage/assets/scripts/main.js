@@ -90,24 +90,21 @@
           var $brandBtn = jQuery('.brand');
           if (!!$sticky.offset()) { // make sure sidebar exists element exists
             var generalSidebarHeight = $sticky.innerHeight();
-            var stickyTop = $sticky.offset().top;
-            var stickOffset = 0;
-            var stopPoint = generalSidebarHeight;
             var offsetBottom = $brandBtn.innerHeight();
             var diff =  generalSidebarHeight + offsetBottom * 2;
             jQuery(window).scroll(function() {
               var windowTop = jQuery(window).scrollTop();
               var windowHeight = jQuery(window).innerHeight();
-              var difference = diff - windowHeight;
+              var windowSidebarDifference = diff - windowHeight;
               console.log(difference);
-              if (difference < windowTop) {
+              if (windowSidebarDifference < windowTop) {
                   $sticky.css({
                     bottom: offsetBottom,
                     position: 'fixed',
                     top: 'auto',
                     width: '16.66%'
                   });
-              } else if (stopPoint < windowTop) {
+              } else if (generalSidebarHeight < windowTop) {
                   $sticky.css({
                     bottom: offsetBottom,
                     position: 'fixed',
