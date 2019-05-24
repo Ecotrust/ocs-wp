@@ -85,82 +85,87 @@
           $('table').attr('border', 0);
 
           // make sidebar sticky
-          var $sticky = jQuery('#menu-ocs-navigation');
+          // var $sticky = $('#menu-ocs-navigation');
           // get logo elements from sidebar
-          var $brandBtn = jQuery('.brand');
-          if (!!$sticky.offset()) { // make sure sidebar exists element exists
-            var generalSidebarHeight = $sticky.innerHeight();
-            var offsetBottom = $brandBtn.innerHeight();
-            var diff =  generalSidebarHeight + offsetBottom * 2;
+          // var $brandBtn = $('.brand');
+          // if (!!$sticky.offset()) { // make sure sidebar exists element exists
+            // var generalSidebarHeight = $sticky.innerHeight();
+            // var offsetBottom = $brandBtn.innerHeight();
+            // var sidebarOffsetDiff =  generalSidebarHeight + offsetBottom * 2;
             // store last known Y coords so we know if scrolling up or down
-            var lastKnownY = 0;
-            var yBeforeLast = lastKnownY;
-            var lastKnownBottom = offsetBottom;
-            jQuery(window).scroll(function() {
-              var windowTop = jQuery(window).scrollTop();
-              var windowHeight = jQuery(window).innerHeight();
-              var windowSidebarDifference = diff - windowHeight;
-              var upDiff = yBeforeLast - lastKnownY;
-              lastKnownBottom = lastKnownBottom - upDiff;
-              console.log(lastKnownBottom);
-              if (upDiff < 0) {
-                if (windowSidebarDifference < windowTop) {
-                  if (lastKnownBottom < offsetBottom) {
-                    $sticky.css({
-                      bottom: lastKnownBottom,
-                      position: 'fixed',
-                      top: 'auto',
-                      width: '16.66%'
-                    });
-                  } else {
-                    lastKnownBottom = offsetBottom;
-                    $sticky.css({
-                      bottom: lastKnownBottom,
-                      position: 'fixed',
-                      top: 'auto',
-                      width: '16.66%'
-                    });
-                  }
-                } else {
-                    $sticky.css({
-                      bottom: 'auto',
-                      position: 'absolute',
-                      top: 'initial',
-                      width: '100%'
-                    });
-                }
-              } else {
-                if (offsetBottom < windowTop) {
-                  var negSidebarHeight = windowSidebarDifference * -1;
-                  if (lastKnownBottom > negSidebarHeight) {
-                    // sidebar has not yet scroll to the top of content, keep scrolling
-                    $sticky.css({
-                      bottom: lastKnownBottom,
-                      position: 'fixed',
-                      top: 'auto',
-                      width: '16.66%'
-                    });
-                  } else {
-                    $sticky.css({
-                      bottom: 'auto',
-                      position: 'fixed',
-                      top: 'initial',
-                      width: '16.66%'
-                    });
-                  }
-                } else {
-                  $sticky.css({
-                    bottom: 'auto',
-                    position: 'absolute',
-                    top: 'initial',
-                    width: '100%'
-                  });
-                }
-              }
-              yBeforeLast = lastKnownY;
-              lastKnownY = windowTop;
-            });
-          }
+            // var lastKnownY = $(window).scrollTop();
+            // store second to last know Y coords
+            // var yBeforeLast = lastKnownY;
+            // store bottom position
+            // var lastKnownBottom = offsetBottom;
+            // $(window).scroll(function() {
+          //     // distance to top of window
+          //     var windowTop = $(window).scrollTop();
+          //     // distance from top of sticky to window top
+          //     var stickyTop = $sticky.offset().top;
+          //     stickyTop = stickyTop + offsetBottom * 2;
+          //     // client window height
+          //     var windowHeight = $(window).innerHeight();
+          //     var windowSidebarDifference = sidebarOffsetDiff - windowHeight;
+          //     var scrollDiff = 0;
+          //     var scrollingUp = true;
+          //     if (lastKnownY >= windowTop) { // scrolling up
+          //       scrollDiff = lastKnownY - windowTop;
+          //     } else if (windowTop > lastKnownY) { // scrolling down
+          //       scrollDiff = windowTop - lastKnownY;
+          //       scrollingUp = false;
+          //     }
+          //
+          //     if (windowSidebarDifference < windowTop) {
+          //       if (scrollingUp) {
+          //         if (stickyTop > windowTop) {
+          //           lastKnownBottom = lastKnownBottom - scrollDiff;
+          //           $sticky.css({
+          //             bottom: 'auto',
+          //             position: 'fixed',
+          //             top: offsetBottom,
+          //             width: '16.66%'
+          //           });
+          //         } else {
+          //           lastKnownBottom = lastKnownBottom - scrollDiff;
+          //           $sticky.css({
+          //             bottom: lastKnownBottom,
+          //             position: 'fixed',
+          //             top: 'auto',
+          //             width: '16.66%'
+          //           });
+          //         }
+          //       } else {
+          //         if (stickyTop > windowTop) {
+          //           lastKnownBottom = lastKnownBottom - scrollDiff;
+          //           $sticky.css({
+          //             bottom: 'auto',
+          //             position: 'fixed',
+          //             top: offsetBottom,
+          //             width: '16.66%'
+          //           });
+          //         } else {
+          //           lastKnownBottom = offsetBottom;
+          //           $sticky.css({
+          //             bottom: lastKnownBottom,
+          //             position: 'fixed',
+          //             top: 'auto',
+          //             width: '16.66%'
+          //           });
+          //         }
+          //       }
+          //     } else {
+          //       $sticky.css({
+          //         bottom: 'auto',
+          //         position: 'absolute',
+          //         top: 'initial',
+          //         width: '100%'
+          //       });
+          //     }
+          //     yBeforeLast = lastKnownY;
+          //     lastKnownY = windowTop;
+          //   });
+          // }
   	  },
   	  finalize: function() {
   		// JavaScript to be fired on all pages, after page specific JS is fired
@@ -293,13 +298,13 @@
     },
 
     fixLeftNavFlyout: function(){
-      $mainMenuHasChildren = $('#menu-ocs-navigation > .menu-item-has-children')
+      $mainMenuHasChildren = $('#menu-ocs-navigation > .menu-item-has-children');
       if ($mainMenuHasChildren.length > 0) {
 
         $mainMenuHasChildren.each(function(index) {
           var $subMenu = $(this).children().closest('.sub-menu');
           $subMenu.addClass('flyout');
-        })
+        });
       }
     },
 
@@ -328,13 +333,13 @@
 
   	listAndGridToggle: function (){
 
-      function coaSort(type) {
+      function coaSort($type) {
         if ($('body.page-id-102')) {
           $coaContainer = $('section.post-102');
           $coas = $coaContainer.children('article.coa');
-          var type = type;
+          var $type = $type;
           $coas.sort(function (a,b) {
-            if (type === 'list') {
+            if ($type === 'list') {
               a = parseInt($(a).attr('coa'), 10);
               b = parseInt($(b).attr('coa'), 10);
             } else {

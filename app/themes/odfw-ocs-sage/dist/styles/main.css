@@ -1818,7 +1818,7 @@ footer.content-info .draft-message{min-height:40px}
 .sidebar ol,.sidebar ul{padding:0}
 .sidebar ol>li,.sidebar ul>li{position:relative}
 .sidebar ol>li>a,.sidebar ul>li>a{display:block;font-size:14px;font-weight:500;letter-spacing:.02em;text-transform:uppercase;width:100%}
-.sidebar ol.main-ocs-navigation,.sidebar ul.main-ocs-navigation{background-color:#414041}
+.sidebar ol.main-ocs-navigation,.sidebar ul.main-ocs-navigation{background-color:#414041;bottom:63px;position:fixed;overflow:auto;top:63px;width:16.67%}
 .sidebar ol.main-ocs-navigation>li:nth-child(1)>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1)>a:before{background-position:0 0}
 .sidebar ol.main-ocs-navigation>li:nth-child(1).active>a:before,.sidebar ol.main-ocs-navigation>li:nth-child(1).current-menu-ancestor>a:before,.sidebar ol.main-ocs-navigation>li:nth-child(1).current-menu-item>a:before,.sidebar ol.main-ocs-navigation>li:nth-child(1).current-menu-parent>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1).active>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1).current-menu-ancestor>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1).current-menu-item>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1).current-menu-parent>a:before{background-position:-62px 0}
 .sidebar ol.main-ocs-navigation>li:nth-child(2)>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(2)>a:before{background-position:0 -62px}
@@ -1884,7 +1884,6 @@ footer.content-info .draft-message{min-height:40px}
 .has-sidebar main.main .main-content{width:100%}
 .has-sidebar main.main:after{content:none}
 }
-#sticky-stopper{float:left}
 .draft-message{background-color:#EFF7ED;border-top:1px solid #C1E1BE;bottom:0;color:#111;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:11px;margin-left:-15px;margin-right:15px;min-height:67px;padding:10px;padding-left:18%;padding-top:15px;position:fixed;width:100%;z-index:2}
 .draft-message strong{background-color:#005130;color:#fff;font-weight:400;letter-spacing:.07em;padding:1px 3px}
 .draft-message small{font-size:10px}
