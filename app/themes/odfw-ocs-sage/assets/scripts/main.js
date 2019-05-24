@@ -96,22 +96,31 @@
             var lastKnownY = 0;
             var yBeforeLast = lastKnownY;
             var lastKnownBottom = offsetBottom;
-            var bottomPos = offsetBottom;
             jQuery(window).scroll(function() {
               var windowTop = jQuery(window).scrollTop();
               var windowHeight = jQuery(window).innerHeight();
               var windowSidebarDifference = diff - windowHeight;
               var upDiff = yBeforeLast - lastKnownY;
-              if (windowTop > lastKnownY) {
-                // reset for up scroll
-                lastKnownBottom = offsetBottom;
+              lastKnownBottom = lastKnownBottom - upDiff;
+              console.log(lastKnownBottom);
+              if (upDiff < 0) {
                 if (windowSidebarDifference < windowTop) {
+                  if (lastKnownBottom < offsetBottom) {
                     $sticky.css({
-                      bottom: offsetBottom,
+                      bottom: lastKnownBottom,
                       position: 'fixed',
                       top: 'auto',
                       width: '16.66%'
                     });
+                  } else {
+                    lastKnownBottom = offsetBottom;
+                    $sticky.css({
+                      bottom: lastKnownBottom,
+                      position: 'fixed',
+                      top: 'auto',
+                      width: '16.66%'
+                    });
+                  }
                 } else {
                     $sticky.css({
                       bottom: 'auto',
@@ -121,15 +130,12 @@
                     });
                 }
               } else {
-                if (windowSidebarDifference < windowTop) {
-                  lastKnownBottom = lastKnownBottom - upDiff;
+                if (offsetBottom < windowTop) {
                   var negSidebarHeight = windowSidebarDifference * -1;
                   if (lastKnownBottom > negSidebarHeight) {
                     // sidebar has not yet scroll to the top of content, keep scrolling
-                    // scroll the difference
-                    bottomPos = lastKnownBottom
                     $sticky.css({
-                      bottom: bottomPos,
+                      bottom: lastKnownBottom,
                       position: 'fixed',
                       top: 'auto',
                       width: '16.66%'
@@ -142,13 +148,11 @@
                       width: '16.66%'
                     });
                   }
-                  console.log(bottomPos);
-
                 } else {
                   $sticky.css({
                     bottom: 'auto',
                     position: 'absolute',
-                    top: 'auto',
+                    top: 'initial',
                     width: '100%'
                   });
                 }
