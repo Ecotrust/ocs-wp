@@ -1,12 +1,10 @@
 <?php 
-
 namespace NestedPages\Entities\PluginIntegration;
 
 /**
 * Editorial Access Manager Integration
 * @link https://wordpress.org/plugins/editorial-access-manager/
 */
-
 class EditorialAccessManager 
 {
 	/**
@@ -20,9 +18,15 @@ class EditorialAccessManager
 	*/
 	private $user;
 
-
 	public function __construct()
 	{
+		add_action( 'init', [$this, 'init']);
+	}
+	
+	/**
+	* Initialize Plugin Integration
+	*/
+	public function init() {
 		if ( class_exists('Editorial_Access_Manager') ){
 			$this->installed = true;
 			$this->user = wp_get_current_user();
@@ -63,5 +67,4 @@ class EditorialAccessManager
 		if ( in_array('administrator', $this->user->roles) ) return true;
 		return false;
 	}
-
 }

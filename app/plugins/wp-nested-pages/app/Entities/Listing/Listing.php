@@ -1,5 +1,4 @@
 <?php 
-
 namespace NestedPages\Entities\Listing;
 
 use NestedPages\Helpers;
@@ -9,6 +8,7 @@ use NestedPages\Entities\Post\PostRepository;
 use NestedPages\Entities\User\UserRepository;
 use NestedPages\Entities\PostType\PostTypeRepository;
 use NestedPages\Entities\Listing\ListingRepository;
+use NestedPages\Entities\Listing\ListingQuery;
 use NestedPages\Config\SettingsRepository;
 use NestedPages\Entities\PluginIntegration\IntegrationFactory;
 
@@ -17,12 +17,17 @@ use NestedPages\Entities\PluginIntegration\IntegrationFactory;
 */
 class Listing 
 {
-
 	/**
 	* Post Type
 	* @var object WP Post Type Object
 	*/
 	private $post_type;
+
+	/**
+	* Query Results
+	* @var array of post objects (WP Query)
+	*/
+	private $all_posts;
 
 	/**
 	* Hierarchical Taxonomies
@@ -63,6 +68,11 @@ class Listing
 	private $listing_repo;
 
 	/**
+	* Listing Query
+	*/
+	private $listing_query;
+
+	/**
 	* Confirmation Factory
 	*/
 	private $confirmation;
@@ -73,33 +83,59 @@ class Listing
 	private $user;
 
 	/**
-	* Sorting Options
-	* @var array
-	*/
-	private $sort_options;
-
-	/**
 	* Settings Repository
 	*/
 	private $settings;
+
+	/**
+	* Post Type Settings
+	* @var object from post type repo
+	*/
+	private $post_type_settings;
+
+	/**
+	* Assigned Pages for post types
+	* @var array from post type repo
+	*/
+	private $assigned_pt_pages;
 
 	/**
 	* Plugin Integrations
 	*/
 	private $integrations;
 
+	/**
+	* Disabled Standard Fields
+	*/
+	private $disabled_standard_fields;
+
+	/**
+	* Sticky Posts
+	* @var array
+	*/
+	private $sticky_posts;
+
+	/**
+	* Enabled Custom Fields
+	*/
+	private $enabled_custom_fields;
 
 	public function __construct($post_type)
 	{
 		$this->setPostType($post_type);
+		$this->setStickyPosts();
 		$this->integrations = new IntegrationFactory;
 		$this->post_repo = new PostRepository;
 		$this->user = new UserRepository;
 		$this->confirmation = new ConfirmationFactory;
 		$this->post_type_repo = new PostTypeRepository;
 		$this->listing_repo = new ListingRepository;
+		$this->listing_query = new ListingQuery;
 		$this->post_data_factory = new PostDataFactory;
 		$this->settings = new SettingsRepository;
+		$this->setTaxonomies();
+		$this->setPostTypeSettings();
+		$this->setStandardFields();
 	}
 
 	/**
@@ -111,24 +147,7 @@ class Listing
 	{
 		$class_name = get_class();
 		$classinstance = new $class_name($post_type);
-		return array(&$classinstance, "listPosts");
-	}
-
-	/**
-	* Set the Sort Options
-	*/
-	private function setSortOptions()
-	{
-		$this->sort_options = new \StdClass();
-		$this->sort_options->orderby = isset($_GET['orderby'])
-			? sanitize_text_field($_GET['orderby'])
-			: 'menu_order';
-		$this->sort_options->order = isset($_GET['order'])
-			? sanitize_text_field($_GET['order'])
-			: 'ASC';
-		$this->sort_options->author = isset($_GET['author'])
-			? sanitize_text_field($_GET['author'])
-			: null;
+		return [&$classinstance, "listPosts"];
 	}
 
 	/**
@@ -150,12 +169,95 @@ class Listing
 	}
 
 	/**
+	* Set the Sticky Posts
+	* @since 2.0.1
+	*/
+	private function setStickyPosts()
+	{
+		$this->sticky_posts = get_option('sticky_posts');
+		if ( !$this->sticky_posts ) $this->sticky_posts = [];
+	}
+
+	/**
+	* Set the Post Type Settings
+	* @since 1.6.9
+	*/
+	private function setPostTypeSettings()
+	{
+		$this->post_type_settings = $this->post_type_repo->getSinglePostType($this->post_type->name);
+		$this->assigned_pt_pages = $this->post_type_repo->getAssignedPages();
+	}
+
+	/**
+	* Set the Quick Edit Field Options
+	*/
+	private function setStandardFields()
+	{
+		// The standard fields checkbox is explicitly not set
+		if ( isset($this->post_type_settings->standard_fields_enabled) && !$this->post_type_settings->standard_fields_enabled ){
+			$this->disabled_standard_fields = [];
+			return;
+		}
+
+		if ( isset($this->post_type_settings->standard_fields) && is_array($this->post_type_settings->standard_fields) ){
+			$this->disabled_standard_fields = $this->post_type_settings->standard_fields;
+			foreach ( $this->post_type_settings->standard_fields as $key => $fields ){
+				if ( $key == 'standard' ) $this->disabled_standard_fields = $fields;
+			}
+			return;
+		}
+		$this->disabled_standard_fields = [];
+		return;
+	}
+
+	/**
+	* Get the Post States
+	*/
+	private function postStates()
+	{
+		$out = '';
+		$post_states = apply_filters('display_post_states', [], $this->post);
+		if ( empty($post_states) ) return $out;
+		$state_count = count($post_states);
+		$i = 0;
+		foreach ( $post_states as $state ) {
+			++$i;
+			( $i == $state_count ) ? $sep = '' : $sep = ', ';
+			$out .= " <em class='np-page-type'><strong>&ndash; $state</strong>$sep</em>";
+		}
+		return $out;
+	}
+
+	/**
+	* Row Actions
+	* Adds assigned pt actions as well as any custom actions registered through page_row_actions filter
+	*/
+	private function rowActions($assigned_pt)
+	{
+		$actions = [];
+		if ( $assigned_pt ) {
+			if ( current_user_can('publish_posts') ) $actions['add_new'] = '<a href="' . $this->post_type_repo->addNewPostLink($assigned_pt->name) . '">' . $assigned_pt->labels->add_new . '</a>';
+			$actions['view_all'] = '<a href="' .  $this->post_type_repo->allPostsLink($assigned_pt->name) . '">' . $assigned_pt->labels->all_items . ' (' . $this->listing_repo->postCount($assigned_pt->name) . ')</a>';
+		}
+		$actions = apply_filters('post_row_actions', $actions, $this->post);
+		if ( $this->post_type->name == 'page' ) $actions = apply_filters('page_row_actions', $actions, $this->post);
+		if ( empty($actions) ) return null;
+		$out = '<ul class="np-assigned-pt-actions">';
+		foreach ( $actions as $key => $action ){
+			$out .= '<li class="' . $key;
+			if ( $key == 'add_new' || $key == 'view_all' ) $out .= ' visible';
+			$out .= '">' . $action . '</li>';
+		}		
+		$out .= '</ul>';
+		return $out;
+	}
+
+	/**
 	* The Main View
 	* Replaces Default Post Listing
 	*/
 	public function listPosts()
 	{
-		$this->setSortOptions();
 		include( Helpers::view('listing') );
 	}
 
@@ -175,32 +277,36 @@ class Listing
 	*/
 	private function listOpening($pages, $count, $sortable = true)
 	{
-		if ( $this->isSearch() ) $sortable = false;
+		if ( $this->listing_repo->isSearch() ) $sortable = false;
+		if ( $this->post_type_settings->disable_sorting ) $sortable = false;
 
 		// Get array of child pages
-		$children = array();
-		$all_children = $pages->posts;
+		$children = [];
+		$all_children = $pages;
 		foreach($all_children as $child){
 			array_push($children, $child->ID);
 		}
 		// Compare child pages with user's toggled pages
 		$compared = array_intersect($this->listing_repo->visiblePages($this->post_type->name), $children);
 
+		$list_classes = 'sortable visible nplist';
+		if ( !$this->user->canSortPages() || !$sortable || $this->listing_repo->isSearch() ) $list_classes .= ' no-sort';
+		if ( $this->listing_repo->isOrdered($this->post_type->name) ) $list_classes .= ' no-sort';
+		if ( $this->integrations->plugins->wpml->installed && $this->integrations->plugins->wpml->getCurrentLanguage() == 'all' ) $list_classes .= ' no-sort';
+		if ( $this->integrations->plugins->yoast->installed ) $list_classes .= ' has-yoast';
+		if ( $this->listing_repo->isSearch() ) $list_classes .= ' np-search-results';
+
 		// Primary List
-		if ( $count == 1 ) {
-			echo ( $this->user->canSortPages() && $sortable ) 
-				? '<ol class="sortable nplist visible" id="np-' . $this->post_type->name . '">' 
-				: '<ol class="sortable no-sort nplist" visible" id="np-' . $this->post_type->name . '">';
+		if ( $count == 0 ) {
+			include( Helpers::view('partials/list-header') ); // List Header
+			include( Helpers::view('partials/bulk-edit') ); // Bulk Edit
+			echo '<ol class="' . $list_classes . '" id="np-' . $this->post_type->name . '">';
 			return;
 		}
 
-		// Don't create new list for child elements of posts in trash
-		if ( get_post_status($pages->query['post_parent']) == 'trash' ) return;
-
 		echo '<ol class="nplist';
 		if ( count($compared) > 0 ) echo ' visible" style="display:block;';
-		echo '" id="np-' . $this->post_type->name . '">';	
-		 
+		echo '" id="np-' . $this->post_type->name . '">';		 
 	}
 
 	/**
@@ -209,153 +315,123 @@ class Listing
 	*/
 	private function setPost($post)
 	{
-		$this->post = $this->post_data_factory->build($post);
+		$this->post = $this->post_data_factory->build($post, $this->h_taxonomies, $this->f_taxonomies);
 	}
 
 	/**
-	* Get count of published posts
-	* @param object $pages (WP Query object)
+	* Get count of published child posts
+	* @param object $post
 	*/
-	private function publishCount($pages)
+	private function publishedChildrenCount($post)
 	{
-		$publish_count = 1;
-		if ( $this->parentTrashed($pages) ) return;
-		foreach ( $pages->posts as $p ){
-			if ( $p->post_status !== 'trash' ) $publish_count++;
+		$publish_count = 0;
+		foreach ( $this->all_posts as $p ){
+			if ( $p->post_parent == $post->id && $p->post_status !== 'trash' ) $publish_count++;
 		}
 		return $publish_count;
 	}
 
 	/**
-	* Is this a search
-	* @return boolean
-	*/
-	private function isSearch()
-	{
-		return ( isset($_GET['search']) && $_GET['search'] !== "" ) ? true : false;
-	}
-
-	/**
-	* Is the list filtered?
-	*/ 
-	private function isFiltered()
-	{
-		return ( isset($_GET['category']) && $_GET['category'] !== "all" ) ? true : false;
-	}
-
-	/**
 	* Loop through all the pages and create the nested / sortable list
-	* Recursive Method, called in page.php view
+	* Called in listing.php view
 	*/
-	private function loopPosts($parent_id = 0, $count = 0, $nest_count = 0)
+	private function getPosts()
 	{
-		$this->setTaxonomies();
-		
-		if ( $this->post_type->name == 'page' ) {
-			$post_type = array('page');
-			if ( !$this->settings->menusDisabled() ) $post_type[] = 'np-redirect';
+		$this->all_posts = $this->listing_query->getPosts($this->post_type, $this->h_taxonomies, $this->f_taxonomies);
+		$this->listPostLevel();
+		return;
+	}
+
+	/**
+	* List a single tree node of posts
+	*/
+	private function listPostLevel($parent = 0, $count = 0, $level = 1)
+	{
+		$wpml = $this->integrations->plugins->wpml->installed;
+		$wpml_current_language = null;
+		if ( $wpml ) $wpml_current_language = $this->integrations->plugins->wpml->getCurrentLanguage();
+
+		if ( !$this->listing_repo->isSearch() ){
+			$pages = get_page_children($parent, $this->all_posts);
+			if ( !$pages ) return;
+			$parent_status = get_post_status($parent);
+			$level++;
+			if ( $parent_status !== 'trash' ) $this->listOpening($pages, $count);
 		} else {
-			$post_type = array($this->post_type->name);
+			$parent_status = null;
+			$pages = $this->all_posts;
+			echo '<ol class="sortable no-sort nplist visible">';
 		}
+		if ( !$pages ) return;
 		
-		$query_args = array(
-			'post_type' => $post_type,
-			'posts_per_page' => -1,
-			'author' => $this->sort_options->author,
-			'orderby' => $this->sort_options->orderby,
-			'post_status' => array('publish', 'pending', 'draft', 'private', 'future', 'trash'),
-			'post_parent' => $parent_id,
-			'order' => $this->sort_options->order
-		);
-		
-		if ( $this->isSearch() ) $query_args = $this->searchParams($query_args);
-		if ( $this->isFiltered() ) $query_args = $this->filterParams($query_args);
+		foreach($pages as $page) :
 
-		$pages = new \WP_Query(apply_filters('nestedpages_page_listing', $query_args, $nest_count));
-		
-		if ( $pages->have_posts() ) :
+			if ( $page->post_parent !== $parent && !$this->listing_repo->isSearch() ) continue;
 			$count++;
-			$nest_count++;
 
-			if ( $this->publishCount($pages) > 1 ){
-				$this->listOpening($pages, $count);			
-			}
-			
-			while ( $pages->have_posts() ) : $pages->the_post();
+			global $post;
+			$post = $page;
+			$this->setPost($post);
 
-				global $post;
-				$this->setPost($post);
+			if ( $this->post->status !== 'trash' ) :
 
-				if ( $this->post->status !== 'trash' ) :
+				echo '<li id="menuItem_' . esc_attr($this->post->id) . '" class="page-row';
 
-					echo '<li id="menuItem_' . $this->post->id . '" class="page-row';
+				// Post Type
+				echo ' post-type-' . esc_attr($this->post->post_type);
 
-					// Published?
-					if ( $this->post->status == 'publish' ) echo ' published';
-					if ( $this->post->status == 'draft' ) echo ' draft';
-					
-					// Hidden in Nested Pages?
-					if ( $this->post->np_status == 'hide' ) echo ' np-hide';
+				// Assigned to manage a post type?
+				if ( $this->listing_repo->isAssignedPostType($this->post->id, $this->assigned_pt_pages) ) echo ' is-page-assignment';
 
-					// Taxonomies
-					echo ' ' . $this->post_repo->getTaxonomyCSS($this->post->id, $this->h_taxonomies);
-					echo ' ' . $this->post_repo->getTaxonomyCSS($this->post->id, $this->f_taxonomies, false);
-					
-					echo '">';
-					
-					$count++;
-
-					$row_view = ( $this->post->type !== 'np-redirect' ) ? 'partials/row' : 'partials/row-link';
-					include( Helpers::view($row_view) );
-
-				endif; // trash status
+				// Published?
+				if ( $this->post->status == 'publish' ) echo ' published';
+				if ( $this->post->status == 'draft' ) echo ' draft';
 				
-				if ( !$this->isSearch() ) $this->loopPosts($this->post->id, $count, $nest_count);
+				// Hidden in Nested Pages?
+				if ( $this->post->np_status == 'hide' ) echo ' np-hide';
 
-				if ( $this->post->status !== 'trash' ) {
-					echo '</li>';
-				}				
+				// Taxonomies
+				echo ' ' . $this->post_repo->getTaxonomyCSS($this->post, $this->h_taxonomies, $this->f_taxonomies);
+				
+				echo '">';
+				
+				$count++;
 
-			endwhile; // Loop
+				$row_view = ( $this->post->type !== 'np-redirect' ) ? 'partials/row' : 'partials/row-link';
+
+				// CSS Classes for the <li> row element
+				$template = ( $this->post->template )
+					? ' tpl-' .  str_replace('.php', '', $this->post->template)
+					: '';
+
+				$row_classes = '';
+				if ( !$this->post_type->hierarchical ) $row_classes .= ' non-hierarchical';
+				if ( !$this->user->canSortPages() ) $row_classes .= ' no-sort';
+				if ( $wpml_current_language == 'all' ) $row_classes .= ' no-sort';
+				if ( $this->listing_repo->isSearch() || $this->listing_repo->isOrdered($this->post_type->name) ) $row_classes .= ' search';
+				if ( $this->post->template ) $row_classes .= $template;
+
+				// Filter sortable per post
+				$filtered_sortable = apply_filters('nestedpages_post_sortable', true, $this->post, $this->post_type);
+				if ( !$filtered_sortable && $this->user->canSortPages() && $this->post_type->hierarchical && !$wpml_current_language ) $row_classes .= ' no-sort-filtered';
+
+				// Page Assignment for Post Type
+				$assigned_pt = ( $this->listing_repo->isAssignedPostType($this->post->id, $this->assigned_pt_pages) ) 
+					? $this->listing_repo->assignedPostType($this->post->id, $this->assigned_pt_pages)
+					: false;
+
+				include( Helpers::view($row_view) );
+
+			endif; // trash status
 			
-			if ( $this->publishCount($pages) > 1 ){
-				echo '</ol>';
-			}
+			if ( !$this->listing_repo->isSearch() ) $this->listPostLevel($page->ID, $count, $level);
 
-		endif; wp_reset_postdata();
+			if ( $this->post->status !== 'trash' ) echo '</li>';
+
+			if ( $this->publishedChildrenCount($this->post) > 0 && !$this->listing_repo->isSearch() && $continue_nest ) echo '</ol>';
+
+		endforeach; // Loop
+			
+		if ( $parent_status !== 'trash' ) echo '</ol><!-- list close -->';
 	}
-
-	/**
-	* Search Posts
-	*/
-	private function searchParams($query_args)
-	{
-		$query_args['post_title_like'] = sanitize_text_field($_GET['search']);
-		unset($query_args['post_parent']);
-		return $query_args;
-	}
-
-	/**
-	* Filter Posts
-	*/
-	private function filterParams($query_args)
-	{
-		if ( !isset($_GET['category']) ) return $query_args;
-		$query_args['cat'] = sanitize_text_field($_GET['category']);
-		return $query_args;
-	}
-
-	/**
-	* Parent Trash Status
-	* @param WP Query object
-	* @return boolean
-	*/
-	private function parentTrashed($pages)
-	{
-		if ( !isset($pages->query['post_parent']) || $pages->query['post_parent'] == 0 ) return false;
-		if ( get_post_status($pages->query['post_parent']) == 'trash' ) return true;
-		return false;
-
-	}
-
 }

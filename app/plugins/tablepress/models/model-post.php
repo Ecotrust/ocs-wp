@@ -53,17 +53,17 @@ class TablePress_Post_Model extends TablePress_Model {
 		 */
 		$this->post_type = apply_filters( 'tablepress_post_type', $this->post_type );
 		$post_type_args = array(
-			'labels' => array(
+			'labels'          => array(
 				'name' => 'TablePress Tables',
 			),
-			'public' => false,
-			'show_ui' => false,
-			'query_var' => false,
-			'rewrite' => false,
+			'public'          => false,
+			'show_ui'         => false,
+			'query_var'       => false,
+			'rewrite'         => false,
 			'capability_type' => 'tablepress_table', // This ensures, that WP's regular CPT UI respects our capabilities.
-			'map_meta_cap' => false, // Integrated WP mapping does not fit our needs, therefore use our own in a filter.
-			'supports' => array( 'title', 'editor', 'excerpt', 'revisions' ),
-			'can_export' => true,
+			'map_meta_cap'    => false, // Integrated WP mapping does not fit our needs, therefore use our own in a filter.
+			'supports'        => array( 'title', 'editor', 'excerpt', 'revisions' ),
+			'can_export'      => true,
 		);
 		/**
 		 * Filter the arguments for the registration of the "Custom Post Type" that TablePress uses.
@@ -86,19 +86,19 @@ class TablePress_Post_Model extends TablePress_Model {
 	 */
 	public function insert( array $post ) {
 		$default_post = array(
-			'ID' => false, // false on new insert, but existing post ID on update
+			'ID'             => false, // false on new insert, but existing post ID on update
 			'comment_status' => 'closed',
-			'ping_status' => 'closed',
-			'post_category' => false,
-			'post_content' => '',
-			'post_excerpt' => '',
-			'post_parent' => 0,
-			'post_password' => '',
-			'post_status' => 'publish',
-			'post_title' => '',
-			'post_type' => $this->post_type,
-			'tags_input' => '',
-			'to_ping' => '',
+			'ping_status'    => 'closed',
+			'post_category'  => false,
+			'post_content'   => '',
+			'post_excerpt'   => '',
+			'post_parent'    => 0,
+			'post_password'  => '',
+			'post_status'    => 'publish',
+			'post_title'     => '',
+			'post_type'      => $this->post_type,
+			'tags_input'     => '',
+			'to_ping'        => '',
 		);
 		$post = array_merge( $default_post, $post );
 		// WP expects everything to be slashed.
@@ -108,19 +108,29 @@ class TablePress_Post_Model extends TablePress_Model {
 		remove_filter( 'content_save_pre', 'balanceTags', 50 );
 		remove_filter( 'excerpt_save_pre', 'balanceTags', 50 );
 		/*
-		 * Remove possible KSES filtering here, as it can destroy the JSON when messing with HTML.
+		 * Remove possible KSES filtering, as it can destroy the JSON when messing with HTML.
 		 * KSES filtering is done to table cells individually, when saving.
 		 */
-		remove_filter( 'content_save_pre', 'wp_filter_post_kses' );
+		$has_kses = ( false !== has_filter( 'content_save_pre', 'wp_filter_post_kses' ) );
+		if ( $has_kses ) {
+			kses_remove_filters();
+		}
+		// Remove filter that adds `rel="noopener noreferrer" to <a> HTML tags, but destroys JSON code. See https://core.trac.wordpress.org/ticket/46316.
+		$has_targeted_link_rel_filters = ( false !== has_filter( 'content_save_pre', 'wp_targeted_link_rel' ) );
+		if ( $has_targeted_link_rel_filters ) {
+			wp_remove_targeted_link_rel_filters();
+		}
 
 		$post_id = wp_insert_post( $post, true );
 
-		// Re-add balanceTags() to sanitize_post().
+		// Restore removed content filters.
 		add_filter( 'content_save_pre', 'balanceTags', 50 );
 		add_filter( 'excerpt_save_pre', 'balanceTags', 50 );
-		// Re-add KSES filtering, if necessary.
-		if ( ! current_user_can( 'unfiltered_html' ) ) {
-			add_filter( 'content_save_pre', 'wp_filter_post_kses' );
+		if ( $has_kses ) {
+			kses_init_filters();
+		}
+		if ( $has_targeted_link_rel_filters ) {
+			wp_init_targeted_link_rel_filters();
 		}
 
 		return $post_id;
@@ -136,19 +146,19 @@ class TablePress_Post_Model extends TablePress_Model {
 	 */
 	public function update( array $post ) {
 		$default_post = array(
-			'ID' => false, // false on new insert, but existing post ID on update
+			'ID'             => false, // false on new insert, but existing post ID on update
 			'comment_status' => 'closed',
-			'ping_status' => 'closed',
-			'post_category' => false,
-			'post_content' => '',
-			'post_excerpt' => '',
-			'post_parent' => 0,
-			'post_password' => '',
-			'post_status' => 'publish',
-			'post_title' => '',
-			'post_type' => $this->post_type,
-			'tags_input' => '',
-			'to_ping' => '',
+			'ping_status'    => 'closed',
+			'post_category'  => false,
+			'post_content'   => '',
+			'post_excerpt'   => '',
+			'post_parent'    => 0,
+			'post_password'  => '',
+			'post_status'    => 'publish',
+			'post_title'     => '',
+			'post_type'      => $this->post_type,
+			'tags_input'     => '',
+			'to_ping'        => '',
 		);
 		$post = array_merge( $default_post, $post );
 		// WP expects everything to be slashed.
@@ -158,19 +168,29 @@ class TablePress_Post_Model extends TablePress_Model {
 		remove_filter( 'content_save_pre', 'balanceTags', 50 );
 		remove_filter( 'excerpt_save_pre', 'balanceTags', 50 );
 		/*
-		 * Remove possible KSES filtering here, as it can destroy the JSON when messing with HTML
-		 * Saving is done to table cells individually, when saving
+		 * Remove possible KSES filtering, as it can destroy the JSON when messing with HTML.
+		 * KSES filtering is done to table cells individually, when saving.
 		 */
-		remove_filter( 'content_save_pre', 'wp_filter_post_kses' );
+		$has_kses = ( false !== has_filter( 'content_save_pre', 'wp_filter_post_kses' ) );
+		if ( $has_kses ) {
+			kses_remove_filters();
+		}
+		// Remove filter that adds `rel="noopener noreferrer" to <a> HTML tags, but destroys JSON code. See https://core.trac.wordpress.org/ticket/46316.
+		$has_targeted_link_rel_filters = ( false !== has_filter( 'content_save_pre', 'wp_targeted_link_rel' ) );
+		if ( $has_targeted_link_rel_filters ) {
+			wp_remove_targeted_link_rel_filters();
+		}
 
 		$post_id = wp_update_post( $post, true );
 
-		// Re-add balanceTags() to sanitize_post().
+		// Restore removed content filters.
 		add_filter( 'content_save_pre', 'balanceTags', 50 );
 		add_filter( 'excerpt_save_pre', 'balanceTags', 50 );
-		// Re-add KSES filtering, if necessary.
-		if ( ! current_user_can( 'unfiltered_html' ) ) {
-			add_filter( 'content_save_pre', 'wp_filter_post_kses' );
+		if ( $has_kses ) {
+			kses_init_filters();
+		}
+		if ( $has_targeted_link_rel_filters ) {
+			wp_init_targeted_link_rel_filters();
 		}
 
 		return $post_id;

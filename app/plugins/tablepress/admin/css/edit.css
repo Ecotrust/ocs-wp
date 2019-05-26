@@ -25,7 +25,8 @@ body.wait * {
 /* Allow wide tables to scroll sideways, only on "Edit" screen */
 body,
 #wpwrap,
-#wpbody-content {
+#wpbody-content,
+div#post-body.metabox-holder.columns-1 {
 	overflow: visible !important; /* !important is necessary to override an inline style that postboxes.js sets via JS */
 }
 
@@ -116,6 +117,11 @@ body #wp-link-backdrop {
 	width: 120px;
 }
 
+#table-information-shortcode,
+#tablepress-page .button {
+	vertical-align: middle;
+}
+
 /* Table cells */
 #edit-form-body td {
 	padding: 2px 1px;
@@ -151,8 +157,8 @@ body #wp-link-backdrop {
 #tablepress-page select {
 	-webkit-box-shadow: none;
 	box-shadow: none;
-	-webkit-transition: all 0 ease 0;
-	transition: all 0 ease 0;
+	-webkit-transition: none;
+	transition: none;
 }
 
 #edit-form-foot input[type="checkbox"] {
@@ -204,7 +210,6 @@ body #wp-link-backdrop {
 	margin-right: 2px;
 }
 #edit-form-head .sorting-indicator {
-	display: block; /* BC for WP 4.3, can be removed later */
 	visibility: visible;
 }
 #edit-form-head .sort-asc .sorting-indicator:before {
@@ -228,4 +233,9 @@ body #wp-link-backdrop {
 }
 #tablepress_edit-table-manipulation .column-2 {
 	width: 55%;
+}
+
+/* Align with checkbox labels */
+.checkbox-left {
+	padding-left: 24px; /* Checkboxes are 16px wide + 4px margin, with 4px :before */
 }

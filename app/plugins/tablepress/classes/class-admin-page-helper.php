@@ -76,7 +76,7 @@ class TablePress_Admin_Page {
 	 * @return string New admin footer content.
 	 */
 	public function _admin_footer_text( $content ) {
-		$content .= ' &bull; ' . __( 'Thank you for using <a href="https://tablepress.org/">TablePress</a>.', 'tablepress' );
+		$content .= ' &bull; ' . sprintf( __( 'Thank you for using <a href="%s">TablePress</a>.', 'tablepress' ), 'https://tablepress.org/' );
 		$content .= ' ' . sprintf( __( 'Support the plugin with your <a href="%s">donation</a>!', 'tablepress' ), 'https://tablepress.org/donate/' );
 		return $content;
 	}
@@ -97,7 +97,7 @@ class TablePress_Admin_Page {
 		?>
 		<script type="text/javascript">
 		( function( $ ) {
-			var options = <?php echo wp_json_encode( $args ); ?>, setup;
+			var options = <?php echo wp_json_encode( $args, TABLEPRESS_JSON_OPTIONS ); ?>, setup;
 
 			if ( ! options ) {
 				return;

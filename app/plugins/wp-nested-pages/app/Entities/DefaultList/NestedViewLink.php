@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace NestedPages\Entities\DefaultList;
 
 use NestedPages\Entities\PostType\PostTypeRepository;
@@ -9,7 +8,6 @@ use NestedPages\Entities\PostType\PostTypeRepository;
 */
 class NestedViewLink 
 {
-
 	/**
 	* Post Type
 	*/
@@ -33,7 +31,7 @@ class NestedViewLink
 	*/
 	private function addFilter()
 	{
-		add_filter( 'views_edit-' . $this->post_type->name, array($this, 'addLink' ) );
+		add_filter( 'views_edit-' . $this->post_type->name, [$this, 'addLink']);
 	}
 
 	/**
@@ -45,10 +43,9 @@ class NestedViewLink
 		if ( $screen->parent_file == $this->post_type_repo->editSlug($this->post_type) ){
 			$link_text = $this->post_type_repo->getSubmenuText($this->post_type);
 			$link_href = esc_url(admin_url('admin.php?page=' . $this->post_type_repo->getMenuSlug($this->post_type)));
-			$link = array($link_text => '<a href="' . $link_href . '">' . $link_text . '</a>');
+			$link = [$link_text => '<a href="' . $link_href . '">' . $link_text . '</a>'];
 			$views = array_merge($views, $link);
 		}
 		return $views;
 	}
-
 }

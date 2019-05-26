@@ -1,13 +1,24 @@
-<?php 
-
+<?php
 namespace NestedPages\Entities\User;
+
+use NestedPages\Entities\PluginIntegration\IntegrationFactory;
 
 /**
 * User Repository
 * @since 1.1.7
 */
-class UserRepository 
+class UserRepository
 {
+	/**
+	* Plugin Integrations
+	* @var object
+	*/
+	private $integrations;
+
+	public function __construct()
+	{
+		$this->integrations = new IntegrationFactory;
+	}
 
 	/**
 	* Return Current User's Roles
@@ -17,6 +28,12 @@ class UserRepository
 	public function getRoles()
 	{
 		global $current_user;
+
+		// If current user is superadmin (WP Multisite) add administrator to the roles array
+		if (function_exists('is_multisite') && is_multisite() && is_super_admin()) {
+			$current_user->roles[] = 'administrator';
+		}
+
 		return $current_user->roles;
 	}
 
@@ -25,23 +42,34 @@ class UserRepository
 	* @return array
 	* @since 1.1.7
 	*/
-	public function allRoles()
+	public function allRoles($exclude = array('Administrator', 'Contributor', 'Subscriber', 'Author') )
 	{
 		global $wp_roles;
 		$all_roles = $wp_roles->roles;
 		$editable_roles = apply_filters('editable_roles', $all_roles);
-		$roles = array();
-		$exclude = array('Administrator', 'Contributor', 'Subscriber', 'Author');
+		$roles = [];
+		if ( !is_array($exclude) ) $exclude = [];
 		foreach($editable_roles as $key=>$editable_role){
 			if ( !in_array($editable_role['name'], $exclude) ){
-				$role = array(
+				$role = [
 					'name' => $key,
 					'label' => $editable_role['name']
-				);
+				];
 				array_push($roles, $role);
 			}
 		}
 		return $roles;
+	}
+
+	/**
+	* Get a single role
+	* @since 3.0
+	*/
+	public function getSingleRole($role = 'administrator')
+	{
+		global $wp_roles;
+		if ( isset($wp_roles->roles[$role]) ) return $wp_roles->roles[$role];
+		return false;
 	}
 
 	/**
@@ -52,13 +80,25 @@ class UserRepository
 	public function canSortPages()
 	{
 		$roles = $this->getRoles();
-		$cansort = get_option('nestedpages_allowsorting', array());
-		if ( $cansort == "" ) $cansort = array();
-		
-		if ( current_user_can('edit_theme_options') ) return true;
+		$cansort = get_option('nestedpages_allowsorting', []);
+		if ( $cansort == "" ) $cansort = [];
+
 		foreach($roles as $role){
+			if ( $role == 'administrator' ) return true;
 			if ( in_array($role, $cansort) ) return true;
 		}
+		return false;
+	}
+
+	/**
+	* Can the user publish to post type
+	*/
+	public function canPublish($post_type = 'post')
+	{
+		if ( $post_type == 'page' ) {
+			return ( current_user_can('publish_pages') ) ? true : false;
+		}
+		if ( current_user_can('publish_posts') ) return true;
 		return false;
 	}
 
@@ -66,12 +106,12 @@ class UserRepository
 	* Get an array of all users/ids
 	* @since 1.3.0
 	* @return array
-	*/ 
+	*/
 	public function allUsers()
 	{
-		$users = get_users(array(
-			'fields' => array('ID', 'display_name')
-		));
+		$users = get_users([
+			'fields' => ['ID', 'display_name']
+		]);
 		return $users;
 	}
 
@@ -91,6 +131,7 @@ class UserRepository
 	public function updateVisiblePages($post_type, $ids)
 	{
 		$visible = $this->getVisiblePages();
+		if ( $this->integrations->plugins->wpml->installed ) $ids = $this->integrations->plugins->wpml->getAllTranslatedIds($ids);
 		$visible[$post_type] = $ids;
 		update_user_meta(
 			get_current_user_id(),
@@ -98,5 +139,4 @@ class UserRepository
 			serialize($visible)
 		);
 	}
-
 }

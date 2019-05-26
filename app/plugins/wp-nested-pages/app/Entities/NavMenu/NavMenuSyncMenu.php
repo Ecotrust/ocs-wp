@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace NestedPages\Entities\NavMenu;
 
 use NestedPages\Entities\NavMenu\NavMenuSync;
@@ -13,7 +12,6 @@ use NestedPages\Entities\NavMenu\NavMenuRepository;
 */
 class NavMenuSyncMenu extends NavMenuSync 
 {
-
 	/**
 	* Menu Items
 	* @var array of objects
@@ -37,7 +35,6 @@ class NavMenuSyncMenu extends NavMenuSync
 	* @var object
 	*/
 	private $post_repo;
-
 
 	public function __construct()
 	{
@@ -76,10 +73,10 @@ class NavMenuSyncMenu extends NavMenuSync
 	private function setMenuIndex()
 	{
 		foreach($this->menu_items as $key => $item){
-			$this->index[$item->ID] = array(
+			$this->index[$item->ID] = [
 				'ID' => $item->object_id,
 				'title' => $item->title
-			);
+			];
 		}
 	}
 
@@ -88,7 +85,7 @@ class NavMenuSyncMenu extends NavMenuSync
 	*/
 	private function updatePost($item)
 	{
-		$parent_id = ( $item->menu_item_parent == '0' ) ? 0 : $this->index[$item->menu_item_parent]['ID'];
+		$parent_id = ( $item->menu_item_parent == '0' || !isset($this->index[$item->menu_item_parent]['ID']) ) ? 0 : $this->index[$item->menu_item_parent]['ID'];
 		
 		if ( $this->nav_menu_repo->isNavMenuItem($parent_id) ) {
 			$parent_id = $this->nav_menu_repo->getLinkfromTitle($this->index[$item->menu_item_parent]['title']);
@@ -98,7 +95,7 @@ class NavMenuSyncMenu extends NavMenuSync
 			? $item->xfn
 			: $item->object_id;
 		
-		$post_data = array(
+		$post_data = [
 			'menu_order' => $item->menu_order,
 			'post_id' => $post_id,
 			'link_target' => $item->target,
@@ -106,7 +103,7 @@ class NavMenuSyncMenu extends NavMenuSync
 			'np_title_attribute' => $item->attr_title,
 			'post_parent' => $parent_id,
 			'np_nav_css_classes' => $item->classes
-		);
+		];
 		if ( $item->type == 'custom' ) {
 			$post_data['content'] = $item->url;
 			$post_data['post_id'] = $item->xfn;
@@ -124,7 +121,8 @@ class NavMenuSyncMenu extends NavMenuSync
 	*/
 	private function syncNewLink($item, $parent_id)
 	{
-		$post_data = array(
+		if ( $this->integrations->plugins->wpml->installed ) return;
+		$post_data = [
 			'menuTitle' => $item->title,
 			'np_link_title' => $item->title,
 			'_status' => 'publish',
@@ -137,9 +135,9 @@ class NavMenuSyncMenu extends NavMenuSync
 			'objectType' => $item->object,
 			'objectId' => $item->object_id,
 			'titleAttribute' => $item->attr_title
-		);
+		];
 		$post_id = $this->post_update_repo->saveRedirect($post_data);
-		update_post_meta($item->ID, '_menu_item_xfn', $post_id);
+		update_post_meta($item->ID, '_menu_item_xfn', absint($post_id));
 	}
 
 	/**
@@ -160,5 +158,4 @@ class NavMenuSyncMenu extends NavMenuSync
 			}
 		}
 	}
-
 }

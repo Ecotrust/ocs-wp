@@ -1,5 +1,4 @@
 <?php
-
 namespace NestedPages\Form\Listeners;
 
 use NestedPages\Helpers;
@@ -24,8 +23,8 @@ class NewMenuItem extends BaseHandler
 	*/
 	private function validateFields()
 	{
-		if ( $_POST['menuType'] == 'custom' && $_POST['navigationLabel'] == "" ) return wp_send_json(array('status' => 'error', 'message' => __('Custom Links must have a label.', 'nestedpages')));
-		if ( $_POST['menuType'] == 'custom' && $_POST['url'] == "" ) return wp_send_json(array('status' => 'error', 'message' => __('Please provide a valid URL.', 'nestedpages')));
+		if ( $_POST['menuType'] == 'custom' && $_POST['navigationLabel'] == "" ) return wp_send_json(array('status' => 'error', 'message' => __('Custom Links must have a label.', 'wp-nested-pages')));
+		if ( $_POST['menuType'] == 'custom' && $_POST['url'] == "" ) return wp_send_json(array('status' => 'error', 'message' => __('Please provide a valid URL.', 'wp-nested-pages')));
 	}
 
 	/**
@@ -42,11 +41,11 @@ class NewMenuItem extends BaseHandler
 		$this->data['post']['delete_link'] = get_delete_post_link($new_link, '', true);
 		$this->addExtras($new_link);
 
-		$this->response = array(
+		$this->response = [
 			'status' => 'success',
-			'message' => __('Link successfully updated.', 'nestedpages'),
+			'message' => __('Link successfully updated.', 'wp-nested-pages'),
 			'post_data' => $this->data['post']
-		);
+		];
 	}
 
 	/**
@@ -73,5 +72,4 @@ class NewMenuItem extends BaseHandler
 		$this->data['post']['original_link'] = get_the_permalink($id);
 		$this->data['post']['original_title'] = get_the_title($id);
 	}
-
 }

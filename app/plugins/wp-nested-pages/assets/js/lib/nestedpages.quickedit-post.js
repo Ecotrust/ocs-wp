@@ -90,7 +90,7 @@ NestedPages.QuickEditPost = function()
 			day : $(plugin.button).attr('data-day'),
 			year : $(plugin.button).attr('data-year'),
 			hour : $(plugin.button).attr('data-hour'),
-			minute : $(plugin.button).attr('data-minute'),
+			minute : $(plugin.button).attr('data-minute'),			
 			navstatus : $(plugin.button).attr('data-navstatus'),
 			npstatus : $(plugin.button).attr('data-np-status'),
 			navtitle : $(plugin.button).attr('data-navtitle'),
@@ -100,7 +100,10 @@ NestedPages.QuickEditPost = function()
 			password : $(plugin.button).attr('data-password'),
 			datepicker : $(plugin.button).attr('data-datepicker'),
 			time: $(plugin.button).attr('data-formattedtime'),
-			ampm: $(plugin.button).attr('data-ampm')
+			timeTwentyFour : $(plugin.button).attr('data-time'),
+			ampm: $(plugin.button).attr('data-ampm'),
+			timeFormat: $(plugin.button).attr('data-timeformat'),
+			sticky: $(plugin.button).attr('data-sticky')
 		};
 
 		// Add Array of Taxonomies to the data object using classes applied to the list element
@@ -149,8 +152,6 @@ NestedPages.QuickEditPost = function()
 		$(plugin.form).find('.np_nav_css_classes').val(plugin.initialData.navcss);
 		$(plugin.form).find('.post_password').val(plugin.initialData.password);
 		$(plugin.form).find('.np_datepicker').val(plugin.initialData.datepicker);
-		$(plugin.form).find('.np_time').val(plugin.initialData.time);
-		$(plugin.form).find('.np_ampm').val(plugin.initialData.ampm);
 		if ( plugin.initialData.cs === 'open' ) $(plugin.form).find('.np_cs').attr('checked', 'checked');
 
 		if ( plugin.initialData.template !== '' ){
@@ -165,9 +166,9 @@ NestedPages.QuickEditPost = function()
 		}
 
 		if ( plugin.initialData.npstatus === 'hide' ){
-			$(plugin.form).find('.np_status').attr('checked', 'checked');
+			$(plugin.form).find('.nested_pages_status').attr('checked', 'checked');
 		} else {
-			$(plugin.form).find('.np_status').removeAttr('checked');
+			$(plugin.form).find('.nested_pages_status').removeAttr('checked');
 		}
 		
 		if ( plugin.initialData.navstatus === 'hide' ) {
@@ -185,13 +186,25 @@ NestedPages.QuickEditPost = function()
 		if ( plugin.initialData.status === "private" ) {
 			$(plugin.form).find('.np_status').val('publish');
 		}
+
+		if ( plugin.initialData.sticky === 'sticky' ){
+			$(plugin.form).find('.np-sticky').attr('checked', 'checked');
+		} else {
+			$(plugin.form).find('.np-sticky').removeAttr('checked');
+		}
 		
 		// Date Fields
-		$(plugin.form).find('select[name="mm"]').val(plugin.initialData.month);
-		$(plugin.form).find('input[name="jj"]').val(plugin.initialData.day);
-		$(plugin.form).find('input[name="aa"]').val(plugin.initialData.year);
-		$(plugin.form).find('input[name="hh"]').val(plugin.initialData.hour);
-		$(plugin.form).find('input[name="mn"]').val(plugin.initialData.minute);
+		if ( plugin.initialData.timeFormat === 'H:i' ){
+			$(plugin.form).find('.np_time').val(plugin.initialData.timeTwentyFour);
+		} else {
+			$(plugin.form).find('.np_time').val(plugin.initialData.time);
+			$(plugin.form).find('.np_ampm').val(plugin.initialData.ampm);
+			$(plugin.form).find('select[name="mm"]').val(plugin.initialData.month);
+			$(plugin.form).find('input[name="jj"]').val(plugin.initialData.day);
+			$(plugin.form).find('input[name="aa"]').val(plugin.initialData.year);
+			$(plugin.form).find('input[name="hh"]').val(plugin.initialData.hour);
+			$(plugin.form).find('input[name="mn"]').val(plugin.initialData.minute);
+		}
 
 		// Populate Hierarchical Taxonomy Checkboxes
 		if ( plugin.initialData.hasOwnProperty('h_taxonomies') ){
@@ -238,6 +251,7 @@ NestedPages.QuickEditPost = function()
 			var term = tax_array.splice(splitter + 1); // Splice off the name
 			term = term.join('-'); // Join the name back into a string
 
+
 			// Get the taxonomy
 			var tax = singleTerm.split('-').splice(0, splitter);
 			tax.shift('inf');
@@ -280,7 +294,7 @@ NestedPages.QuickEditPost = function()
 	{
 		if ( !plugin.termNames ) return;
 		$.each(plugin.termNames, function(i, v){
-			var textarea = $('#' + i);
+			var textarea = $('#' + i + '-quickedit');
 			$(textarea).val(v.join(','));
 		});
 	}
@@ -330,6 +344,7 @@ NestedPages.QuickEditPost = function()
 		plugin.row = $(plugin.button).parents('.row-inner');
 		
 		$(plugin.row).find('.title').text(plugin.newData.post_title);
+		$(plugin.row).find('.np-view-button').attr('href', plugin.newData.permalink);
 		
 		var status = $(plugin.row).find('.status');
 		if ( (plugin.newData._status !== 'publish') && (plugin.newData._status !== 'future') ){
@@ -341,9 +356,11 @@ NestedPages.QuickEditPost = function()
 		}
 
 		// Password Lock Icon
-		if ( plugin.newData.post_password !== "" ){
+		if ( plugin.newData.post_password !== "" && typeof plugin.newData.post_password !== 'undefined'){
 			var statustext = $(status).text();
-			statustext += ' <i class="np-icon-lock"></i>';
+			statustext += ' <span class="locked">';
+			statustext += '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>'
+			statustext += '</span>';
 			$(status).html(statustext);
 		}
 
@@ -359,10 +376,18 @@ NestedPages.QuickEditPost = function()
 		var li = $(plugin.row).parent('li');
 		if ( (plugin.newData.np_status == 'hide') ){
 			$(li).addClass('np-hide');
-			$(plugin.row).find('.status').after('<i class="np-icon-eye-blocked"></i>');
+			$(plugin.row).find('.status').after('<svg class="row-status-icon status-np-hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0zm0 0h24v24H0zm0 0h24v24H0zm0 0h24v24H0z" fill="none"/><path class="icon" d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/></svg>');
 		} else {
 			$(li).removeClass('np-hide');
-			$(plugin.row).find('.np-icon-eye-blocked').remove();
+			$(plugin.row).find('.status-np-hidden').remove();
+		}
+
+		// Sticky
+		var sticky = $(plugin.row).find('.sticky');
+		if ( (plugin.newData.sticky == 'sticky') ){
+			$(sticky).show();
+		} else {
+			$(sticky).hide();
 		}
 
 		// Author for Non-Hierarchical Types
@@ -378,6 +403,7 @@ NestedPages.QuickEditPost = function()
 		$(button).attr('data-slug', plugin.newData.post_name);
 		$(button).attr('data-commentstatus', plugin.newData.comment_status);
 		$(button).attr('data-status', plugin.newData._status);
+		$(button).attr('data-sticky', plugin.newData.sticky);
 		
 		// Private Status
 		if ( plugin.newData.keep_private === 'private' ) {
@@ -418,9 +444,9 @@ NestedPages.QuickEditPost = function()
 	// Add Status Class
 	plugin.addStatusClass = function()
 	{
-		var taxonomies = ['published', 'draft', 'pending', 'future'];
-		for ( i = 0; i < taxonomies.length; i++ ){
-			$(plugin.row).removeClass(taxonomies[i]);
+		var statuses = ['published', 'draft', 'pending', 'future'];
+		for ( i = 0; i < statuses.length; i++ ){
+			$(plugin.row).removeClass(statuses[i]);
 		}
 		$(plugin.row).addClass(plugin.newData._status);
 	}

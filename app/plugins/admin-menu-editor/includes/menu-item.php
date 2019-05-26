@@ -26,6 +26,7 @@ abstract class ameMenuItem {
 		'options-general.php' => true, 'options-media.php' => true, 'options-permalink.php' => true,
 		'options-reading.php' => true, 'options-writing.php' => true, 'plugin-editor.php' => true,
 		'plugin-install.php' => true, 'plugins.php' => true, 'post-new.php' => true, 'profile.php' => true,
+		'privacy.php' => true,
 		'theme-editor.php' => true, 'themes.php' => true, 'tools.php' => true, 'update-core.php' => true,
 		'upload.php' => true, 'user-new.php' => true, 'users.php' => true, 'widgets.php' => true,
 	);
@@ -34,13 +35,13 @@ abstract class ameMenuItem {
 	 * Convert a WP menu structure to an associative array.
 	 *
 	 * @param array $item An menu item.
-	 * @param int $position The position (index) of the the menu item.
-	 * @param string $parent The slug of the parent menu that owns this item. Blank for top level menus.
+	 * @param int|string $position The position (index) of the the menu item.
+	 * @param string|null $parent The slug of the parent menu that owns this item. Null for top level menus.
 	 * @return array
 	 */
-	public static function fromWpItem($item, $position = 0, $parent = '') {
+	public static function fromWpItem($item, $position = 0, $parent = null) {
 		static $separator_count = 0;
-		$default_css_class = empty($parent) ? 'menu-top' : '';
+		$default_css_class = ($parent === null) ? 'menu-top' : '';
 		$item = array(
 			'menu_title'   => strval($item[0]),
 			'access_level' => strval($item[1]), //= required capability
@@ -58,8 +59,8 @@ abstract class ameMenuItem {
 			$item['access_level'] = $dummyUser->translate_level_to_cap($item['access_level']);
 		}
 
-		if ( empty($parent) ) {
-			$item['separator'] = empty($item['file']) || (strpos($item['css_class'], 'wp-menu-separator') !== false);
+		if ( $parent === null ) {
+			$item['separator'] = (strpos($item['css_class'], 'wp-menu-separator') !== false);
 			//WP 3.0 in multisite mode has two separators with the same filename. Fix by reindexing separators.
 			if ( $item['separator'] ) {
 				$item['file'] = 'separator_' . ($separator_count++);
@@ -70,10 +71,11 @@ abstract class ameMenuItem {
 		}
 
 		//Flag plugin pages
-		$item['is_plugin_page'] = (get_plugin_page_hook($item['file'], $parent) != null);
+		$has_hook = (get_plugin_page_hook($item['file'], strval($parent)) != null);
+		$item['is_plugin_page'] = $has_hook;
 
 		if ( !$item['separator'] ) {
-			$item['url'] = self::generate_url($item['file'], $parent);
+			$item['url'] = self::generate_url($item['file'], strval($parent), $has_hook);
 		}
 
 		$item['template_id'] = self::template_id($item, $parent);
@@ -96,7 +98,7 @@ abstract class ameMenuItem {
 			'file' => '',
 			'page_heading' => '',
 	        'position' => 0,
-	        'parent' => '',
+	        'parent' => null,
 
 	        //Fields that apply only to top level menus.
 	        'css_class' => 'menu-top',
@@ -204,15 +206,15 @@ abstract class ameMenuItem {
 	  * in the same sub-menu, this combination is not necessarily unique.
 	  *
 	  * @param array|string $item The menu item in question.
-	  * @param string $parent_file The parent menu. If omitted, $item['defaults']['parent'] will be used.
+	  * @param string|null $parent_file The parent menu. If omitted, $item['defaults']['parent'] will be used.
 	  * @return string Template ID, or an empty string if this is a custom item.
 	  */
-	public static function template_id($item, $parent_file = ''){
+	public static function template_id($item, $parent_file = null){
 		if (is_string($item)) {
-			return $parent_file . '>' . $item;
+			return strval($parent_file) . '>' . $item;
 		}
 
-		if ( self::get($item, 'custom') ) {
+		if ( !empty($item['custom']) ) {
 			return '';
 		}
 
@@ -228,7 +230,7 @@ abstract class ameMenuItem {
 			$item_file = self::get($item, 'file');
 		}
 
-		if ( empty($parent_file) ) {
+		if ( $parent_file === null ) {
 			if ( isset($item['defaults']['parent']) ) {
 				$parent_file = $item['defaults']['parent'];
 			} else {
@@ -248,7 +250,19 @@ abstract class ameMenuItem {
 			$item_file = remove_query_arg('return', $item_file);
 		}
 
-		return $parent_file . '>' . $item_file;
+		//Special case: A menu item can have an empty slug. This is technically very wrong, but it works (sort of)
+		//as long as the item has at least one submenu. This has happened at least once in practice. A user had
+		//a theme based on the Redux framework, and inexplicably the framework was configured to use an empty page slug.
+		if ( empty($item['separator']) ) {
+			if ( $item_file === '' ) {
+				$item_file = '[ame-no-slug]';
+			}
+			if ( $parent_file === '' ) {
+				$parent_file = '[ame-no-slug]';
+			}
+		}
+
+		return strval($parent_file) . '>' . $item_file;
 	}
 
   /**
@@ -340,6 +354,16 @@ abstract class ameMenuItem {
 				$item['grant_access']['role:' . $role_id] = $has_access;
 			}
 			unset($item['role_access']);
+		}
+
+		//There's no need to store the default position if a custom position is set.
+		//The default position will not be used, and there's no option to reset the position to default.
+		if ( isset($item['position'], $item['defaults']['position']) && ($item['defaults']['position'] === $item['position'])) {
+			unset($item['defaults']['position']);
+		}
+		//The same goes for template ID.
+		if ( isset($item['template_id']) ) {
+			unset($item['defaults']['template_id']);
 		}
 
 		if ( isset($item['items']) ) {
@@ -453,7 +477,7 @@ abstract class ameMenuItem {
    * @return int
    */
 	public static function compare_position($a, $b){
-		$result = self::get($a, 'position', 0) - self::get($b, 'position', 0);
+		$result = floatval(self::get($a, 'position', 0)) - floatval(self::get($b, 'position', 0));
 		//Support for non-integer positions.
 		if ($result > 0) {
 			return 1;
@@ -468,9 +492,10 @@ abstract class ameMenuItem {
 	 *
 	 * @param string $item_slug
 	 * @param string $parent_slug
+	 * @param bool|null $has_hook
 	 * @return string An URL relative to the /wp-admin/ directory.
 	 */
-	public static function generate_url($item_slug, $parent_slug = '') {
+	public static function generate_url($item_slug, $parent_slug = '', $has_hook = null) {
 		$menu_url = is_array($item_slug) ? self::get($item_slug, 'file') : $item_slug;
 		$parent_url = !empty($parent_slug) ? $parent_slug : 'admin.php';
 
@@ -483,30 +508,35 @@ abstract class ameMenuItem {
 			return $menu_url;
 		}
 
-		if ( self::is_hook_or_plugin_page($menu_url, $parent_url) ) {
+		if ( self::is_hook_or_plugin_page($menu_url, $parent_url, $has_hook) ) {
 			$parent_file = self::remove_query_from($parent_url);
 			$base_file = self::is_wp_admin_file($parent_file) ? $parent_url : 'admin.php';
-			$url = add_query_arg(array('page' => $menu_url), $base_file);
+			//add_query_arg() might be more robust, but it's significantly slower.
+			$url = $base_file
+				. ((strpos($base_file, '?') === false) ? '?' : '&')
+				. 'page=' . urlencode($menu_url);
 		} else {
 			$url = $menu_url;
 		}
 		return $url;
 	}
 
-	private static function is_hook_or_plugin_page($page_url, $parent_page_url = '') {
+	private static function is_hook_or_plugin_page($page_url, $parent_page_url = '', $hasHook = null) {
 		if ( empty($parent_page_url) ) {
 			$parent_page_url = 'admin.php';
 		}
 		$pageFile = self::remove_query_from($page_url);
 
+		if ( $hasHook === null ) {
+			$hasHook = (get_plugin_page_hook($page_url, $parent_page_url) !== null);
+		}
+		if ( $hasHook ) {
+			return true;
+		}
+
 		//Files in /wp-admin are part of WP core so they're not plugin pages.
 		if ( self::is_wp_admin_file($pageFile) ) {
 			return false;
-		}
-
-		$hasHook = (get_plugin_page_hook($page_url, $parent_page_url) !== null);
-		if ( $hasHook ) {
-			return true;
 		}
 
 		/*

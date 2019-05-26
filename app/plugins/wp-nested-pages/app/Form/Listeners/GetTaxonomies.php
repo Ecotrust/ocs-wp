@@ -1,5 +1,4 @@
 <?php 
-
 namespace NestedPages\Form\Listeners;
 
 /**
@@ -8,7 +7,6 @@ namespace NestedPages\Form\Listeners;
 */
 class GetTaxonomies extends BaseHandler 
 {
-
 	/**
 	* Terms to return
 	* @var object
@@ -53,6 +51,6 @@ class GetTaxonomies extends BaseHandler
 	*/
 	private function setResponse()
 	{
-		$this->response = array('status'=>'success', 'terms'=>$this->terms);
+		$this->response = ['status'=>'success', 'terms'=>$this->terms];
 	}
 }

@@ -108,7 +108,7 @@ if (isset($_POST['http_status']))
 // 		process IP addresses
 // ======================================
 
-if(isset($_POST['ip_address'])){
+if(isset($_POST['ip_address']) && $_POST['ip_address']) {
 
 	$ip = $_POST['ip_address'];
 	$ip = inet_ntop(inet_pton($ip));

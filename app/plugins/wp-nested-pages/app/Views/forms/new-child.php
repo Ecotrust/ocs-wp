@@ -4,7 +4,7 @@
 ?>
 <form method="get" action="" class="np-new-child-form">
 	<div class="form-interior">
-	<h3><strong><?php _e('Add Child', 'nestedpages'); ?></strong><span class="parent_name"></span></h3>
+	<h3 data-new-post-relation-title><strong><?php _e('Add Child', 'wp-nested-pages'); ?></strong><span class="parent_name"></span></h3>
 
 	<div class="np-quickedit-error" style="clear:both;display:none;"></div>
 	
@@ -14,18 +14,18 @@
 
 		<ol class="new-page-titles">
 			<li>
-				<i class="handle np-icon-menu"></i>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="handle np-icon-menu"><path d="M0 0h24v24H0z" fill="none" /><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" class="bars" /></svg>
 				<div class="form-control new-child-row">
 					<label><?php _e( 'Title' ); ?></label>
 					<div>
-						<input type="text" name="post_title[]" class="np_title" placeholder="<?php _e('Title', 'nestedpages'); ?>" value="" tabindex="1" />
+						<input type="text" name="post_title[]" class="np_title" placeholder="<?php _e('Title', 'wp-nested-pages'); ?>" value="" tabindex="1" />
 						<a href="#" class="button-secondary np-remove-child">-</a>
 					</div>
 				</div>
 			</li>
 		</ol>
 
-		<a href="#" class="add-new-child-row button-primary" style="clear:both;"><?php _e('+', 'nestedpages'); ?></a>
+		<a href="#" class="add-new-child-row button-primary" style="clear:both;"><?php _e('+', 'wp-nested-pages'); ?></a>
 	</div><!-- .left -->
 
 
@@ -47,15 +47,16 @@
 		*/
 		$authors_dropdown = '';
 		if ( is_super_admin() || current_user_can( $post_type_object->cap->edit_others_posts ) ) :
-			$users_opt = array(
+			$users_opt = [
 				'hide_if_only_one_author' => false,
 				'who' => 'authors',
 				'name' => 'post_author',
 				'id' => 'post_author',
 				'class'=> 'authors',
 				'multi' => 1,
-				'echo' => 0
-			);
+				'echo' => 0,
+				'selected' => get_current_user_id()
+			];
 
 			if ( $authors = wp_dropdown_users( $users_opt ) ) :
 				$authors_dropdown  = '<div class="form-control np_author"><label>' . __( 'Author' ) . '</label>';
@@ -76,6 +77,15 @@
 		</div>
 		<?php endif; ?>
 
+		<?php if ( $this->post_type->name == 'page' && $this->user->canSortPages() && !$this->listing_repo->isSearch() ) : ?>
+		<div class="form-control full checkbox">
+			<label>
+				<input type="checkbox" name="nav_status" class="np_nav_status" value="hide" />
+				<span class="checkbox-title"><?php _e( 'Hide in Nav Menu', 'wp-nested-pages' ); ?></span>
+			</label>
+		</div>
+		<?php endif; ?>
+
 	</div><!-- .right -->
 
 	</div><!-- .fields -->
@@ -85,16 +95,20 @@
 
 	<div class="buttons">
 		<input type="hidden" name="parent_id" class="page_parent_id" />
+		<input type="hidden" name="before_id" class="page_before_id" />
+		<input type="hidden" name="after_id" class="page_after_id" />
 		<input type="hidden" name="post_type" value="<?php echo $this->post_type->name; ?>" />
-		<a accesskey="c" href="#" class="button-secondary alignleft np-cancel-newchild">
+		<a accesskey="c" href="#" class="button-secondary alignleft np-cancel-newchild" data-nestedpages-modal-close>
 			<?php _e( 'Cancel' ); ?>
 		</a>
 		<a accesskey="s" href="#" class="button-primary np-save-newchild alignright" style="margin-left:10px;">
-			<?php _e( 'Add', 'nestedpages' ); ?>
+			<?php _e( 'Add', 'wp-nested-pages' ); ?>
 		</a>
 		<a href="#" class="button-secondary np-save-newchild add-edit alignright">
-			<?php _e( 'Add & Edit', 'nestedpages' ); ?>
+			<?php _e( 'Add & Edit', 'wp-nested-pages' ); ?>
 		</a>
-		<span class="np-qe-loading"></span>
+		<div class="np-qe-loading">
+			<?php include( NestedPages\Helpers::asset('images/spinner.svg') ); ?>
+		</div>
 	</div>
 </form>

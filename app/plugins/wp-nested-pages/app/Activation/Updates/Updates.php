@@ -1,16 +1,15 @@
 <?php 
-
 namespace NestedPages\Activation\Updates;
 
 use NestedPages\Entities\NavMenu\NavMenuRepository;
 use NestedPages\Entities\NavMenu\NavMenuSyncListing;
+use NestedPages\Activation\Updates\CustomFieldsToHidden;
 
 /**
 * Required Version Upgrades
 */
 class Updates 
 {
-
 	/**
 	* New Version
 	*/
@@ -40,6 +39,7 @@ class Updates
 		$this->convertMenuToID();
 		$this->enablePagePostType();
 		$this->enabledDatepicker();
+		$this->convertCustomFieldsToHidden();
 	}
 
 	/**
@@ -110,9 +110,9 @@ class Updates
 	{
 		if ( version_compare( $this->current_version, '1.3.1', '<' ) ){
 			$enabled = get_option('nestedpages_ui', false);
-			$default = array(
+			$default = [
 				'datepicker' => 'true'
-			);
+			];
 			if ( !$enabled ) update_option('nestedpages_ui', $default);
 		}
 	}
@@ -131,4 +131,13 @@ class Updates
 		}
 	}
 
+	/**
+	* Convert the Nested Pages custom fields to hidden fields
+	*/
+	private function convertCustomFieldsToHidden()
+	{
+		if ( version_compare( $this->current_version, '1.7.0', '<=' ) ){
+			new CustomFieldsToHidden;
+		}
+	}
 }

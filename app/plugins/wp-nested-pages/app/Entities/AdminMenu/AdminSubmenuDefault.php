@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace NestedPages\Entities\AdminMenu;
 
 use NestedPages\Entities\PostType\PostTypeRepository;
@@ -10,7 +9,6 @@ use NestedPages\Entities\Listing\Listing;
 */
 class AdminSubmenuDefault 
 {
-
 	/**
 	* Post Type
 	* @var object
@@ -21,6 +19,11 @@ class AdminSubmenuDefault
 	* Post Type Repository
 	*/
 	private $post_type_repo;
+
+	/**
+	* Menu Hook
+	*/
+	private $hook;
 
 	public function __construct($post_type)
 	{
@@ -48,7 +51,7 @@ class AdminSubmenuDefault
 	*/
 	private function addSubMenu($parent_slug)
 	{
-		add_submenu_page( 
+		$this->hook = add_submenu_page( 
 			$parent_slug,
 			$this->post_type_repo->getSubmenuText($this->post_type),
 			$this->post_type_repo->getSubmenuText($this->post_type),
@@ -58,4 +61,11 @@ class AdminSubmenuDefault
 		);
 	}
 
+	/**
+	* Get the Menu Hook
+	*/
+	public function getHook()
+	{
+		return $this->hook;
+	}
 }

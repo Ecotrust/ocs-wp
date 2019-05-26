@@ -99,10 +99,10 @@ abstract class TablePress_View {
 		add_filter( "get_user_option_screen_layout_{$screen->id}", array( $this, 'set_current_screen_layout_columns' ) );
 
 		$screen->add_help_tab( array(
-			'id' => 'tablepress-help', // This should be unique for the screen.
-			'title' => __( 'TablePress Help', 'tablepress' ),
+			'id'      => 'tablepress-help', // This should be unique for the screen.
+			'title'   => __( 'TablePress Help', 'tablepress' ),
 			'content' => '<p>' . $this->help_tab_content() . '</p>'
-						. '<p>' . sprintf( __( 'More information about TablePress can be found on the <a href="%1$s">plugin&#8217;s website</a> or on its page in the <a href="%s">WordPress Plugin Directory</a>.', 'tablepress' ), 'https://tablepress.org/', 'https://wordpress.org/plugins/tablepress/' ) . ' '
+						. '<p>' . sprintf( __( 'More information about TablePress can be found on the <a href="%1$s">plugin&#8217;s website</a> or on its page in the <a href="%2$s">WordPress Plugin Directory</a>.', 'tablepress' ), 'https://tablepress.org/', 'https://wordpress.org/plugins/tablepress/' ) . ' '
 						. sprintf( __( 'For technical information, please see the <a href="%s">documentation</a>.', 'tablepress' ), 'https://tablepress.org/documentation/' ) . ' '
 						. sprintf( __( '<a href="%1$s">Support</a> is provided through the <a href="%2$s">WordPress Support Forums</a>.', 'tablepress' ), 'https://tablepress.org/support/', 'https://wordpress.org/tags/tablepress' ) . ' '
 						. sprintf( __( 'Before asking for support, please carefully read the <a href="%s">Frequently Asked Questions</a>, where you will find answers to the most common questions, and search through the forums.', 'tablepress' ), 'https://tablepress.org/faq/' ) . '<br />'
@@ -155,7 +155,7 @@ abstract class TablePress_View {
 		}
 		$this->admin_page->enqueue_script( 'common', array( 'jquery-core', 'postbox' ), array(
 			'common' => array(
-				'ays_delete_single_table' => _n( 'Do you really want to delete this table?', 'Do you really want to delete these tables?', 1, 'tablepress' ),
+				'ays_delete_single_table'    => _n( 'Do you really want to delete this table?', 'Do you really want to delete these tables?', 1, 'tablepress' ),
 				'ays_delete_multiple_tables' => _n( 'Do you really want to delete this table?', 'Do you really want to delete these tables?', 2, 'tablepress' ),
 			)
 		) );
@@ -217,10 +217,10 @@ abstract class TablePress_View {
 
 		$long_id = "tablepress_{$this->action}-{$id}";
 		$this->textboxes[ $context ][ $id ] = array(
-			'id' => $long_id,
+			'id'       => $long_id,
 			'callback' => $callback,
-			'context' => $context,
-			'wrap' => $wrap,
+			'context'  => $context,
+			'wrap'     => $wrap,
 		);
 	}
 
@@ -292,8 +292,10 @@ abstract class TablePress_View {
 		if ( ! $this->has_meta_boxes ) {
 			return;
 		}
-		wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); echo "\n";
-		wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); echo "\n";
+		wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
+		echo "\n";
+		wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
+		echo "\n";
 	}
 
 	/**
@@ -305,7 +307,8 @@ abstract class TablePress_View {
 	 * @param array $box  Information about the text box.
 	 */
 	protected function action_nonce_field( array $data, array $box ) {
-		wp_nonce_field( TablePress::nonce( $this->action ) ); echo "\n";
+		wp_nonce_field( TablePress::nonce( $this->action ) );
+		echo "\n";
 	}
 
 	/**
@@ -377,15 +380,10 @@ abstract class TablePress_View {
 	 */
 	protected function print_nav_tab_menu() {
 		?>
-		<h1 id="tablepress-nav" class="nav-tab-wrapper">
+		<div id="tablepress-nav" class="nav-tab-wrapper">
+			<h1 class="wp-heading-inline"><?php _e( 'TablePress', 'tablepress' ); ?></h1>
 			<?php
-			echo '<span class="plugin-name">' . __( 'TablePress', 'tablepress' ) . '</span><span class="separator"></span>';
 			foreach ( $this->data['view_actions'] as $action => $entry ) {
-				// Special case: Add a separator before the group that starts with "Plugin Options", for some spacing.
-				if ( 'options' === $action ) {
-					echo '<span class="separator"></span><span class="separator"></span>';
-				}
-
 				if ( '' === $entry['nav_tab_title'] ) {
 					continue;
 				}
@@ -395,10 +393,11 @@ abstract class TablePress_View {
 
 				$url = esc_url( TablePress::url( array( 'action' => $action ) ) );
 				$active = ( $action === $this->action ) ? ' nav-tab-active' : '';
-				echo "<a class=\"nav-tab{$active}\" href=\"{$url}\">{$entry['nav_tab_title']}</a>";
+				$separator = ( 'options' === $action ) ? ' nav-tab-separator' : ''; // Make the "Plugin Options" entry a separator, for some spacing.
+				echo "<a class=\"nav-tab{$active}{$separator}\" href=\"{$url}\">{$entry['nav_tab_title']}</a>";
 			}
 			?>
-		</h1>
+		</div><hr class="wp-header-end" />
 		<?php
 	}
 

@@ -52,18 +52,18 @@ class TablePress_Export {
 	public function __construct() {
 		// Initiate here, because function call not possible outside a class method.
 		$this->export_formats = array(
-			'csv' => __( 'CSV - Character-Separated Values', 'tablepress' ),
+			'csv'  => __( 'CSV - Character-Separated Values', 'tablepress' ),
 			'html' => __( 'HTML - Hypertext Markup Language', 'tablepress' ),
 			'json' => __( 'JSON - JavaScript Object Notation', 'tablepress' ),
 		);
 		$this->csv_delimiters = array(
-			';' => __( '; (semicolon)', 'tablepress' ),
-			',' => __( ', (comma)', 'tablepress' ),
+			';'   => __( '; (semicolon)', 'tablepress' ),
+			','   => __( ', (comma)', 'tablepress' ),
 			'tab' => __( '\t (tabulator)', 'tablepress' ),
 		);
 
 		/** This filter is documented in the WordPress function unzip_file() in wp-admin/includes/file.php */
-		if ( class_exists( 'ZipArchive' ) && apply_filters( 'unzip_file_use_ziparchive', true ) ) {
+		if ( class_exists( 'ZipArchive', false ) && apply_filters( 'unzip_file_use_ziparchive', true ) ) {
 			$this->zip_support_available = true;
 		}
 	}
@@ -128,7 +128,7 @@ class TablePress_Export {
 				$output = "<table>\n" . $thead . $tfoot . $tbody . "</table>\n";
 				break;
 			case 'json':
-				$output = wp_json_encode( $table );
+				$output = wp_json_encode( $table, TABLEPRESS_JSON_OPTIONS );
 				break;
 			default:
 				$output = '';

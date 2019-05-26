@@ -1,16 +1,23 @@
 <?php 
-
 namespace NestedPages\Entities\PostType;
+
+use NestedPages\Entities\PluginIntegration\IntegrationFactory;
 
 /**
 * Post Types required by Nested Pages
 */
 class RegisterPostTypes 
 {
+	/**
+	* Plugin Integrations
+	*/
+	private $integrations;
 
 	public function __construct()
 	{
-		add_action( 'init', array( $this, 'registerRedirects') );
+		$this->integrations = new IntegrationFactory;
+		if ( $this->integrations->plugins->wpml->installed ) return;
+		add_action( 'init', [ $this, 'registerRedirects'] );
 	}
 
 	/**
@@ -18,14 +25,14 @@ class RegisterPostTypes
 	*/
 	public function registerRedirects()
 	{
-		$labels = array(
-			'name' => __('Redirects', 'nestedpages'),  
-			'singular_name' => __('Redirect', 'nestedpages'),
+		$labels = [
+			'name' => __('Redirects', 'wp-nested-pages'),  
+			'singular_name' => __('Redirect', 'wp-nested-pages'),
 			'add_new_item'=> 'Add Redirect',
 			'edit_item' => 'Edit Redirect',
 			'view_item' => 'View Redirect'
-		);
-		$args = array(
+		];
+		$args = [
 			'labels' => $labels,
 			'public' => false,  
 			'show_ui' => false,
@@ -33,11 +40,10 @@ class RegisterPostTypes
 			'capability_type' => 'post',  
 			'hierarchical' => true,  
 			'has_archive' => false,
-			'supports' => array('title','editor'),
+			'supports' => ['title','editor'],
 			'_edit_link' => 'post.php?post=%d',
-			'rewrite' => array('slug' => 'np-redirect', 'with_front' => false)
-		);
+			'rewrite' => ['slug' => 'np-redirect', 'with_front' => false]
+		];
 		register_post_type( 'np-redirect' , $args );
 	}
-
 }

@@ -3,9 +3,9 @@
 Plugin Name: Enable Media Replace
 Plugin URI: http://www.mansjonasson.se/enable-media-replace
 Description: Enable replacing media files by uploading a new file in the "Edit Media" section of the WordPress Media Library.
-Version: 3.0.4
-Author: Måns Jonasson
-Author URI: http://www.mansjonasson.se
+Version: 3.2.9
+Author: ShortPixel
+Author URI: https://shortpixel.com
 
 Dual licensed under the MIT and GPL licenses:
 http://www.opensource.org/licenses/mit-license.php
@@ -16,26 +16,53 @@ http://www.gnu.org/licenses/gpl.html
  * Main Plugin file
  * Set action hooks and add shortcode
  *
- * @author      Måns Jonasson  <http://www.mansjonasson.se>
- * @copyright   Måns Jonasson 13 sep 2010
+ * @author      ShortPixel  <https://shortpixel.com>
+ * @copyright   ShortPixel 2018
  * @package     wordpress
  * @subpackage  enable-media-replace
  *
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+if(!defined("S3_UPLOADS_AUTOENABLE")) {
+    define('S3_UPLOADS_AUTOENABLE', true);
+}
+
 add_action('admin_init', 'enable_media_replace_init');
 add_action('admin_menu', 'emr_menu');
 add_filter('attachment_fields_to_edit', 'enable_media_replace', 10, 2);
 add_filter('media_row_actions', 'add_media_action', 10, 2);
+add_filter('upload_mimes', 'dat_mime_types', 1, 1);
+
+add_action('admin_notices', 'emr_display_notices');
+add_action('network_admin_notices', 'emr_display_network_notices');
+add_action('wp_ajax_emr_dismiss_notices', 'emr_dismiss_notices');
 
 add_shortcode('file_modified', 'emr_get_modified_date');
+
+if(!defined("SHORTPIXEL_AFFILIATE_CODE")) {
+	define("SHORTPIXEL_AFFILIATE_CODE", 'VKG6LYN28044');
+}
+
+/**
+ * @param array $mime_types
+ * @return array
+ */
+function dat_mime_types($mime_types) {
+    $mime_types['dat'] = 'text/plain';     // Adding .dat extension
+
+    return $mime_types;
+}
 
 /**
  * Register this file in WordPress so we can call it with a ?page= GET var.
  * To suppress it in the menu we give it an empty menu title.
  */
 function emr_menu() {
-	add_submenu_page(NULL, __("Replace media", "enable-media-replace"), '','upload_files', 'enable-media-replace/enable-media-replace', 'emr_options');
+	add_submenu_page('upload.php', esc_html__("Replace media", "enable-media-replace"), '','upload_files', 'enable-media-replace/enable-media-replace', 'emr_options');
 }
 
 /**
@@ -61,7 +88,7 @@ function enable_media_replace( $form_fields, $post ) {
 		$editurl = str_replace("http:", "https:", $editurl);
 	}
 	$link = "href=\"$editurl\"";
-	$form_fields["enable-media-replace"] = array("label" => __("Replace media", "enable-media-replace"), "input" => "html", "html" => "<p><a class='button-secondary'$link>" . __("Upload a new file", "enable-media-replace") . "</a></p>", "helps" => __("To replace the current file, click the link and upload a replacement.", "enable-media-replace"));
+	$form_fields["enable-media-replace"] = array("label" => esc_html__("Replace media", "enable-media-replace"), "input" => "html", "html" => "<p><a class='button-secondary'$link>" . esc_html__("Upload a new file", "enable-media-replace") . "</a></p>", "helps" => esc_html__("To replace the current file, click the link and upload a replacement.", "enable-media-replace"));
 
 	return $form_fields;
 }
@@ -79,7 +106,7 @@ function emr_options() {
 			include("popup.php");
 		}
 	}
-	
+
 	if ( isset( $_GET['action'] ) && $_GET['action'] == 'media_replace_upload' ) {
 		$plugin_url =  str_replace("enable-media-replace.php", "", __FILE__);
     	check_admin_referer( 'media_replace_upload' ); // die if invalid or missing nonce
@@ -102,7 +129,7 @@ function add_media_action( $actions, $post) {
 	}
 	$link = "href=\"$editurl\"";
 
-	$newaction['adddata'] = '<a ' . $link . ' title="' . __("Replace media", "enable-media-replace") . '" rel="permalink">' . __("Replace media", "enable-media-replace") . '</a>';
+	$newaction['adddata'] = '<a ' . $link . ' aria-label="' . esc_html__("Replace media", "enable-media-replace") . '" rel="permalink">' . esc_html__("Replace media", "enable-media-replace") . '</a>';
 	return array_merge($actions,$newaction);
 }
 
@@ -136,7 +163,7 @@ function emr_get_modified_date($atts) {
 		// do date conversion
 		return date( $format, $filetime );
 	}
-	
+
 	return false;
 }
 
@@ -153,11 +180,37 @@ function ua_admin_date_replaced_media_on_edit_media_screen() {
 	}
 	?>
 	<div class="misc-pub-section curtime">
-		<span id="timestamp"><?php _e( 'Revised', 'enable-media-replace' ); ?>: <b><?php echo $file_modified_time; ?></b></span>
+		<span id="timestamp"><?php echo esc_html__( 'Revised', 'enable-media-replace' ); ?>: <b><?php echo $file_modified_time; ?></b></span>
 	</div>
 	<?php
 }
 add_action( 'attachment_submitbox_misc_actions', 'ua_admin_date_replaced_media_on_edit_media_screen', 91 );
 
+/*----------------------------------------------------------------------------------------------------------
+	Display/dismiss admin notices if needed
+-----------------------------------------------------------------------------------------------------------*/
 
-?>
+function emr_display_notices() {
+	$current_screen = get_current_screen();
+
+	$crtScreen = function_exists("get_current_screen") ? get_current_screen() : (object)array("base" => false);
+
+	if(current_user_can( 'activate_plugins' ) && !get_option( 'emr_news') && !is_plugin_active('shortpixel-image-optimiser/wp-shortpixel.php')
+	   && ($crtScreen->base == "upload" || $crtScreen->base == "plugins")
+        //for network installed plugins, don't display the message on subsites.
+       && !(function_exists('is_multisite') && is_multisite() && is_plugin_active_for_network('enable-media-replace/enable-media-replace.php') && !is_main_site()))
+	{
+		require_once( str_replace("enable-media-replace.php", "notice.php", __FILE__) );
+	}
+}
+
+function emr_display_network_notices() {
+    if(current_user_can( 'activate_plugins' ) && !get_option( 'emr_news') && !is_plugin_active_for_network('shortpixel-image-optimiser/wp-shortpixel.php')) {
+        require_once( str_replace("enable-media-replace.php", "notice.php", __FILE__) );
+    }
+}
+
+function emr_dismiss_notices() {
+	update_option( 'emr_news', true);
+	exit(json_encode(array("Status" => 0)));
+}

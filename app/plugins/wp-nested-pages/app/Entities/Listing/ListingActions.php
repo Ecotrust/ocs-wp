@@ -1,13 +1,11 @@
-<?php 
-
+<?php
 namespace NestedPages\Entities\Listing;
 
 class ListingActions 
 {
-
 	public function __construct()
 	{
-		add_filter( 'posts_where', array($this, 'titleSearch'), 10, 2 );
+		add_filter('posts_where', [$this, 'titleSearch'], 10, 2 );
 	}
 
 	/**
@@ -22,5 +20,4 @@ class ListingActions
 		}
 		return $where;
 	}
-
 }

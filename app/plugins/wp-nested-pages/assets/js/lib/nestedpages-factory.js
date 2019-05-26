@@ -29,10 +29,25 @@ NestedPages.selectors = {
 	errorDiv : '#np-error', // Error Alert
 	loadingIndicator : '#nested-loading', // Loading Indicator,
 	syncCheckbox : '.np-sync-menu', // Sync menu checkbox
+	syncForm: '.np-sync-menu-cont', // The form/container for the sync menu element
 	ajaxError : '[data-nestedpages-error]', // AJAX error notification
 
 	// Responsive Toggle
 	toggleEditButtons : '.np-toggle-edit', // Button that toggles responsive buttons
+
+	// Bulk Actions
+	bulkActionsHeader : '.nestedpages-list-header',
+	bulkActionsForm : '[data-np-bulk-form]',
+	bulkActionsCheckbox : '[data-np-bulk-checkbox]',
+	bulkActionsIds : '[data-np-bulk-ids]',
+	bulkActionRedirectIds : '[data-np-bulk-redirect-ids]',
+	hiddenItemCount : '[data-np-hidden-count]',
+	hiddenItemCountParent : '[data-np-hidden-count-parent]',
+	bulkEditForm : '[data-np-bulk-edit-form]', // The primary bulk edit form
+	bulkEditTitles : '[data-np-bulk-titles]', // Titles to perform bulk edits on (includes hidden ids),
+	bulkEditRemoveItem : '[data-np-remove-bulk-item]', // Remove an item from bulk edit
+	bulkEditCancel : '[data-np-cancel-bulk-edit]', // Cancel button in bulk edit form
+	bulkEditLinkCount : '[data-bulk-edit-link-count]', // Count of selected links in bulk edit
 
 	// Quick Edit
 	quickEditOverlay : '.np-inline-overlay', // The inline modal
@@ -54,11 +69,17 @@ NestedPages.selectors = {
 
 	// Link Items
 	openLinkModal : '.open-redirect-modal', // Opens new link modal
-	linkModal : '#np-link-modal', // The add a link modal
+	linkModal : 'np-link-modal', // The add a link modal
 	saveLink : '.np-save-link', // Save Link Button
 	linkLoadingIndicator : '.np-link-loading', // Loading Indicator in Link Modal
 	linkErrorDiv : '.np-new-link-error', // Error Div in Link Modal
 	linkForm : '.np-new-link-form', // The form element for a new link
+
+	// Link Deletion
+	linkDeleteButton : '[data-np-confirm-delete]',
+	linkDeleteConfirmationButton : '[data-delete-confirmation]',
+	linkDeleteConfirmationModal : 'np-delete-confirmation-modal',
+	linkDeleteConfirmationModalText : '[data-np-link-delete-text]',
 
 	// New Page Items
 	openPageModal : '.open-bulk-modal', // Opens the new page(s) modal
@@ -71,11 +92,13 @@ NestedPages.selectors = {
 	addChildButton : '.add-new-child', // Button to add child page(s)
 	newChildError : '.np-newchild-error', // Error div in new child quick edit
 	cancelNewChildButton : '.np-cancel-newchild', // Cancel button in new child quick edit
+	newBeforeButton : 'data-insert-before', // Add new post(s) before a post
+	newAfterButton : 'data-insert-after', // Add new post(s) after a post
 
 	// Clone
 	cloneButton : '.clone-post', // Button to clone a post
 	confirmClone : '[data-confirm-clone]', // Button in modal to confirm clone
-	cloneModal : '#np-clone-modal', // Modal with clone options
+	cloneModal : 'np-clone-modal', // Modal with clone options
 	cloneQuantity : '[data-clone-quantity]', // Quantity to Clone
 	cloneStatus : '[data-clone-status]', // Clone Status
 	cloneAuthor : '[data-clone-author]', // Clone Author
@@ -84,13 +107,20 @@ NestedPages.selectors = {
 	tabButtonParent : '[data-np-tabs]', // Tab Parent
 	tabButton : '[data-np-tab]', // Tab Link
 	tabContent : '[data-np-tab-pane]', // Tab Pane
+
+	// Thumbnails
+	thumbnailContainer : '.np-thumbnail', // Container for Thumbnail
+	thumbnailContainerLink : '.np-thumbnail.link', // Link Thumbnail Container
+
+	// Manual Sync Buttons
+	manualMenuSync : '[data-np-manual-menu-sync]', // Button for Triggering Manual Menu Sync
+	manualOrderSync : '[data-np-manual-order-sync]', // Button for Triggering Manual Order Sync
+
 }
 
 
 // CSS Classes
 NestedPages.cssClasses = {
-	iconToggleDown : 'np-icon-arrow-down',
-	iconToggleRight : 'np-icon-arrow-right',
 	noborder : 'no-border'
 }
 
@@ -103,6 +133,7 @@ NestedPages.jsData = {
 	syncmenu : 'nosync', // Whether to sync the menu
 	posttype : '', // current Screen's post type
 	nestable : true, // boolean - whether post type is nestable
+	sortable : true, // boolean - whether post type is sortable
 	hierarchical : true, // boolean - whether post type is hierarchical
 	expandText : nestedpages.expand_text, // Expand all button text
 	collapseText : nestedpages.collapse_text, // Collapse all button text
@@ -120,12 +151,18 @@ NestedPages.formActions = {
 	syncNesting : 'npsort',
 	syncMenu : 'npsyncMenu',
 	newPage : 'npnewChild',
+	newBeforeAfter : 'npnewBeforeAfter',
 	quickEditLink : 'npquickEditLink',
 	getTaxonomies : 'npgetTaxonomies',
 	quickEditPost : 'npquickEdit',
 	clonePost : 'npclonePost',
 	search : 'npmenuSearch',
-	newMenuItem : 'npnewMenuItem'
+	newMenuItem : 'npnewMenuItem',
+	manualMenuSync : 'npmanualMenuSync',
+	postSearch: 'nppostSearch',
+	wpmlTranslations : 'npWpmlTranslations',
+	resetSettings : 'npresetSettings',
+	resetUserPrefs : 'npresetUserPreferences'
 }
 
 
@@ -138,24 +175,35 @@ NestedPages.Factory = function()
 	var $ = jQuery;
 
 	plugin.formatter = new NestedPages.Formatter;
-	plugin.responsive = new NestedPages.Responsive;
+	plugin.dropdowns = new NestedPages.Dropdowns;
+	plugin.modals = new NestedPages.Modals;
+	plugin.checkAll = new NestedPages.CheckAll;
+	plugin.bulkActions = new NestedPages.BulkActions;
 	plugin.menuToggle = new NestedPages.MenuToggle;
 	plugin.pageToggle = new NestedPages.PageToggle;
 	plugin.nesting = new NestedPages.Nesting;
 	plugin.syncMenuSetting = new NestedPages.SyncMenuSetting;
-	plugin.newPage = new NestedPages.NewPage;
+	plugin.newPage = new NestedPages.NewPost;
 	plugin.quickEditLink = new NestedPages.QuickEditLink;
 	plugin.quickEditPost = new NestedPages.QuickEditPost;
 	plugin.clone = new NestedPages.Clone;
 	plugin.tabs = new NestedPages.Tabs;
 	plugin.menuLinks = new NestedPages.MenuLinks;
+	plugin.hiddenItemCount = new NestedPages.HiddenItemCount;
+	plugin.confirmDelete = new NestedPages.ConfirmDelete;
+	plugin.manualSync = new NestedPages.ManualSync;
+	plugin.postSearch = new NestedPages.PostSearch;
+	plugin.postMove = new NestedPages.MovePost;
+	plugin.wpml = new NestedPages.Wpml;
 
 	plugin.init = function()
 	{
+		if ( nestedpages.settings_page ) return;
 		plugin.bindEvents();
 		plugin.setPostType();
 		plugin.setMenuSync();
 		plugin.setNestable();
+		plugin.setSortable();
 		plugin.formatter.updateSubMenuToggle();
 		plugin.formatter.setBorders();
 		plugin.formatter.setNestedMargins();
@@ -171,6 +219,7 @@ NestedPages.Factory = function()
 		});
 		$(document).ready(function(){
 			plugin.formatter.hideAjaxError();
+			plugin.formatter.sizeLinkThumbnails();
 		});
 	}
 
@@ -178,7 +227,7 @@ NestedPages.Factory = function()
 	// Set whether or not post type is nestable
 	plugin.setNestable = function()
 	{
-		var nestable = true;
+		var nestable = false;
 		$.each(NestedPages.jsData.allPostTypes, function(i, v){
 			if ( v.name !== NestedPages.jsData.posttype ) return;
 			if ( v.hierarchical === true ) nestable = true;
@@ -188,10 +237,26 @@ NestedPages.Factory = function()
 	}
 
 
+	// Set whether or not post type is sortable
+	plugin.setSortable = function()
+	{
+		var sortable = true;
+		$.each(NestedPages.jsData.allPostTypes, function(i, v){
+			if ( v.name !== NestedPages.jsData.posttype ) return;
+			if ( typeof v.disable_sorting === 'undefined' || v.disable_sorting === '' ) return;
+			if ( v.disable_sorting === "true" ) sortable = false;
+		});
+		NestedPages.jsData.sortable = sortable;
+	}
+
+
 	// Set the Screen's Post Type
 	plugin.setPostType = function()
 	{
-		NestedPages.jsData.posttype = $(NestedPages.selectors.sortable).attr('id').substring(3);
+		NestedPages.jsData.posttype = nestedpages.current_post_type;
+		if ( typeof NestedPages.jsData.posttype === 'undefined' || NestedPages.jsData.posttype === '' ){
+			NestedPages.jsData.posttype = $(NestedPages.selectors.sortable).attr('id').substring(3);
+		}
 		NestedPages.jsData.hierarchical = NestedPages.jsData.allPostTypes[NestedPages.jsData.posttype].hierarchical;
 	}
 

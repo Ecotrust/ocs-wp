@@ -1,5 +1,4 @@
 <?php 
-
 namespace NestedPages\Entities\Post;
 
 use NestedPages\Entities\User\UserRepository;
@@ -12,7 +11,6 @@ use NestedPages\Entities\NavMenu\NavMenuRepository;
 */
 class PostTrashActions 
 {
-
 	/**
 	* User Repository
 	* @var object
@@ -24,13 +22,12 @@ class PostTrashActions
 	*/
 	private $nav_menu_repo;
 
-
 	public function __construct()
 	{
 		$this->user_repo = new UserRepository;
 		$this->nav_menu_repo = new NavMenuRepository;
-		add_action( 'trashed_post', array( $this, 'trashHook' ) );
-		add_action( 'delete_post', array( $this, 'removeLinkNavItem'), 10 );
+		add_action( 'trashed_post', [$this, 'trashHook']);
+		add_action( 'delete_post', [$this, 'removeLinkNavItem'], 10 );
 	}
 	
 	/**
@@ -81,9 +78,9 @@ class PostTrashActions
 
 		if ( !isset($visible_pages[$post_type]) ) return;
 
-		$child_pages = array();
+		$child_pages = [];
 		
-		$children = new \WP_Query(array('post_type'=>$post_type, 'posts_per_page'=>-1, 'post_parent'=>$post_id));
+		$children = new \WP_Query(['post_type'=>$post_type, 'posts_per_page'=>-1, 'post_parent'=>$post_id]);
 		if ( $children->have_posts() ) : while ( $children->have_posts() ) : $children->the_post();
 			array_push($child_pages, get_the_id());
 		endwhile; endif; wp_reset_postdata();
@@ -94,5 +91,4 @@ class PostTrashActions
 
 		$this->user_repo->updateVisiblePages($post_type, $visible_pages);
 	}
-
 }

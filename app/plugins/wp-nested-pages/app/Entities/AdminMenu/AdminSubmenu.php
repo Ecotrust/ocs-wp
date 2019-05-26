@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace NestedPages\Entities\AdminMenu;
 
 use NestedPages\Entities\PostType\PostTypeRepository;
@@ -9,7 +8,6 @@ use NestedPages\Entities\PostType\PostTypeRepository;
 */
 class AdminSubmenu 
 {
-
 	/**
 	* Post Type
 	* @var string
@@ -27,7 +25,6 @@ class AdminSubmenu
 	*/
 	private $slug;
 
-
 	public function __construct($post_type)
 	{
 		$this->post_type = $post_type;
@@ -41,12 +38,12 @@ class AdminSubmenu
 	public function addSubmenu()
 	{
 		global $submenu;
+		$c = 0;
 		// Get the right submenu and remove all pages link
 		foreach($submenu as $key => $sub){
-
 			if ($key == $this->post_type_repo->editSlug($this->post_type)){
 				// Add the "All Link"
-				$submenu[$this->slug][50] = array( $sub[5][0], 'publish_pages', esc_url(admin_url('admin.php?page=' . $this->slug)) );
+				$submenu[$this->slug][50] = [$sub[5][0], 'edit_pages', esc_url(admin_url('admin.php?page=' . $this->slug))];
 				unset($sub['5']); // Remove Top Level
 				$menu_items = $sub;
 			}
@@ -56,7 +53,7 @@ class AdminSubmenu
 			foreach($menu_items as $item){
 				// Make sure URLs for custom menu items are correct
 				$url = ( isset($item[3]) ) ? 'edit.php?post_type=' . $this->post_type->name . '&page=' . $item[2] : $item[2];
-				$submenu[$this->slug][$c] = array( $item[0], $item[1], esc_url(admin_url($url)) );
+				$submenu[$this->slug][$c] = [$item[0], $item[1], esc_url(admin_url($url))];
 				$c = $c + 10;
 			}
 		}
@@ -70,12 +67,14 @@ class AdminSubmenu
 	private function defaultLink($c)
 	{
 		global $submenu;
-		if ( !$this->post_type_repo->hideDefault($this->post_type->name) ){
-			$submenu[$this->slug][$c] = array( 
-				__('Default','nestedpages') . ' ' . $this->post_type->labels->name, 
-				'publish_pages', 
+		if ( !$this->post_type_repo->postTypeSetting($this->post_type->name, 'hide_default') ){
+			$label = sprintf(__('Default %s', 'wp-nested-pages'), $this->post_type->labels->name);
+			$label = apply_filters('nestedpages_default_submenu_text', $label, $this->post_type);
+			$submenu[$this->slug][$c] = [ 
+				$label, 
+				'edit_pages', 
 				$this->post_type_repo->editSlug($this->post_type)
-			);
+			];
 		}
 	}
 
@@ -86,5 +85,4 @@ class AdminSubmenu
 	{
 		$this->slug = $this->post_type_repo->getMenuSlug($this->post_type);
 	}
-
 }

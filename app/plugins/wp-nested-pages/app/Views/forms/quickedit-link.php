@@ -5,7 +5,7 @@
 
 <form method="get" action="">
 	<div class="form-interior">
-	<h3><?php _e('Link', 'nestedpages'); ?></h3>
+	<h3><?php _e('Link', 'wp-nested-pages'); ?></h3>
 
 	<div class="np-quickedit-error" style="clear:both;display:none;"></div>
 
@@ -39,7 +39,7 @@
 
 	<div class="right">
 
-		<?php if ( $this->user->canSortPages() && !$this->isSearch() ) : // Menu Options Button ?>
+		<?php if ( $this->user->canSortPages() && !$this->listing_repo->isSearch() ) : // Menu Options Button ?>
 		<div class="form-control">
 			<label><?php _e( 'Title Attribute' ); ?></label>
 			<input type="text" name="titleAttribute" class="np_title_attribute" value="" />
@@ -51,13 +51,13 @@
 		<div class="comments">
 			<label>
 				<input type="checkbox" name="nav_status" class="np_nav_status" value="hide" />
-				<span class="checkbox-title"><?php _e( 'Hide in Nav Menu', 'nestedpages' ); ?></span>
+				<span class="checkbox-title"><?php _e( 'Hide in Nav Menu', 'wp-nested-pages' ); ?></span>
 			</label>
 		</div>
 		<div class="comments">
 			<label>
 				<input type="checkbox" name="nested_pages_status" class="np_status" value="hide" />
-				<span class="checkbox-title"><?php _e( 'Hide in Nested Pages', 'nestedpages' ); ?></span>
+				<span class="checkbox-title"><?php _e( 'Hide in Nested Pages', 'wp-nested-pages' ); ?></span>
 			</label>
 		</div>
 		<div class="comments">
@@ -86,6 +86,8 @@
 		<a accesskey="s" href="#inline-edit" class="button-primary np-save-quickedit-redirect alignright">
 			<?php _e( 'Update' ); ?>
 		</a>
-		<span class="np-qe-loading"></span>
+		<div class="np-qe-loading">
+			<?php include( NestedPages\Helpers::asset('images/spinner.svg') ); ?>
+		</div>
 	</div>
 </form>

@@ -20,12 +20,19 @@ NestedPages.Formatter = function()
 			var button = allButtons[i];
 			var row = $(button).parent('.row').parent('li');
 			if ( $(row).children('ol').length > 0 ){ // Row has a child menu
-				
-				var icon = ( $(row).children('ol:visible').length > 0 ) 
-					? NestedPages.cssClasses.iconToggleDown 
-					: NestedPages.cssClasses.iconToggleRight;
 
-				$(button).html('<a href="#"><i class="' + icon + '"></i></a>');
+				// Hide the toggle and child list if all items are in the trash
+				if ( $(row).children('ol').find('li.page-row').length < 1 ){
+					$(row).children('ol').hide();
+					continue;
+				}
+				
+				var open = ( $(row).children('ol:visible').length > 0 ) ? true : false;
+				var html = '<div class="child-toggle-spacer"></div>';
+				html += '<a href="#"';
+				if ( open ) html += ' class="open"';
+				html += '><span class="np-icon-arrow"></span></a>';
+				$(button).html(html);
 
 				if ( ($(row).children('ol').children('.np-hide').length > 0) && ($(row).children('ol').children('.np-hide.shown').length === 0) ){
 					$(button).find('a').hide();
@@ -35,7 +42,7 @@ NestedPages.Formatter = function()
 
 				continue;
 			}
-			$(button).empty(); // No Child Menu
+			$(button).empty().html('<div class="child-toggle-spacer"></div>'); // No Child Menu
 		}
 	}
 
@@ -55,10 +62,15 @@ NestedPages.Formatter = function()
 	{
 		$.each($(NestedPages.selectors.lists), function(i, v){
 			var parent_count = $(this).parents(NestedPages.selectors.lists).length;
-			var padding = 56;
+			var padding = 0;
+			if ( !NestedPages.jsData.sortable ) padding = 10;
 			if ( parent_count > 0 ){
 				var padding = ( parent_count * 20 ) + padding;
 				$(this).find('.row-inner').css('padding-left', padding + 'px');
+				return;
+			}
+			if ( !NestedPages.jsData.sortable || $(this).hasClass('no-sort') ){
+				$(this).find('.row-inner').css('padding-left', '10px');	
 				return;
 			}
 			$(this).find('.row-inner').css('padding-left', '0px');
@@ -135,5 +147,17 @@ NestedPages.Formatter = function()
 		$(NestedPages.selectors.ajaxError).hide();
 	}
 
+
+	// Size the link thumbnails to the same as the page/post thumbnails
+	plugin.sizeLinkThumbnails = function()
+	{
+		var thumbnail = $(NestedPages.selectors.thumbnailContainer).not(NestedPages.selectors.thumbnailContainerLink).first().find('img');
+		var width = $(thumbnail).width();
+		var height = $(thumbnail).height();
+		$.each($(NestedPages.selectors.thumbnailContainerLink), function(){
+			$(this).width(width);
+			$(this).height(height);
+		});
+	}
 
 }

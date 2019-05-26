@@ -1,18 +1,19 @@
-<?php 
-
+<?php
 namespace NestedPages\Config;
 
 use NestedPages\Helpers;
 use NestedPages\Entities\User\UserRepository;
 use NestedPages\Entities\PostType\PostTypeRepository;
 use NestedPages\Config\SettingsRepository;
+use NestedPages\Entities\PluginIntegration\IntegrationFactory;
+use NestedPages\Entities\Listing\ListingRepository;
+use NestedPages\Entities\Post\PostRepository;
 
 /**
 * Plugin Settings
 */
 class Settings 
 {
-
 	/**
 	* Nested Pages Menu
 	* @var object
@@ -25,6 +26,11 @@ class Settings
 	private $user_repo;
 
 	/**
+	* Post Type Repository
+	*/
+	private $post_type_repo;
+
+	/**
 	* Post Types
 	*/
 	private $post_types;
@@ -34,13 +40,32 @@ class Settings
 	*/
 	private $settings;
 
+	/**
+	* Plugin Integration
+	*/
+	private $integrations;
+
+	/**
+	* Listing Repository
+	*/
+	private $listing_repo;
+
+	/**
+	* Post Repository
+	*/
+	private $post_repo;
+
 	public function __construct()
 	{
-		add_action( 'admin_menu', array( $this, 'registerSettingsPage' ) );
-		add_action( 'admin_init', array( $this, 'registerSettings' ) );
-		add_action( 'updated_option', array( $this, 'updateMenuName'), 10, 3);
+		add_action( 'admin_menu', [$this, 'registerSettingsPage' ]);
+		add_action( 'admin_init', [$this, 'registerSettings']);
+		add_action( 'updated_option', [$this, 'updateMenuName'], 10, 3);
 		$this->user_repo = new UserRepository;
 		$this->settings = new SettingsRepository;
+		$this->post_type_repo = new PostTypeRepository;
+		$this->integrations = new IntegrationFactory;
+		$this->listing_repo = new ListingRepository;
+		$this->post_repo = new PostRepository;
 	}
 
 	/**
@@ -50,11 +75,11 @@ class Settings
 	public function registerSettingsPage()
 	{
 		add_options_page( 
-			__('Nested Pages Settings', 'nestedpages'),
-			__('Nested Pages', 'nestedpages'),
+			__('Nested Pages Settings', 'wp-nested-pages'),
+			__('Nested Pages', 'wp-nested-pages'),
 			'manage_options',
 			'nested-pages-settings', 
-			array( $this, 'settingsPage' ) 
+			[$this, 'settingsPage']
 		);
 	}
 
@@ -85,10 +110,10 @@ class Settings
 			if ( $menu ) {
 				delete_option('nestedpages_menu'); // Delete the option to prevent infinite loop
 				update_option('nestedpages_menu', $old_value);
-				wp_update_term($menu->term_id, 'nav_menu', array(
+				wp_update_term($menu->term_id, 'nav_menu', [
 					'name' => $value,
 					'slug' => sanitize_title($value)
-				));
+				]);
 			}
 		}
 	}
@@ -109,8 +134,7 @@ class Settings
 	*/
 	private function getPostTypes()
 	{
-		$post_repo = new PostTypeRepository;
-		return $post_repo->getPostTypesObject();
+		return $this->post_type_repo->getPostTypesObject();
 	}
 
 	/**
@@ -123,5 +147,4 @@ class Settings
 		$tab = ( isset($_GET['tab']) ) ? $_GET['tab'] : 'general';
 		include( Helpers::view('settings/settings') );
 	}	
-
 }

@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace NestedPages\Entities\AdminMenu;
 
 use NestedPages\Entities\PostType\PostTypeRepository;
@@ -13,7 +12,6 @@ use NestedPages\Entities\User\UserRepository;
 */
 class EnabledMenus 
 {
-
 	/**
 	* Post Type
 	*/
@@ -34,7 +32,6 @@ class EnabledMenus
 	* User Repository
 	*/
 	private $user;
-
 
 	public function __construct()
 	{
@@ -58,6 +55,7 @@ class EnabledMenus
 	private function loopEnabledTypes()
 	{
 		$c = 1; // Counter for position
+		global $np_page_params;
 		foreach($this->enabled_types as $key => $type){	
 			if ( $type->np_enabled !== true ) continue;
 			if ( $type->replace_menu ) {
@@ -69,9 +67,10 @@ class EnabledMenus
 				}
 			} else {
 				$default = new AdminSubmenuDefault($type);
+				$np_page_params[$default->getHook()] = ['post_type' => $type->name];
 			}
 			$c++;
-		}		
+		}
 	}
 
 	/**
@@ -80,7 +79,8 @@ class EnabledMenus
 	*/
 	private function addMenu($c)
 	{
-		add_menu_page( 
+		global $np_page_params;
+		$hook = add_menu_page( 
 			__($this->post_type->labels->name),
 			__($this->post_type->labels->name),
 			$this->post_type->cap->edit_posts,
@@ -89,6 +89,7 @@ class EnabledMenus
 			$this->menuIcon(),
 			$this->menuPosition($c)
 		);
+		$np_page_params[$hook] = ['post_type' => $this->post_type->name];
 	}
 
 	/**
@@ -106,7 +107,7 @@ class EnabledMenus
 	private function removeExistingMenu()
 	{
 		remove_menu_page('edit.php?post_type=' . $this->post_type->name);
-		if (in_array('post', $this->enabled_types)) remove_menu_page('edit.php');
+		if ( $this->post_type->name == 'post' ) remove_menu_page('edit.php');
 	}
 
 	/**
@@ -140,5 +141,4 @@ class EnabledMenus
 	{
 		return $this->post_type_repo->getMenuSlug($this->post_type);
 	}
-
 }

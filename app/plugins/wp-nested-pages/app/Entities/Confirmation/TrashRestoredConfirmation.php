@@ -1,5 +1,4 @@
 <?php
-
 namespace NestedPages\Entities\Confirmation;
 
 /**
@@ -7,13 +6,11 @@ namespace NestedPages\Entities\Confirmation;
 */
 class TrashRestoredConfirmation implements ConfirmationInterface
 {
-
 	public function setMessage()
 	{
 		$untrashed = sanitize_text_field($_GET['untrashed']);
-		$page = ( intval($untrashed) > 1 ) ? __('pages', 'nestedpages') : __('page', 'nestedpages');
-		$out = $untrashed . ' ' . $page . ' ' . __('restored from trash.', 'nestedpages');
+		$label = ( intval($untrashed) > 1 ) ? __('items', 'wp-nested-pages') : __('item', 'wp-nested-pages');
+		$out = $untrashed . ' ' . $label . ' ' . __('restored from trash.', 'wp-nested-pages');
 		return $out;
 	}
-
 }

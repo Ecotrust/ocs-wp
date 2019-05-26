@@ -45,19 +45,19 @@ class TablePress_Edit_View extends TablePress_View {
 		};
 
 		$action_messages = array(
-			'success_save' => __( 'The table was saved successfully.', 'tablepress' ),
-			'success_add' => __( 'The table was added successfully.', 'tablepress' ),
-			'success_copy' => _n( 'The table was copied successfully.', 'The tables were copied successfully.', 1, 'tablepress' ) . ' ' . sprintf( __( 'You are now seeing the copied table, which has the table ID &#8220;%s&#8221;.', 'tablepress' ), esc_html( $data['table']['id'] ) ),
-			'success_import' => __( 'The table was imported successfully.', 'tablepress' ),
+			'success_save'                     => __( 'The table was saved successfully.', 'tablepress' ),
+			'success_add'                      => __( 'The table was added successfully.', 'tablepress' ),
+			'success_copy'                     => _n( 'The table was copied successfully.', 'The tables were copied successfully.', 1, 'tablepress' ) . ' ' . sprintf( __( 'You are now seeing the copied table, which has the table ID &#8220;%s&#8221;.', 'tablepress' ), esc_html( $data['table']['id'] ) ),
+			'success_import'                   => __( 'The table was imported successfully.', 'tablepress' ),
 			'success_import_wp_table_reloaded' => __( 'The table was imported successfully from WP-Table Reloaded.', 'tablepress' ),
-			'error_save' => __( 'Error: The table could not be saved.', 'tablepress' ),
-			'error_delete' => __( 'Error: The table could not be deleted.', 'tablepress' ),
-			'success_save_success_id_change' => __( 'The table was saved successfully, and the table ID was changed.', 'tablepress' ),
-			'success_save_error_id_change' => __( 'The table was saved successfully, but the table ID could not be changed!', 'tablepress' ),
+			'error_save'                       => __( 'Error: The table could not be saved.', 'tablepress' ),
+			'error_delete'                     => __( 'Error: The table could not be deleted.', 'tablepress' ),
+			'success_save_success_id_change'   => __( 'The table was saved successfully, and the table ID was changed.', 'tablepress' ),
+			'success_save_error_id_change'     => __( 'The table was saved successfully, but the table ID could not be changed!', 'tablepress' ),
 		);
 		// Custom handling instead of $this->process_action_messages(). Also, $action_messages is used below.
 		if ( $data['message'] && isset( $action_messages[ $data['message'] ] ) ) {
-			$class = ( 'error' === substr( $data['message'], 0, 5 ) || in_array( $data['message'], array( 'success_save_error_id_change' ), true ) ) ? 'notice-error' : 'notice-success' ;
+			$class = ( 'error' === substr( $data['message'], 0, 5 ) || in_array( $data['message'], array( 'success_save_error_id_change' ), true ) ) ? 'notice-error' : 'notice-success';
 			$this->add_header_message( "<strong>{$action_messages[ $data['message'] ]}</strong>", $class );
 		}
 
@@ -85,7 +85,7 @@ class TablePress_Edit_View extends TablePress_View {
 				 *
 				 * @param bool $print Whether debug output shall be printed.
 				 */
-				'print_debug_output' => apply_filters( 'tablepress_print_debug_output', isset( $_GET['debug'] ) ? ( 'true' === $_GET['debug'] ) : WP_DEBUG ),
+				'print_debug_output'    => apply_filters( 'tablepress_print_debug_output', isset( $_GET['debug'] ) ? ( 'true' === $_GET['debug'] ) : WP_DEBUG ),
 				/**
 				 * Filter whether the "Advanced Editor" button shall be enabled.
 				 *
@@ -101,51 +101,51 @@ class TablePress_Edit_View extends TablePress_View {
 				 *
 				 * @param bool $auto_grow Whether the size of the cell textareas shall increase. Default true.
 				 */
-				'cells_auto_grow' => apply_filters( 'tablepress_edit_cells_auto_grow', true ),
-				'shortcode' => esc_js( TablePress::$shortcode ),
+				'cells_auto_grow'       => apply_filters( 'tablepress_edit_cells_auto_grow', true ),
+				'shortcode'             => esc_js( TablePress::$shortcode ),
 			),
 			'strings' => array_merge( array(
-				'no_remove_all_rows' => __( 'You can not delete all table rows!', 'tablepress' ),
-				'no_remove_all_columns' => __( 'You can not delete all table columns!', 'tablepress' ),
-				'no_rows_selected' => __( 'You did not select any rows!', 'tablepress' ),
-				'no_columns_selected' => __( 'You did not select any columns!', 'tablepress' ),
-				'append_num_rows_invalid' => __( 'The value for the number of rows is invalid!', 'tablepress' ),
-				'append_num_columns_invalid' => __( 'The value for the number of columns is invalid!', 'tablepress' ),
-				'ays_remove_rows_singular' => _n( 'Do you really want to delete the selected row?', 'Do you really want to delete the selected rows?', 1, 'tablepress' ),
-				'ays_remove_rows_plural' => _n( 'Do you really want to delete the selected row?', 'Do you really want to delete the selected rows?', 2, 'tablepress' ),
-				'ays_remove_columns_singular' => _n( 'Do you really want to delete the selected column?', 'Do you really want to delete the selected columns?', 1, 'tablepress' ),
-				'ays_remove_columns_plural' => _n( 'Do you really want to delete the selected column?', 'Do you really want to delete the selected columns?', 2, 'tablepress' ),
-				'advanced_editor_open' => __( 'Please click into the cell that you want to edit using the &#8220;Advanced Editor&#8221;.', 'tablepress' ),
-				'rowspan_add' => __( 'To combine cells within a column, click into the cell below the cell that has the content the combined cells shall have.', 'tablepress' ),
-				'colspan_add' => __( 'To combine cells within a row, click into the cell to the right of the cell that has the content the combined cells shall have.', 'tablepress' ),
-				'span_add_datatables_warning' => __( 'Attention: You have enabled the usage of the DataTables JavaScript library for features like sorting, search, or pagination.', 'tablepress' ) . "\n" .
+				'no_remove_all_rows'             => __( 'You can not delete all table rows!', 'tablepress' ),
+				'no_remove_all_columns'          => __( 'You can not delete all table columns!', 'tablepress' ),
+				'no_rows_selected'               => __( 'You did not select any rows!', 'tablepress' ),
+				'no_columns_selected'            => __( 'You did not select any columns!', 'tablepress' ),
+				'append_num_rows_invalid'        => __( 'The value for the number of rows is invalid!', 'tablepress' ),
+				'append_num_columns_invalid'     => __( 'The value for the number of columns is invalid!', 'tablepress' ),
+				'ays_remove_rows_singular'       => _n( 'Do you really want to delete the selected row?', 'Do you really want to delete the selected rows?', 1, 'tablepress' ),
+				'ays_remove_rows_plural'         => _n( 'Do you really want to delete the selected row?', 'Do you really want to delete the selected rows?', 2, 'tablepress' ),
+				'ays_remove_columns_singular'    => _n( 'Do you really want to delete the selected column?', 'Do you really want to delete the selected columns?', 1, 'tablepress' ),
+				'ays_remove_columns_plural'      => _n( 'Do you really want to delete the selected column?', 'Do you really want to delete the selected columns?', 2, 'tablepress' ),
+				'advanced_editor_open'           => __( 'Please click into the cell that you want to edit using the &#8220;Advanced Editor&#8221;.', 'tablepress' ),
+				'rowspan_add'                    => __( 'To combine cells within a column, click into the cell below the cell that has the content the combined cells shall have.', 'tablepress' ),
+				'colspan_add'                    => __( 'To combine cells within a row, click into the cell to the right of the cell that has the content the combined cells shall have.', 'tablepress' ),
+				'span_add_datatables_warning'    => __( 'Attention: You have enabled the usage of the DataTables JavaScript library for features like sorting, search, or pagination.', 'tablepress' ) . "\n" .
 								__( 'Unfortunately, these can not be used in tables with combined cells.', 'tablepress' ) . "\n" .
 								__( 'Do you want to proceed and automatically turn off the usage of DataTables for this table?', 'tablepress' ),
-				'link_add' => __( 'Please click into the cell that you want to add a link to.', 'tablepress' ) . "\n" .
+				'link_add'                       => __( 'Please click into the cell that you want to add a link to.', 'tablepress' ) . "\n" .
 								__( 'You can then enter the Link URL and Text or choose an existing page or post.', 'tablepress' ),
-				'image_add' => __( 'Please click into the cell that you want to add an image to.', 'tablepress' ) . "\n" .
+				'image_add'                      => __( 'Please click into the cell that you want to add an image to.', 'tablepress' ) . "\n" .
 								__( 'The Media Library will open, where you can select or upload the desired image or enter the image URL.', 'tablepress' ) . "\n" .
 								sprintf( __( 'Click the &#8220;%s&#8221; button to insert the image.', 'tablepress' ), __( 'Insert into Table', 'tablepress' ) ),
-				'unsaved_changes_unload' => __( 'The changes to this table were not saved yet and will be lost if you navigate away from this page.', 'tablepress' ),
-				'preparing_preview' => __( 'The Table Preview is being loaded...', 'tablepress' ),
-				'preview_error' => __( 'The Table Preview could not be loaded.', 'tablepress' ),
-				'save_changes_success' => __( 'Saving successful', 'tablepress' ),
-				'save_changes_error' => __( 'Saving failed', 'tablepress' ),
-				'saving_changes' => __( 'Changes are being saved...', 'tablepress' ),
-				'table_id_not_empty' => __( 'The Table ID field can not be empty. Please enter a Table ID!', 'tablepress' ),
-				'table_id_not_zero' => __( 'The Table ID &#8220;0&#8221; is not supported. Please enter a different Table ID!', 'tablepress' ),
-				'ays_change_table_id' => __( 'Do you really want to change the Table ID? All Shortcodes for this table in your pages and posts will have to be adjusted!', 'tablepress' ),
-				'extra_css_classes_invalid' => __( 'The entered value in the field &#8220;Extra CSS classes&#8221; is invalid.', 'tablepress' ),
+				'unsaved_changes_unload'         => __( 'The changes to this table were not saved yet and will be lost if you navigate away from this page.', 'tablepress' ),
+				'preparing_preview'              => __( 'The Table Preview is being loaded...', 'tablepress' ),
+				'preview_error'                  => __( 'The Table Preview could not be loaded.', 'tablepress' ),
+				'save_changes_success'           => __( 'Saving successful', 'tablepress' ),
+				'save_changes_error'             => __( 'Saving failed', 'tablepress' ),
+				'saving_changes'                 => __( 'Changes are being saved...', 'tablepress' ),
+				'table_id_not_empty'             => __( 'The Table ID field can not be empty. Please enter a Table ID!', 'tablepress' ),
+				'table_id_not_zero'              => __( 'The Table ID &#8220;0&#8221; is not supported. Please enter a different Table ID!', 'tablepress' ),
+				'ays_change_table_id'            => __( 'Do you really want to change the Table ID? All Shortcodes for this table in your pages and posts will have to be adjusted!', 'tablepress' ),
+				'extra_css_classes_invalid'      => __( 'The entered value in the field &#8220;Extra CSS classes&#8221; is invalid.', 'tablepress' ),
 				'num_pagination_entries_invalid' => __( 'The entered value in the field &#8220;Pagination Entries&#8221; is not a number.', 'tablepress' ),
-				'sort_asc' => __( 'Sort ascending', 'tablepress' ),
-				'sort_desc' => __( 'Sort descending', 'tablepress' ),
-				'no_rowspan_first_row' => __( 'You can not add rowspan to the first row!', 'tablepress' ),
-				'no_colspan_first_col' => __( 'You can not add colspan to the first column!', 'tablepress' ),
-				'no_rowspan_table_head' => __( 'You can not connect cells into the table head row!', 'tablepress' ),
-				'no_rowspan_table_foot' => __( 'You can not connect cells out of the table foot row!', 'tablepress' ),
+				'sort_asc'                       => __( 'Sort ascending', 'tablepress' ),
+				'sort_desc'                      => __( 'Sort descending', 'tablepress' ),
+				'no_rowspan_first_row'           => __( 'You can not add rowspan to the first row!', 'tablepress' ),
+				'no_colspan_first_col'           => __( 'You can not add colspan to the first column!', 'tablepress' ),
+				'no_rowspan_table_head'          => __( 'You can not connect cells into the table head row!', 'tablepress' ),
+				'no_rowspan_table_foot'          => __( 'You can not connect cells out of the table foot row!', 'tablepress' ),
 			),
 			// Merge this to have messages available for AJAX after save dialog.
-			$action_messages ),
+			$action_messages )
 		) );
 
 		$this->add_text_box( 'head', array( $this, 'textbox_head' ), 'normal' );
@@ -193,7 +193,8 @@ class TablePress_Edit_View extends TablePress_View {
 	 */
 	protected function action_nonce_field( array $data, array $box ) {
 		// use custom nonce field here, that includes the table ID
-		wp_nonce_field( TablePress::nonce( $this->action, $data['table']['id'] ), 'nonce-edit-table' ); echo "\n";
+		wp_nonce_field( TablePress::nonce( $this->action, $data['table']['id'] ), 'nonce-edit-table' );
+		echo "\n";
 		wp_nonce_field( TablePress::nonce( 'preview_table', $data['table']['id'] ), 'nonce-preview-table', false, true );
 	}
 
@@ -210,7 +211,7 @@ class TablePress_Edit_View extends TablePress_View {
 <table class="tablepress-postbox-table fixed">
 <tbody>
 	<tr class="bottom-border">
-		<th class="column-1" scope="row"><label for="table-id"><?php _e( 'Table ID', 'tablepress' ); ?>:</label></th>
+		<th class="column-1" scope="row"><label for="table-new-id"><?php _e( 'Table ID', 'tablepress' ); ?>:</label></th>
 		<td class="column-2">
 			<input type="hidden" name="table[id]" id="table-id" value="<?php echo esc_attr( $data['table']['id'] ); ?>" />
 			<input type="text" name="table[new_id]" id="table-new-id" value="<?php echo esc_attr( $data['table']['id'] ); ?>" title="<?php esc_attr_e( 'The Table ID can only consist of letters, numbers, hyphens (-), and underscores (_).', 'tablepress' ); ?>" pattern="[A-Za-z0-9-_]+" required <?php echo ( ! current_user_can( 'tablepress_edit_table_id', $data['table']['id'] ) ) ? 'readonly ' : ''; ?>/>
@@ -273,8 +274,8 @@ class TablePress_Edit_View extends TablePress_View {
 <table id="edit-form" class="tablepress-edit-screen-id-<?php echo esc_attr( $data['table']['id'] ); ?>">
 	<thead>
 		<tr id="edit-form-head">
-			<th></th>
-			<th></th>
+			<th scope="col"><span class="screen-reader-text"><?php esc_html_e( 'Row Number', 'tablepress' ); ?></span></th>
+			<th scope="col"><span class="screen-reader-text"><?php esc_html_e( 'Bulk action selectors for rows', 'tablepress' ); ?></span></th>
 <?php
 	for ( $col_idx = 0; $col_idx < $columns; $col_idx++ ) {
 		$column_class = '';
@@ -282,10 +283,10 @@ class TablePress_Edit_View extends TablePress_View {
 			$column_class = ' column-hidden';
 		}
 		$column = TablePress::number_to_letter( $col_idx + 1 );
-		echo "\t\t\t<th class=\"head{$column_class}\"><span class=\"sort-control sort-desc hide-if-no-js\" title=\"" . esc_attr__( 'Sort descending', 'tablepress' ) . "\"><span class=\"sorting-indicator\"></span></span><span class=\"sort-control sort-asc hide-if-no-js\" title=\"" . esc_attr__( 'Sort ascending', 'tablepress' ) . "\"><span class=\"sorting-indicator\"></span></span><span class=\"move-handle\">{$column}</span></th>\n";
+		echo "\t\t\t<th scope=\"col\" class=\"head{$column_class}\"><span class=\"sort-control sort-desc hide-if-no-js\" title=\"" . esc_attr__( 'Sort descending', 'tablepress' ) . '"><span class="sorting-indicator"></span></span><span class="sort-control sort-asc hide-if-no-js" title="' . esc_attr__( 'Sort ascending', 'tablepress' ) . "\"><span class=\"sorting-indicator\"></span></span><span class=\"move-handle\">{$column}</span></th>\n";
 	}
 ?>
-			<th></th>
+			<th scope="col"><span class="screen-reader-text"><?php esc_html_e( 'Row Number', 'tablepress' ); ?></span></th>
 		</tr>
 	</thead>
 	<tbody id="edit-form-body">
@@ -305,9 +306,10 @@ class TablePress_Edit_View extends TablePress_View {
 			$classes[] = 'row-hidden';
 		}
 		$row_class = ( ! empty( $classes ) ) ? ' class="' . implode( ' ', $classes ) . '"' : '';
+		$row_selector_text = esc_html( sprintf( __( 'Bulk action selector for row %s', 'tablepress' ), number_format_i18n( $row ) ) );
 		echo "\t\t<tr{$row_class}>\n";
 		echo "\t\t\t<td><span class=\"move-handle\">{$row}</span></td>";
-		echo "<td><input type=\"checkbox\" class=\"hide-if-no-js\" /><input type=\"hidden\" class=\"visibility\" name=\"table[visibility][rows][]\" value=\"{$visibility['rows'][ $row_idx ]}\" /></td>";
+		echo "<td><label class=\"hide-if-no-js\"><span class=\"screen-reader-text\">{$row_selector_text}</span><input type=\"checkbox\" /><input type=\"hidden\" class=\"visibility\" name=\"table[visibility][rows][]\" value=\"{$visibility['rows'][ $row_idx ]}\" /></label></td>";
 		foreach ( $row_data as $col_idx => $cell ) {
 			$column = TablePress::number_to_letter( $col_idx + 1 );
 			$column_class = '';
@@ -316,7 +318,8 @@ class TablePress_Edit_View extends TablePress_View {
 			}
 			// Sanitize, so that HTML is possible in table cells.
 			$cell = esc_textarea( $cell );
-			echo "<td{$column_class}><textarea name=\"table[data][{$row_idx}][{$col_idx}]\" id=\"cell-{$column}{$row}\" rows=\"1\">{$cell}</textarea></td>";
+			$cell_label = esc_html( sprintf( __( 'Column %1$s, Row %2$s', 'tablepress' ), number_format_i18n( $col_idx + 1 ), number_format_i18n( $row ) ) );
+			echo "<td{$column_class}><label for=\"cell-{$column}{$row}\"><span class=\"screen-reader-text\">{$cell_label}</span></label><textarea name=\"table[data][{$row_idx}][{$col_idx}]\" id=\"cell-{$column}{$row}\" rows=\"1\">{$cell}</textarea></td>";
 		}
 		echo "<td><span class=\"move-handle\">{$row}</span></td>\n";
 		echo "\t\t</tr>\n";
@@ -325,19 +328,20 @@ class TablePress_Edit_View extends TablePress_View {
 	</tbody>
 	<tfoot>
 		<tr id="edit-form-foot">
-			<th></th>
-			<th></th>
+			<th scope="col"><span class="screen-reader-text"><?php esc_html_e( 'Row Number', 'tablepress' ); ?></span></th>
+			<th scope="col"><span class="screen-reader-text"><?php esc_html_e( 'Bulk action selectors for rows', 'tablepress' ); ?></span></th>
 <?php
 	for ( $col_idx = 0; $col_idx < $columns; $col_idx++ ) {
 		$column_class = '';
 		if ( 0 === $visibility['columns'][ $col_idx ] ) {
 			$column_class = ' class="column-hidden"';
 		}
-		echo "\t\t\t<th{$column_class}><input type=\"checkbox\" class=\"hide-if-no-js\" />";
+		$column_selector_text = esc_html( sprintf( __( 'Bulk action selector for column %s', 'tablepress' ), TablePress::number_to_letter( $col_idx + 1 ) ) );
+		echo "\t\t\t<th scope=\"col\" {$column_class}><label class=\"hide-if-no-js\"><span class=\"screen-reader-text\">{$column_selector_text}</span><input type=\"checkbox\" /></label>";
 		echo "<input type=\"hidden\" class=\"visibility\" name=\"table[visibility][columns][]\" value=\"{$visibility['columns'][ $col_idx ]}\" /></th>\n";
 	}
 ?>
-			<th></th>
+			<th scope="col"><span class="screen-reader-text"><?php esc_html_e( 'Row Number', 'tablepress' ); ?></span></th>
 		</tr>
 	</tfoot>
 </table>
@@ -361,7 +365,7 @@ class TablePress_Edit_View extends TablePress_View {
 	<tr class="bottom-border">
 		<td class="column-1">
 			<input type="button" class="button" id="link-add" value="<?php esc_attr_e( 'Insert Link', 'tablepress' ); ?>" />
-            <input type="button" class="button" id="image-add" value="<?php esc_attr_e( 'Insert Image', 'tablepress' ); ?>" />
+			<input type="button" class="button" id="image-add" value="<?php esc_attr_e( 'Insert Image', 'tablepress' ); ?>" />
 			<input type="button" class="button" id="advanced-editor-open" value="<?php esc_attr_e( 'Advanced Editor', 'tablepress' ); ?>" />
 		</td>
 		<td class="column-2">
@@ -369,7 +373,8 @@ class TablePress_Edit_View extends TablePress_View {
 			<input type="button" class="button" id="span-add-rowspan" value="<?php esc_attr_e( 'in a column (rowspan)', 'tablepress' ); ?>" />
 			<input type="button" class="button" id="span-add-colspan" value="<?php esc_attr_e( 'in a row (colspan)', 'tablepress' ); ?>" />
 			<input type="button" class="button show-help-box" value="<?php esc_attr_e( '?', 'tablepress' ); ?>" title="<?php esc_attr_e( 'Help on combining cells', 'tablepress' ); ?>" />
-			<div class="hidden-container hidden-help-box-container"><?php
+			<div class="hidden-container hidden-help-box-container">
+			<?php
 				echo '<p>' . __( 'Table cells can span across more than one column or row.', 'tablepress' ) . '</p>';
 				echo '<p>' . __( 'Combining consecutive cells within the same row is called &#8220;colspanning&#8221;.', 'tablepress' )
 					. ' ' . __( 'Combining consecutive cells within the same column is called &#8220;rowspanning&#8221;.', 'tablepress' ) . '</p>';
@@ -377,7 +382,8 @@ class TablePress_Edit_View extends TablePress_View {
 					. ' ' . __( 'To combine adjacent cells in a column, add the keyword <code>#rowspan#</code> to the cell below the one with the content for the combined cell by using the corresponding button.', 'tablepress' ) . '</p>';
 				echo '<p>' . __( 'Repeat this to add the keyword to all cells that shall be connected.', 'tablepress' ) . '</p>';
 				echo '<p><strong>' . __( 'Be aware that the functions of the DataTables JavaScript library will not work on tables which have combined cells.', 'tablepress' ) . '</strong></p>';
-			?></div>
+			?>
+			</div>
 		</td>
 	</tr>
 	<tr class="top-border">
@@ -408,10 +414,10 @@ class TablePress_Edit_View extends TablePress_View {
 	</tr>
 	<tr class="top-border">
 		<td class="column-1">
-			<?php printf( __( 'Add %s row(s)', 'tablepress' ), '<input type="number" id="rows-append-number" class="small-text numbers-only" title="' . esc_attr__( 'This field must contain a positive number.', 'tablepress' ) . '" value="1" min="1" max="99999" maxlength="5" required />' ); ?>&nbsp;<input type="button" class="button" id="rows-append" value="<?php esc_attr_e( 'Add', 'tablepress' ); ?>" />
+			<label><?php printf( __( 'Add %s row(s)', 'tablepress' ), '<input type="number" id="rows-append-number" class="small-text numbers-only" title="' . esc_attr__( 'This field must contain a positive number.', 'tablepress' ) . '" value="1" min="1" max="99999" maxlength="5" required />' ); ?></label>&nbsp;<input type="button" class="button" id="rows-append" value="<?php esc_attr_e( 'Add', 'tablepress' ); ?>" />
 		</td>
 		<td class="column-2">
-			<?php printf( __( 'Add %s column(s)', 'tablepress' ), '<input type="number" id="columns-append-number" class="small-text numbers-only" title="' . esc_attr__( 'This field must contain a positive number.', 'tablepress' ) . '" value="1" min="1" max="99999" maxlength="5" required />' ); ?>&nbsp;<input type="button" class="button" id="columns-append" value="<?php esc_attr_e( 'Add', 'tablepress' ); ?>" />
+			<label><?php printf( __( 'Add %s column(s)', 'tablepress' ), '<input type="number" id="columns-append-number" class="small-text numbers-only" title="' . esc_attr__( 'This field must contain a positive number.', 'tablepress' ) . '" value="1" min="1" max="99999" maxlength="5" required />' ); ?></label>&nbsp;<input type="button" class="button" id="columns-append" value="<?php esc_attr_e( 'Add', 'tablepress' ); ?>" />
 		</td>
 	</tr>
 </table>
@@ -484,11 +490,12 @@ class TablePress_Edit_View extends TablePress_View {
 ?>
 <div class="hidden-container">
 	<div id="advanced-editor">
+		<label for="advanced-editor-content" class="screen-reader-text"><?php esc_html_e( 'Advanced Editor', 'tablepress' ); ?></label>
 	<?php
 		$wp_editor_options = array(
 			'textarea_rows' => 10,
-			'tinymce' => false,
-			'quicktags' => array(
+			'tinymce'       => false,
+			'quicktags'     => array(
 				'buttons' => 'strong,em,link,del,ins,img,code,spell,close',
 			),
 		);
@@ -536,24 +543,24 @@ class TablePress_Edit_View extends TablePress_View {
 		<td class="column-2"><label for="option-row-hover"><input type="checkbox" id="option-row-hover" name="table[options][row_hover]" value="true"<?php checked( $options['row_hover'] ); ?> /> <?php _e( 'Highlight a row while the mouse cursor hovers above it by changing its background color.', 'tablepress' ); ?></label></td>
 	</tr>
 	<tr class="top-border">
-		<th class="column-1" scope="row"><?php _e( 'Print Table Name', 'tablepress' ); ?>:</th>
+		<th class="column-1" scope="row"><label for="option-print-name"><?php _e( 'Print Table Name', 'tablepress' ); ?></label>:</th>
 		<?php
 			$position_select = '<select id="option-print-name-position" name="table[options][print_name_position]">';
 			$position_select .= '<option' . selected( 'above', $options['print_name_position'], false ) . ' value="above">' . __( 'above', 'tablepress' ) . '</option>';
 			$position_select .= '<option' . selected( 'below', $options['print_name_position'], false ) . ' value="below">' . __( 'below', 'tablepress' ) . '</option>';
 			$position_select .= '</select>';
 		?>
-		<td class="column-2"><input type="checkbox" id="option-print-name" name="table[options][print_name]" value="true"<?php checked( $options['print_name'] ); ?> /> <?php printf( __( 'Show the table name %s the table.', 'tablepress' ), $position_select ); ?></td>
+		<td class="column-2"><input type="checkbox" id="option-print-name" name="table[options][print_name]" value="true"<?php checked( $options['print_name'] ); ?> /> <label><?php printf( __( 'Show the table name %s the table.', 'tablepress' ), $position_select ); ?></label></td>
 	</tr>
 	<tr class="bottom-border">
-		<th class="column-1" scope="row"><?php _e( 'Print Table Description', 'tablepress' ); ?>:</th>
+		<th class="column-1" scope="row"><label for="option-print-description"><?php _e( 'Print Table Description', 'tablepress' ); ?></label>:</th>
 		<?php
 			$position_select = '<select id="option-print-description-position" name="table[options][print_description_position]">';
 			$position_select .= '<option' . selected( 'above', $options['print_description_position'], false ) . ' value="above">' . __( 'above', 'tablepress' ) . '</option>';
 			$position_select .= '<option' . selected( 'below', $options['print_description_position'], false ) . ' value="below">' . __( 'below', 'tablepress' ) . '</option>';
 			$position_select .= '</select>';
 		?>
-		<td class="column-2"><input type="checkbox" id="option-print-description" name="table[options][print_description]" value="true"<?php checked( $options['print_description'] ); ?> /> <?php printf( __( 'Show the table description %s the table.', 'tablepress' ), $position_select ); ?></td>
+		<td class="column-2"><input type="checkbox" id="option-print-description" name="table[options][print_description]" value="true"<?php checked( $options['print_description'] ); ?> /> <label><?php printf( __( 'Show the table description %s the table.', 'tablepress' ), $position_select ); ?></label></td>
 	</tr>
 	<tr class="top-border">
 		<th class="column-1" scope="row"><?php _e( 'Extra CSS Classes', 'tablepress' ); ?>:</th>
@@ -593,7 +600,7 @@ class TablePress_Edit_View extends TablePress_View {
 	<tr>
 		<th class="column-1" scope="row" style="vertical-align: top;"><?php _e( 'Pagination', 'tablepress' ); ?>:</th>
 		<td class="column-2"><label for="option-datatables-paginate"><input type="checkbox" id="option-datatables-paginate" name="table[options][datatables_paginate]" value="true"<?php checked( $options['datatables_paginate'] ); ?> /> <?php _e( 'Enable pagination of the table (viewing only a certain number of rows at a time) by the visitor.', 'tablepress' ); ?></label><br />
-		<label for="option-datatables-paginate_entries"><input type="checkbox" style="visibility: hidden;" <?php // Dummy checkbox for space alignment ?>/> <?php printf( __( 'Show %s rows per page.', 'tablepress' ), '<input type="number" id="option-datatables-paginate_entries" name="table[options][datatables_paginate_entries]" value="' . intval( $options['datatables_paginate_entries'] ) . '" min="1" max="99999" maxlength="5" required />' ); ?></label></td>
+		<label for="option-datatables-paginate_entries" class="checkbox-left"><?php printf( __( 'Show %s rows per page.', 'tablepress' ), '<input type="number" id="option-datatables-paginate_entries" name="table[options][datatables_paginate_entries]" value="' . intval( $options['datatables_paginate_entries'] ) . '" min="1" max="99999" maxlength="5" required />' ); ?></label></td>
 	</tr>
 	<tr>
 		<th class="column-1" scope="row"><?php _e( 'Pagination Length Change', 'tablepress' ); ?>:</th>
@@ -612,7 +619,7 @@ class TablePress_Edit_View extends TablePress_View {
 	?>
 	<tr class="<?php echo current_user_can( 'unfiltered_html' ) ? 'top-border' : 'hidden'; ?>">
 		<th class="column-1" scope="row"><?php _e( 'Custom Commands', 'tablepress' ); ?>:</th>
-		<td class="column-2"><label for="option-datatables-custom-commands"><input type="text" id="option-datatables-custom-commands" class="large-text" name="table[options][datatables_custom_commands]" value="<?php echo esc_attr( $options['datatables_custom_commands'] ); ?>" /><p class="description"><?php echo __( 'Additional parameters from the <a href="http://www.datatables.net/">DataTables documentation</a> to be added to the JS call.', 'tablepress' ) . ' ' . __( 'For advanced use only.', 'tablepress' ); ?></p></label></td>
+		<td class="column-2"><label for="option-datatables-custom-commands"><textarea id="option-datatables-custom-commands" class="large-text" name="table[options][datatables_custom_commands]" rows="1"><?php echo esc_textarea( $options['datatables_custom_commands'] ); ?></textarea><p class="description"><?php echo sprintf( __( 'Additional parameters from the <a href="%s">DataTables documentation</a> to be added to the JS call.', 'tablepress' ), 'https://www.datatables.net/' ) . ' ' . __( 'For advanced use only.', 'tablepress' ); ?></p></label></td>
 	</tr>
 </tbody>
 </table>
@@ -635,7 +642,7 @@ class TablePress_Edit_View extends TablePress_View {
 				<?php
 					printf( __( 'The internal data of table &#8220;%1$s&#8221; (ID %2$s) is corrupted.', 'tablepress' ), esc_html( $data['table']['name'] ), esc_html( $data['table']['id'] ) );
 					echo ' ';
-					printf( __( 'The following error was registered: <code>%s</code>.', 'tablepress' ), esc_html( $data['table']['json_error'] ) );
+					printf( __( 'The following error was registered: %s.', 'tablepress' ), '<code>' . esc_html( $data['table']['json_error'] ) . '</code>' );
 				?>
 			</p>
 			<p>
@@ -669,7 +676,8 @@ class TablePress_Edit_View extends TablePress_View {
 		<?php _e( 'For example, you can insert things like text, images, or links into the table, or change the used table features. You can also insert, delete, move, hide, and swap columns and rows.', 'tablepress' ); ?>
 	</p>
 	<p>
-		<?php printf( __( 'To insert the table into a page, post, or text widget, copy the Shortcode %s and paste it at the desired place in the editor.', 'tablepress' ), '<input type="text" class="table-shortcode table-shortcode-inline" value="' . esc_attr( '[' . TablePress::$shortcode . " id={$data['table']['id']} /]" ) . '" readonly="readonly" />' ); ?>
+		<label class="screen-reader-only" for="table-shortcode-inline"><?php esc_html_e( 'Shortcode text for editor', 'tablepress' ); ?></label>
+		<?php printf( __( 'To insert the table into a page, post, or text widget, copy the Shortcode %s and paste it at the desired place in the editor.', 'tablepress' ), '<input type="text" id="table-shortcode-inline" class="table-shortcode table-shortcode-inline" value="' . esc_attr( '[' . TablePress::$shortcode . " id={$data['table']['id']} /]" ) . '" readonly="readonly" />' ); ?>
 	</p>
 		<?php
 	}

@@ -3,13 +3,13 @@
 Plugin Name: TablePress Extension: Responsive Tables
 Plugin URI: https://tablepress.org/extensions/responsive-tables/
 Description: Extension for TablePress that adds several modes for responsiveness of tables
-Version: 1.3
+Version: 1.5
 Author: Tobias Bäthge
 Author URI: https://tobias.baethge.com/
 */
 
 /*
- * See http://datatables.net/extensions/responsive/
+ * See https://datatables.net/extensions/responsive/
  * Flip and Scroll mode inspired by http://dbushell.com/demos/tables/rt_05-01-12.html
  * /
 
@@ -52,7 +52,7 @@ class TablePress_Responsive_Tables {
 	 * @var string
 	 * @since 1.3
 	 */
-	protected static $version = '1.3';
+	protected static $version = '1.5';
 
 	/**
 	 * Instance of the Plugin Update Checker class.
@@ -88,7 +88,8 @@ class TablePress_Responsive_Tables {
 		require_once dirname( __FILE__ ) . '/libraries/plugin-update-checker.php';
 		self::$plugin_update_checker = PucFactory::buildUpdateChecker(
 			'https://tablepress.org/downloads/extensions/update-check/' . self::$slug . '.json',
-			__FILE__
+			__FILE__,
+			self::$slug
 		);
 	}
 
@@ -112,6 +113,10 @@ class TablePress_Responsive_Tables {
 	 * @since 1.3
 	 */
 	public static function enqueue_css_files() {
+		if ( ! apply_filters( 'tablepress_responsive_tables_enqueue_css_file', true ) ) {
+			return;
+		}
+
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 		$url = plugins_url( "css/responsive.dataTables{$suffix}.css", __FILE__ );
 		wp_enqueue_style( self::$slug, $url, array(), self::$version );
@@ -123,6 +128,10 @@ class TablePress_Responsive_Tables {
 	 * @since 1.3
 	 */
 	public static function enqueue_css_files_flip() {
+		if ( ! apply_filters( 'tablepress_responsive_tables_enqueue_flip_css_file', true ) ) {
+			return;
+		}
+
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 		$url = plugins_url( "css/tablepress-responsive-flip{$suffix}.css", __FILE__ );
 		wp_enqueue_style( self::$slug . '-flip', $url, array( 'tablepress-default' ), self::$version );
@@ -151,10 +160,16 @@ class TablePress_Responsive_Tables {
 			$render_options['responsive'] = 'flip';
 		}
 
-		// Flip and Scroll mode.
+		// Scroll mode.
+		if ( 'scroll' === $render_options['responsive'] ) {
+			// Horizontal Scrolling from DataTables has to be turned off.
+			$render_options['datatables_scrollx'] = false;
+		}
+
+		// Flip mode.
 		if ( 'flip' === $render_options['responsive'] && in_array( $render_options['responsive_breakpoint'], array( 'phone', 'tablet', 'desktop', 'all' ), true ) ) {
 			// Horizontal Scrolling from DataTables has to be turned off.
-			$render_options['datatable_scrollx'] = false;
+			$render_options['datatables_scrollx'] = false;
 
 			// Add "Extra CSS class".
 			if ( '' !== $render_options['extra_css_classes'] ) {
@@ -186,7 +201,7 @@ class TablePress_Responsive_Tables {
 	public static function table_js_options( $js_options, $table_id, $render_options ) {
 		$js_options['responsive'] = $render_options['responsive'];
 
-		// Change parameters and register files if the header or footer are fixed.
+		// Change parameters and register files for the collapse mode.
 		if ( 'collapse' === $js_options['responsive'] ) {
 			// Register the JS files.
 			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';

@@ -1,13 +1,13 @@
 <?php 
-
 namespace NestedPages\Entities\Post;
+
+use NestedPages\Entities\PluginIntegration\IntegrationFactory;
 
 /**
 * Build Post Data Object
 */
 class PostDataFactory 
 {
-
 	/**
 	* Post Data
 	* @var object
@@ -15,16 +15,24 @@ class PostDataFactory
 	private $post_data;
 
 	/**
+	* Plugin Integrations
+	* @var object
+	*/
+	private $integrations;
+
+	/**
 	* Build the Object
 	*/
-	public function build($post)
+	public function build($post, $h_taxonomies = null, $f_taxonomies = null)
 	{
-		$this->post_data = new \stdClass();
+		$this->integrations = new IntegrationFactory;
+		$this->post_data = new \WP_Post($post);
 		$this->addPostVars($post);
 		$this->addPostMeta($post);
 		$this->addOriginalLink($post);
 		$this->addDate($post);
 		$this->author($post);
+		if ( $h_taxonomies || $f_taxonomies ) $this->addTaxonomies($post, $h_taxonomies, $f_taxonomies);
 		return $this->post_data;
 	}
 
@@ -34,6 +42,7 @@ class PostDataFactory
 	public function addPostVars($post)
 	{
 		$this->post_data->id = $post->ID;
+		$this->post_data->ID = $post->ID;
 		$this->post_data->parent_id = $post->post_parent;
 		$this->post_data->title = $post->post_title;
 		$this->post_data->password = $post->post_password;
@@ -42,6 +51,7 @@ class PostDataFactory
 		$this->post_data->comment_status = $post->comment_status;
 		$this->post_data->content = $post->post_content;
 		$this->post_data->hierarchical = is_post_type_hierarchical($post->post_type);
+		$this->post_data->post_type = $post->post_type;
 		$this->post_data->link = get_the_permalink($post->ID);
 	}
 
@@ -51,26 +61,20 @@ class PostDataFactory
 	public function addPostMeta($post)
 	{
 		$meta = get_metadata('post', $post->ID);
-		$this->post_data->nav_title = ( isset($meta['np_nav_title'][0]) ) ? $meta['np_nav_title'][0] : null;
-		$this->post_data->link_target = ( isset($meta['np_link_target'][0]) ) ? $meta['np_link_target'][0] : null;
-		$this->post_data->nav_title_attr = ( isset($meta['np_title_attribute'][0]) ) ? $meta['np_title_attribute'][0] : null;
-		$this->post_data->nav_css = ( isset($meta['np_nav_css_classes'][0]) ) ? $meta['np_nav_css_classes'][0] : null;
-		$this->post_data->nav_object = ( isset($meta['np_nav_menu_item_object'][0]) ) ? $meta['np_nav_menu_item_object'][0] : null;
-		$this->post_data->nav_object_id = ( isset($meta['np_nav_menu_item_object_id'][0]) ) ? $meta['np_nav_menu_item_object_id'][0] : null;
-		$this->post_data->nav_type = ( isset($meta['np_nav_menu_item_type'][0]) ) ? $meta['np_nav_menu_item_type'][0] : null;
-		$this->post_data->nav_status = ( isset($meta['np_nav_status'][0]) && $meta['np_nav_status'][0] == 'hide' ) ? 'hide' : 'show';
-		$this->post_data->np_status = ( isset($meta['nested_pages_status'][0]) && $meta['nested_pages_status'][0] == 'hide' ) ? 'hide' : 'show';
+		$this->post_data->nav_title = ( isset($meta['_np_nav_title'][0]) ) ? $meta['_np_nav_title'][0] : null;
+		$this->post_data->link_target = ( isset($meta['_np_link_target'][0]) ) ? $meta['_np_link_target'][0] : null;
+		$this->post_data->nav_title_attr = ( isset($meta['_np_title_attribute'][0]) ) ? $meta['_np_title_attribute'][0] : null;
+		$this->post_data->nav_css = ( isset($meta['_np_nav_css_classes'][0]) ) ? $meta['_np_nav_css_classes'][0] : null;
+		$this->post_data->nav_object = ( isset($meta['_np_nav_menu_item_object'][0]) ) ? $meta['_np_nav_menu_item_object'][0] : null;
+		$this->post_data->nav_object_id = ( isset($meta['_np_nav_menu_item_object_id'][0]) ) ? $meta['_np_nav_menu_item_object_id'][0] : null;
+		$this->post_data->nav_type = ( isset($meta['_np_nav_menu_item_type'][0]) ) ? $meta['_np_nav_menu_item_type'][0] : null;
+		$this->post_data->nav_status = ( isset($meta['_np_nav_status'][0]) && $meta['_np_nav_status'][0] == 'hide' ) ? 'hide' : 'show';
+		$this->post_data->np_status = ( isset($meta['_nested_pages_status'][0]) && $meta['_nested_pages_status'][0] == 'hide' ) ? 'hide' : 'show';
 		$this->post_data->template = ( isset($meta['_wp_page_template'][0]) ) ? $meta['_wp_page_template'][0] : false;
 
 		// Yoast Score
-		if ( function_exists('wpseo_auto_load') ) {
-			$yoast_score = get_post_meta($post->ID, '_yoast_wpseo_meta-robots-noindex', true);
-			if ( ! $yoast_score ) {
-				$yoast_score = get_post_meta($post->ID, '_yoast_wpseo_linkdex', true);
-				$this->post_data->score = \WPSEO_Utils::translate_score($yoast_score);
-			} else {
-				$this->post_data->score = 'noindex';
-			}
+		if ( $this->integrations->plugins->yoast->installed ) {
+			$this->post_data->score = $this->integrations->plugins->yoast->getScore($post->ID);
 		}
 	}
 
@@ -121,4 +125,25 @@ class PostDataFactory
 		$this->post_data->author_link = admin_url('edit.php?post_type=' . $post->post_type . '&author=' . $post->post_author);
 	}
 
+	/**
+	* Add taxonomies
+	*/
+	public function addTaxonomies($post, $h_taxonomies, $f_taxonomies)
+	{
+		// Add taxonomies
+		if ( count($h_taxonomies) > 0 ) {
+			foreach($h_taxonomies as $tax){
+				$taxname = $tax->name;
+				if ( !isset($post->$taxname) ) continue;
+				$this->post_data->$taxname = explode(',', $post->$taxname);
+			}
+		}
+		if ( count($f_taxonomies) > 0 ) {
+			foreach($f_taxonomies as $tax){
+				$taxname = $tax->name;
+				if ( !isset($post->$taxname) ) continue;
+				$this->post_data->$taxname = explode(',', $post->$taxname);
+			}
+		}
+	}
 }
