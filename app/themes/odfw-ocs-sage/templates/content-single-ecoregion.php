@@ -41,7 +41,7 @@
 			if ( !empty ($the_field) ): ?>
 			<h5>Important Industries</h5>
 			<p class="cmb2-textarea_small">
-				<?php echo esc_html( $the_field ); ?>
+				<?php echo apply_filters( 'the_content', $the_field ); ?>
 			</p>
 			<?php endif; ?>
 
@@ -49,7 +49,7 @@
 			if ( !empty ($the_field) ): ?>
 			<h5>Major Crops</h5>
 			<p class="cmb2-textarea_small">
-				<?php echo esc_html( $the_field ); ?>
+				<?php echo apply_filters( 'the_content', $the_field ); ?>
 			</p>
 			<?php endif; ?>
 
@@ -57,7 +57,7 @@
 			if ( !empty ($the_field) ): ?>
 			<h5>Important Nature-based Recreational Areas</h5>
 			<p class="cmb2-textarea_small">
-				<?php echo esc_html( $the_field ); ?>
+				<?php echo apply_filters( 'the_content', $the_field ); ?>
 			</p>
 			<?php endif; ?>
 
@@ -65,7 +65,7 @@
 			if ( !empty ($the_field) ): ?>
 			<h5>Elevation</h5>
 			<p class="cmb2-text">
-				<?php echo esc_html( $the_field ); ?>
+				<?php echo apply_filters( 'the_content', $the_field ); ?>
 			</p>
 			<?php endif; ?>
 
@@ -73,23 +73,21 @@
 			if ( !empty ($the_field) ): ?>
 			<h5>Number of Vertebrate Wildlife Species</h5>
 			<p class="cmb2-text">
-				<?php echo esc_html( $the_field ); ?>
+				<?php echo apply_filters( 'the_content', $the_field ); ?>
 			</p>
 			<?php endif; ?>
 
 			<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_rivers', true );
 			if ( !empty ($the_field) ): ?>
 			<h5>Important Rivers</h5>
-			<p class="cmb2-textarea_small">
-				<?php echo esc_html( $the_field ); ?>
-			</p>
+			<?php echo apply_filters( 'the_content', $the_field ); ?>
 			<?php endif; ?>
 
 			<?php $the_field = get_post_meta( get_the_ID(), 'ecoregion_meta_outstanding', true );
 			if ( !empty ($the_field) ): ?>
 			<h5>Ecologically Outstanding Areas</h5>
 			<p class="cmb2-textarea_small">
-				<?php echo esc_html( $the_field ); ?>
+				<?php echo apply_filters( 'the_content', $the_field ); ?>
 			</p>
 			<?php endif; ?>
 
