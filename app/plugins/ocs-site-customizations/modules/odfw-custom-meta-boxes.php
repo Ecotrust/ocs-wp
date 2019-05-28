@@ -210,7 +210,7 @@ function setupCustomFields () {
 		$ss_cmb->add_field( array(
 			'name' => __( 'Special needs', 'odfw' ),
 			'id' => $prefix . 'special-needs',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 			'row_classes' => 'species-textarea',
 		));
 		$ss_cmb->add_field( array(
@@ -222,13 +222,13 @@ function setupCustomFields () {
 		$ss_cmb->add_field( array(
 			'name' => __( 'Data gaps', 'odfw' ),
 			'id' => $prefix . 'data-gaps',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 			'row_classes' => 'species-textarea',
 		));
 		$ss_cmb->add_field( array(
 			'name' => __( 'Conservation actions', 'odfw' ),
 			'id' => $prefix . 'conservation-actions',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 			'row_classes' => 'species-textarea',
 		));
 		$ss_cmb->add_field( array(

@@ -11,13 +11,13 @@
     <?php endif; ?>
 
     <div class="entry-content">
-	
+
 	<?php
 		$thumbnail = get_post( get_post_thumbnail_id() );
 		$caption = $thumbnail->post_excerpt;
 		$attrName = get_post_meta( $thumbnail->ID, 'odfw_attribution_name', true );
     ?>
-	
+
 	<?php if ( has_post_thumbnail() ) : ?>
 		<figure class="species-hero">
 	            <div class="image-container">
@@ -115,7 +115,7 @@
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-special-needs') ?>">Special needs</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
-					<?php echo wpautop( $the_field ); ?>
+					<?php echo ( $the_field ); ?>
 				</p>
 			</section>
 	<?php endif; ?>
@@ -142,7 +142,7 @@
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-data-gaps') ?>">Data gaps</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
-					<?php echo wpautop( $the_field ); ?>
+					<?php echo ( $the_field ); ?>
 				</p>
 			</section>
 	<?php endif; ?>
@@ -155,7 +155,7 @@
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-recommended-conservation-actions') ?>">Conservation actions</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
-					<?php echo wpautop( $the_field ); ?>
+					<?php echo ( $the_field ); ?>
 				</p>
 			</section>
 	<?php endif; ?>
@@ -168,7 +168,7 @@
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-key-reference') ?>">Key reference or plan</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-textarea">
-					<?php echo wpautop($the_field); ?>
+					<?php echo ($the_field); ?>
 				</p>
 			</section>
 	<?php endif; ?>
