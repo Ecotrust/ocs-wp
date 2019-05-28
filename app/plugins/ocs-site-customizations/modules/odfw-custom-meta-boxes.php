@@ -772,43 +772,43 @@ function setupCustomFields () {
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Important industries', 'odfw' ),
 			'id' => $prefix . 'important-industries',
-			'type' => 'textarea_small',
+			'type' => 'wysiwyg',
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Major crops', 'odfw' ),
 			'id' => $prefix . 'major-crops',
-			'type' => 'textarea_small',
+			'type' => 'wysiwyg',
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Important nature-based recreational areas', 'odfw' ),
 			'id' => $prefix . 'recreational-areas',
-			'type' => 'textarea_small'
+			'type' => 'wysiwyg'
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Elevation', 'odfw' ),
 			'id' => $prefix . 'elevation',
-			'type' => 'text'
+			'type' => 'wysiwyg'
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Number of vertebrate wildlife species', 'odfw' ),
 			'id' => $prefix . 'number-of-species',
-			'type' => 'text'
+			'type' => 'wysiwyg'
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Important rivers', 'odfw' ),
 			'id' => $prefix . 'rivers',
-			'type' => 'textarea_small'
+			'type' => 'wysiwyg'
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Ecologically outstanding areas', 'odfw' ),
 			'id' => $prefix . 'outstanding',
-			'type' => 'textarea_small'
+			'type' => 'wysiwyg'
 		));
 
 		$ecoregion_cmb->add_field( array(
