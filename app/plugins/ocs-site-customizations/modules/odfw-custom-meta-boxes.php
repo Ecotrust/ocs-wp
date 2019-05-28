@@ -923,7 +923,7 @@ function setupCustomFields () {
 		   $strategy_habitat_cmb->add_group_field( $ecoregional_characteristics_group_field_id, array(
 				'name' => __( 'Selected Ecoregion Chracteristics', 'odfw' ),
 				'id' => $prefix . 'selected_ecoregional_characteristics',
-				'type' => 'textarea'
+				'type' => 'wysiwyg'
 			) );
 
 		$strategy_habitat_cmb->add_field( array(
