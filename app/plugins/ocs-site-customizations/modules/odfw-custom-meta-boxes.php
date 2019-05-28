@@ -960,14 +960,14 @@ function setupCustomFields () {
 		   $strategy_habitat_cmb->add_group_field( $factor_group_field_id, array(
 				'name' => __( 'Factor Description', 'odfw' ),
 				'id' => $prefix . 'factor_description',
-				'type' => 'textarea'
+				'type' => 'wysiwyg'
 			) );
 
 		   $strategy_habitat_cmb->add_group_field( $factor_group_field_id, array(
 				'name' => __( 'Approach', 'odfw' ),
 				'id' => $prefix . 'approach',
 				'desc' => 'The word "approach" will be output automatically',
-				'type' => 'textarea'
+				'type' => 'wysiwyg'
 			) );
 
 		$strategy_habitat_cmb->add_field( array(
@@ -1100,4 +1100,3 @@ function setupCustomFields () {
 }
 
 add_action( 'init', 'setupCustomFields', 0 );
-
