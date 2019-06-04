@@ -1,13 +1,9 @@
-<?
-
+<?php
 /**
  *
  * Adjustments to the media uploader, editor and listings.
  *
  */
-
-
-
 
 /**
  *
