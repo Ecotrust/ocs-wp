@@ -1,4 +1,4 @@
-<?
+<?php
 	/* image alt text reminder */
 	class odfw_alt_text_reminder {
 		private $allowed = array(
