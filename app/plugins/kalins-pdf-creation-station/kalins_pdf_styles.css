@@ -1,0 +1,47 @@
+@CHARSET "ISO-8859-1";
+
+/*main page container; prevents accordion headers from bumping against the browser's scrollbar*/
+.kContainer{
+  margin-right:10px;
+}
+
+/*overrides wordpress' filter class that makes my ng-table filter inputs all funky*/
+.filter{
+  float:none;
+}
+
+/*overrides bootstrap's block, so now our label can be inline with our text element*/
+.k-inline-text-input{
+  display:inline;
+  width:auto; 
+}
+
+.k-checkbox{
+  font-weight: normal;
+}
+
+.k-small-width{
+  width: 70px;
+}
+
+.k-med-width{
+  width: 100px;
+}
+
+/*wordpress uses the 'hidden' class differently than bootstrap expects, so adding bootstrap prevents the contextual help 
+from showing. This overrides that on just the contextual_help_wrap div.*/
+#contextual-help-wrap{
+  display: block !important;
+  visibility: visible !important;
+}
+
+/*our info icon ("i" in circle)*/
+.kInfoIcon {
+    color: blue;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.arrow {
+  margin-left:0px;
+}
