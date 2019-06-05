@@ -1908,9 +1908,9 @@ footer.content-info .draft-message{min-height:40px}
 .list-layout .listings-wrap .grid-item .cpt-title,.search-results .listings-wrap .grid-item .cpt-title{margin-bottom:5px;margin-top:0}
 .list-layout .listings-wrap .image-grid-container>img,.search-results .listings-wrap .image-grid-container>img{height:auto}
 .search-results .listings-wrap .grid-item .image-grid-container{width:100px}
-.ecoregions .listings-wrap>article>div{height:390px}
-.ecoregions img#region-png-print{display:none}
-body.ecoregions .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}
+.ecoregions .listings-wrap>article>div,body.page-id-101 .listings-wrap>article>div{height:390px}
+.ecoregions img#region-png-print,body.page-id-101 img#region-png-print{display:none}
+body.page-id-101 .listings-wrap,body.page-id-109 .listings-wrap,body.page-id-112 .listings-wrap{padding-top:25px}
 body.page-id-102.map-visible section.post-102{display:none}
 body.single-ecoregion .grid-layout .grid-item p{display:block}
 body.single-ecoregion.list-layout .listings-wrap .grid-item .image-grid-container{display:none}

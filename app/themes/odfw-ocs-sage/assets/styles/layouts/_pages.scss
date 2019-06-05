@@ -94,14 +94,15 @@
 }
 
 
-.ecoregions {
+.ecoregions,
+body.page-id-101 {
 	.listings-wrap > article > div { height: 390px;}
 	img#region-png-print { display: none; }
 }
 
 body.page-id-109,
 body.page-id-112,
-body.ecoregions {
+body.page-id-101 {
 	.listings-wrap { padding-top: 25px; }
 }
 
