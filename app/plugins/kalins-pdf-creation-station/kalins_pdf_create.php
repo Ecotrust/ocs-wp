@@ -173,10 +173,14 @@ try{
   // set header and footer fonts
   $objTcpdf->setHeaderFont(Array('Helvetica', '', PDF_FONT_SIZE_MAIN));
   $objTcpdf->setFooterFont(Array('Helvetica', '', PDF_FONT_SIZE_DATA));
+  // remove default header/footer
+  $objTcpdf->setPrintHeader(false);
+  $objTcpdf->setPrintFooter(false);
   //set margins
-  $objTcpdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-  $objTcpdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-  $objTcpdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+  $objTcpdf->SetMargins(0, 0, 0, 0);
+  // $objTcpdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+  $objTcpdf->SetHeaderMargin(0);
+  $objTcpdf->SetFooterMargin(0);
   //set auto page breaks
   $objTcpdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
   //set image scale factor
@@ -216,14 +220,42 @@ $totalHTML = '<!doctype html>
   <title>' . kalins_pdf_global_shortcode_replace($headerTitle) . '</title>
   <meta name="description" content="' . kalins_pdf_global_shortcode_replace($headerSub) . '">
   <style>
-    p {
+    body {
+      color: rgb(60,60,60);
+      font-family: Helvetica, Tahoma, Arial, sans-serif;
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+    }
+    p, ul, ol, div, section, article, blockquote, aside, main, h1, h2, h3, h4, h5, img {
       display: block;
-      margin: 0 auto 20px;
-      max-width: 80%:
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: 500;
+      margin: 40px 0 20px;
+      text-transform: uppercase;
     }
     .chapter-img {
       height: auto;
-      min-width: 100%;
+      page-break-before: always;
+      page-break-inside: avoid;
+      width: 100%;
+    }
+    .article-img {
+      max-width: 100%;
+    }
+    .full-page {
+    }
+    a {
+      color: #005130;
+    }
+    p {
+      margin: 0;
     }
   </style>
 </head>
@@ -259,6 +291,9 @@ $TOCIndex = $objTcpdf->getNumPages() + 1;
 
 //global $proBar;
 //$proBar->setMessage('loading - this is a simulation ...');
+
+// add margins
+$objTcpdf->SetMargins(15, 15, 15, 15);
 
 try{
   $le = count($result);
@@ -392,7 +427,8 @@ try{
 
     // write the TOC title
     $objTcpdf->SetFont('Helvetica', 'B', 16);
-    $objTcpdf->MultiCell(0, 0, 'Table Of Contents', 0, 'C', 0, 1, '', '', true, 0);
+    $objTcpdf->setCellPaddings(2,2,2,2);
+    $objTcpdf->MultiCell(0, 0, 'Table Of Contents', 0, 'L', 0, 1, '', '', true, 0);
     $objTcpdf->Ln();
 
     $objTcpdf->SetFont('Helvetica', '', $fontSize );
@@ -401,7 +437,7 @@ try{
 
     // add a simple Table Of Content at first page
     // (check the example n. 59 for the HTML version)
-    $objTcpdf->addTOC($TOCIndex, 'courier', '.', 'INDEX');
+    $objTcpdf->addTOC($TOCIndex, 'Helvetica', '.', 'INDEX');
 
     // end of TOC page
     $objTcpdf->endTOCPage();
