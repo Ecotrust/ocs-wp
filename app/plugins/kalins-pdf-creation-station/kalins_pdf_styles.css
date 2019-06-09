@@ -13,7 +13,7 @@
 /*overrides bootstrap's block, so now our label can be inline with our text element*/
 .k-inline-text-input{
   display:inline;
-  width:auto; 
+  width:auto;
 }
 
 .k-checkbox{
@@ -28,7 +28,7 @@
   width: 100px;
 }
 
-/*wordpress uses the 'hidden' class differently than bootstrap expects, so adding bootstrap prevents the contextual help 
+/*wordpress uses the 'hidden' class differently than bootstrap expects, so adding bootstrap prevents the contextual help
 from showing. This overrides that on just the contextual_help_wrap div.*/
 #contextual-help-wrap{
   display: block !important;
