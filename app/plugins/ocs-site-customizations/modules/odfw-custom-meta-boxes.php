@@ -210,7 +210,7 @@ function setupCustomFields () {
 		$ss_cmb->add_field( array(
 			'name' => __( 'Special needs', 'odfw' ),
 			'id' => $prefix . 'special-needs',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 			'row_classes' => 'species-textarea',
 		));
 		$ss_cmb->add_field( array(
@@ -222,13 +222,13 @@ function setupCustomFields () {
 		$ss_cmb->add_field( array(
 			'name' => __( 'Data gaps', 'odfw' ),
 			'id' => $prefix . 'data-gaps',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 			'row_classes' => 'species-textarea',
 		));
 		$ss_cmb->add_field( array(
 			'name' => __( 'Conservation actions', 'odfw' ),
 			'id' => $prefix . 'conservation-actions',
-			'type' => 'textarea',
+			'type' => 'wysiwyg',
 			'row_classes' => 'species-textarea',
 		));
 		$ss_cmb->add_field( array(
@@ -772,43 +772,43 @@ function setupCustomFields () {
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Important industries', 'odfw' ),
 			'id' => $prefix . 'important-industries',
-			'type' => 'textarea_small',
+			'type' => 'wysiwyg',
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Major crops', 'odfw' ),
 			'id' => $prefix . 'major-crops',
-			'type' => 'textarea_small',
+			'type' => 'wysiwyg',
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Important nature-based recreational areas', 'odfw' ),
 			'id' => $prefix . 'recreational-areas',
-			'type' => 'textarea_small'
+			'type' => 'wysiwyg'
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Elevation', 'odfw' ),
 			'id' => $prefix . 'elevation',
-			'type' => 'text'
+			'type' => 'wysiwyg'
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Number of vertebrate wildlife species', 'odfw' ),
 			'id' => $prefix . 'number-of-species',
-			'type' => 'text'
+			'type' => 'wysiwyg'
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Important rivers', 'odfw' ),
 			'id' => $prefix . 'rivers',
-			'type' => 'textarea_small'
+			'type' => 'wysiwyg'
 		));
 
 		$ecoregion_cmb->add_field( array(
 			'name' => __( 'Ecologically outstanding areas', 'odfw' ),
 			'id' => $prefix . 'outstanding',
-			'type' => 'textarea_small'
+			'type' => 'wysiwyg'
 		));
 
 		$ecoregion_cmb->add_field( array(
@@ -923,7 +923,7 @@ function setupCustomFields () {
 		   $strategy_habitat_cmb->add_group_field( $ecoregional_characteristics_group_field_id, array(
 				'name' => __( 'Selected Ecoregion Chracteristics', 'odfw' ),
 				'id' => $prefix . 'selected_ecoregional_characteristics',
-				'type' => 'textarea'
+				'type' => 'wysiwyg'
 			) );
 
 		$strategy_habitat_cmb->add_field( array(
@@ -960,14 +960,14 @@ function setupCustomFields () {
 		   $strategy_habitat_cmb->add_group_field( $factor_group_field_id, array(
 				'name' => __( 'Factor Description', 'odfw' ),
 				'id' => $prefix . 'factor_description',
-				'type' => 'textarea'
+				'type' => 'wysiwyg'
 			) );
 
 		   $strategy_habitat_cmb->add_group_field( $factor_group_field_id, array(
 				'name' => __( 'Approach', 'odfw' ),
 				'id' => $prefix . 'approach',
 				'desc' => 'The word "approach" will be output automatically',
-				'type' => 'textarea'
+				'type' => 'wysiwyg'
 			) );
 
 		$strategy_habitat_cmb->add_field( array(
@@ -1100,4 +1100,3 @@ function setupCustomFields () {
 }
 
 add_action( 'init', 'setupCustomFields', 0 );
-
