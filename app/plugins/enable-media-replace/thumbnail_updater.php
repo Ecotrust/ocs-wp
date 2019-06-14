@@ -40,12 +40,14 @@ class ThumbnailUpdater
       if (isset($metadata['sizes']))
         $this->newMeta = $metadata;
 
+
       // extract month prefix to prevent overwriting wrong images.
       $file = $metadata['file'];
       $pos = strrpos($metadata['file'], '/');
       $month_path = substr($file, 0, $pos);
       $this->relPath = trailingslashit($month_path);
   }
+
 
   public function updateThumbnails()
   {
