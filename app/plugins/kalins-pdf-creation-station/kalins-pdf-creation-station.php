@@ -847,6 +847,8 @@ function kalins_pdf_page_shortcode_replace($str, $page){//replace all passed in 
 
   $str = preg_replace_callback('#\[ *post_strategy_species *(id=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postStrategySpecies'), $str);
 
+  $str = preg_replace_callback('#\[ *post_coa *(id=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postCOA'), $str);
+
   $str = preg_replace_callback('#\[ *post_categories *(delimeter=[\'|\"]([^\'\"]*)[\'|\"])? *(links=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postCategoriesCallback'), $str);
 
   $str = preg_replace_callback('#\[ *post_tags *(delimeter=[\'|\"]([^\'\"]*)[\'|\"])? *(links=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postTagsCallback'), $str);
@@ -961,6 +963,40 @@ class KalinsPDF_callback{
   		wp_reset_postdata();
   	} else {
       return 'no sepcies id';
+    }
+  }
+
+  function postCOA($matches) {
+    $this_ID = get_the_ID();
+  	$out = "";
+  	if (isset($this_ID) && !empty($this_ID) ) {
+  		$args=array(
+  			'post_type' => 'coa',
+  			'orderby' => 'post_title',
+  			'order' => 'ASC',
+  			'posts_per_page' => 100,
+  			'meta_query' => array(
+  				array (
+  					'key' => 'coa_meta_attached_ecoregions',
+  					'value' => $this_ID,
+  					'compare' => 'LIKE'
+  				)
+  			),
+  		);
+      $loop = new WP_Query($args);
+
+  			if( $loop->have_posts() ):
+  				while( $loop->have_posts() ): $loop->the_post();
+  					$coa_id = get_post_meta( get_the_ID(), 'coa_meta_coa_id', true );
+            $out .= the_title();
+            $out .= '<span class="coa-id">' . '[COA ID: ' . $coa_id . ']</span>';
+  				endwhile;
+  			endif;
+  		return $out;
+  		/* Restore original Post Data */
+  		wp_reset_postdata();
+  	} else {
+      return 'no id';
     }
   }
 
