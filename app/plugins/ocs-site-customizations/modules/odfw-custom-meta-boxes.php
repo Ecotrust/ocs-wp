@@ -845,20 +845,20 @@ function setupCustomFields () {
 		   $ecoregion_cmb->add_group_field( $factor_group_field_id, array(
 				'name' => __( 'Factor Title', 'odfw' ),
 				'id' => $prefix . 'factor_title',
-				'type' => 'wysiwyg'
+				'type' => 'textarea_small'
 			) );
 
 		   $ecoregion_cmb->add_group_field( $factor_group_field_id, array(
 				'name' => __( 'Factor Description', 'odfw' ),
 				'id' => $prefix . 'factor_description',
-				'type' => 'wysiwyg'
+				'type' => 'textarea_small'
 			) );
 
 		   $ecoregion_cmb->add_group_field( $factor_group_field_id, array(
 				'name' => __( 'Approach', 'odfw' ),
 				'id' => $prefix . 'approach',
 				'desc' => 'The word "approach" will be output automatically',
-				'type' => 'wysiwyg'
+				'type' => 'textarea_small'
 			) );
 
 	}

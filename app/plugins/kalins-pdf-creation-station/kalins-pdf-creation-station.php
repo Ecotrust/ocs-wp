@@ -843,6 +843,8 @@ function kalins_pdf_page_shortcode_replace($str, $page){//replace all passed in 
 
   $str = preg_replace_callback('#\[ *post_meta *(name=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postMetaCallback'), $str);
 
+  $str = preg_replace_callback('#\[ *post_limiting_factors *(name=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postMetaLimitingFactors'), $str);
+
   $str = preg_replace_callback('#\[ *post_categories *(delimeter=[\'|\"]([^\'\"]*)[\'|\"])? *(links=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postCategoriesCallback'), $str);
 
   $str = preg_replace_callback('#\[ *post_tags *(delimeter=[\'|\"]([^\'\"]*)[\'|\"])? *(links=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postTagsCallback'), $str);
@@ -894,6 +896,15 @@ class KalinsPDF_callback{
   function postMetaCallback($matches){
     $arr = get_post_meta($this->page->ID, $matches[2]);
     return $arr[0];
+  }
+
+  function postMetaLimitingFactors($matches) {
+    $the_field = get_post_meta( get_the_ID(), 'factors_repeat_group', true );
+    $s = '';
+    foreach($the_field as $entries => $entry ) {
+      $s = $s . apply_filters('the_content', $entry['ecoregion_meta_factor_title']) . apply_filters('the_content', $entry['ecoregion_meta_factor_description']) . apply_filters('the_content', $entry['ecoregion_meta_approach']);
+    }
+    return $s;
   }
 
   function postCategoriesCallback($matches){
