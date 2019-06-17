@@ -845,6 +845,8 @@ function kalins_pdf_page_shortcode_replace($str, $page){//replace all passed in 
 
   $str = preg_replace_callback('#\[ *post_limiting_factors *(name=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postMetaLimitingFactors'), $str);
 
+  $str = preg_replace_callback('#\[ *post_strategy_species *(id=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postStrategySpecies'), $str);
+
   $str = preg_replace_callback('#\[ *post_categories *(delimeter=[\'|\"]([^\'\"]*)[\'|\"])? *(links=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postCategoriesCallback'), $str);
 
   $str = preg_replace_callback('#\[ *post_tags *(delimeter=[\'|\"]([^\'\"]*)[\'|\"])? *(links=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postTagsCallback'), $str);
@@ -905,6 +907,61 @@ class KalinsPDF_callback{
       $s = $s . apply_filters('the_content', $entry['ecoregion_meta_factor_title']) . apply_filters('the_content', $entry['ecoregion_meta_factor_description']) . apply_filters('the_content', $entry['ecoregion_meta_approach']);
     }
     return $s;
+  }
+
+  function postStrategySpecies($matches) {
+
+    // $the_field = get_post_meta( get_the_ID(), 'post_strategy_species', true );
+    $this_ID = get_the_ID();
+  	$out = "";
+  	if (isset($this_ID) && !empty($this_ID) ) {
+  		$args=array(
+  			'post_type' => 'strategy_species',
+  			'orderby' => 'post_title',
+  			'order' => 'ASC',
+  			'posts_per_page' => 100,
+  			'meta_query' => array(
+  				array (
+  					'key' => 'species_meta_attached_ecoregions',
+  					'value' => $this_ID,
+  					'compare' => 'LIKE'
+  				)
+  			),
+  		);
+  		$loop = new WP_Query($args);
+
+  			if( $loop->have_posts() ):
+  				while( $loop->have_posts() ): $loop->the_post();
+  					$specID = get_the_ID();
+  					$specAsc = '';
+  					set_query_var('specID', $specID);
+  					set_query_var('specAsc', $specAsc);
+
+  					// $the_field_thumbnail = get_post_meta( $specID, 'species_meta_image-thumb-url', true );
+            // $out = $out . get_the_post_thumbnail($specID, 'grid');
+
+            // add species name
+            $out = $out . get_the_title($specID);
+
+            // if ( $specAsc ) {
+              // $out = $out . $specAsc;
+            // }
+            // add scientific name
+            $scientific_name = get_post_meta( $specID, 'species_meta_species-scientific-name', true );
+            $out = $out . ' (<i>' . $scientific_name . '</i>)';
+
+            // line break for new species
+            $out = $out . '<br />';
+
+  				endwhile;
+  			endif;
+
+  		return $out;
+  		/* Restore original Post Data */
+  		wp_reset_postdata();
+  	} else {
+      return 'no sepcies id';
+    }
   }
 
   function postCategoriesCallback($matches){
