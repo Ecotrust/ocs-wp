@@ -847,7 +847,7 @@ function kalins_pdf_page_shortcode_replace($str, $page){//replace all passed in 
 
   $str = preg_replace_callback('#\[ *post_strategy_species *(id=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postStrategySpecies'), $str);
 
-  $str = preg_replace_callback('#\[ *post_coa *(id=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postCOA'), $str);
+  $str = preg_replace_callback('#\[ *post_eco_coa *(name=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postEcoreginCOAs'), $str);
 
   $str = preg_replace_callback('#\[ *post_categories *(delimeter=[\'|\"]([^\'\"]*)[\'|\"])? *(links=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postCategoriesCallback'), $str);
 
@@ -911,13 +911,50 @@ class KalinsPDF_callback{
     return $s;
   }
 
+  function postEcoreginCOAs($matches) {
+    $ecoregionID = $this->page->ID;
+    $out = '';
+    if (isset($ecoregionID) && !empty($ecoregionID) ) {
+      $args2 = array(
+  			'post_type' => 'coa',
+  			'orderby' => 'post_title',
+  			'order' => 'ASC',
+  			'posts_per_page' => -1,
+  			'meta_query' => array(
+  				array (
+  					'key' => 'coa_meta_attached_ecoregions',
+  					'value' => $ecoregionID,
+  					'compare' => 'LIKE'
+  				)
+  			),
+  		);
+  		$query2 = new WP_Query($args2);
+
+      if( $query2->have_posts() ):
+        while( $query2->have_posts() ): $query2->the_post();
+          $out .= get_the_title($query2->post->ID);
+          // coa number
+          $coa_id = get_post_meta( $query2->post->ID, 'coa_meta_coa_id', true );
+          $out .= ' [COA ID: ' . $coa_id . ']';
+          // line break for next
+          $out = $out . '<br />';
+        endwhile;
+        /* Restore original Post Data */
+        wp_reset_postdata();
+      endif;
+    } else {
+      $out .= 'ecoregion not set';
+    }
+    return $out;
+  }
+
   function postStrategySpecies($matches) {
 
     // $the_field = get_post_meta( get_the_ID(), 'post_strategy_species', true );
     $this_ID = get_the_ID();
   	$out = "";
   	if (isset($this_ID) && !empty($this_ID) ) {
-  		$args=array(
+  		$args1 = array(
   			'post_type' => 'strategy_species',
   			'orderby' => 'post_title',
   			'order' => 'ASC',
@@ -930,74 +967,40 @@ class KalinsPDF_callback{
   				)
   			),
   		);
-  		$loop = new WP_Query($args);
+  		$query1 = new WP_Query($args1);
 
-  			if( $loop->have_posts() ):
-  				while( $loop->have_posts() ): $loop->the_post();
-  					$specID = get_the_ID();
-  					$specAsc = '';
-  					set_query_var('specID', $specID);
-  					set_query_var('specAsc', $specAsc);
+  			if( $query1->have_posts() ):
+  				while( $query1->have_posts() ): $query1->the_post();
+  					// $specID = get_the_ID();
+  					// $specAsc = '';
+  					// set_query_var('specID', $specID);
+  					// set_query_var('specAsc', $specAsc);
 
+            // $out .= $this_ID;
+            // $out .= $specID;
   					// $the_field_thumbnail = get_post_meta( $specID, 'species_meta_image-thumb-url', true );
             // $out = $out . get_the_post_thumbnail($specID, 'grid');
 
             // add species name
-            $out = $out . get_the_title($specID);
+            $out = $out . get_the_title($query1->post->ID);
 
             // if ( $specAsc ) {
               // $out = $out . $specAsc;
             // }
             // add scientific name
-            $scientific_name = get_post_meta( $specID, 'species_meta_species-scientific-name', true );
+            $scientific_name = get_post_meta( $query1->post->ID, 'species_meta_species-scientific-name', true );
             $out = $out . ' (<i>' . $scientific_name . '</i>)';
-
             // line break for new species
             $out = $out . '<br />';
 
   				endwhile;
+          /* Restore original Post Data */
+          wp_reset_postdata();
   			endif;
-
-  		return $out;
-  		/* Restore original Post Data */
-  		wp_reset_postdata();
   	} else {
-      return 'no sepcies id';
+      $out .= 'no sepcies id';
     }
-  }
-
-  function postCOA($matches) {
-    $this_ID = get_the_ID();
-  	$out = "";
-  	if (isset($this_ID) && !empty($this_ID) ) {
-  		$args=array(
-  			'post_type' => 'coa',
-  			'orderby' => 'post_title',
-  			'order' => 'ASC',
-  			'posts_per_page' => 100,
-  			'meta_query' => array(
-  				array (
-  					'key' => 'coa_meta_attached_ecoregions',
-  					'value' => $this_ID,
-  					'compare' => 'LIKE'
-  				)
-  			),
-  		);
-      $loop = new WP_Query($args);
-
-  			if( $loop->have_posts() ):
-  				while( $loop->have_posts() ): $loop->the_post();
-  					$coa_id = get_post_meta( get_the_ID(), 'coa_meta_coa_id', true );
-            $out .= the_title();
-            $out .= '<span class="coa-id">' . '[COA ID: ' . $coa_id . ']</span>';
-  				endwhile;
-  			endif;
-  		return $out;
-  		/* Restore original Post Data */
-  		wp_reset_postdata();
-  	} else {
-      return 'no id';
-    }
+    return $out;
   }
 
   function postCategoriesCallback($matches){
