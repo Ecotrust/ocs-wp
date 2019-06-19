@@ -1590,7 +1590,7 @@ abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-dec
 h3>.coa-id{color:#9fa0a2}
 h3>.badge{margin-left:3px}
 .long-list,.long-list ol,.long-list ul{-webkit-column-count:2;column-count:2;padding-left:2em;list-style-position:inside}
-body{padding-top:62px}
+body{padding-top:62px;-ms-overflow-style:-ms-autohiding-scrollbar}
 .tablepress,table{margin-top:15px;margin-bottom:15px}
 .tablepress>thead th,table>thead th{background-color:#58595B;color:#fff;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
 .tablepress>thead th a,table>thead th a{color:#fff;text-decoration:underline}
