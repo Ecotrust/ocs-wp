@@ -309,6 +309,8 @@ $TOCIndex = $objTcpdf->getNumPages() + 1;
 
 // add margins
 $objTcpdf->SetMargins(15, 15, 15, 15);
+// reset auto page breaks
+$objTcpdf->SetAutoPageBreak(TRUE, 15);
 
 try{
   $le = count($result);
