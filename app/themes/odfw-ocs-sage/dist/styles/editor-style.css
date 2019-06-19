@@ -1590,7 +1590,7 @@ abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-dec
 h3>.coa-id{color:#9fa0a2}
 h3>.badge{margin-left:3px}
 .long-list,.long-list ol,.long-list ul{-webkit-column-count:2;column-count:2;padding-left:2em;list-style-position:inside}
-body{padding-top:62px;-ms-overflow-style:-ms-autohiding-scrollbar}
+body{padding-top:62px}
 .tablepress,table{margin-top:15px;margin-bottom:15px}
 .tablepress>thead th,table>thead th{background-color:#58595B;color:#fff;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
 .tablepress>thead th a,table>thead th a{color:#fff;text-decoration:underline}
@@ -1820,7 +1820,7 @@ footer.content-info .draft-message{min-height:40px}
 .sidebar ol,.sidebar ul{padding:0}
 .sidebar ol>li,.sidebar ul>li{position:relative}
 .sidebar ol>li>a,.sidebar ul>li>a{display:block;font-size:14px;font-weight:500;letter-spacing:.02em;text-transform:uppercase;width:100%}
-.sidebar ol.main-ocs-navigation,.sidebar ul.main-ocs-navigation{background-color:#414041;bottom:63px;position:fixed;overflow:auto;top:63px;width:16.67%;-ms-overflow-style:-ms-autohiding-scrollbar}
+.sidebar ol.main-ocs-navigation,.sidebar ul.main-ocs-navigation{background-color:#414041;bottom:63px;position:fixed;overflow:auto;top:63px;width:16.67%}
 .sidebar ol.main-ocs-navigation::-webkit-scrollbar,.sidebar ul.main-ocs-navigation::-webkit-scrollbar{opacity:0;width:0}
 .sidebar ol.main-ocs-navigation:hover::-webkit-scrollbar,.sidebar ul.main-ocs-navigation:hover::-webkit-scrollbar{opacity:1}
 .sidebar ol.main-ocs-navigation>li:nth-child(1)>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1)>a:before{background-position:0 0}
