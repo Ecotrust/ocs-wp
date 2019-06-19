@@ -1,4 +1,7 @@
 .main-content {
+	*:focus {
+		outline: none;
+	}
 	p, caption {
 		font-weight: 300;
 		//quick fix. @TODO set with bootstrap vars/computation
@@ -19,6 +22,9 @@
 	a {
 		font-family: $body-font-bold;
 		font-weight: 600;
+		&:focus {
+			outline: 0 0 1px blue;
+		}
 	}
     h2, h3, h4, h5,
     h6, p, ul, .tooltip {

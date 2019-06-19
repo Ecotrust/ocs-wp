@@ -38,6 +38,19 @@
 			overflow: auto;
       top: 63px;
 			width: 16.67%;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+
+      &::-webkit-scrollbar {
+				opacity: 0;
+				width: 0;
+      }
+
+			&:hover {
+				&::-webkit-scrollbar {
+					opacity: 1;
+					// width: 5px;
+				}
+			}
 
 
 
