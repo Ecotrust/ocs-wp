@@ -233,12 +233,21 @@ $totalHTML = '<!doctype html>
     h1 {
       font-size: 22px;
       font-weight: 700;
+      page-break-before: always;
     }
     h2 {
       font-size: 16px;
       font-weight: 500;
       margin: 40px 0 20px;
       text-transform: uppercase;
+    }
+    img {
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    .photo-attribution {
+      display: block;
+      text-align: center;
     }
     .chapter-img {
       height: auto;
@@ -251,11 +260,17 @@ $totalHTML = '<!doctype html>
     }
     .full-page {
     }
+    section {
+      page-break-before: auto;
+      page-break-inside: auto;
+    }
     a {
       color: #005130;
     }
     p {
-      margin: 0;
+      line-height: 1.5;
+      margin: 0 0 8px;
+      page-break-inside: avoid;
     }
   </style>
 </head>
@@ -330,10 +345,11 @@ try{
       $content = preg_replace("#<iframe(.*)ted.com/(.*)[\'\"] (.*)</iframe>#", '<p><a href="http://www.ted.com/\\2.html">Ted Talk</a></p>', $content);
       $content = preg_replace("#<object(.*)adKeys=talk=(.*);year=(.*)</object>#", '<p><a href="http://www.ted.com/talks/\\2.html">Ted Talk</a></p>', $content);
     }
-
-    if(preg_match('/\[caption +[^\]]*\]/', $content)){//remove all captions surrounding images and whatnot since tcpdf can't interpret them (but leave the images in place)
-      $content = preg_replace('/\[caption +[^\]]*\]/', '', $content);//replace all instances of the opening caption tag
-      $content = preg_replace('/\[\/caption\]/', '', $content);//replace all instances of the closing caption tag
+    #\[ *post_date_gmt *(format=[\'|\"]([^\'\"]*)[\'|\"])? *\]#
+    if (preg_match('/\[caption[^\]]*\]/', $content, $output)) {
+      //remove all captions surrounding images and whatnot since tcpdf can't interpret them (but leave the images in place)
+      $content = preg_replace('/\[caption[^\]]*\]/', ' ', $content);//replace all instances of the opening caption tag
+      $content = preg_replace('/\[\/caption\]/', ' ', $content);//replace all instances of the closing caption tag
     }
 
     if($oOptions->runShortcodes){//if we're running shortcodes, run them

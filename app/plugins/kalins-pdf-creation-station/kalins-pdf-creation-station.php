@@ -817,7 +817,8 @@ function kalins_pdf_page_shortcode_replace($str, $page){//replace all passed in 
 
     if($page->post_excerpt == ""){//if there's no excerpt applied to the post, extract one
 
-      $postCallback->pageContent = strip_tags($page->post_content);
+      // $postCallback->pageContent = strip_tags($page->post_content);
+      $postCallback->pageContent = $page->post_content;
       $str = preg_replace_callback('#\[ *post_excerpt *(length=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postExcerptCallback'), $str);
 
     }else{//if there is a post excerpt just use it and don't generate our own

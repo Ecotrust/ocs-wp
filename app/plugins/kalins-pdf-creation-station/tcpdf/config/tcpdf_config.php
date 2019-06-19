@@ -99,22 +99,22 @@ define ('PDF_PAGE_ORIENTATION', 'P');
 /**
  * Document creator.
  */
-define ('PDF_CREATOR', 'TCPDF');
+define ('PDF_CREATOR', 'ODFW');
 
 /**
  * Document author.
  */
-define ('PDF_AUTHOR', 'TCPDF');
+define ('PDF_AUTHOR', 'ODFW');
 
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', 'TCPDF Example');
+define ('PDF_HEADER_TITLE', 'Oregon Conservation Strategy');
 
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
+define ('PDF_HEADER_STRING', "");
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
@@ -184,12 +184,12 @@ define ('PDF_IMAGE_SCALE_RATIO', 1);
 /**
  * Magnification factor for titles.
  */
-define('HEAD_MAGNIFICATION', 1.1);
+define('HEAD_MAGNIFICATION', 1.3);
 
 /**
  * Height of cell respect font height.
  */
-define('K_CELL_HEIGHT_RATIO', 1.5);
+define('K_CELL_HEIGHT_RATIO', 1.3);
 
 /**
  * Title magnification respect main font size.
@@ -215,7 +215,7 @@ define('K_TCPDF_CALLS_IN_HTML', true);
 /**
  * If true and PHP version is greater than 5, then the Error() method throw new exception instead of terminating the execution.
  */
-define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
+define('K_TCPDF_THROW_EXCEPTION_ERROR', true);
 
 /**
  * Default timezone for datetime functions
