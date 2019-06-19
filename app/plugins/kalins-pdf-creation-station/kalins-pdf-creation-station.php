@@ -860,6 +860,12 @@ function kalins_pdf_page_shortcode_replace($str, $page){//replace all passed in 
 
   $str = preg_replace_callback('#\[ *post_thumb *(size=[\'|\"]([^\'\"]*)[\'|\"])? *(extract=[\'|\"]([^\'\"]*)[\'|\"])? *\]#', array(&$postCallback, 'postThumbCallback'), $str);
 
+  if (preg_match('/\[caption[^\]]*\]/', $str, $output)) {
+    //remove all captions surrounding images and whatnot since tcpdf can't interpret them (but leave the images in place)
+    $str = preg_replace('/\[caption[^\]]*\]/', '', $str);//replace all instances of the opening caption tag
+    $str = preg_replace('/\[\/caption\]/', '', $str);//replace all instances of the closing caption tag
+  }
+
   $str = kalins_pdf_global_shortcode_replace($str);//then parse the global shortcodes
 
   return $str;
