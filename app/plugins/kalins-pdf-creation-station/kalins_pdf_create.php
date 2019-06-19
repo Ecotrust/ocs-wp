@@ -255,6 +255,9 @@ $totalHTML = '<!doctype html>
       page-break-inside: avoid;
       width: 100%;
     }
+    .page-break {
+      page-break-before: always;
+    }
     .article-img {
       max-width: 100%;
     }
