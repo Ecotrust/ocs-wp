@@ -1792,8 +1792,19 @@ body.error404 :-ms-input-placeholder,body.home :-ms-input-placeholder{color:#414
 .grid-layout .view-switcher a.view-grid,.view-switcher a.view-grid:active,.view-switcher a.view-grid:hover{background-position:0 -680px}
 .view-switcher a.view-list{background-position:100% -742px}
 .list-layout .view-switcher a.view-list,.view-switcher a.view-list:active,.view-switcher a.view-list:hover{background-position:0 -742px}
-.view-switcher a.my-ocs{background-color:#005130;display:inline-block;position:relative;width:66px;line-height:63px}
-.view-switcher a.my-ocs:after{background-image:url(../images/ODFW_info_icon_refine.png);content:"";opacity:1;top:0;left:0;bottom:0;right:0;position:absolute;z-index:0}
+.view-switcher .my-ocs{background-color:#005130;color:#fff;display:inline-block;height:63px;margin:0;position:relative;width:63px;line-height:63px;text-align:center}
+.view-switcher .my-ocs:after{content:"";background:#fff;left:17px;bottom:30px;height:2px;position:absolute;width:29px;z-index:0;-o-transition:.2s all ease-in-out;transition:.2s all ease-in-out;-ms-transition:.2s all ease-in-out;-webkit-transition:.2s all ease-in-out;-moz-transition:.2s all ease-in-out;-o-transform:rotate(0);transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-moz-transform:rotate(0)}
+.view-switcher .my-ocs:before{background:0 0;border-bottom:2px solid #fff;border-top:2px solid #fff;content:'';height:18px;position:absolute;left:17px;top:23px;width:29px;-o-transition:.2s all ease-in-out;transition:.2s all ease-in-out;-ms-transition:.2s all ease-in-out;-webkit-transition:.2s all ease-in-out;-moz-transition:.2s all ease-in-out;-o-transform:rotate(0);transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-moz-transform:rotate(0)}
+.view-switcher .nav-check{cursor:pointer;height:63px;margin:0;opacity:0;position:absolute;right:0;top:0;width:63px;z-index:3;-webkit-transition:.3s all ease-in-out;-o-transition:.3s all ease-in-out;transition:.3s all ease-in-out}
+.view-switcher .nav-check:checked{height:100%;position:fixed;top:0;width:100%;-webkit-transition:.3s all ease-in-out;-o-transition:.3s all ease-in-out;transition:.3s all ease-in-out}
+.view-switcher .nav-check:checked+.navicon{-webkit-transition:.2s all ease-in-out;-o-transition:.2s all ease-in-out;transition:.2s all ease-in-out}
+.view-switcher .nav-check:checked+.navicon:after,.view-switcher .nav-check:checked+.navicon:before{bottom:30px;border-top:none;height:2px;top:auto;-webkit-transition:.2s all ease-in-out .1s;-o-transition:.2s all ease-in-out .1s;transition:.2s all ease-in-out .1s}
+.view-switcher .nav-check:checked+.navicon:before{-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-o-transform:rotate(45deg);transform:rotate(45deg)}
+.view-switcher .nav-check:checked+.navicon:after{-webkit-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg)}
+.view-switcher .nav-check:checked~nav{right:0;-webkit-transition:.2s all ease-in-out;-o-transition:.2s all ease-in-out;transition:.2s all ease-in-out}
+.view-switcher nav{background-color:#005130;height:auto;right:-40%;overflow:auto;position:fixed;top:63px;width:21%;z-index:3;-webkit-transition:.2s all ease-in-out;-o-transition:.2s all ease-in-out;transition:.2s all ease-in-out}
+.view-switcher nav a{background-image:none;background-color:#005130;color:#fff;font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:16px;display:block;line-height:2;padding:10px 14px;text-align:left;text-indent:0;width:100%}
+.view-switcher nav a:hover{background-color:#fff;color:#58595B;text-decoration:none}
 body.map-visible .view-map{background-position:0 -621px}
 .grid-available .view-switcher .view-grid,.list-available .view-switcher .view-list{display:inline-block}
 .page-header{border-bottom:0}
@@ -1820,7 +1831,7 @@ footer.content-info .draft-message{min-height:40px}
 .sidebar ol,.sidebar ul{padding:0}
 .sidebar ol>li,.sidebar ul>li{position:relative}
 .sidebar ol>li>a,.sidebar ul>li>a{display:block;font-size:14px;font-weight:500;letter-spacing:.02em;text-transform:uppercase;width:100%}
-.sidebar ol.main-ocs-navigation,.sidebar ul.main-ocs-navigation{background-color:#414041;bottom:63px;position:fixed;overflow:auto;top:63px;width:16.67%}
+.sidebar ol.main-ocs-navigation,.sidebar ul.main-ocs-navigation{background-color:#414041;bottom:63px;position:fixed;overflow:auto;top:63px;width:16.67%;-ms-overflow-style:none}
 .sidebar ol.main-ocs-navigation::-webkit-scrollbar,.sidebar ul.main-ocs-navigation::-webkit-scrollbar{opacity:0;width:0}
 .sidebar ol.main-ocs-navigation:hover::-webkit-scrollbar,.sidebar ul.main-ocs-navigation:hover::-webkit-scrollbar{opacity:1}
 .sidebar ol.main-ocs-navigation>li:nth-child(1)>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1)>a:before{background-position:0 0}

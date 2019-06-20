@@ -18,7 +18,13 @@
 			<a href="#" class="view-grid">Grid View</a>
 			<a href="#" class="view-list">List View</a>
 			<?php $theHelpLink = get_permalink(ocs_get_option('ocs-help-icon-url')); ?>
-			<a class="my-ocs" href="<?php echo $theHelpLink ?>" tabindex="5">Help</a>
+			<input type="checkbox" name="nav" class="nav-check" tabindex="5">
+			<label rel="navigation" class="navicon my-ocs"></label>
+			<nav>
+				<a href="<?php echo $theHelpLink ?>" tabindex="6">Help</a>
+				<a href="<?php echo $theHelpLink ?>#scrollNav-5" tabindex="7">Contact ODFW</a>
+				<a href="<?php echo $theHelpLink ?>#scrollNav-6" tabindex="8">Stay Informed</a>
+			</nav>
 
 		</div> <!-- /.header-inner -->
 	</div> <!-- /.row -->

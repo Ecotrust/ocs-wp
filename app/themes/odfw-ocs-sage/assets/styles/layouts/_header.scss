@@ -175,28 +175,136 @@ body.home, body.error404 {
 				background-position: 0px -742px;
 			}
 		}
-
-		&.my-ocs {
-
-            background-color: $green;
-            display: inline-block;
-            position: relative;
-			width: 66px;
-            line-height: 63px;
-
-            &:after {
-                background-image: url('../images/ODFW_info_icon_refine.png');
-                content: "";
-                opacity: 1;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                position: absolute;
-                z-index: 0;
-            }
-		}
 	}
+
+	.my-ocs {
+    background-color: $green;
+    color: #fff;
+    display: inline-block;
+		height: 63px;
+		margin: 0;
+    position: relative;
+		width: 63px;
+    line-height: 63px;
+    text-align: center;
+
+    &:after {
+        // background-image: url('../images/ODFW_info_icon_refine.png');
+        content: "";
+        background: #fff;
+        left: 17px;
+        bottom: 30px;
+				height: 2px;
+        position: absolute;
+				width: 29px;
+        z-index: 0;
+        transition: 0.2s all ease-in-out;
+        -ms-transition: 0.2s all ease-in-out;
+        -webkit-transition: 0.2s all ease-in-out;
+        -moz-transition: 0.2s all ease-in-out;
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+    }
+
+    &:before {
+  		background: transparent;
+  		border-bottom: 2px solid #fff;
+  		border-top: 2px solid #fff;
+  		content: '';
+  		height: 18px;
+  		position: absolute;
+  		left: 17px;
+  		top: 23px;
+  		width: 29px;
+      transition: 0.2s all ease-in-out;
+      -ms-transition: 0.2s all ease-in-out;
+      -webkit-transition: 0.2s all ease-in-out;
+      -moz-transition: 0.2s all ease-in-out;
+      transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+  	}
+  }
+
+  .nav-check {
+    cursor: pointer;
+  	height: 63px;
+		margin: 0;
+  	opacity: 0;
+  	position: absolute;
+		right: 0;
+  	top: 0;
+  	width: 63px;
+  	z-index: 3;
+  	transition: 0.3s all ease-in-out;
+
+    &:checked {
+  		height: 100%;
+			position: fixed;
+			top: 0;
+  		width: 100%;
+  		transition: 0.3s all ease-in-out;
+
+      & + .navicon {
+  			transition: 0.2s all ease-in-out;
+
+  			&:before, &:after {
+					bottom: 30px;
+					border-top: none;
+					height: 2px;
+					top: auto;
+  				transition: 0.2s all ease-in-out 0.1s;
+  			}
+
+  			&:before {
+  				transform: rotate(45deg);
+  			}
+
+  			&:after {
+  				transform: rotate(-45deg);
+  			}
+  		}
+      & ~ nav {
+  			right: 0;
+  			transition: 0.2s all ease-in-out;
+  		}
+    }
+  }
+
+  nav {
+  	background-color: $green;
+  	height: auto;
+  	right: -40%;
+  	overflow: auto;
+  	position: fixed;
+  	top: 63px;
+  	width: 21%;
+  	z-index: 3;
+  	transition: 0.2s all ease-in-out;
+
+  	a {
+			background-image: none;
+			background-color: $green;
+			color: #fff;
+			font-family: $headings-font-family-lighter;
+			font-size: 16px;
+			display: block;
+			line-height: 2;
+			padding: 10px 14px;
+			text-align: left;
+			text-indent: 0;
+			width: 100%;
+
+			&:hover {
+				background-color: #fff;
+				color: $grey;
+				text-decoration: none;
+			}
+		}
+  }
 }
 
 body.map-visible {
