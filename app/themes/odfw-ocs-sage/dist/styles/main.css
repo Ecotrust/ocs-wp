@@ -1805,7 +1805,9 @@ body.error404 :-ms-input-placeholder,body.home :-ms-input-placeholder{color:#414
 .view-switcher nav{background-color:#005130;height:auto;right:-40%;overflow:auto;position:fixed;top:63px;width:21%;z-index:3;-webkit-transition:.2s all ease-in-out;-o-transition:.2s all ease-in-out;transition:.2s all ease-in-out}
 .view-switcher nav a{background-image:none;background-color:#005130;color:#fff;font-family:TradeGothic,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:16px;display:block;line-height:2;padding:10px 14px;text-align:left;text-indent:0;width:100%}
 .view-switcher nav a:hover{background-color:#fff;color:#58595B;text-decoration:none}
-body.map-visible .view-map{background-position:0 -621px}
+body.map-visible .view-map{background-color:#fff;background-position:0 -621px;border-bottom:4px solid #005130;line-height:59px}
+body.list-layout .view-list{background-color:#fff;border-bottom:4px solid #005130;line-height:59px}
+body.grid-layout .view-grid{background-color:#fff;border-bottom:4px solid #005130;line-height:59px}
 .grid-available .view-switcher .view-grid,.list-available .view-switcher .view-list{display:inline-block}
 .page-header{border-bottom:0}
 .page-header h1{display:inline}

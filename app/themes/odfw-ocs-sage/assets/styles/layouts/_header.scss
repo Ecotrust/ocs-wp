@@ -309,7 +309,26 @@ body.home, body.error404 {
 
 body.map-visible {
 	.view-map {
-        background-position: 0px -621px;
+		background-color: #fff;
+    background-position: 0px -621px;
+		border-bottom: 4px solid $green;
+		line-height: 59px;
+	}
+}
+
+body.list-layout {
+	.view-list {
+		background-color: #fff;
+		border-bottom: 4px solid $green;
+		line-height: 59px;
+	}
+}
+
+body.grid-layout {
+	.view-grid {
+		background-color: #fff;
+		border-bottom: 4px solid $green;
+		line-height: 59px;
 	}
 }
 

@@ -89,7 +89,7 @@ function group_results_by_post_type($hits) {
     }
 
     // Merge back to $hits in the desired order
-	$hits[0] = array_merge($types['titles'], $types['coa'], $types['kci'], $types['ecoregion'], $types['strategy_habitat'], $types['strategy_species'], $types['page'], $types['success_story'], $types['attachment'], $types['post']);
+	$hits[0] = array_merge($types['titles'], $types['kci'], $types['ecoregion'], $types['coa'], $types['strategy_habitat'], $types['strategy_species'], $types['page'], $types['post'], $types['success_story'], $types['attachment']);
     return $hits;
 }
 
