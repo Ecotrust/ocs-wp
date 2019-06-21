@@ -218,8 +218,9 @@ $totalHTML = '<!doctype html>
 <head>
   <meta charset="utf-8">
   <title>' . kalins_pdf_global_shortcode_replace($headerTitle) . '</title>
-  <meta name="description" content="' . kalins_pdf_global_shortcode_replace($headerSub) . '">
-  <style>
+  <meta name="description" content="' . kalins_pdf_global_shortcode_replace($headerSub) . '">';
+
+$style = '<style>
     body {
       color: rgb(60,60,60);
       font-family: Helvetica, Tahoma, Arial, sans-serif;
@@ -261,8 +262,6 @@ $totalHTML = '<!doctype html>
     .article-img {
       max-width: 100%;
     }
-    .full-page {
-    }
     section {
       page-break-before: auto;
       page-break-inside: auto;
@@ -275,9 +274,39 @@ $totalHTML = '<!doctype html>
       margin: 0 0 8px;
       page-break-inside: avoid;
     }
-  </style>
-</head>
-<body>';
+    table {
+      border-color: #77787B;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    table thead th {
+  		background-color: #58595B;
+  		color: #ffffff;
+  		font-weight: bold;
+    }
+    table thead th a {
+      border-color: #77787B;
+      color: #fff;
+      text-decoration: underline;
+    }
+    table tfoot th {
+    	background-color: #E6E7E8;
+    	font-weight: normal;
+    	text-align: left;
+    }
+    table tfoot th br {
+    	margin-bottom: 1em;
+    }
+    .table-centered-header thead th {
+      text-align: center;
+    }
+    table td {
+      border-color: #77787B;
+      border-width: 1px;
+    }
+  </style>';
+
+$totalHTML = $style . '</head><body>';
 
 $totalTXT = '';
 
@@ -290,7 +319,8 @@ try{
       $titlePage = kalins_pdf_global_shortcode_replace($titlePage);
     }
     $strHtml = wpautop($titlePage, true );
-    $objTcpdf->writeHTML( $strHtml , true, 0, true, 0);
+    $pdfHTML = $style . $strHtml;
+    $objTcpdf->writeHTML( $pdfHTML , true, 0, true, 0);
 
     $totalHTML = $totalHTML .$strHtml;
     $totalTXT = $totalTXT .$titlePage;
@@ -403,11 +433,12 @@ try{
     }
 
     $strHtml = wpautop($content, true );
+    $pdfHTML = $style . $strHtml;
     $totalHTML = $totalHTML .$strHtml;
     $totalTXT = $totalTXT .$content;
 
     // output the HTML content
-    $objTcpdf->writeHTML( $strHtml , true, 0, true, 0);
+    $objTcpdf->writeHTML( $pdfHTML , true, 0, true, 0);
 
     //$proBar->increase();
   }
@@ -429,10 +460,11 @@ try{
     }
 
     $strHtml = wpautop($finalPage, true );
+    $pdfHTML = $style . $strHtml;
     $totalHTML = $totalHTML .$strHtml;
     $totalTXT = $totalTXT .$finalPage;
 
-    $objTcpdf->writeHTML( $strHtml , true, 0, true, 0);
+    $objTcpdf->writeHTML( $pdfHTML , true, 0, true, 0);
   }
 } catch (Exception $e) {
   $outputVar->status = "problem creating final page.";
