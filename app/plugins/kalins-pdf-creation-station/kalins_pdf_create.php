@@ -275,17 +275,17 @@ $style = '<style>
       page-break-inside: avoid;
     }
     table {
-      border-spacing: 0;
+      border-spacing: 1px;
       margin-top: 15px;
       margin-bottom: 15px;
     }
     th {
   		background-color: #58595B;
   		color: #ffffff;
-      font-size: 14px;
+      font-size: 12px;
   		font-weight: bold;
-      height: 36px;
-      line-height: 36px;
+      line-height: 1.5;
+      padding: 15px;
     }
     tbody tr:nth-of-type(2n + 2) td {
       background-color: #E6E7E8;
@@ -295,10 +295,10 @@ $style = '<style>
     }
     td {
       color: #58595B;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: normal;
-      height: 28px;
-      line-height: 28px;
+      padding: 15px;
+      line-height: 1.5;
     }
   </style>';
 
