@@ -275,34 +275,30 @@ $style = '<style>
       page-break-inside: avoid;
     }
     table {
-      border-color: #77787B;
+      border-spacing: 0;
       margin-top: 15px;
       margin-bottom: 15px;
     }
-    table thead th {
+    th {
   		background-color: #58595B;
   		color: #ffffff;
+      font-size: 14px;
   		font-weight: bold;
+      height: 36px;
+      line-height: 36px;
     }
-    table thead th a {
-      border-color: #77787B;
-      color: #fff;
-      text-decoration: underline;
+    tbody tr:nth-of-type(2n + 2) td {
+      background-color: #E6E7E8;
     }
-    table tfoot th {
-    	background-color: #E6E7E8;
-    	font-weight: normal;
-    	text-align: left;
+    tbody tr:nth-of-type(2n + 1) td {
+      background-color: #ffffff;
     }
-    table tfoot th br {
-    	margin-bottom: 1em;
-    }
-    .table-centered-header thead th {
-      text-align: center;
-    }
-    table td {
-      border-color: #77787B;
-      border-width: 1px;
+    td {
+      color: #58595B;
+      font-size: 11px;
+      font-weight: normal;
+      height: 28px;
+      line-height: 28px;
     }
   </style>';
 
