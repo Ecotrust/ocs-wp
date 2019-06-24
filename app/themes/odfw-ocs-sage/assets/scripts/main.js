@@ -54,6 +54,19 @@
   		      }
           });
 
+          // secondary nav open on keyboard enter hit
+          // also opens on defualt space hit
+          document.querySelector('.nav-check').addEventListener('keypress', function (e) {
+            var key = e.which || e.keyCode;
+            if (key === 13) { // 13 is enter
+              if (e.target.checked) {
+                e.target.checked = false;
+              } else {
+                e.target.checked = true;
+              }
+            }
+          });
+
           /*
             toggling non-featured images added via media gallery
             '.image-container' wrapper added to all media via functions.php

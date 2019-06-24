@@ -241,6 +241,14 @@ body.home, body.error404 {
   	z-index: 3;
   	transition: 0.3s all ease-in-out;
 
+		&:focus {
+
+			& ~ label {
+				background: $greenDark;
+				outline: 3px solid #fff;
+			}
+		}
+
     &:checked {
   		height: 100%;
 			position: fixed;
