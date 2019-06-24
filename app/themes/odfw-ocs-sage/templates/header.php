@@ -21,9 +21,11 @@
 			<input type="checkbox" name="nav" class="nav-check" tabindex="5">
 			<label rel="navigation" class="navicon my-ocs"></label>
 			<nav>
-				<a href="<?php echo $theHelpLink ?>" tabindex="6">Help</a>
-				<a href="<?php echo $theHelpLink ?>#scrollNav-5" tabindex="7">Contact ODFW</a>
-				<a href="<?php echo $theHelpLink ?>#scrollNav-6" tabindex="8">Stay Informed</a>
+				<?php
+				  if (has_nav_menu('secondary_navigation')) :
+					wp_nav_menu(['theme_location' => 'secondary_navigation', 'menu_class' => 'secondary-ocs-navigation', 'container' => '']);
+				  endif;
+				?>
 			</nav>
 
 		</div> <!-- /.header-inner -->
