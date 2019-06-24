@@ -369,7 +369,7 @@ function kalinsPDF_content_filter($content){
   $adminOptions->linkText = kalins_pdf_page_shortcode_replace($adminOptions->linkText, $post);
   $adminOptions->afterLink = kalins_pdf_page_shortcode_replace($adminOptions->afterLink, $post);
 
-  $strHtml = $adminOptions->beforeLink .'<a href="' . get_bloginfo('wpurl') . '/wp-content/plugins/kalins-pdf-creation-station/kalins_pdf_create.php?singlepost=' .$postID .'" target="_blank" >' .$adminOptions->linkText .'</a>' .$adminOptions->afterLink;
+  $strHtml = $adminOptions->beforeLink .'<a class="pdf-link" href="' . get_bloginfo('wpurl') . '/wp-content/plugins/kalins-pdf-creation-station/kalins_pdf_create.php?singlepost=' .$postID .'" target="_blank" >' .$adminOptions->linkText .'</a>' .$adminOptions->afterLink;
 
   switch($showLink){//return the content with the link attached above or below
     case "top":

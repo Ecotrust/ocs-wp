@@ -224,7 +224,7 @@ $style = '<style>
     body {
       color: rgb(60,60,60);
       font-family: Helvetica, Tahoma, Arial, sans-serif;
-      font-size: 12px;
+      font-size: 11px;
       margin: 0;
       padding: 0;
     }
@@ -258,9 +258,6 @@ $style = '<style>
     }
     .page-break {
       page-break-before: always;
-    }
-    .article-img {
-      max-width: 100%;
     }
     section {
       page-break-before: auto;
