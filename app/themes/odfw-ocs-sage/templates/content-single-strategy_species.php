@@ -160,7 +160,16 @@
 			</section>
 	<?php endif; ?>
 
+  <?php $the_field = get_post_meta( get_the_ID(), 'species_meta_life-history-traits', true );
+		if ( !empty($the_field) ): ?>
+			<section class="cmb2-wrap-file species_meta_life-history-traits">
+				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-life-history-traits') ?>">Life History Traits</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
+				<p class="cmb2-file">
+					<object class="embed-pdf-viewer" data="<?php echo ( $the_field ); ?>#scrollbar=1&toolbar=1" height="600" width="800" type="application/pdf"></object>
+				</p>
+			</section>
+	<?php endif; ?>
 
 	<?php $the_field = get_post_meta( get_the_ID(), 'species_meta_key-reference', true );
 		if ( !empty($the_field) ): ?>

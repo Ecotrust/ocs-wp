@@ -232,6 +232,19 @@ function setupCustomFields () {
 			'row_classes' => 'species-textarea',
 		));
 		$ss_cmb->add_field( array(
+			'name' => __( 'Life History Traits', 'odfw'),
+			'id' => $prefix . 'life-history-traits',
+			'type' => 'file',
+			'row_classes' => 'species-file',
+			'text'    => array(
+				'add_upload_file_text' => 'Add PDF' // Change upload button text.
+			),
+			// query_args are passed to wp.media's library query.
+			'query_args' => array(
+				'type' => 'application/pdf', // Make library only display PDFs
+			)
+		));
+		$ss_cmb->add_field( array(
 			'name' => __( 'Key reference or plan', 'if available', 'odfw' ),
 			'id' => $prefix . 'key-reference',
 			'type' => 'textarea',
@@ -334,6 +347,19 @@ function setupCustomFields () {
 					'id' => $prefix . 'conservation-actions',
 					'type' => 'textarea',
 					'row_classes' => 'species-textarea',
+				),
+				array(
+					'name' => __( 'Life History Traits', 'odfw' ),
+					'id' => $prefix . 'life-history-traits',
+					'type' => 'file',
+					'row_classes' => 'species-file',
+					'text'    => array(
+						'add_upload_file_text' => 'Add PDF' // Change upload button text.
+					),
+					// query_args are passed to wp.media's library query.
+					'query_args' => array(
+						'type' => 'application/pdf', // Make library only display PDFs
+					)
 				),
 				array(
 					'name' => __( 'Key reference or plan', 'if available', 'odfw' ),
