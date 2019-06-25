@@ -132,6 +132,13 @@ figure.wp-caption {
 
 span.attr-name > a { color: $greenMid; }
 
+// Embed objects
+object.embed-pdf-viewer {
+	height: 580px;
+	max-width: 454px;
+	width: 100%;
+}
+
 @media screen and (max-width: 1120px) {
 	body.page-id-109,
 	body.page-id-112 {
