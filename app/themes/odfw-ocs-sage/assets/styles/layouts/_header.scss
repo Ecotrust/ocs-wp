@@ -188,12 +188,14 @@ body.home, body.error404 {
     line-height: 63px;
     text-align: center;
 
-    &:after {
+    &:after,
+		span {
         // background-image: url('../images/ODFW_info_icon_refine.png');
         content: "";
         background: #fff;
+				border-radius: 1em;
         left: 20px;
-        bottom: 29px;
+        bottom: 22px;
 				height: 3px;
         position: absolute;
 				width: 23px;
@@ -209,14 +211,13 @@ body.home, body.error404 {
     }
 
     &:before {
-  		background: transparent;
-  		border-bottom: 3px solid #fff;
-  		border-top: 3px solid #fff;
+  		background: #fff;
+			border-radius: 1em;
+			bottom: 36px;
   		content: '';
-  		height: 17px;
+  		height: 3px;
   		position: absolute;
   		left: 20px;
-  		top: 24px;
   		width: 23px;
       transition: 0.2s all ease-in-out;
       -ms-transition: 0.2s all ease-in-out;
@@ -227,6 +228,10 @@ body.home, body.error404 {
       -webkit-transform: rotate(0deg);
       -moz-transform: rotate(0deg);
   	}
+
+		span {
+			bottom: 29px;
+		}
   }
 
   .nav-check {
@@ -241,7 +246,9 @@ body.home, body.error404 {
   	z-index: 3;
   	transition: 0.3s all ease-in-out;
 
-		&:focus {
+		&:focus,
+		&:hover,
+		&:active {
 
 			& ~ label {
 				background: $greenDark;
@@ -259,11 +266,15 @@ body.home, body.error404 {
       & + .navicon {
   			transition: 0.2s all ease-in-out;
 
+				span {
+					left: -10px;
+					opacity: 0;
+				}
+
   			&:before, &:after {
 					bottom: 29px;
 					border-top: none;
 					height: 3px;
-					top: auto;
   				transition: 0.2s all ease-in-out 0.1s;
   			}
 

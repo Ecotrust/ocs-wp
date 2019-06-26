@@ -8,8 +8,8 @@
 			<div class="search-wrap">
 				<form action="/" class="search-form form-inline" method="get" role="search">
 					<label class="sr-only" for="search-field" aria-label="search-field">Search for:</label>
-					<input type="search" required="" tabindex="3" placeholder="SEARCH" id="search-field" class="search-field" name="s" value="">
-					<button class="search-submit"  tabindex="4" type="submit"><span>Search</span></button>
+					<input type="search" required="" placeholder="SEARCH" id="search-field" class="search-field" name="s" value="">
+					<button class="search-submit" type="submit"><span>Search</span></button>
 					<div id="length-test"></div>
 				</form>
 			</div>
@@ -18,8 +18,8 @@
 			<a href="#" class="view-grid">Grid View</a>
 			<a href="#" class="view-list">List View</a>
 			<?php $theHelpLink = get_permalink(ocs_get_option('ocs-help-icon-url')); ?>
-			<input type="checkbox" name="nav" class="nav-check" id="nav-check" tabindex="5" value="" aria-label="nav-check-label">
-			<label rel="navigation" class="navicon my-ocs" id="nav-check-label" aria-label="nav-check" for="search-field"></label>
+			<input type="checkbox" name="nav" class="nav-check" id="nav-check" value="" aria-label="nav-check-label">
+			<label rel="navigation" class="navicon my-ocs" id="nav-check-label" aria-label="nav-check" for="search-field"><span></span></label>
 			<nav>
 				<?php
 				  if (has_nav_menu('secondary_navigation')) :
