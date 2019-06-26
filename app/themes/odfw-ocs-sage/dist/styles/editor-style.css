@@ -1775,9 +1775,10 @@ body.error404 :-ms-input-placeholder,body.home :-ms-input-placeholder{color:#414
 #header .search-wrap{border-bottom:1px solid #7FA797;-webkit-box-flex:1;-ms-flex:1;flex:1}
 #header .search-wrap form,#header .search-wrap input{display:-webkit-box;display:-ms-flexbox;display:flex;width:100%}
 #header .search-wrap #length-test,#header .search-wrap input{color:#414041;font-family:TradeGothicBold,"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:33px;height:62px;letter-spacing:.02em;line-height:62px;background-color:#D3E9D1;border:0 none;outline:0;padding:1px 10px;text-transform:uppercase;padding:1px 15px}
+#header .search-wrap #length-test:focus,#header .search-wrap input:focus{background-color:#c3e1c0}
 #header .search-wrap #length-test{position:absolute;height:auto;left:-9999em;width:auto;white-space:nowrap}
 #header .search-wrap button{background-color:#EFF7ED;border:none;display:inline-block;line-height:62px;text-align:center;width:62px;background:#D3E9D1 url(../images/icons-nav.png) 100% -806px no-repeat;display:block;margin:0;padding:0;text-indent:-999em;width:auto!important;-webkit-box-flex:0;-ms-flex:0 0 62px;flex:0 0 62px}
-#header .search-wrap button:hover{background-color:#c3e1c0;background-position:0 -806px}
+#header .search-wrap button:focus,#header .search-wrap button:hover{background-color:#c3e1c0;background-position:0 -806px}
 @media screen and (-webkit-min-device-pixel-ratio:1.5),(-webkit-min-device-pixel-ratio:2),(-o-min-device-pixel-ratio:2/1),(min-resolution:192dpi){#header .search-wrap button{background-image:url(../images/icons-nav@2x.png);-webkit-background-size:200% 200%;background-size:200%}
 }
 #header.mobile{display:none}
@@ -1787,12 +1788,13 @@ body.error404 :-ms-input-placeholder,body.home :-ms-input-placeholder{color:#414
 }
 .view-switcher a:focus{outline:0}
 .view-switcher a.view-grid,.view-switcher a.view-list,.view-switcher a.view-map{background-color:#EFF7ED}
+.view-switcher a.view-grid:focus,.view-switcher a.view-grid:hover,.view-switcher a.view-list:focus,.view-switcher a.view-list:hover,.view-switcher a.view-map:focus,.view-switcher a.view-map:hover{background-color:#fff}
 .view-switcher a.view-map{background-position:100% -621px}
-.view-switcher a.view-map:active,.view-switcher a.view-map:hover{background-position:0 -621px}
+.view-switcher a.view-map:active,.view-switcher a.view-map:focus,.view-switcher a.view-map:hover{background-position:0 -621px}
 .view-switcher a.view-grid{background-position:100% -680px}
-.grid-layout .view-switcher a.view-grid,.view-switcher a.view-grid:active,.view-switcher a.view-grid:hover{background-position:0 -680px}
+.grid-layout .view-switcher a.view-grid,.view-switcher a.view-grid:active,.view-switcher a.view-grid:focus,.view-switcher a.view-grid:hover{background-position:0 -680px}
 .view-switcher a.view-list{background-position:100% -742px}
-.list-layout .view-switcher a.view-list,.view-switcher a.view-list:active,.view-switcher a.view-list:hover{background-position:0 -742px}
+.list-layout .view-switcher a.view-list,.view-switcher a.view-list:active,.view-switcher a.view-list:focus,.view-switcher a.view-list:hover{background-position:0 -742px}
 .view-switcher .my-ocs{background-color:#005130;color:#fff;display:inline-block;height:63px;margin:0;position:relative;width:63px;line-height:63px;text-align:center}
 .view-switcher .my-ocs span,.view-switcher .my-ocs:after{content:"";background:#fff;border-radius:1em;left:20px;bottom:22px;height:3px;position:absolute;width:23px;z-index:0;-o-transition:.2s all ease-in-out;transition:.2s all ease-in-out;-ms-transition:.2s all ease-in-out;-webkit-transition:.2s all ease-in-out;-moz-transition:.2s all ease-in-out;-o-transform:rotate(0);transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-moz-transform:rotate(0)}
 .view-switcher .my-ocs:before{background:#fff;border-radius:1em;bottom:36px;content:'';height:3px;position:absolute;left:20px;width:23px;-o-transition:.2s all ease-in-out;transition:.2s all ease-in-out;-ms-transition:.2s all ease-in-out;-webkit-transition:.2s all ease-in-out;-moz-transition:.2s all ease-in-out;-o-transform:rotate(0);transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-moz-transform:rotate(0)}

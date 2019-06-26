@@ -84,6 +84,11 @@ body.home, body.error404 {
 				font-family: $headings-font-family;
 			}
 			*/
+
+			&:focus {
+				background-color: darken($greenLight, 5);
+			}
+
 		}
         // used to measure the length of the text in the search box
         #length-test {
@@ -106,7 +111,8 @@ body.home, body.error404 {
             width: auto !important; //override mixin
             flex: 0 0 62px;
 
-			&:hover {
+			&:hover,
+			&:focus {
 				background-color: darken($greenLight, 5);
                 background-position: 0 -806px;
 			}
@@ -145,13 +151,19 @@ body.home, body.error404 {
 		&.view-grid,
 		&.view-list {
 			background-color: $greenLighter;
+
+			&:hover,
+			&:focus {
+				background-color: #fff;
+			}
 		}
 
 		&.view-map {
 			background-position: 100% -621px;
 
 			&:hover,
-			&:active {
+			&:active,
+			&:focus {
 				background-position: 0px -621px;
 			}
 		}
@@ -161,7 +173,8 @@ body.home, body.error404 {
 
 			&:hover,
 			.grid-layout &,
-			&:active {
+			&:active,
+			&:focus {
 				background-position: 0px -680px;
 			}
 		}
@@ -171,7 +184,8 @@ body.home, body.error404 {
 
 			&:hover,
 			.list-layout &,
-			&:active {
+			&:active,
+			&:focus {
 				background-position: 0px -742px;
 			}
 		}
