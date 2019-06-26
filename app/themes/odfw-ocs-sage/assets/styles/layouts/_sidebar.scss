@@ -52,6 +52,16 @@
 				}
 			}
 
+      &:focus {
+				background-color: darken($greyDark, 10%);
+        &::-webkit-scrollbar {
+					opacity: 1;
+				}
+      }
+
+			*:focus {
+				background-color: darken($greyDark, 10%);
+			}
 
 			// generate sprite positions
 			@for $i from 0 through 9 {
