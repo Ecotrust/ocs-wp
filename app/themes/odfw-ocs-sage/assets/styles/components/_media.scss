@@ -134,10 +134,10 @@ span.attr-name > a { color: $greenMid; }
 
 // Embed objects
 object.embed-pdf-viewer {
-	height: 540px;
+	height: 550px;
 	margin: 20px auto;
-	max-width: 440px;
-	width: 100%;
+	max-width: 700px;
+	width: 80%;
 }
 
 @media screen and (max-width: 1120px) {

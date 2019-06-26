@@ -166,7 +166,7 @@
 				<h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-life-history-traits') ?>">Life History Traits</h2 data-toggle="tooltip"  data-placement="right" title="<?php echo ocs_get_option('ss-') ?>">
 
 				<p class="cmb2-file">
-					<object class="embed-pdf-viewer" data="<?php echo ( $the_field ); ?>#scrollbar=1&toolbar=1" height="600" width="800" type="application/pdf"></object>
+					<object class="embed-pdf-viewer" data="<?php echo ( $the_field ); ?>#scrollbar=1&toolbar=1" height="500" width="500" type="application/pdf"></object>
 				</p>
 			</section>
 	<?php endif; ?>
