@@ -1787,14 +1787,16 @@ body.error404 :-ms-input-placeholder,body.home :-ms-input-placeholder{color:#414
 @media screen and (-webkit-min-device-pixel-ratio:1.5),(-webkit-min-device-pixel-ratio:2),(-o-min-device-pixel-ratio:2/1),(min-resolution:192dpi){.view-switcher a{background-image:url(../images/icons-nav@2x.png);-webkit-background-size:200% 200%;background-size:200%}
 }
 .view-switcher a:focus{outline:0}
-.view-switcher a.view-grid,.view-switcher a.view-list,.view-switcher a.view-map{background-color:#EFF7ED}
-.view-switcher a.view-grid:focus,.view-switcher a.view-grid:hover,.view-switcher a.view-list:focus,.view-switcher a.view-list:hover,.view-switcher a.view-map:focus,.view-switcher a.view-map:hover{background-color:#fff}
+.view-switcher a.view-article,.view-switcher a.view-grid,.view-switcher a.view-list,.view-switcher a.view-map{background-color:#EFF7ED}
+.view-switcher a.view-article:active,.view-switcher a.view-article:focus,.view-switcher a.view-article:hover,.view-switcher a.view-grid:active,.view-switcher a.view-grid:focus,.view-switcher a.view-grid:hover,.view-switcher a.view-list:active,.view-switcher a.view-list:focus,.view-switcher a.view-list:hover,.view-switcher a.view-map:active,.view-switcher a.view-map:focus,.view-switcher a.view-map:hover{background-color:#fff}
 .view-switcher a.view-map{background-position:100% -621px}
 .view-switcher a.view-map:active,.view-switcher a.view-map:focus,.view-switcher a.view-map:hover{background-position:0 -621px}
 .view-switcher a.view-grid{background-position:100% -680px}
 .grid-layout .view-switcher a.view-grid,.view-switcher a.view-grid:active,.view-switcher a.view-grid:focus,.view-switcher a.view-grid:hover{background-position:0 -680px}
 .view-switcher a.view-list{background-position:100% -742px}
 .list-layout .view-switcher a.view-list,.view-switcher a.view-list:active,.view-switcher a.view-list:focus,.view-switcher a.view-list:hover{background-position:0 -742px}
+.view-switcher a.view-article{background-image:url(../images/icon-file-light.svg);background-position:50% 23px;-webkit-background-size:21px 21px;background-size:21px}
+.article-layout .view-switcher a.view-article,.view-switcher a.view-article:active,.view-switcher a.view-article:focus,.view-switcher a.view-article:hover{background-image:url(../images/icon-file-dark.svg)}
 .view-switcher .my-ocs{background-color:#005130;color:#fff;display:inline-block;height:63px;margin:0;position:relative;width:63px;line-height:63px;text-align:center}
 .view-switcher .my-ocs span,.view-switcher .my-ocs:after{content:"";background:#fff;border-radius:1em;left:20px;bottom:22px;height:3px;position:absolute;width:23px;z-index:0;-o-transition:.2s all ease-in-out;transition:.2s all ease-in-out;-ms-transition:.2s all ease-in-out;-webkit-transition:.2s all ease-in-out;-moz-transition:.2s all ease-in-out;-o-transform:rotate(0);transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-moz-transform:rotate(0)}
 .view-switcher .my-ocs:before{background:#fff;border-radius:1em;bottom:36px;content:'';height:3px;position:absolute;left:20px;width:23px;-o-transition:.2s all ease-in-out;transition:.2s all ease-in-out;-ms-transition:.2s all ease-in-out;-webkit-transition:.2s all ease-in-out;-moz-transition:.2s all ease-in-out;-o-transform:rotate(0);transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-moz-transform:rotate(0)}
@@ -1816,7 +1818,8 @@ body.error404 :-ms-input-placeholder,body.home :-ms-input-placeholder{color:#414
 body.map-visible .view-map{background-color:#fff;background-position:0 -621px;border-bottom:4px solid #005130;line-height:59px}
 body.list-layout .view-list{background-color:#fff;border-bottom:4px solid #005130;line-height:59px}
 body.grid-layout .view-grid{background-color:#fff;border-bottom:4px solid #005130;line-height:59px}
-.grid-available .view-switcher .view-grid,.list-available .view-switcher .view-list{display:inline-block}
+body.article-layout .view-article{background-color:#fff;border-bottom:4px solid #005130;line-height:59px}
+.article-available .view-switcher .view-article,.grid-available .view-switcher .view-grid,.list-available .view-switcher .view-list{display:inline-block}
 .page-header{border-bottom:0}
 .page-header h1{display:inline}
 #skip-to-content:focus{background-color:#fbfbfb;-webkit-box-shadow:0 0 1px 1px rgba(0,0,0,.3);box-shadow:0 0 1px 1px rgba(0,0,0,.3);color:#0073aa;display:block;font-size:15px;height:auto;left:10px;line-height:normal;padding:10px;position:absolute;text-align:center;text-decoration:none;top:10px;width:15em;z-index:100000}

@@ -27,6 +27,12 @@
 
           if ($compass.length || ($(".compass-coa").length)) {
               OCS.$body.toggleClass('map-available');
+              if (OCS.$body.hasClass('map-visible')) {
+                  OCS.$body.removeClass('article-layout');
+              } else if (!OCS.$body.hasClass('page-id-101')) {
+                OCS.$body.addClass('article-available article-layout');
+              }
+
               if ($compass) {
                   $compass.insertAfter("main");
               }
@@ -186,6 +192,11 @@
           //Toggle class for switching between compass and main content
           $('.view-map, span.compass-close').click(function(){
               OCS.$body.toggleClass('map-visible');
+              if (OCS.$body.hasClass('map-visible')) {
+                  OCS.$body.removeClass('article-layout');
+              } else {
+                OCS.$body.addClass('article-available article-layout');
+              }
               if ($iframe.length) {
                   //$iframe has to be added, not just hidden for fullscreen view of oregon
                   $('.compass-wrap').append($iframe);
@@ -220,7 +231,7 @@
     'single_strategy_species': {
       init: function() {
         // JavaScript to be fired on the single species page
-
+        $('body').addClass('article-layout article-available map-available');
       },
       finalize: function() {
 		    // Done in PHP to avoid flash of no-nav + those w/o js.
@@ -231,7 +242,7 @@
 	   init: function() {
 		  // JavaScript to be fired on COA pages
         if ($('body.page-id-102').length) {
-            $('body').addClass('map-visible').removeClass('grid-layout');
+            $('body').addClass('map-visible').removeClass('grid-layout article-layout article-available');
         }
 	   },
 	   finalize: function() {
@@ -240,7 +251,7 @@
     'single_ecoregion': {
       init: function() {
         // JavaScript to be fired on single ecoregion pages
-        $('body').addClass('grid-available list-available grid-layout');
+        $('body').addClass('article-layout article-available map-available');
       },
       finalize: function() {
       }
@@ -406,12 +417,17 @@
   			OCS.$body.addClass('list-layout').removeClass('grid-layout');
   			return false;
   		});
-          $('.view-map').on('click', function() {
-              if ($('.compass-coa') || $('.ecoregion-svg').length) {
-                  OCS.$body.removeClass('list-layout grid-layout');
-              }
-              return false;
-          });
+      $('.view-map').on('click', function() {
+          if ($('.compass-coa') || $('.ecoregion-svg').length) {
+              OCS.$body.removeClass('list-layout grid-layout article-layout');
+          }
+          return false;
+      });
+      $('.view-article').on('click', function() {
+        OCS.$body.removeClass('map-visible');
+  			OCS.$body.addClass('article-layout');
+  			return false;
+  		});
   	}
   };
 

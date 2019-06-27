@@ -17,7 +17,7 @@
 			<a href="#" class="view-map">Map</a>
 			<a href="#" class="view-grid">Grid View</a>
 			<a href="#" class="view-list">List View</a>
-			<?php $theHelpLink = get_permalink(ocs_get_option('ocs-help-icon-url')); ?>
+			<a href="#" class="view-article">Article View</a>
 			<input type="checkbox" name="nav" class="nav-check" id="nav-check" value="" aria-label="nav-check-label">
 			<label rel="navigation" class="navicon my-ocs" id="nav-check-label" aria-label="nav-check" for="search-field"><span></span></label>
 			<nav>

@@ -149,10 +149,12 @@ body.home, body.error404 {
 
 		&.view-map,
 		&.view-grid,
-		&.view-list {
+		&.view-list,
+		&.view-article {
 			background-color: $greenLighter;
 
 			&:hover,
+			&:active,
 			&:focus {
 				background-color: #fff;
 			}
@@ -187,6 +189,19 @@ body.home, body.error404 {
 			&:active,
 			&:focus {
 				background-position: 0px -742px;
+			}
+		}
+
+		&.view-article {
+			background-image: url($file-icon-light);
+			background-position: 50% 23px;
+			background-size: 21px;
+
+			&:hover,
+			.article-layout &,
+			&:active,
+			&:focus {
+				background-image: url($file-icon-dark);
 			}
 		}
 	}
@@ -376,8 +391,17 @@ body.grid-layout {
 	}
 }
 
+body.article-layout {
+	.view-article {
+		background-color: #fff;
+		border-bottom: 4px solid $green;
+		line-height: 59px;
+	}
+}
+
 .grid-available .view-switcher .view-grid,
-.list-available .view-switcher .view-list {
+.list-available .view-switcher .view-list,
+.article-available .view-switcher .view-article {
     display: inline-block;
 }
 //.grid-available, .list-available {
