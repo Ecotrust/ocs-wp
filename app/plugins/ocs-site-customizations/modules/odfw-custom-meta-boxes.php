@@ -1044,8 +1044,15 @@ function setupCustomFields () {
 		) );
 
 		$home_cmb->add_group_field( $home_group_field_id, array(
+			'name' => __( 'What URL should this link to?', 'odfw' ),
+			'desc' => __( 'Insert a URL and clear any linked post below', 'odfw' ),
+			'id' => $prefix . 'custom-url',
+			'type' => 'text_url',
+		) );
+
+		$home_cmb->add_group_field( $home_group_field_id, array(
 			'id' => $prefix . "linked-post",
-			'name' => __('What should this link to?', 'odfw'),
+			'name' => __('What post should this link to?  (clear any URL above as URL will take precedence)', 'odfw'),
 			'desc' => __('Use the spyglass icon to select an OCS page.', 'odfw'),
 			//'object_types' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page'),
 			'post_type' => array('post', 'ecoregion', 'kci', 'strategy_habitat', 'coa', 'strategy_species', 'page', 'success_story'),

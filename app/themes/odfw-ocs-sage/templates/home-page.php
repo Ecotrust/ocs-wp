@@ -16,9 +16,16 @@
     		foreach($the_items as $item): ?>
             <div class="item <?php echo $i == 0 ? 'active' : '' ?>">
 
-    		<?php $url = esc_url( get_permalink($item['_home_linked-post']) );
-    		$url .= !empty($item["_home_success-story"] ) && $item["_home_success-story"] == "on" ? "#success-story"  : "";
-    	 ?>
+    		<?php
+				$url = esc_url( get_permalink($item['_home_linked-post']) );
+    			$url .= !empty($item["_home_success-story"]) && $item["_home_success-story"] == "on" ? "#success-story"  : "";
+
+				$external_url = esc_url($item['_home_custom-url']);
+                // var_dump($url);
+				if (!empty($external_url)) {
+					$url = $external_url;
+				}
+			?>
     			<a href="<?php echo $url; ?>">
     				<div class="carousel-caption">
                         <?php if ( !empty($item['_home_headline']) ) : ?>
@@ -47,4 +54,3 @@
         </ol>
     </div>
 </div>
-
