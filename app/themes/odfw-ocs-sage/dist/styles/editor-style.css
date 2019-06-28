@@ -1623,7 +1623,7 @@ figure.wp-caption>a{color:#000}
 .photo-info.visible,.photo-info:focus{width:220px}
 .link-box img,.success-story-content img{max-width:100%}
 span.attr-name>a{color:#7FA797}
-object.embed-pdf-viewer{height:550px;margin:20px auto;max-width:700px;width:80%}
+object.embed-pdf-viewer{height:680px;margin:20px auto;max-width:600px;width:80%}
 @media screen and (max-width:1120px){body.page-id-109 article.col-sm-6.col-md-4,body.page-id-112 article.col-sm-6.col-md-4{width:50%}
 }
 .comment-list{padding-left:0;list-style:none}
