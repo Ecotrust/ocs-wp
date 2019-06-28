@@ -14,12 +14,12 @@
 				</form>
 			</div>
 
-			<a href="#" class="view-map">Map</a>
-			<a href="#" class="view-grid">Grid View</a>
-			<a href="#" class="view-list">List View</a>
-			<a href="#" class="view-article">Article View</a>
-			<input type="checkbox" name="nav" class="nav-check" id="nav-check" value="" aria-label="nav-check-label">
-			<label rel="navigation" class="navicon my-ocs" id="nav-check-label" aria-label="nav-check" for="search-field"><span></span></label>
+			<a href="#" class="view-map" aria-title="map view">Map</a>
+			<a href="#" class="view-grid" aria-title="grid view">Grid View</a>
+			<a href="#" class="view-list" aria-title="list view">List View</a>
+			<a href="#" class="view-article" aria-title="article view">Article View</a>
+			<input type="checkbox" name="nav" class="nav-check" id="nav-check" value="" aria-label="nav-check-label" title="nav menu">
+			<label rel="navigation" class="navicon my-ocs" id="nav-check-label" aria-label="nav-check" for="search-field" title="nav menu"><span></span></label>
 			<nav>
 				<?php
 				  if (has_nav_menu('secondary_navigation')) :

@@ -224,7 +224,7 @@ $style = '<style>
     body {
       color: rgb(60,60,60);
       font-family: Helvetica, Tahoma, Arial, sans-serif;
-      font-size: 11px;
+      font-size: 10px;
       margin: 0;
       padding: 0;
     }
@@ -245,6 +245,9 @@ $style = '<style>
     img {
       margin: 0 auto;
       max-width: 100%;
+    }
+    .full-width {
+      width: 100%;
     }
     .photo-attribution {
       display: block;
