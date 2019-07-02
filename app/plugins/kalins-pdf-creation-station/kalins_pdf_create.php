@@ -171,8 +171,8 @@ try{
     $objTcpdf->SetHeaderData(null, null, $theTitle, $theSubTitle );
   }
   // set header and footer fonts
-  $objTcpdf->setHeaderFont(Array('Helvetica', '', PDF_FONT_SIZE_MAIN));
-  $objTcpdf->setFooterFont(Array('Helvetica', '', PDF_FONT_SIZE_DATA));
+  $objTcpdf->setHeaderFont(Array("Helvetica", '', PDF_FONT_SIZE_MAIN));
+  $objTcpdf->setFooterFont(Array("Helvetica", '', PDF_FONT_SIZE_DATA));
   // remove default header/footer
   $objTcpdf->setPrintHeader(false);
   $objTcpdf->setPrintFooter(false);
@@ -213,14 +213,14 @@ try{
 
 $objTcpdf->SetFont( 'Helvetica', '', $fontSize );
 
-$totalHTML = '<!doctype html>
-<html lang="en">
+$totalHTML = "<!doctype html>
+<html lang=\"en\">
 <head>
-  <meta charset="utf-8">
-  <title>' . kalins_pdf_global_shortcode_replace($headerTitle) . '</title>
-  <meta name="description" content="' . kalins_pdf_global_shortcode_replace($headerSub) . '">';
+  <meta charset=\"utf-8\">
+  <title>" . kalins_pdf_global_shortcode_replace($headerTitle) . "</title>
+  <meta name=\"description\" content=\"" . kalins_pdf_global_shortcode_replace($headerSub) . ">";
 
-$style = '<style>
+$style = "<style>
     body {
       color: rgb(60,60,60);
       font-family: Helvetica, Tahoma, Arial, sans-serif;
@@ -300,11 +300,11 @@ $style = '<style>
       padding: 15px;
       line-height: 1.5;
     }
-  </style>';
+  </style>";
 
-$totalHTML = $style . '</head><body>';
+$totalHTML = $style . "</head><body>";
 
-$totalTXT = '';
+$totalTXT = "";
 
 try{
   if($titlePage != ""){
