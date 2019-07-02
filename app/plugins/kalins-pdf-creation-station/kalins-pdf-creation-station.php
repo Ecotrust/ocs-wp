@@ -370,7 +370,7 @@ function kalinsPDF_content_filter($content){
   $adminOptions->linkText = kalins_pdf_page_shortcode_replace($adminOptions->linkText, $post);
   $adminOptions->afterLink = kalins_pdf_page_shortcode_replace($adminOptions->afterLink, $post);
 
-  $strHtml = $adminOptions->beforeLink .'<a class="pdf-link" href="/media/kalins-pdf/singles/' .$reqID .'" target="_blank" >' .$adminOptions->linkText .'</a>' .$adminOptions->afterLink;
+  $strHtml = $adminOptions->beforeLink .'<a class="pdf-link" href="/media/kalins-pdf/singles/' .$reqID .'.pdf" target="_blank" >' .$adminOptions->linkText .'</a>' .$adminOptions->afterLink;
 
   switch($showLink){//return the content with the link attached above or below
     case "top":
