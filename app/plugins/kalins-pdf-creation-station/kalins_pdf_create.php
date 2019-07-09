@@ -247,6 +247,7 @@ $style = "<style>
       margin: 25px 0 15px;
     }
     img {
+      display: block;
       height: auto;
       margin: 0 auto;
       max-width: 100%;
@@ -311,6 +312,9 @@ try{
   if($titlePage != ""){
     $objTcpdf->AddPage();//create title page and start off our PDF file
     if($isSingle){
+      // add margins
+      $objTcpdf->SetMargins(15, 15, 15, 25);
+
       $titlePage = kalins_pdf_page_shortcode_replace($titlePage, $result[0]);
     }else{
       $titlePage = kalins_pdf_global_shortcode_replace($titlePage);

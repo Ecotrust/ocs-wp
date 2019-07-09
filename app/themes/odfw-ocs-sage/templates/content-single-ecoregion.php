@@ -111,19 +111,18 @@
 
 
 		<section class="cmb2-wrap-group factors_repeat_group">
-			<h2>Limiting Factors and Recommended Approaches</h2>
-
-			<div class="cmb2-group">
-				<?php $the_field = get_post_meta( get_the_ID(), 'factors_repeat_group', true );
-
-				foreach($the_field as $entries => $entry ) { ?>
-					<h3>Limiting Factor: <?php echo apply_filters('the_content', $entry['ecoregion_meta_factor_title']);?></h3>
-					<p><?php echo apply_filters('the_content', $entry['ecoregion_meta_factor_description']);?></p>
-					<h4>Recommended Approach</h4>
-					<p><?php echo apply_filters('the_content', $entry['ecoregion_meta_approach']);?></p>
-
-				<?php } ?>
-			</div>
+  		<?php $the_field = get_post_meta( get_the_ID(), 'factors_repeat_group', true );
+			if ( !empty($the_field) ): ?>
+				<h2>Limiting Factors and Recommended Approaches</h2>
+        <div class="cmb2-group">
+  				<?php foreach($the_field as $entries => $entry ) { ?>
+  					<h3>Limiting Factor: <?php echo apply_filters('the_content', $entry['ecoregion_meta_factor_title']);?></h3>
+  					<p><?php echo apply_filters('the_content', $entry['ecoregion_meta_factor_description']);?></p>
+  					<h4>Recommended Approach</h4>
+  					<p><?php echo apply_filters('the_content', $entry['ecoregion_meta_approach']);?></p>
+  				<?php } ?>
+				</div>
+			<?php endif; ?>
 		</section>
 
 
