@@ -218,7 +218,7 @@ $totalHTML = "<!doctype html>
 <head>
   <meta charset=\"utf-8\">
   <title>" . kalins_pdf_global_shortcode_replace($headerTitle) . "</title>
-  <meta name=\"description\" content=\"" . kalins_pdf_global_shortcode_replace($headerSub) . ">";
+  <meta name=\"description\" content=\"" . kalins_pdf_global_shortcode_replace($headerSub) . "\">";
 
 $style = "<style>
     body {
@@ -228,21 +228,26 @@ $style = "<style>
       margin: 0;
       padding: 0;
     }
-    p, ul, ol, div, section, article, blockquote, aside, main, h1, h2, h3, h4, h5, img {
+    body, html, p, ul, ol, div, section, article, blockquote, aside, main, h1, h2, h3, h4, h5, img {
       display: block;
     }
     h1 {
       font-size: 22px;
-      font-weight: 700;
-      page-break-before: always;
+      font-weight: 900;
     }
     h2 {
-      font-size: 16px;
-      font-weight: 500;
+      font-size: 18px;
+      font-weight: 600;
       margin: 40px 0 20px;
       text-transform: uppercase;
     }
+    h3 {
+      font-size: 16px;
+      font-weight: 500;
+      margin: 25px 0 15px;
+    }
     img {
+      height: auto;
       margin: 0 auto;
       max-width: 100%;
     }
@@ -262,22 +267,18 @@ $style = "<style>
     .page-break {
       page-break-before: always;
     }
-    section {
-      page-break-before: auto;
-      page-break-inside: auto;
-    }
     a {
       color: #005130;
     }
     p {
       line-height: 1.5;
       margin: 0 0 8px;
-      page-break-inside: avoid;
     }
     table {
       border-spacing: 1px;
       margin-top: 15px;
       margin-bottom: 15px;
+      width: 100%;
     }
     th {
   		background-color: #58595B;

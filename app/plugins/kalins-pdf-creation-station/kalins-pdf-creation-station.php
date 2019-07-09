@@ -283,6 +283,8 @@ function kalinsPDF_save_postdata( $post_id ) {
 
 function kalinsPDF_publish_post( $post_id ){
 
+  global $post;
+
   kalinsPDF_createPDFDir();
 
   $pdfDir = KALINS_PDF_SINGLES_DIR;
@@ -590,17 +592,20 @@ function kalins_pdf_tool_delete(){//called from either the "Delete All" button o
 
 function kalins_pdf_create_all(){
 
+  global $post;
+
   $pdfDir = KALINS_PDF_SINGLES_DIR;
 
   check_ajax_referer( "kalins_pdf_create_all" );
   $outputVar = new stdClass();
   kalinsPDF_createPDFDir();
 
-  $postLimit = 100;
+  $postLimit = 200;
   $postCount = 0;
 
-  $myPosts = get_posts('numberposts=-1&post_type=any');
-   foreach($myPosts as $post) {
+  $myPosts = get_posts('numberposts=-1&orderby=id&order=ASC&post_type=any');
+  foreach($myPosts as $post) {
+    setup_postdata($post);
     if(kalinsPDF_build_pdf($post)){
       $postCount = $postCount + 1;
       if($postCount == $postLimit){
@@ -660,6 +665,8 @@ function kalinsPDF_build_pdf( $post ){
   }
 
   include(WP_PLUGIN_DIR .'/kalins-pdf-creation-station/kalins_pdf_create.php');
+
+  wp_reset_postdata();
 
   return true;
 }

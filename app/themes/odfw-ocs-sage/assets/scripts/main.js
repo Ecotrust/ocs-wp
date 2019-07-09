@@ -361,7 +361,7 @@
         if ($('body.page-id-102')) {
           $coaContainer = $('section.post-102');
           $coas = $coaContainer.children('article.coa');
-          var $type = $type;
+          // var $type = $type;
           $coas.sort(function (a,b) {
             if ($type === 'list') {
               a = parseInt($(a).attr('coa'), 10);

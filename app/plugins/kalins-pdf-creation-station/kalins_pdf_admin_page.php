@@ -45,7 +45,7 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
     data.oOptions = self.oOptions;
 
     $http({method:"POST", url:ajaxurl, params: {action:'kalins_pdf_admin_save', _ajax_nonce:saveNonce },  data:data}).
-      success(function(data, status, headers, config) {        
+      success(function(data, status, headers, config) {
         if(data === "success"){
           $scope.kalinsAlertManager.addAlert("Settings saved successfully.", "success");
         }else{
@@ -73,7 +73,7 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
 
   self.createAll = function(){
     var creationInProcess = false;
-    
+
     if(!creationInProcess){
       $scope.kalinsAlertManager.addAlert("Creating PDF files for all pages and posts.", "success");
     }
@@ -87,7 +87,7 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
           }else{
             $scope.kalinsAlertManager.addAlert(data.existCount + " out of " + data.totalCount  +  " PDF files cached. Now building the next " +  data.createCount + ".", "success");
             creationInProcess = true;
-            self.createAll();
+            InputCtrl.createAll();
           }
         }
       }).
@@ -100,12 +100,12 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
 </script>
 
   <div ng-app="kalinsPDFAdminPage" ng-controller="InputController as InputCtrl" class="kContainer" ng-strict-di>
-  
+
     <h2>PDF Creation Station</h2>
     <h3>by Kalin Ringkvist - <a href="http://kalinbooks.com/">kalinbooks.com</a></h3>
     <p>Settings for creating PDF files on individual pages and posts. For more information, click the help tab to the upper right.</p>
     <p><a href="http://kalinbooks.com/pdf-creation-station/">Plugin page</a> | <a href="http://kalinbooks.com/pdf-creation-station/known-bugs/">Report bug</a></p>
-    
+
     <p><a href="#" ng-click="showVideo = !showVideo">Watch a tutorial video</a></p>
     <div class="text-center" ng-show="showVideo">
       <hr>
@@ -113,11 +113,11 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
       <p><a href="#" ng-click="showVideo = false">Close video</a></p>
       <hr>
     </div>
-    
+
     <div class="form-group text-right">
       <button class="btn btn-info" ng-click="kalinsToggles.toggleAll();">{{kalinsToggles.sToggleAll}}</button>
     </div>
-    
+
     <accordion close-others="false">
       <accordion-group is-open="kalinsToggles.aBooleans[0]">
         <accordion-heading>
@@ -138,7 +138,7 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
         <b>HTML to insert after post:</b><br />
         <textarea class="form-control" rows='3' ng-model="InputCtrl.oOptions.afterPost"></textarea>
       </accordion-group>
-        
+
       <accordion-group is-open="kalinsToggles.aBooleans[2]">
         <accordion-heading>
           <div><strong>Insert HTML for title and final pages </strong><k-help str="{{oHelpStrings['h_insertTitleFinal']}}"></k-help><i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': kalinsToggles.aBooleans[2], 'glyphicon-chevron-right': !kalinsToggles.aBooleans[2]}"></i></div>
@@ -148,7 +148,7 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
         <b>HTML to insert for final page:</b><br />
         <textarea class="form-control" rows='3' ng-model="InputCtrl.oOptions.finalPage"></textarea>
       </accordion-group>
-      
+
       <accordion-group is-open="kalinsToggles.aBooleans[3]">
         <accordion-heading>
           <div><strong>Options </strong><k-help str="{{oHelpStrings['h_adminOptions']}}"></k-help><i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': kalinsToggles.aBooleans[3], 'glyphicon-chevron-right': !kalinsToggles.aBooleans[3]}"></i></div>
@@ -169,14 +169,14 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
           <div class="form-group">
             <label for="numFontSize" class="control-label col-xs-2">Content font size:</label>
             <div class="col-xs-4 col-sm-2">
-              <input type="number" ng-model="InputCtrl.oOptions.fontSize" id="numFontSize" class="form-control" /> 
+              <input type="number" ng-model="InputCtrl.oOptions.fontSize" id="numFontSize" class="form-control" />
             </div>
           </div>
           <div class="form-group col-md-6 col-xs-12" >
             <div class="checkbox col-md-offset-2">
               <label><input type='checkbox' class="form-control" ng-model="InputCtrl.oOptions.includeImages"></input> Include Images</label>
             </div>
-            <div class="checkbox col-md-offset-2">     
+            <div class="checkbox col-md-offset-2">
               <label><input type='checkbox' class="form-control" ng-model="InputCtrl.oOptions.runShortcodes"></input> Run other plugin shortcodes,</label>
             </div>
             <div class="checkbox col-md-offset-2">
@@ -188,21 +188,21 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
             <div class="checkbox">
               <label><input type='checkbox' class="form-control" ng-model="InputCtrl.oOptions.convertYoutube"></input> YouTube,</label>
             </div>
-            <div class="checkbox"> 
+            <div class="checkbox">
                <label><input type='checkbox' class="form-control" ng-model="InputCtrl.oOptions.convertVimeo"></input> Vimeo,</label>
             </div>
-            <div class="checkbox"> 
+            <div class="checkbox">
                <label><input type='checkbox' class="form-control" ng-model="InputCtrl.oOptions.convertTed"></input> Ted Talks</label>
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="txtLink" class="control-label col-xs-2"> Link text:</label>
             <div class="col-xs-10">
               <input type="text" id="txtLink" class="form-control" ng-model="InputCtrl.oOptions.linkText"></input>
              </div>
           </div>
-          
+
           <div class="form-group">
             <label for="txtBeforeLink" class="control-label col-xs-2"> Before link:</label>
             <div class="col-xs-10">
@@ -215,7 +215,7 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
               <input type="text" id="txtAfterLink" class="form-control" ng-model="InputCtrl.oOptions.afterLink"></input>
             </div>
           </div>
-          
+
           <div class="form-group">
             <p class="col-md-offset-1"><k-help str="{{oHelpStrings['h_defaultLinkPlacement']}}"></k-help><b> Default Link Placement</b> (can be overwritten in page/post edit page):</p>
             <div class="btn-group col-md-offset-1" data-toggle="buttons" >
@@ -224,11 +224,11 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
               <label class="btn btn-success" ng-class="{ 'active': InputCtrl.oOptions.showLink == 'none'}"><input type="radio" value="none" ng-model="InputCtrl.oOptions.showLink" /> Do not generate PDF </label>
             </div>
           </div>
-          
+
           <div class="form-group">
             <k-help str="{{oHelpStrings['h_minWordCount']}}"></k-help><label for="numWordCount" class="control-label col-xs-2"> Minimum post word count:</label>
             <div class="col-xs-4 col-sm-2">
-              <input type="number" ng-model="InputCtrl.oOptions.wordCount" id="numWordCount" class="form-control" /> 
+              <input type="number" ng-model="InputCtrl.oOptions.wordCount" id="numWordCount" class="form-control" />
             </div>
           </div>
 
@@ -250,20 +250,20 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
             <button ng-click="InputCtrl.resetToDefaults()" class="btn btn-warning">Reset Defaults</button>
             <button ng-click="InputCtrl.createAll()" class="btn btn-success">Create All</button>
           </div>
-                    
+
           <div class="row">
             <div class="col-md-offset-1 col-md-10">
               <alert ng-repeat="alert in kalinsAlertManager.aAlerts" type="{{alert.type}}" close="kalinsAlertManager.closeAlert($index)">{{alert.index}} - {{alert.msg}}</alert>
             </div>
           </div>
-          
+
         </form>
       </accordion-group>
-      
+
       <accordion-group is-open="kalinsToggles.aBooleans[4]">
         <accordion-heading>
           <div><strong>Shortcodes</strong><i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': kalinsToggles.aBooleans[4], 'glyphicon-chevron-right': !kalinsToggles.aBooleans[4]}"></i></div>
-        </accordion-heading>   
+        </accordion-heading>
         <b>shortcodes:</b> Use these codes anywhere in the above form to insert blog or page information.
         <p><ul>
           <li><b>[current_time format="m-d-Y"]</b> -  PDF creation date/time <b>*</b></li>
@@ -290,15 +290,15 @@ app.controller("InputController",["$scope", "$http", "kalinsToggles", "kalinsAle
           <li><b>[post_thumb size="full" extract="none"]</b> - URL to the page/post's featured image (requires theme support). Possible size paramaters: "thumbnail", "medium", "large" or "full". Possible extract prameters: "on" or "force". Setting extract to "on" will cause the shortcode to attempt to pull the first image from within the post if it cannot find a featured image. Using "force" will cause it to ignore the featured image altogether. Extracted images always return at the same size they appear in the post.</li>
         </ul></p>
         <p><b>*</b> Time shortcodes have an optional format parameter. Format your dates using these possible tokens: m=month, M=text month, F=full text month, d=day, D=short text Day Y=4 digit year, y=2 digit year, H=hour, i=minute, s=seconds. More tokens listed here: <a href="http://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">http://codex.wordpress.org/Formatting_Date_and_Time.</a> </p>
-            
+
         <p><b>Note: these shortcodes only work on this page.</b></p>
-        
+
         <hr/>
-  
+
         <p><b>The following tags are supported wherever HTML is allowed (according to TCPDF documentation):</b><br /> a, b, blockquote, br, dd, del, div, dl, dt, em, font, h1, h2, h3, h4, h5, h6, hr, i, img, li, ol, p, pre, small, span, strong, sub, sup, table, tcpdf, td, th, thead, tr, tt, u, ul. Also supports some XHTML, CSS, JavaScript and forms.</p>
-        <p>Please use double quotes (") in HTML attributes such as font size or href, due to a bug with single quotes.</p> 
+        <p>Please use double quotes (") in HTML attributes such as font size or href, due to a bug with single quotes.</p>
       </accordion-group>
-      
+
       <accordion-group is-open="kalinsToggles.aBooleans[5]">
         <accordion-heading>
           <div><strong>About</strong><i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': kalinsToggles.aBooleans[5], 'glyphicon-chevron-right': !kalinsToggles.aBooleans[5]}"></i></div>
