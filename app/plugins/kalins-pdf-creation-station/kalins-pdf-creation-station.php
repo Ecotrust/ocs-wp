@@ -600,7 +600,7 @@ function kalins_pdf_create_all(){
   $outputVar = new stdClass();
   kalinsPDF_createPDFDir();
 
-  $postLimit = 200;
+  $postLimit = 400;
   $postCount = 0;
 
   $myPosts = get_posts('numberposts=-1&orderby=id&order=ASC&post_type=any');
