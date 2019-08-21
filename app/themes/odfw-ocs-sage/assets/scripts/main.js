@@ -62,7 +62,7 @@
 
           // secondary nav open on keyboard enter hit
           // also opens on defualt space hit
-          document.querySelector('.nav-check').addEventListener('keypress', function (e) {
+          document.querySelector('#nav-check').addEventListener('keypress', function (e) {
             var key = e.which || e.keyCode;
             if (key === 13) { // 13 is enter
               if (e.target.checked) {

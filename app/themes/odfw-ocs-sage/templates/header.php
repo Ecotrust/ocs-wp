@@ -18,9 +18,9 @@
 			<a href="#" class="view-grid" aria-title="grid view">Grid View</a>
 			<a href="#" class="view-list" aria-title="list view">List View</a>
 			<a href="#" class="view-article" aria-title="article view">Article View</a>
-			<input type="checkbox" name="nav" class="nav-check" id="nav-check" value="" aria-label="nav-check-label" title="nav menu">
-			<label rel="navigation" class="navicon my-ocs" id="nav-check-label" aria-label="nav-check" for="search-field" title="nav menu"><span></span></label>
-			<nav>
+			<input type="checkbox" id="nav-check" title="nav menu checkbox">
+			<label rel="navigation" class="navicon my-ocs" id="nav-check-label" for="search-field" title="nav menu label"><span></span></label>
+			<nav id="secondary-nav">
 				<?php
 				  if (has_nav_menu('secondary_navigation')) :
 					wp_nav_menu(['theme_location' => 'secondary_navigation', 'menu_class' => 'secondary-ocs-navigation', 'container' => '']);
