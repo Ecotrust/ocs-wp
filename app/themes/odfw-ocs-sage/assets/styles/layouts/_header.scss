@@ -222,12 +222,12 @@ body.home, body.error404 {
         // background-image: url('../images/ODFW_info_icon_refine.png');
         content: "";
         background: #fff;
-				border-radius: 1em;
-        left: 20px;
-        bottom: 22px;
-				height: 3px;
+				border-radius: 100%;
+        left: 29px;
+        bottom: 19px;
+				height: 5px;
         position: absolute;
-				width: 23px;
+				width: 5px;
         z-index: 0;
         transition: 0.2s all ease-in-out;
         -ms-transition: 0.2s all ease-in-out;
@@ -241,13 +241,13 @@ body.home, body.error404 {
 
     &:before {
   		background: #fff;
-			border-radius: 1em;
-			bottom: 36px;
+			border-radius: 100%;
+			bottom: 39px;
   		content: '';
-  		height: 3px;
+  		height: 5px;
   		position: absolute;
-  		left: 20px;
-  		width: 23px;
+  		left: 29px;
+  		width: 5px;
       transition: 0.2s all ease-in-out;
       -ms-transition: 0.2s all ease-in-out;
       -webkit-transition: 0.2s all ease-in-out;
@@ -302,8 +302,11 @@ body.home, body.error404 {
 
   			&:before, &:after {
 					bottom: 29px;
+          border-radius: 1em;
 					border-top: none;
-					height: 3px;
+          left: 19px;
+          height: 3px;
+					width: 22px;
   				transition: 0.2s all ease-in-out 0.1s;
   			}
 
