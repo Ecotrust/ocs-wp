@@ -1846,7 +1846,9 @@ footer.content-info .draft-message{min-height:40px}
 .sidebar ol>li>a,.sidebar ul>li>a{display:block;font-size:14px;font-weight:500;letter-spacing:.02em;text-transform:uppercase;width:100%}
 .sidebar ol.main-ocs-navigation,.sidebar ul.main-ocs-navigation{background-color:#414041;bottom:63px;position:fixed;overflow:auto;top:63px;width:16.67%}
 .sidebar ol.main-ocs-navigation::-webkit-scrollbar,.sidebar ul.main-ocs-navigation::-webkit-scrollbar{width:10px}
+.sidebar ol.main-ocs-navigation:hover::-webkit-scrollbar,.sidebar ul.main-ocs-navigation:hover::-webkit-scrollbar{opacity:1}
 .sidebar ol.main-ocs-navigation:focus,.sidebar ul.main-ocs-navigation:focus{background-color:#272727}
+.sidebar ol.main-ocs-navigation:focus::-webkit-scrollbar,.sidebar ul.main-ocs-navigation:focus::-webkit-scrollbar{opacity:1}
 .sidebar ol.main-ocs-navigation :focus,.sidebar ul.main-ocs-navigation :focus{background-color:#272727}
 .sidebar ol.main-ocs-navigation>li:nth-child(1)>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1)>a:before{background-position:0 0}
 .sidebar ol.main-ocs-navigation>li:nth-child(1).active>a:before,.sidebar ol.main-ocs-navigation>li:nth-child(1).current-menu-ancestor>a:before,.sidebar ol.main-ocs-navigation>li:nth-child(1).current-menu-item>a:before,.sidebar ol.main-ocs-navigation>li:nth-child(1).current-menu-parent>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1).active>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1).current-menu-ancestor>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1).current-menu-item>a:before,.sidebar ul.main-ocs-navigation>li:nth-child(1).current-menu-parent>a:before{background-position:-62px 0}
