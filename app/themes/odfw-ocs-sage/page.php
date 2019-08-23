@@ -19,7 +19,16 @@
 	$isListingPage = in_array($pageID, $cptPages) || in_array($pageID, $speciesPages) ? true : false;
 
 	if ($isListingPage) :
-?>
+
+    if ( in_array($pageID, $cptPages)) :
+      $pdf_btn_url = get_post_meta($pageID, 'chapter_pdf_custom-url', true );
+      if (!empty($pdf_btn_url)) : ?>
+        <div class="pdf-download-btn-wrap">
+          <a href="<?=$pdf_btn_url?>" target="_blank" class="btn btn-primary">&#8681; Download Chapter PDF</a>
+        </div>
+      <?php endif; ?>
+    <?php endif; ?>
+
 		<section tabindex="8" id="cpt-listings-wrap" class="listings-wrap">
 		<?php
 

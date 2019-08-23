@@ -1127,8 +1127,24 @@ function setupCustomFields () {
 
 	}
 
+	add_action( 'cmb2_init', 'chapter_pdf_url_meta' );
+	function chapter_pdf_url_meta() {
+		$chapter_pdf_cmb = new_cmb2_box( array(
+			'id'           => 'chapter_url',
+			'title'        => __('URL to chapter PDF', 'odfw'),
+			'desc'         => __('PDF download URL', 'odfw'),
+			'object_types' => array('page'),
+			'context'      => 'normal',
+			'priority'     => 'low',
+		));
 
-
+		$chapter_pdf_cmb->add_field(array(
+			'name' => __('PDF URL', 'odfw'),
+			'desc' => __('Add the URL to the chapter PDF for download link', 'odfw'),
+			'id' => 'chapter_pdf_custom-url',
+			'type' => 'text_url',
+		));
+	}
 
 }
 

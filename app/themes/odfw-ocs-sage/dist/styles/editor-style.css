@@ -1920,6 +1920,7 @@ footer.content-info .draft-message{min-height:40px}
 .draft-message small{font-size:10px}
 @media only screen and (max-width:900px){.draft-message{text-align:center}
 }
+.pdf-download-btn-wrap{border-top:1px solid #eee;padding:15px 0}
 .listings-wrap:after,.listings-wrap:before{content:" ";display:table}
 .listings-wrap:after{clear:both}
 .listings-wrap .grid-item{display:inline-block;max-width:325px;position:relative;vertical-align:top;width:33%}
