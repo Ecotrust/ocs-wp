@@ -41,13 +41,13 @@
       // -ms-overflow-style: none;
 
       &::-webkit-scrollbar {
-				opacity: 0;
-				width: 0;
+				// opacity: 0;
+				width: 10px;
       }
 
 			&:hover {
 				&::-webkit-scrollbar {
-					opacity: 1;
+					// opacity: 1;
 					// width: 5px;
 				}
 			}
@@ -55,7 +55,7 @@
       &:focus {
 				background-color: darken($greyDark, 10%);
         &::-webkit-scrollbar {
-					opacity: 1;
+					// opacity: 1;
 				}
       }
 
