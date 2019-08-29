@@ -3,11 +3,14 @@
 	@include make-sm-column($main-sm-columns - $sidebar-sm-columns);
 	min-height: 100vh;
 
+	// clear fixed header
+	padding-top: 63px;
+
 	// clear the fixed footer
 	padding-bottom: 87px;
 
 	.has-sidebar & {
-		padding: 0;
+		padding: 63px 0 0;
 
 		.main-content {
 			@include make-sm-column(9);
@@ -94,6 +97,3 @@ body:not(#tinymce) {
 	@include make-sm-column(3);
 	/*right: -15px;*/
 }
-
-
-

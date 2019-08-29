@@ -1590,7 +1590,7 @@ abbr[title],acronym[title]{border-bottom:1px dotted #58595B;cursor:help;text-dec
 h3>.coa-id{color:#9fa0a2}
 h3>.badge{margin-left:3px}
 .long-list,.long-list ol,.long-list ul{-webkit-column-count:2;column-count:2;padding-left:2em;list-style-position:inside}
-body{padding-top:62px}
+body{min-height:100vh}
 .tablepress,table{margin-top:15px;margin-bottom:15px}
 .tablepress>thead th,table>thead th{background-color:#58595B;color:#fff;font-family:HelveticaNeue-75Lt,"Helvetica Neue",Helvetica,Arial,sans-serif}
 .tablepress>thead th a,table>thead th a{color:#fff;text-decoration:underline}
@@ -1628,10 +1628,10 @@ object.embed-pdf-viewer{height:680px;margin:20px auto;max-width:600px;width:80%}
 }
 .comment-list{padding-left:0;list-style:none}
 .comment-list ol{list-style:none}
-.main{position:relative;min-height:1px;padding-left:15px;padding-right:15px;min-height:100vh;padding-bottom:87px}
+.main{position:relative;min-height:1px;padding-left:15px;padding-right:15px;min-height:100vh;padding-top:63px;padding-bottom:87px}
 @media (min-width:560px){.main{float:left;width:83.33333%}
 }
-.has-sidebar .main{padding:0}
+.has-sidebar .main{padding:63px 0 0}
 .has-sidebar .main .main-content{position:relative;min-height:1px;padding-left:15px;padding-right:15px}
 @media (min-width:560px){.has-sidebar .main .main-content{float:left;width:75%}
 }
@@ -1728,8 +1728,8 @@ body.map-available .view-map.eco-link{display:inline}
 .slicknav_nav .slicknav_item a{padding:0;margin:0}
 .slicknav_nav .slicknav_parent-link a{padding:0;margin:0}
 .slicknav_brand{color:#fff;font-size:18px;line-height:30px;padding:7px 12px;height:44px}
-body.home.page main.main{height:90vh;padding:0;min-height:1px}
-.carousel.slide{padding:15px;height:calc(95vh - 150px)}
+body.home.page main.main{padding:0;min-height:1px}
+.carousel.slide{padding:15px;height:calc(100vh - 93px)}
 .carousel.slide:hover a.control_next,.carousel.slide:hover a.control_prev{position:absolute;top:42%;z-index:999;display:block;padding:1% 1%;width:auto;height:auto;background:#414041;color:#fff;text-decoration:none;font-weight:600;font-size:18px;opacity:.2;cursor:pointer}
 .carousel-wrapper{position:absolute;left:12%;right:12%;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);-o-transform:translateY(-50%);transform:translateY(-50%)}
 .carousel-inner{width:100%;height:auto;margin-left:auto;margin-right:auto}

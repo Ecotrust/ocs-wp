@@ -1,6 +1,6 @@
 body.home.page {
   main.main {
-    height: 90vh;
+    // height: calc(100vh - 63px);
     padding: 0px;
     min-height: 1px;
   }
@@ -8,7 +8,7 @@ body.home.page {
 
 .carousel.slide {
   padding: 15px;
-  height: calc(95vh - 150px);
+  height: calc(100vh - 93px);
 
 
   &:hover {
@@ -34,8 +34,8 @@ body.home.page {
 .carousel-wrapper {
   position: absolute;
   left: 12%;
-  right: 12%;  
-  top: 50%;  
+  right: 12%;
+  top: 50%;
   transform:translateY(-50%);
 }
 
@@ -46,8 +46,8 @@ body.home.page {
   margin-right: auto;
 
   /*  oregon state mask*/
-  img.carousel-overlay { 
-    width: 100%; 
+  img.carousel-overlay {
+    width: 100%;
     height: auto;
     max-width: 100%;
     background-color: transparent;
@@ -55,7 +55,7 @@ body.home.page {
     z-index: 101;
     pointer-events: none;
   }
-  
+
   /* image slide*/
   .item {
     position: absolute;
@@ -123,7 +123,7 @@ ol.carousel-indicators {
     font-size: 20px;
     bottom: 25%;
     color: $off-white;
-    text-shadow: rgb(3, 3, 3) 4px 4px 4px; 
+    text-shadow: rgb(3, 3, 3) 4px 4px 4px;
   }
 
 }
@@ -160,7 +160,7 @@ a.control_prev {
 }
 
 @media screen and (max-width: 600px) {
-  body.home.page { 
+  body.home.page {
     .content.row { padding-top: 0; }
   }
 }
