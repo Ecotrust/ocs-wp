@@ -137,7 +137,7 @@ function filter_image_send_to_editor($html, $id, $caption, $title, $align, $url,
 		} else {
 			$html .= "</span>";
 		}
-		
+
 	}
 	return $html;
 }
@@ -151,7 +151,7 @@ function image_to_relative($html, $id, $caption, $title, $align, $url, $size, $a
 
 	$imageurl = substr($html,$sp,$ep-$sp);
 
-	$relativeurl = str_replace("http://","",$imageurl);
+	$relativeurl = str_replace("http://","",$imageurl) || str_replace("https://","",$imageurl);
 	$sp = strpos($relativeurl,"/");
 	$relativeurl = substr($relativeurl,$sp);
 
@@ -170,4 +170,3 @@ function sp_clean_static_url($content) {
 	return $stuff;
 }
 //add_filter('content_save_pre','sp_clean_static_url','99');
-

@@ -12,13 +12,13 @@
  **********************************************************/
 
 	define('WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/app');
-	define('WP_CONTENT_URL', 'http://' . $_SERVER['SERVER_NAME'] . '/app');
+	define('WP_CONTENT_URL', '//' . $_SERVER['SERVER_NAME'] . '/app');
     // Now set in theme/lib/init.php
 	//define('UPLOADS', '../media' );
 
 
-	define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wordpress');
-	define('WP_HOME',    'http://' . $_SERVER['SERVER_NAME']);
+	define('WP_SITEURL', '//' . $_SERVER['SERVER_NAME'] . '/wordpress');
+	define('WP_HOME',    '//' . $_SERVER['SERVER_NAME']);
 
 	define('WP_DEFAULT_THEME',			'odfw-ocs-sage'); // folder name of default theme to skip admin setup
 	define('WPLANG',					''     ); // Defaults to English
