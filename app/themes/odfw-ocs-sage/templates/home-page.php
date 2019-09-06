@@ -20,10 +20,12 @@
 				$url = esc_url( get_permalink($item['_home_linked-post']) );
     			$url .= !empty($item["_home_success-story"]) && $item["_home_success-story"] == "on" ? "#success-story"  : "";
 
-				$external_url = esc_url($item['_home_custom-url']);
+				if (!empty['_home_custom-url']) {
+					$external_url = esc_url($item['_home_custom-url']);
                 // var_dump($url);
-				if (!empty($external_url)) {
-					$url = $external_url;
+					if (!empty($external_url)) {
+						$url = $external_url;
+					}
 				}
 			?>
     			<a href="<?php echo $url; ?>">
