@@ -4,5 +4,5 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   # Replace http://example.com with your production site's domain name
-  RewriteRule (.*) http://example.com/media/$1
+  RewriteRule (.*) http://oregonconservationstrategy.org/media/$1
 </IfModule>

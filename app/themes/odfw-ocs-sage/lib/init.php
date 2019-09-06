@@ -53,7 +53,7 @@ function setup() {
   update_option('image_default_size', 'large' );
 
   update_option('upload_path', $_SERVER['DOCUMENT_ROOT'] . '/media');
-  update_option('upload_url_path', '//' . $_SERVER['SERVER_NAME'] . '/media');
+  update_option('upload_url_path', 'http://' . $_SERVER['SERVER_NAME'] . '/media');
 
   add_filter('jpeg_quality', function($arg){return 75;});
 

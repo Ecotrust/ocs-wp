@@ -12,19 +12,25 @@
  **********************************************************/
 
 	define('WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/app');
-	define('WP_CONTENT_URL', '//' . $_SERVER['SERVER_NAME'] . '/app');
+	define('WP_CONTENT_URL', 'http://' . $_SERVER['SERVER_NAME'] . '/app');
     // Now set in theme/lib/init.php
 	//define('UPLOADS', '../media' );
 
 
-	define('WP_SITEURL', '//' . $_SERVER['SERVER_NAME'] . '/wordpress');
-	define('WP_HOME',    '//' . $_SERVER['SERVER_NAME']);
+	define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wordpress');
+	define('WP_HOME',    'http://' . $_SERVER['SERVER_NAME']);
 
 	define('WP_DEFAULT_THEME',			'odfw-ocs-sage'); // folder name of default theme to skip admin setup
 	define('WPLANG',					''     ); // Defaults to English
 	define('WP_MEMORY_LIMIT',			'256M' ); // Greedy
 	define('AUTOMATIC_UPDATER_DISABLED', true  );
 
+	define('FORCE_SSL_ADMIN', true);
+	// in some setups HTTP_X_FORWARDED_PROTO might contain
+	// a comma-separated list e.g. http,https
+	// so check for https existence
+	if (strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false)
+	$_SERVER['HTTPS']='on';
 /**
  *
  * Define two constants for use with Compass Map iframes

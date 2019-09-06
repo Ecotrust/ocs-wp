@@ -151,7 +151,7 @@ function image_to_relative($html, $id, $caption, $title, $align, $url, $size, $a
 
 	$imageurl = substr($html,$sp,$ep-$sp);
 
-	$relativeurl = str_replace("http://","",$imageurl) || str_replace("https://","",$imageurl);
+	$relativeurl = str_replace("http://","",$imageurl);
 	$sp = strpos($relativeurl,"/");
 	$relativeurl = substr($relativeurl,$sp);
 

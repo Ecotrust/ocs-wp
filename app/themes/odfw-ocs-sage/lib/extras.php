@@ -107,7 +107,7 @@ function highlight_cpt_parent( $classes, $item ) {
 	if ( $post && !is_search() ):
 		// Get the species terms for the current post
 		$term_list = wp_get_post_terms($post->ID, 'species', array("fields" => "names"));
-		if ( !empty($term_list)) {
+		if ( !empty($term_list) && is_array($term_list)) {
 			$current_post_term = strtolower(trim($term_list[0]));
 
 			// Get the URL of the menu item
@@ -128,4 +128,3 @@ function highlight_cpt_parent( $classes, $item ) {
     return $classes;
 }
 add_filter( 'nav_menu_css_class',  __NAMESPACE__ . '\\highlight_cpt_parent', 10, 2 );
-
