@@ -12,17 +12,17 @@ foreach ($coas as $coa ) {
 	//$item = str_replace(',','',$coa->COADesc); //xls test
 	$item = str_replace('"','""',$coa->COADesc); // escape "
 	$link = '';
-	$speciesType = '';	
-	
+	$speciesType = '';
 
-	$coa_id = $wpdb->get_results("SELECT `meta_value` AS 'value' 
-		FROM `wp_postmeta` 
+
+	$coa_id = $wpdb->get_results("SELECT `meta_value` AS 'value'
+		FROM `wp_postmeta`
 		WHERE `post_id` = $coa->ID
 		AND `meta_key` = 'coa_meta_coa_id'");
 	foreach ($coa_id as $id_coa) {
-		// NOTE: xls, need to send as text to maintail leading zero. 
+		// NOTE: xls, need to send as text to maintail leading zero.
 		//For txt:
-		$coaID = "'".$id_coa->value; 
+		$coaID = "'".$id_coa->value;
 	}
 
 	// COA Description
@@ -35,12 +35,12 @@ foreach ($coas as $coa ) {
 	$output .= $speciesType;
 
 	$data[]=$output;
-	
+
 	// COA permalink
 	$link = $coa->permalink;
 	$category = 'Permalink';
 	$item = '';
-	
+
 	$output = $coaName.'",';
 	$output .= $coaID.'",';
 	$output .= $category.'",';
@@ -49,7 +49,7 @@ foreach ($coas as $coa ) {
 	$output .= $link.'",';
 	$output .= $speciesType;
 	$data[]=$output;
-	
+
 	// COA Compass Link
 	$compass = $wpdb->get_results("SELECT `meta_value` AS 'compassLink'
 		FROM `wp_postmeta`
@@ -57,10 +57,10 @@ foreach ($coas as $coa ) {
 		AND `post_id` = $coa->ID");
 		foreach ($compass as $comp) {
 			if($comp->compassLink) {
-				$link = 'http://www.compass.dfw.state.or.us/visualize/'.$comp->compassLink;
+				$link = '//www.compass.dfw.state.or.us/visualize/'.$comp->compassLink;
 				$category = 'Compass Link';
 				$item = '';
-	
+
 				$output = $coaName.'",';
 				$output .= $coaID.'",';
 				$output .= $category.'",';
@@ -73,20 +73,20 @@ foreach ($coas as $coa ) {
 				$link = '';
 			}
 		}
-		
-	$coa_meta = $wpdb->get_results("SELECT DISTINCT `meta_key` AS 'key', `meta_value` AS 'value' 
-		FROM `wp_postmeta` 
+
+	$coa_meta = $wpdb->get_results("SELECT DISTINCT `meta_key` AS 'key', `meta_value` AS 'value'
+		FROM `wp_postmeta`
 		WHERE `post_id` = $coa->ID
 		GROUP BY `meta_key`
 		ORDER BY `meta_id` DESC");
-	
+
 		foreach ($coa_meta as $meta ) {
 			//reset
 			$category = '';
 			$subCat = '';
 			$item = '';
 			$link = '';
-			$speciesType = '';	
+			$speciesType = '';
 
 			$count = count($meta->key);
 
@@ -120,8 +120,8 @@ foreach ($coas as $coa ) {
 			} elseif($meta->key == 'coa_meta_strategy_species') {
 				$category = 'Strategy Species';
 				$subCat = '';
-			} 
-			
+			}
+
 			foreach((array) $meta->key as $metaKey) {
 				if(is_serialized($meta->value)) {
 					$se = (maybe_unserialize($meta->value));
@@ -149,7 +149,7 @@ foreach ($coas as $coa ) {
 															$item = $habit->title;
 														}
 														$link = '';
-												}												
+												}
 											} else {
 												$item= $seValue;
 											}
@@ -159,7 +159,7 @@ foreach ($coas as $coa ) {
 											  	$item = $seValue;
 										  	} elseif (strpos($seKey, 'link') !== false) {
 											  	$link = $seValue;
-										  	} 
+										  	}
 
 											if($seKey == 'coa_meta_strategy_species_id') {
 												$species = $wpdb->get_results("SELECT DISTINCT `wp_terms`.`name`
@@ -171,8 +171,8 @@ foreach ($coas as $coa ) {
 													foreach ($species as $term) {
 														$subCat = $term->name;
 													}
-		
-		
+
+
 												$metaSpecies = $wpdb->get_results("SELECT DISTINCT `meta_value` AS 'name'
 													FROM `wp_postmeta`
 													WHERE `meta_key` = 'species_meta_species-common-name'
@@ -187,26 +187,26 @@ foreach ($coas as $coa ) {
 														AND `post_id` = $seValue");
 														foreach ($compass as $comp) {
 															if($comp->compassLink) {
-																$link = 'http://www.compass.dfw.state.or.us/visualize/'.$comp->compassLink;		
+																$link = 'http://www.compass.dfw.state.or.us/visualize/'.$comp->compassLink;
 															} else {
 																$link = '';
 															}
-														}*/										
+														}*/
 											}
-											
+
 											if($seKey == 'coa_meta_strategy_species_association') {
 												//$link = '';
 												$speciesType = $seValue;
 											}
-										
-										} 
+
+										}
 									}
-									
+
 									if($item != '') {
 										//$item = str_replace(',','',$item); //xls testing
 										$item = str_replace('"','\"',$item); // escape "
 									}
-									
+
 									$output = $coaName.'",';
 									$output .= $coaID.'",';
 									$output .= $category.'",';
@@ -214,18 +214,18 @@ foreach ($coas as $coa ) {
 									$output .= $item.'",';
 									$output .= $link.'",';
 									$output .= $speciesType.'';
-									
+
 									$data[]=$output;
-									
+
 									$item = '';
 									$link = '';
-									$speciesType = '';	
+									$speciesType = '';
 								}
 							}
-						}						
+						}
 					}
 				}
 			}
-		}	
+		}
 }
 ?>
