@@ -1105,7 +1105,7 @@ class KalinsPDF_callback{
       if($comment->comment_author_url == ""){
         $authorString = $comment->comment_author;
       }else{
-        $authorString = '<a href="' .$comment->comment_author_url .'" >' .$comment->comment_author ."</a>";
+        $authorString = '<a href="' .$comment->comment_author_url .'" >' .$comment->comment_author .'</a>';
       }
       $commentString = $commentString .'<p>' .$authorString ."- " .$comment->comment_author_email ." - " .get_comment_date(null, $comment->comment_ID) ." @ " .get_comment_date(get_option('time_format'), $comment->comment_ID) ."<br />" . $comment->comment_content ."</p>";
     }

@@ -260,10 +260,7 @@ $style = "<style>
       text-align: center;
     }
     .chapter-img {
-      height: auto;
       page-break-before: always;
-      page-break-inside: avoid;
-      width: 100%;
     }
     .page-break {
       page-break-before: always;
@@ -509,8 +506,8 @@ try{
     }
 
     if($oOptions->bCreateHTML){
-      $totalHTML = $totalHTML .'</body>
-  </html>';
+      $totalHTML = $totalHTML ."</body>
+  </html>";
       file_put_contents ( $pdfDir .$filename .".html" , $totalHTML );
     }
 
