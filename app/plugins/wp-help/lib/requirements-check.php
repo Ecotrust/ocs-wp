@@ -2,8 +2,8 @@
 
 class CWS_WP_Help_Requirements_Check {
 	private $title = '';
-	private $php = '5.2.4';
-	private $wp = '3.8';
+	private $php = '5.6';
+	private $wp = '4.8';
 	private $file;
 
 	public function __construct( $args ) {

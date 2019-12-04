@@ -55,6 +55,11 @@ class Settings
 	*/
 	private $post_repo;
 
+	/**
+	* Admin Menu Settings
+	*/
+	private $admin_menu_settings;
+
 	public function __construct()
 	{
 		add_action( 'admin_menu', [$this, 'registerSettingsPage' ]);
@@ -95,6 +100,7 @@ class Settings
 		register_setting( 'nestedpages-general', 'nestedpages_ui' );
 		register_setting( 'nestedpages-general', 'nestedpages_allowsorting' );
 		register_setting( 'nestedpages-posttypes', 'nestedpages_posttypes' );
+		register_setting( 'nestedpages-admincustomization', 'nestedpages_admin' );
 	}
 
 	/**
@@ -146,5 +152,5 @@ class Settings
 		$this->setMenu();
 		$tab = ( isset($_GET['tab']) ) ? $_GET['tab'] : 'general';
 		include( Helpers::view('settings/settings') );
-	}	
+	}
 }

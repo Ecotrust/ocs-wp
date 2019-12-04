@@ -171,14 +171,14 @@ jQuery(document).ready(function($) {
 			count_response = JSON.parse(response)
 			console.log("Counted " + count_response + " posts.")
 			results.value += count_response + " " + relevanssi.posts_found + "\n"
-
 			if (count_response > 0) {
 				var args = {
 					completed: 0,
 					total: count_response,
 					offset: 0,
 					total_seconds: 0,
-					limit: 10,
+					limit: relevanssi_params.indexing_limit,
+					adjust: relevanssi_params.indexing_adjust,
 					extend: true,
 					security: nonce.indexing_nonce
 				}
@@ -202,6 +202,7 @@ function process_indexing_step(args) {
 			total: args.total,
 			offset: args.offset,
 			limit: args.limit,
+			adjust: args.adjust,
 			extend: args.extend,
 			security: args.security
 		},
@@ -252,25 +253,22 @@ function process_indexing_step(args) {
 					"relevanssi_estimated"
 				).innerHTML = estimated_time
 
-				/*console.log("total time: " + total_seconds);
-				console.log("estimated time: " + Math.round(total_seconds / response.percentage * 100));
-				console.log("estimated remaining: " + Math.round((total_seconds / response.percentage * 100) - total_seconds));
-				console.log("estimated formatted: " + estimated_time);
-				*/
-				if (time_seconds < 2) {
-					args.limit = args.limit * 2
-					// current limit can be indexed in less than two seconds; double the limit
-				} else if (time_seconds < 5) {
-					args.limit += 5
-					// current limit can be indexed in less than five seconds; up the limit
-				} else if (time_seconds > 20) {
-					args.limit = Math.round(args.limit / 2)
-					if (args.limit < 1) args.limit = 1
-					// current limit takes more than twenty seconds; halve the limit
-				} else if (time_seconds > 10) {
-					args.limit -= 5
-					if (args.limit < 1) args.limit = 1
-					// current limit takes more than ten seconds; reduce the limit
+				if (args.adjust) {
+					if (time_seconds < 2) {
+						args.limit = args.limit * 2
+						// current limit can be indexed in less than two seconds; double the limit
+					} else if (time_seconds < 5) {
+						args.limit += 5
+						// current limit can be indexed in less than five seconds; up the limit
+					} else if (time_seconds > 20) {
+						args.limit = Math.round(args.limit / 2)
+						if (args.limit < 1) args.limit = 1
+						// current limit takes more than twenty seconds; halve the limit
+					} else if (time_seconds > 10) {
+						args.limit -= 5
+						if (args.limit < 1) args.limit = 1
+						// current limit takes more than ten seconds; reduce the limit
+					}
 				}
 
 				var results_textarea = document.getElementById("results")
@@ -294,6 +292,7 @@ function process_indexing_step(args) {
 					offset: response.offset,
 					total_seconds: args.total_seconds,
 					limit: args.limit,
+					adjust: args.adjust,
 					extend: args.extend,
 					security: args.security
 				}
@@ -351,6 +350,7 @@ jQuery(document).ready(function($) {
 				action: "relevanssi_admin_search",
 				args: document.getElementById("args").value,
 				posts_per_page: document.getElementById("posts_per_page").value,
+				post_types: document.getElementById("post_types").value,
 				s: document.getElementById("s").value,
 				security: nonce.searching_nonce
 			},
@@ -376,11 +376,10 @@ jQuery(document).ready(function($) {
 	})
 
 	$(document).on("click", "#next_page", function(e) {
-		var results = document.getElementById("results")
 		e.preventDefault()
+		var results = document.getElementById("results")
 		var offset = parseInt(document.getElementById("offset").innerHTML)
 		var posts = parseInt(document.getElementById("posts_per_page").value)
-		offset = offset + posts
 		results.innerHTML = "Searching..."
 		jQuery.ajax({
 			type: "POST",
@@ -388,7 +387,7 @@ jQuery(document).ready(function($) {
 			data: {
 				action: "relevanssi_admin_search",
 				args: document.getElementById("args").value,
-				posts_per_page: document.getElementById("posts_per_page").value,
+				posts_per_page: posts,
 				s: document.getElementById("s").value,
 				offset: offset,
 				security: nonce.searching_nonce
@@ -401,11 +400,11 @@ jQuery(document).ready(function($) {
 	})
 
 	$(document).on("click", "#prev_page", function(e) {
-		var results = document.getElementById("results")
 		e.preventDefault()
+		var results = document.getElementById("results")
 		var offset = parseInt(document.getElementById("offset").innerHTML)
 		var posts = parseInt(document.getElementById("posts_per_page").value)
-		offset = offset - posts
+		offset = offset - posts - posts
 		if (offset < 0) offset = 0
 		results.innerHTML = "Searching..."
 		jQuery.ajax({

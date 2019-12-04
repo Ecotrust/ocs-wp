@@ -4,8 +4,8 @@ Donate link: https://www.seanhayes.biz/
 Tags: post-thumbnail, thumbnail, admin, image, featured, featured image, featured thumbnail, featured admin thumbnail
 Requires at least: 3.5.1
 Requires PHP: 7.0
-Tested up to: 5.1
-Stable tag: 1.5.2
+Tested up to: 5.2
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,8 @@ During testing I found that if a post has a featured image assigned but does not
 6. Shows the thumb column when sorted descending
 
 == Changelog ==
+1.5.3 (2019-07-01)
+* Addresses thumb column dislay issue with EDD Frontend Submissions [Plugin not working with EDD](https://wordpress.org/support/topic/plugin-not-working-with-edd/)
 
 1.5.2 (2018-09-26)
 * Addresses an issue where in Excerpt view where the displayed thumbnail did not represent the thumbnail in the post. Switching to List view, however, the thumbnail showed correctly.

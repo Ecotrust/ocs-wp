@@ -15,6 +15,8 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	private $client_id;
 
 	private $callback_url;
+	
+	private $multi_directories = array();
 
 	/**
 	 * Constructor
@@ -184,6 +186,74 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	}
 
 	/**
+	 * Runs upon the WP action updraftplus_prune_retained_backups_finished
+	 */
+	public function prune_retained_backups_finished() {
+		if (empty($this->multi_directories) || count($this->multi_directories) < 2) return;
+		$storage = $this->bootstrap();
+		if (false == $storage || is_wp_error($storage)) return;
+		global $updraftplus;
+		foreach (array_keys($this->multi_directories) as $drive_id) {
+			if (!isset($oldest_reference)) {
+				$oldest_id = $drive_id;
+				$oldest_reference = new Google_Service_Drive_ParentReference;
+				$oldest_reference->setId($oldest_id);
+				continue;
+			}
+
+			// All found files should be moved to the oldest folder
+			
+			try {
+				$sub_items = $this->get_subitems($drive_id, 'file');
+			} catch (Exception $e) {
+				$this->log('list files: failed to access chosen folder:  '.$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
+			}
+
+			$without_errors = true;
+			
+			foreach ($sub_items as $item) {
+				$title = "(unknown)";
+				try {
+					$title = $item->getTitle();
+					
+					$this->log("Moving: $title (".$item->getId().") from duplicate folder $drive_id to $oldest_id");
+					
+					$file = new Google_Service_Drive_DriveFile();
+					$file->setParents(array($oldest_reference));
+					
+					$storage->files->patch($item->getId(), $file);
+					
+				} catch (Exception $e) {
+					$this->log("move: exception: ".$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
+					$without_errors = false;
+					continue;
+				}
+			}
+			
+			if ($without_errors) {
+				if (!empty($sub_items)) {
+					try {
+						$sub_items = $this->get_subitems($drive_id, 'file');
+					} catch (Exception $e) {
+						$this->log('list files: failed to access chosen folder:  '.$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
+					}
+				}
+				if (empty($sub_items)) {
+					try {
+						$storage->files->delete($drive_id);
+						$this->log("removed empty duplicate folder ($drive_id)");
+					} catch (Exception $e) {
+						$this->log("delete empty duplicate folder ($drive_id): exception: ".$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
+						$ret = false;
+						continue;
+					}
+				}
+			}
+			
+		}
+	}
+	
+	/**
 	 * Get the Google Drive internal ID
 	 *
 	 * @param Array	  $opts		- storage instance options
@@ -243,7 +313,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 					$results[] = array('name' => $title, 'size' => $item->getFileSize());
 				}
 			} catch (Exception $e) {
-				$this->log("delete: exception: ".$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
+				$this->log("list: exception: ".$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
 				$ret = false;
 				continue;
 			}
@@ -339,12 +409,12 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			$client_id = $opts['clientid'];
 			$token = 'token'.$prefixed_instance_id;
 		}
-		// We require access to all Google Drive files (not just ones created by this app - scope https://www.googleapis.com/auth/drive.file) - because we need to be able to re-scan storage for backups uploaded by other installs
+		// We require access to all Google Drive files (not just ones created by this app - scope https://www.googleapis.com/auth/drive.file) - because we need to be able to re-scan storage for backups uploaded by other installs. But, if you are happy to lose that capability, you can use the filter below to remove the drive.readonly scope.
 		$params = array(
 			'response_type' => 'code',
 			'client_id' => $client_id,
 			'redirect_uri' => $this->redirect_uri($use_master),
-			'scope' => apply_filters('updraft_googledrive_scope', 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/userinfo.profile'),
+			'scope' => apply_filters('updraft_googledrive_scope', 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/userinfo.profile'),
 			'state' => $token,
 			'access_type' => 'offline',
 			'approval_prompt' => 'force'
@@ -501,7 +571,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 	 */
 	public function backup($backup_array) {
 
-		global $updraftplus, $updraftplus_backup;
+		global $updraftplus;
 
 		$storage = $this->bootstrap();
 		if (false == $storage || is_wp_error($storage)) return $storage;
@@ -517,6 +587,12 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 				$parent_id = key($parent_ids);
 				if (count($parent_ids) > 1) {
 					$this->log('there appears to be more than one folder: '.implode(', ', array_keys($parent_ids)));
+					static $registered_prune = false;
+					if (!$registered_prune) {
+						$registered_prune = true;
+						$this->multi_directories = $parent_ids;
+						add_action('updraftplus_prune_retained_backups_finished', array($this, 'prune_retained_backups_finished'));
+					}
 				}
 			} else {
 				$parent_id = $parent_ids;
@@ -530,17 +606,31 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 		foreach ($backup_array as $file) {
 
 			$available_quota = -1;
-
-			try {
-				$about = $storage->about->get();
-				$quota_total = max($about->getQuotaBytesTotal(), 1);
-				$quota_used = $about->getQuotaBytesUsed();
-				$available_quota = $quota_total - $quota_used;
-				$message = "quota usage: used=".round($quota_used/1048576, 1)." MB, total=".round($quota_total/1048576, 1)." MB, available=".round($available_quota/1048576, 1)." MB";
-				$this->log($message);
-			} catch (Exception $e) {
-				$this->log("quota usage: failed to obtain this information: ".$e->getMessage());
-			}
+			
+			do {
+				try {
+					$try_again = false;
+					$about = $storage->about->get();
+					$quota_total = max($about->getQuotaBytesTotal(), 1);
+					$quota_used = $about->getQuotaBytesUsed();
+					$available_quota = $quota_total - $quota_used;
+					$message = "quota usage: used=".round($quota_used/1048576, 1)." MB, total=".round($quota_total/1048576, 1)." MB, available=".round($available_quota/1048576, 1)." MB";
+					$this->log($message);
+				} catch (Exception $e) {
+					$msg = $e->getMessage();
+					$this->log("quota usage: failed to obtain this information: ".$msg);
+					
+					// If the issue was a problem refreshing the OAuth2 token, bootstrap again and try again
+					if (false !== strpos($msg, 'Error refreshing the OAuth2 token')) {
+						$this->log("quota usage: will attempt to refresh OAuth2 token and fetch this information again");
+						$this->set_storage(null);
+						$storage = $this->bootstrap();
+						if (false == $storage || is_wp_error($storage)) return $storage;
+						
+						$try_again = true;
+					}
+				}
+			} while ($try_again);
 
 			$file_path = $updraft_dir.$file;
 			$file_name = basename($file_path);
@@ -562,25 +652,39 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 				$this->log(sprintf(__("Upload expected to fail: the %s limit for any single file is %s, whereas this file is %s GB (%d bytes)", 'updraftplus'), __('Google Drive', 'updraftplus'), '10GB (1073741824)', round($filesize/1073741824, 4), $filesize), 'warning');
 			}
 
-			try {
-				$timer_start = microtime(true);
-				if ($this->upload_file($file_path, $parent_id)) {
-					$this->log('OK: Archive ' . $file_name . ' uploaded in ' . (round(microtime(true) - $timer_start, 2)) . ' seconds');
-					$updraftplus->uploaded_file($file);
-				} else {
-					$this->log("ERROR: $file_name: Failed to upload");
-					$this->log("$file_name: ".sprintf(__('Failed to upload to %s', 'updraftplus'), __('Google Drive', 'updraftplus')), 'error');
+			do {
+				try {
+					$try_again = false;
+					$timer_start = microtime(true);
+					if ($this->upload_file($file_path, $parent_id)) {
+						$this->log('OK: Archive ' . $file_name . ' uploaded in ' . (round(microtime(true) - $timer_start, 2)) . ' seconds');
+						$updraftplus->uploaded_file($file);
+					} else {
+						$this->log("ERROR: $file_name: Failed to upload");
+						$this->log("$file_name: ".sprintf(__('Failed to upload to %s', 'updraftplus'), __('Google Drive', 'updraftplus')), 'error');
+					}
+				} catch (Exception $e) {
+					$msg = $e->getMessage();
+					$this->log("Upload error: ".$msg.' (line: '.$e->getLine().', file: '.$e->getFile().')');
+					
+					// If the issue was a problem refreshing the OAuth2 token, bootstrap again and try again
+					if (false !== ($p = strpos($msg, 'Error refreshing the OAuth2 token'))) {
+						$this->log("$file_name: will attempt to refresh OAuth2 token and upload again");
+						$this->set_storage(null);
+						$storage = $this->bootstrap();
+						if (false == $storage || is_wp_error($storage)) return $storage;
+						
+						$try_again = true;
+					} else {
+						if (false !== ($p = strpos($msg, 'The user has exceeded their Drive storage quota'))) {
+							$this->log("$file_name: ".sprintf(__('Failed to upload to %s', 'updraftplus'), __('Google Drive', 'updraftplus')).': '.substr($msg, $p), 'error');
+						} else {
+							$this->log("$file_name: ".sprintf(__('Failed to upload to %s', 'updraftplus'), __('Google Drive', 'updraftplus')), 'error');
+						}
+						$this->client->setDefer(false);
+					}
 				}
-			} catch (Exception $e) {
-				$msg = $e->getMessage();
-				$this->log("Upload error: ".$msg.' (line: '.$e->getLine().', file: '.$e->getFile().')');
-				if (false !== ($p = strpos($msg, 'The user has exceeded their Drive storage quota'))) {
-					$this->log("$file_name: ".sprintf(__('Failed to upload to %s', 'updraftplus'), __('Google Drive', 'updraftplus')).': '.substr($msg, $p), 'error');
-				} else {
-					$this->log("$file_name: ".sprintf(__('Failed to upload to %s', 'updraftplus'), __('Google Drive', 'updraftplus')), 'error');
-				}
-				$this->client->setDefer(false);
-			}
+			} while ($try_again);
 		}
 
 		return null;
@@ -915,7 +1019,12 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 		if (is_string($files)) $files = array($files);
 
 		$storage = $this->bootstrap();
-		if (is_wp_error($storage) || false == $storage) return $storage;
+		if (is_wp_error($storage)) {
+			$this->log("delete: failed due to storage error: ".$storage->get_error_code()." (".$storage->get_error_message().")");
+			return false;
+		}
+			
+		if (false == $storage) return $storage;
 
 		$opts = $this->get_options();
 

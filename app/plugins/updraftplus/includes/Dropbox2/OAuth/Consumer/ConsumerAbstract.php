@@ -291,7 +291,8 @@ abstract class Dropbox_ConsumerAbstract
              */
 
             if (isset($additional['api_v2']) && $additional['api_v2'] == true) {
-                unset($additional['api_v2']);
+				unset($additional['api_v2']);
+				if (isset($additional['timeout'])) unset($additional['timeout']);
                 if (isset($additional['content_download']) && $additional['content_download'] == true) {
                     unset($additional['content_download']);
                     $extra_headers = array();

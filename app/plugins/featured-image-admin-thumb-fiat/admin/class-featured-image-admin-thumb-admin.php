@@ -118,7 +118,8 @@ class Featured_Image_Admin_Thumb_Admin {
 
 		if ( $this->is_edd_active && isset( $available_post_types['download'] ) ) {
 			add_filter( 'edd_download_columns', array( $this, 'include_thumb_column_edd' ) );
-		}
+            add_filter( 'fes_download_table_columns', array( $this, 'include_thumb_column_edd' ) );
+        }
 
 		foreach ( $available_post_types as $post_type ) {
 			add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'fiat_custom_columns' ), 2, 2 );

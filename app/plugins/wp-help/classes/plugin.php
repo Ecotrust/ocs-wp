@@ -1,18 +1,22 @@
 <?php
 defined( 'WPINC' ) or die;
 
-class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
+class CWS_WP_Help_Plugin {
+	use WP_Help_Plugin_Structure;
+
 	protected static $instance;
 	protected $options;
 	protected $admin_base = '';
 	protected $help_topics_html;
 	protected $filter_wp_list_pages = false;
 	protected $filter_wp_list_pages_sql = false;
-	const default_doc = 'cws_wp_help_default_doc';
+	const DEFAULT_DOC = 'cws_wp_help_default_doc';
+	const DEFAULT_DOCUMENT_META_KEY = '_cws_wp_help_default_doc';
 	const OPTION      = 'cws_wp_help';
 	const MENU_SLUG   = 'wp-help-documents';
 	const CRON_HOOK   = 'cws_wp_help_update';
 	const POST_TYPE   = 'wp-help';
+	const CSS_JS_VERSION = '1.7.0';
 
 	protected function __construct() {
 		$this->hook( 'init' );
@@ -50,6 +54,8 @@ class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
 		$this->hook( 'wp_list_pages'         );
 		$this->hook( 'query'                 );
 		$this->hook( 'delete_post'           );
+		$this->hook( 'current_screen'        );
+		$this->hook( 'rest_api_init'         );
 
 		// Custom callbacks
 		$this->hook( 'wp_trash_post',                'delete_post'       );
@@ -61,6 +67,7 @@ class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
 		$this->hook( 'post_type_link',               'page_link'         );
 		$this->hook( 'wp_ajax_cws_wp_help_settings', 'ajax_settings'     );
 		$this->hook( 'wp_ajax_cws_wp_help_reorder',  'ajax_reorder'      );
+		$this->hook( 'enqueue_block_editor_assets',                   20 );
 
 		if ( 'dashboard-submenu' != $this->get_option( 'menu_location' ) ) {
 			$this->admin_base = 'admin.php';
@@ -79,12 +86,71 @@ class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
 		// add_filter( 'the_title', function( $title, $post_id ) { $post = get_post( $post_id ); return $title . ' [' . $post->menu_order . ']'; }, 10, 2 );
 
 		// Register the wp-help post type
+		if ( current_user_can( $this->view_cap( 'read_posts' ) ) ) {
+			$this->register_post_type();
+		}
+
+		// Check for API requests
+		if ( isset( $_REQUEST['wp-help-key'] ) && $this->get_option( 'key' ) === $_REQUEST['wp-help-key'] )
+			$this->api_request();
+
+		// Debug:
+		// $this->api_slurp();
+	}
+
+	public function rest_api_init() {
+		register_rest_field(
+			self::POST_TYPE,
+			'is_default_doc',
+			array(
+				'get_callback' => function ( $doc ) {
+					return $this->is_default_doc( $doc->id );
+				},
+				'update_callback' => function ( $value, WP_Post $doc ) {
+					if ( $this->is_default_doc( $doc ) && ! $value ) {
+						$this->unset_default_doc();
+					} elseif ( $value ) {
+						$this->set_default_doc( $doc );
+					}
+				},
+			)
+		);
+	}
+
+	/**
+	 * Enqueues block editor scripts.
+	 *
+	 * @return void
+	 */
+	public function enqueue_block_editor_assets() {
+		// Gutenberg.
+		if ( self::is_block_editor() && self::POST_TYPE === get_post_type() ) {
+			$asset = $this->include_file( '/dist/block-editor.asset.php' );
+			wp_enqueue_script( 'cws-wp-block-editor', $this->get_url() . 'dist/block-editor.js', $asset['dependencies'], $asset['version'], true );
+			wp_dequeue_style( 'twentytwenty-block-editor-styles' );
+		}
+	}
+
+	/**
+	 * Removes editor styles when our CPT edit screen is loaded.
+	 *
+	 * @param WP_Screen $screen The current screen
+	 * @return void
+	 */
+	public function current_screen( $screen ) {
+		if ( $screen->base === 'post' && $screen->post_type === self::POST_TYPE ) {
+			remove_editor_styles();
+		}
+	}
+
+	protected function register_post_type() {
 		register_post_type( self::POST_TYPE,
 			array(
 				'label'        => _x( 'Publishing Help', 'post type label', 'wp-help' ),
 				'public'       => false,
 				'show_ui'      => true,
 				'show_in_menu' => false,
+				'show_in_rest' => true,
 				'hierarchical' => true,
 				'supports'     => array( 'title', 'editor', 'revisions', 'page-attributes' ),
 				'map_meta_cap' => true,
@@ -116,13 +182,6 @@ class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
 				)
 			)
 		);
-
-		// Check for API requests
-		if ( isset( $_REQUEST['wp-help-key'] ) && $this->get_option( 'key' ) === $_REQUEST['wp-help-key'] )
-			$this->api_request();
-
-		// Debug:
-		// $this->api_slurp();
 	}
 
 	protected function view_cap( $original_cap ) {
@@ -174,10 +233,9 @@ class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
 	}
 
 	public function delete_post( $post_id ) {
-		if ( self::POST_TYPE === get_post_type( $post_id ) ) {
-			// If the default doc was deleted, kill the option
-			if ( absint( get_option( self::default_doc ) ) === absint( $post_id ) )
-				update_option( self::default_doc, 0 );
+		// If the default doc was deleted, unset it as default.
+		if ( self::POST_TYPE === get_post_type( $post_id ) && $this->is_default_doc( $post_id ) ) {
+			$this->unset_default_doc();
 		}
 	}
 
@@ -317,7 +375,7 @@ class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
 			// Set the default document
 			foreach ( $posts as $p ) {
 				if ( isset( $p->default ) && isset( $source_id_to_local_id[ $p->ID ] ) ) {
-					update_option( self::default_doc, $source_id_to_local_id[ $p->ID ] );
+					update_option( self::DEFAULT_DOC, $source_id_to_local_id[ $p->ID ] );
 					break;
 				}
 			}
@@ -397,7 +455,7 @@ class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
 
 	protected function get_topics_for_api() {
 		$topics = new WP_Query( array( 'post_type' => self::POST_TYPE, 'posts_per_page' => -1, 'post_status' => 'publish', 'orderby' => 'parent menu_order', 'order' => 'ASC' ) );
-		$default_doc = get_option( self::default_doc );
+		$default_doc = get_option( self::DEFAULT_DOC );
 		$menu_order = array();
 		foreach ( $topics->posts as $k => $post ) {
 			$c =& $topics->posts[$k];
@@ -556,14 +614,31 @@ class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
 	public function save_post( $post_id ) {
 		if ( isset( $_POST['_cws_wp_help_nonce'] ) && wp_verify_nonce( $_POST['_cws_wp_help_nonce'], 'cws-wp-help-save_' . $post_id ) ) {
 			if ( isset( $_POST['cws_wp_help_make_default_doc'] ) ) {
-				// Make it the default_doc
-				update_option( self::default_doc, absint( $post_id ) );
-			} elseif ( $post_id == get_option( self::default_doc ) ) {
-				// Unset
-				update_option( self::default_doc, 0 );
+				$this->set_default_doc( $post_id );
+			} elseif ( $this->is_default_doc( $post_id ) ) {
+				$this->unset_default_doc();
 			}
 		}
 		return $post_id;
+	}
+
+	public function get_default_doc() {
+		return absint( get_option( self::DEFAULT_DOC, 0 ) );
+	}
+
+	public function is_default_doc( $post = null ) {
+		$post = get_post( $post );
+		return $post->ID === $this->get_default_doc();
+	}
+
+	public function set_default_doc( $post ) {
+		$post = get_post( $post );
+		$id = absint( $post ? $post->ID : 0 );
+		return update_option( self::DEFAULT_DOC, $id );
+	}
+
+	public function unset_default_doc() {
+		return update_option( self::DEFAULT_DOC, 0 );
 	}
 
 	public function post_updated_messages( $messages ) {
@@ -586,8 +661,9 @@ class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
 	}
 
 	public function enqueue() {
-		wp_enqueue_style( 'cws-wp-help', $this->get_url() . "css/wp-help.css", array(), '20170706' );
-		wp_enqueue_script( 'cws-wp-help', $this->get_url() . "js/wp-help.min.js", array( 'jquery', 'jquery-ui-sortable' ), '20170706' );
+		wp_enqueue_style( 'cws-wp-help', $this->get_url() . "dist/wp-help.css", array(), self::CSS_JS_VERSION );
+		$asset = $this->include_file( '/dist/index.asset.php' );
+		wp_enqueue_script( 'cws-wp-help', $this->get_url() . "dist/index.js", array_merge( [ 'jquery', 'jquery-ui-sortable' ], $asset['dependencies'] ), $asset['version'] );
 		do_action( 'cws_wp_help_load' ); // Use this to enqueue your own styles for things like shortcodes.
 	}
 
@@ -624,7 +700,11 @@ class CWS_WP_Help_Plugin extends WP_Stack_Plugin2 {
 	}
 
 	public function render_listing_page() {
-		$document_id = absint( isset( $_GET['document'] ) ? $_GET['document'] : get_option( self::default_doc ) );
+		$document_id = $this->get_default_doc();
+		if ( isset( $_GET['document'] ) ) {
+			$document_id = absint( $_GET['document'] );
+		}
+
 		if ( $document_id ) : ?>
 			<style>
 			#cws-wp-help-listing .page-item-<?php echo $document_id; ?> > a {

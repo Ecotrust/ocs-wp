@@ -1,13 +1,11 @@
 === WP Help ===
 
-[![Build Status](https://travis-ci.org/markjaquith/wp-help.svg?branch=master)](https://travis-ci.org/markjaquith/wp-help)  
-
-Contributors: markjaquith  
-Donate link: http://txfx.net/wordpress-plugins/donate  
-Tags: help, documentation, client sites, clients, docs  
-Requires at least: 4.4  
-Tested up to: 4.9.4  
-Stable tag: 1.5.4  
+Contributors: markjaquith
+Donate link: http://txfx.net/wordpress-plugins/donate
+Tags: help, documentation, client sites, clients, docs
+Requires at least: 4.9
+Tested up to: 5.3
+Stable tag: 1.7.0  
 
 Site operators can create detailed, hierarchical documentation for the site's authors, editors, and contributors, viewable in the WordPress admin.
 
@@ -88,6 +86,16 @@ Upgrade for a French translation.
 Upgrade if you want to use WP Help in one of these languages: Bulgarian, German, Spanish, Mexican Spanish, Macedonian, Dutch, Brazilian Portuguese, or Russian.
 
 == Changelog ==
+
+= 1.7.0 =
+* Block Editor (Gutenberg) support
+* Video display improvements
+* Smaller build
+
+= 1.6.0 =
+* CSS improvements (props @mrwweb).
+* Switch from CoffeeScript to ES6 and Babel.
+* Responsive styles.
 
 = 1.5.4 =
 * Bump supported WordPress version.

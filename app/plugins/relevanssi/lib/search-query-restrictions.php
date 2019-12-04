@@ -23,9 +23,11 @@ function relevanssi_process_query_args( $args ) {
 	$query_restrictions = '';
 	$query_join         = '';
 	$query              = '';
+	$query_no_synonyms  = '';
 
 	if ( function_exists( 'wp_encode_emoji' ) ) {
-		$query = wp_encode_emoji( $args['q'] );
+		$query             = wp_encode_emoji( $args['q'] );
+		$query_no_synonyms = wp_encode_emoji( $args['q_no_synonyms'] );
 	}
 
 	if ( $args['sentence'] ) {
@@ -67,15 +69,18 @@ function relevanssi_process_query_args( $args ) {
 		$query_restrictions .= relevanssi_process_by_date( $args['by_date'] );
 	}
 
-	$phrases = relevanssi_recognize_phrases( $query );
+	$phrases = relevanssi_recognize_phrases( $query, $args['operator'] );
 	if ( $phrases ) {
 		$query_restrictions .= " $phrases";
 		// Clean: $phrases is escaped earlier.
 	}
 
 	if ( $args['post_type'] || $args['include_attachments'] ) {
-		$query_restrictions .= relevanssi_process_post_type( $args['post_type'],
-		$args['admin_search'], $args['include_attachments'] );
+		$query_restrictions .= relevanssi_process_post_type(
+			$args['post_type'],
+			$args['admin_search'],
+			$args['include_attachments']
+		);
 	}
 
 	if ( $args['post_status'] ) {
@@ -86,6 +91,7 @@ function relevanssi_process_query_args( $args ) {
 		'query_restrictions' => $query_restrictions,
 		'query_join'         => $query_join,
 		'query_query'        => $query,
+		'query_no_synonyms'  => $query_no_synonyms,
 	);
 }
 
@@ -480,13 +486,14 @@ function relevanssi_process_post_type( $post_type, $admin_search, $include_attac
  *
  * @param string $post_status A post status string.
  *
- * @global WP_Query $wp_query The WP Query object.
- * @global object   $wpdb     The WP database interface.
+ * @global WP_Query $wp_query              The WP Query object.
+ * @global object   $wpdb                  The WP database interface.
+ * @global boolean  $relevanssi_admin_test If true, an admin search. for tests.
  *
  * @return string The MySQL query restriction.
  */
 function relevanssi_process_post_status( $post_status ) {
-	global $wp_query, $wpdb;
+	global $wp_query, $wpdb, $relevanssi_admin_test;
 	$query_restrictions = '';
 
 	if ( ! is_array( $post_status ) ) {
@@ -501,7 +508,7 @@ function relevanssi_process_post_status( $post_status ) {
 	}
 
 	if ( $escaped_post_status ) {
-		if ( $wp_query->is_admin ) {
+		if ( $wp_query->is_admin || $relevanssi_admin_test ) {
 			$query_restrictions .= " AND ((relevanssi.doc IN (SELECT DISTINCT(posts.ID) FROM $wpdb->posts AS posts
 				WHERE posts.post_status IN ($escaped_post_status))))";
 		} else {

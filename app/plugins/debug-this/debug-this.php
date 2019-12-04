@@ -2,13 +2,14 @@
 /**
  * Plugin Name: 			Debug This
  * Description: 			Peek under the hood with sixty debugging reports just one click away.
- * Version: 				0.6.1
+ * Version: 				0.6.3
  * Author: 					MachoThemes
  * Author URI: 				https://www.machothemes.com/
  * Requires: 				4.6 or higher
  * License: 				GPLv3 or later
  * License URI:       		http://www.gnu.org/licenses/gpl-3.0.html
  * Requires PHP: 			5.6
+ * Tested up to:            5.2
  *
  * Copyright 2012-2019 		Brian Fegter 		brian@fegter.com
  * Copyright 2012-2019		Chris Dillon 		chris@strongplugins.com
@@ -67,6 +68,9 @@ class Debug_This {
 			add_action( 'shutdown', array( $this, 'render_fetch_data' ), 90210 );
 
 			add_filter( 'template_include', array( $this, 'template_include_filter' ), 1000 );
+
+            add_action( 'plugins_loaded', array($this,'load_textdomain' ));
+
 		}
 
 		if (
@@ -80,6 +84,10 @@ class Debug_This {
 			add_action( 'debug_this', array( $this, 'debug' ), self::$mode, 5 );
 		}
 	}
+
+	public function load_textdomain(){
+        load_plugin_textdomain( 'debug-this', false, basename( dirname( __FILE__ ) ) . '/languages' );
+    }
 
 	public function enqueue() {
 		if ( $this->is_debug() ) {

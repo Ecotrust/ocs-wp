@@ -1,6 +1,8 @@
 <?php
 namespace EnableMediaReplace;
 use \EnableMediaReplace\emrFile as File;
+use EnableMediaReplace\ShortPixelLogger\ShortPixelLogger as Log;
+use EnableMediaReplace\Notices\NoticeController as Notices;
 
 class Replacer
 {
@@ -19,8 +21,8 @@ class Replacer
   protected $target_metadata;
   protected $target_url;
 
-  protected $replaceMode = null;
-  protected $timeMode = null;
+  protected $replaceMode = 1; // replace if nothing is set
+  protected $timeMode = 1;
   protected $datetime = null;
 
   protected $ThumbnailUpdater; // class
@@ -28,17 +30,17 @@ class Replacer
   const MODE_REPLACE = 1;
   const MODE_SEARCHREPLACE = 2;
 
-  const TIME_UPDATEALL = 1;
-  const TIME_UPDATEMODIFIED = 2;
-  const TIME_CUSTOM = 3;
+  const TIME_UPDATEALL = 1; // replace the date
+  const TIME_UPDATEMODIFIED = 2; // keep the date, update only modified
+  const TIME_CUSTOM = 3; // custom time entry
 
   public function __construct($post_id)
   {
       $this->post_id = $post_id;
 
       $source_file = trim(get_attached_file($post_id, apply_filters( 'emr_unfiltered_get_attached_file', true )));
-
       $this->sourceFile = new File($source_file);
+
       $this->source_post = get_post($post_id);
       $this->source_is_image = wp_attachment_is('image', $this->source_post);
       $this->source_metadata = wp_get_attachment_metadata( $post_id );
@@ -65,6 +67,7 @@ class Replacer
   /** Replace the sourceFile with a target
   * @param $file String Full Path to the Replacement File. This will usually be an uploaded file in /tmp/
   * @param $fileName String The fileName of the uploaded file. This will be used if sourcefile is not to be overwritten.
+  * @throws RunTimeException  Can throw exception if something went wrong with the files.
   */
   public function replaceWith($file, $fileName)
   {
@@ -78,18 +81,25 @@ class Replacer
 
       if (is_null($targetFile))
       {
-        _e('Target File could not be set. The source file might not be there. In case of search and replace, a filter might prevent this', "enable-media-replace");
-        exit;
+        $ex = __('Target File could not be set. The source file might not be there. In case of search and replace, a filter might prevent this', "enable-media-replace");
+        throw new \RuntimeException($ex);
       }
+
+      $targetFileObj = new File($targetFile);
+      $result = $targetFileObj->checkAndCreateFolder();
+      if ($result === false)
+        Log::addError('Directory creation for targetFile failed');
 
       /* @todo See if wp_handle_sideload / wp_handle_upload can be more securely used for this */
       $result_moved = move_uploaded_file($file,$targetFile);
 
       if (false === $result_moved)
       {
-        printf( esc_html__('The uploaded file could not be moved to %1$s , most likely because it could not remove the old images (file permissions) or the upload failed.', "enable-media-replace"), $targetFile );
-        exit;
+        $ex = sprintf( esc_html__('The uploaded file could not be moved to %1$s. This is most likely an issue with permissions, or upload failed.', "enable-media-replace"), $targetFile );
+        throw new \RuntimeException($ex);
       }
+
+      // init targetFile.
       $this->targetFile = new File($targetFile);
 
       if ($this->sourceFile->getPermissions() > 0)
@@ -114,6 +124,7 @@ class Replacer
       {
         update_attached_file($this->post_id, $filtered['file'] );
         $this->targetFile = new File($filtered['file']);  // handle as a new file
+        Log::addInfo('WP_Handle_upload filter returned different file', $filtered);
       }
 
       $metadata = wp_generate_attachment_metadata( $this->post_id, $this->targetFile->getFullFilePath() );
@@ -122,8 +133,9 @@ class Replacer
 
       if ($this->replaceMode == self::MODE_SEARCHREPLACE)
       {
-         $title = $this->getNewTitle();
 
+         // Write new image title.
+         $title = $this->getNewTitle();
          $update_ar = array('ID' => $this->post_id);
          $update_ar['post_title'] = $title;
          $update_ar['post_name'] = sanitize_title($title);
@@ -134,6 +146,8 @@ class Replacer
          // update post doesn't update GUID on updates.
          $wpdb->update( $wpdb->posts, array( 'guid' =>  $this->target_url), array('ID' => $this->post_id) );
          //enable-media-replace-upload-done
+
+         // @todo Replace this one with proper Notices:addError;
          if (is_wp_error($post_id))
          {
           $errors = $post_id->get_error_messages();
@@ -142,13 +156,15 @@ class Replacer
           }
          }
           $this->doSearchReplace();
-          do_action("enable-media-replace-upload-done", $this->target_url, $this->source_url);
-      }
+
+      }  // SEARCH REPLACE MODE
 
       if(wp_attachment_is_image($this->post_id))
       {
-        $this->ThumbnailUpdater->setNewMetadata($metadata);
-        $this->ThumbnailUpdater->updateThumbnails();
+        $this->ThumbnailUpdater->setNewMetadata($this->target_metadata);
+        $result = $this->ThumbnailUpdater->updateThumbnails();
+        if (false === $result)
+          Log::addWarn('Thumbnail Updater returned false');
       }
 
       // if all set and done, update the date.
@@ -164,11 +180,14 @@ class Replacer
       $cache = new emrCache();
       $cache->flushCache($cache_args);
 
+      do_action("enable-media-replace-upload-done", $this->target_url, $this->source_url);
+
   }
 
   protected function getNewTitle()
   {
-    $title = $this->targetFile->getFileName();
+    // get basename without extension
+    $title = basename($this->targetFile->getFileName(), '.' . $this->targetFile->getFileExtension());
     $meta = $this->target_metadata;
 
     if (isset($meta['image_meta']))
@@ -194,7 +213,7 @@ class Replacer
     $targetPath = null;
     if ($this->replaceMode == self::MODE_REPLACE)
     {
-      $targetPath = $this->sourceFile->getFullFilePath(); // overwrite source
+      $targetFile = $this->sourceFile->getFullFilePath(); // overwrite source
     }
     elseif ($this->replaceMode == self::MODE_SEARCHREPLACE)
     {
@@ -202,9 +221,26 @@ class Replacer
         $unique = wp_unique_filename($path, $this->targetName);
 
         $new_filename = apply_filters( 'emr_unique_filename', $unique, $path, $this->post_id );
-        $targetPath = trailingslashit($path) . $new_filename;
+        $targetFile = trailingslashit($path) . $new_filename;
     }
-    return $targetPath;
+    if (is_dir($targetFile)) // this indicates an error with the source.
+    {
+        Log::addWarn('TargetFile is directory ' . $targetFile );
+        $upload_dir = wp_upload_dir();
+        if (isset($upload_dir['path']))
+        {
+          $targetFile = trailingslashit($upload_dir['path']) . wp_unique_filename($targetFile, $this->targetName);
+        }
+        else {
+          $err = 'EMR could not establish a proper destination for replacement';
+          Log::addError($err);
+          throw new \RuntimeException($err);
+          exit($err); // fallback
+
+        }
+    }
+
+    return $targetFile;
   }
 
   /** Tries to remove all of the old image, without touching the metadata in database
@@ -212,9 +248,10 @@ class Replacer
   */
   protected function removeCurrent()
   {
-    $meta = wp_get_attachment_metadata( $this->post_id );
+    $meta = \wp_get_attachment_metadata( $this->post_id );
     $backup_sizes = get_post_meta( $this->post_id, '_wp_attachment_backup_sizes', true );
-    $result = wp_delete_attachment_files($this->post_id, $meta, $backup_sizes, $this->sourceFile->getFullFilePath() );
+    $result = \wp_delete_attachment_files($this->post_id, $meta, $backup_sizes, $this->sourceFile->getFullFilePath() );
+
   }
 
   /** Handle new dates for the replacement */
@@ -255,18 +292,26 @@ class Replacer
       global $wpdb;
 
      // Search-and-replace filename in post database
- 		$current_base_url = emr_get_match_url( $this->source_url );
+ 		$current_base_url = emr_get_match_url( $this->source_url);
+
+    /** Fail-safe if base_url is a whole directory, don't go search/replace */
+    if (is_dir($current_base_url))
+    {
+      Log::addError('Search Replace tried to replace to directory - ' . $current_base_url);
+      exit('Fail Safe :: Source Location seems to be a directory.');
+    }
 
     /* Search and replace in WP_POSTS */
- 		$posts_sql = $wpdb->remove_placeholder_escape($wpdb->prepare(
+    // Removed $wpdb->remove_placeholder_escape from here, not compatible with WP 4.8
+ 		$posts_sql = $wpdb->prepare(
  			"SELECT ID, post_content FROM $wpdb->posts WHERE post_status = 'publish' AND post_content LIKE %s;",
- 			'%' . $current_base_url . '%'));
+ 			'%' . $current_base_url . '%');
 
 //INNER JOIN ' . $wpdb->posts . ' on ' . $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id
 
     $postmeta_sql = 'SELECT meta_id, post_id, meta_value FROM ' . $wpdb->postmeta . '
         WHERE post_id in (SELECT ID from '. $wpdb->posts . ' where post_status = "publish") AND meta_value like %s  ';
-    $postmeta_sql = $wpdb->remove_placeholder_escape($wpdb->prepare($postmeta_sql, '%' . $current_base_url . '%'));
+    $postmeta_sql = $wpdb->prepare($postmeta_sql, '%' . $current_base_url . '%');
 
     $rsmeta = $wpdb->get_results($postmeta_sql, ARRAY_A);
  		$rs = $wpdb->get_results( $posts_sql, ARRAY_A );
@@ -277,8 +322,9 @@ class Replacer
     $replace_urls = emr_get_file_urls( $this->target_url, $this->target_metadata );
     $replace_urls = array_values(emr_normalize_file_urls( $search_urls, $replace_urls ));
 
- 		if ( ! empty( $rs ) ) {
+    Log::addDebug('Replacing references', array($search_urls, $replace_urls));
 
+ 		if ( ! empty( $rs ) ) {
  			foreach ( $rs AS $rows ) {
  				$number_of_updates = $number_of_updates + 1;
  				// replace old URLs with new URLs.
@@ -292,6 +338,9 @@ class Replacer
       //  echo "$sql <BR>";
  				$wpdb->query( $sql );
  			}
+    }
+    if (! empty($rsmeta))
+    {
       foreach ($rsmeta as $row)
       {
         $number_of_updates++;
@@ -301,8 +350,8 @@ class Replacer
         $sql = $wpdb->prepare('UPDATE ' . $wpdb->postmeta . ' SET meta_value = %s WHERE meta_id = %d', $content, $row['meta_id'] );
         $wpdb->query($sql);
       }
+    }
 
- 		}
 
   } // doSearchReplace
 

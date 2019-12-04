@@ -17,6 +17,18 @@ class SettingsRepository
 	}
 
 	/**
+	* Is the Classic (non-indented) display option enabled
+	* @return boolean
+	*/
+	public function nonIndentEnabled()
+	{
+		$option = get_option('nestedpages_ui', false);
+		if ( $option && isset($option['non_indent']) && $option['non_indent'] == 'true' ) return true;
+		return false;
+	}
+	
+
+	/**
 	* Is the Menu Sync Option Visible
 	*/
 	public function hideMenuSync()
@@ -141,6 +153,31 @@ class SettingsRepository
 	}
 
 	/**
+	* Admin Customization
+	*/
+	public function adminCustomEnabled($enabled)
+	{
+		$option = get_option('nestedpages_admin');
+		if ( !isset($option[$enabled]) ) return false;
+		return $option[$enabled];
+	}
+
+	/**
+	* Hidden Menu Items
+	*/
+	public function adminMenuHidden($role = 'administrator')
+	{
+		$roles = $this->adminCustomEnabled('nav_menu_options');
+		if ( !$roles ) return;
+		$hidden = array();
+		if ( !isset($roles[$role]) ) return;
+		foreach($roles[$role] as $key => $options){
+			if ( isset($options['hidden']) ) $hidden[] = $options['hidden'];
+		}
+		return $hidden;
+	}
+
+	/**
 	* Reset all plugin settings
 	*/
 	public function resetSettings()
@@ -153,10 +190,36 @@ class SettingsRepository
 			'nestedpages_menusync',
 			'nestedpages_posttypes',
 			'nestedpages_ui',
-			'nestedpages_version'
+			'nestedpages_version',
+			'nestedpages_admin'
 		];
 		foreach($options as $option){
 			delete_option($option);
 		}
+	}
+
+	/**
+	* Reset admin menu customizations
+	*/
+	public function resetAdminMenuSettings()
+	{
+		$options = [
+			'nestedpages_admin'
+		];
+		foreach($options as $option){
+			delete_option($option);
+		}
+	}
+
+	/**
+	* Get the Menu Name
+	* @return term obj
+	*/
+	public function getMenuTerm()
+	{
+		$menu_id = get_option('nestedpages_menu');
+		if ( !$menu_id ) return false;
+		$term = ( is_numeric($menu_id) ) ? get_term_by('id', $menu_id, 'nav_menu') : false;
+		return $term;
 	}
 }

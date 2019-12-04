@@ -2,10 +2,10 @@
 Contributors: msaari
 Donate link: https://www.relevanssi.com/buy-premium/
 Tags: search, relevance, better search
-Requires at least: 4.8.3
-Tested up to: 5.2.1
+Requires at least: 4.9
+Tested up to: 5.3
 Requires PHP: 5.6
-Stable tag: 4.2.0
+Stable tag: 4.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,7 @@ Do note that using Relevanssi may require large amounts (hundreds of megabytes) 
 * Search comments, tags, categories and custom fields.
 * Multisite friendly.
 * bbPress support.
+* Gutenberg friendly.
 
 = Advanced features =
 * Adjust the weighting for titles, tags and comments.
@@ -38,7 +39,7 @@ Do note that using Relevanssi may require large amounts (hundreds of megabytes) 
 * Index the contents of shortcodes.
 * Google-style "Did you mean?" suggestions based on successful user searches.
 * Support for [WPML multi-language plugin](http://wpml.org/) and [Polylang](https://wordpress.org/plugins/polylang/).
-* Support for [s2member membership plugin](http://www.s2member.com/), [Members](https://wordpress.org/plugins/members/), [Groups](https://wordpress.org/plugins/groups/) and [Simple Membership](https://wordpress.org/plugins/simple-membership/).
+* Support for [s2member membership plugin](http://www.s2member.com/), [Members](https://wordpress.org/plugins/members/), [Groups](https://wordpress.org/plugins/groups/), [Simple Membership](https://wordpress.org/plugins/simple-membership/) and other membership plugins.
 * Advanced filtering to help hacking the search results the way you want.
 * Search result throttling to improve performance on large databases.
 * Disable indexing of post content and post titles with a simple filter hook.
@@ -55,7 +56,8 @@ Do note that using Relevanssi may require large amounts (hundreds of megabytes) 
 * Let the user choose between AND and OR searches, use + and - operator (AND and NOT).
 * Export and import settings.
 * [WP CLI commands](https://www.relevanssi.com/user-manual/wp-cli/).
-* Related posts.
+* [Related posts](https://www.relevanssi.com/knowledge-base/related-posts/).
+* [Redirects for searches](https://www.relevanssi.com/user-manual/redirects/).
 
 = Relevanssi in Facebook =
 You can find [Relevanssi in Facebook](https://www.facebook.com/relevanssi).
@@ -121,6 +123,8 @@ Thus, the weight of the word for a document increases the more often it appears 
 
 Each document database is full of useless words. All the little words that appear in just about every document are completely useless for information retrieval purposes. Basically, their inverted document frequency is really low, so they never have much power in matching. Also, removing those words helps to make the index smaller and searching faster.
 
+[](http://coderisk.com/wp/plugin/relevanssi/RIPS-XC1ekC4JKr)
+
 == Thanks ==
 * Cristian Damm for tag indexing, comment indexing, post/page exclusion and general helpfulness.
 * Marcus Dalgren for UTF-8 fixing.
@@ -129,106 +133,74 @@ Each document database is full of useless words. All the little words that appea
 * John Calahan for extensive 4.0 beta testing.
 
 == Changelog ==
-= 4.2.0 =
-* New feature: The search form shortcode has a new parameter `dropdown` which can be used to add a category dropdown, like this: `[searchform dropdown="category"]`.
-* New feature: Relevanssi can now use the contents of the PDF files indexed with WP File Download.
-* New filter: `relevanssi_indexing_tokens` can be used to filter the tokens (individual words) before they are indexed.
-* Removed filter: `relevanssi_default_meta_query_relation` did not have any effect anymore.
-* Changed behaviour: The default taxonomy relation was set to AND in 4.1.4, but wasn't properly applied before. Now it is really switched.
-* Changed behaviour: New post types have been added to list of forbidden post types Relevanssi won't show as indexing options (ACF, TablePress and WooCommerce).
-* Major fix: Tax query processing has been completely refactored, eliminating all sorts of bugs, especially with various edge cases.
-* Major fix: Gutenberg block indexing only worked with the Gutenberg plugin enabled. It now works with WP 5.0 built-in Gutenberg as well. If you use Gutenberg blocks, reindex to get all the block content in the index.
-* Major fix: Excerpt-building and highlighting did not respect the "Keyword matching" setting. They do now, and the excerpts should be better now.
-* Major fix: AND searches needed queries that could get too long for the database to handle. This has been fixed and optimized.
-* Major fix: Taxonomy term subquery relations didn't work; now they are applied.
-* Minor fix: iOS uses curly quotes by default, and that didn't work as a phrase operator. Now phrase operator works with curly quotes and straight quotes.
-* Minor fix: The Did you mean broke with search terms longer than 255 characters.
-* Minor fix: Phrases with numbers and one word like "team 17" didn't work, because numbers weren't counted as words.
+= 4.3.4 =
+* New feature: You can now give Gutenberg blocks a CSS class `relevanssi_noindex` to exclude them from being indexed. Relevanssi will not index Gutenberg blocks that have the class.
+* New feature: Relevanssi automatically skips some custom fields from common plugins that only contain unnecessary metadata.
+* New feature: The search results breakdown is added to the post objects and can be found in $post->relevanssi_hits. The data also includes new fields and the breakdown from the excerpt settings page can now show author, excerpt, custom field and MySQL column hits.
+* New feature: Relevanssi can now index Ninja Tables table content. This is something of an experimental feature right now, feedback is welcome.
+* New feature: New filter hook `relevanssi_indexing_query` filters the indexing query and is mostly interesting for debugging reasons.
+* Minor fix: Deleted and trashed comment contents were not deindexed when the comment was removed. That has been corrected now.
+* Minor fix: Phrase matching is now applied to attachments as well, including the attachments indexed for parent post.
+* Minor fix: Phrase matching only looks at custom fields that are indexed by Relevanssi.
+* Minor fix: Exact match bonus now uses the original query without synonyms added for the exact match check.
+* Minor fix: Paid Membership Pro filtering is only applied to published posts to prevent drafts from showing up in the search results.
 
-= 4.1.4 =
-* `EXISTS` and `NOT EXISTS` didn’t work for taxonomy terms in searches.
-* WPML post type handling has been improved. If post type allows fallback for default language, Relevanssi will support that.
-* Relevanssi now reminds you to set up automatic trimming for the logs. It’s a really good idea, otherwise the logs will become bloated, which will hurt search performance.
-* The Groups posts filter is only applied to public posts to avoid drafts being shown to people who shouldn’t see them.
-* The `posts_per_page` query variable didn’t work; it’s now added to the introduced query variables so that it works.
-* Relevanssi won’t log empty queries anymore.
-* The default tax query relation was switched from `OR` to `AND` to match the WP_Query default behaviour.
-* When used with WP 5.1, Relevanssi will now use `wp_insert_site` instead of the now-deprecated `wpmu_new_blog`.
-* Multisite blog creation is handled better in WP 5.1+.
-* Relevanssi now supports Restrict Content Pro permissions.
+= 4.3.3 =
+* New feature: New filter hook `relevanssi_indexing_adjust` can be used to stop Relevanssi from adjusting the number of posts indexed at once during the indexing.
+* New feature: New filter hook `relevanssi_acf_field_value` filters ACF field values before they are indexed.
+* New feature: New filter hook `relevanssi_disabled_shortcodes` filters the array containing shortcodes that are disabled when indexing.
+* Removed feature: The `relevanssi_indexing_limit` option wasn't really used anymore, so it has been removed.
+* Changed behaviour: Indexing exclusions from Yoast SEO and SEOPress are applied in a different way in the indexing, making for a smoother indexing process.
+* Changed behaviour: WP Table Reloaded support has been removed; you really shouldn't be using WP Table Reloaded anymore.
+* Minor fix: Relevanssi won't choke on ACF fields with array or object values anymore.
+* Minor fix: Relevanssi uninstall process left couple of Relevanssi options in the database.
+* Minor fix: WPML language filter didn't work when `fields` was set to `ids` or `id=>parent`.
 
-= 4.1.3 =
-* Improvements to meta key sorting.
-* Relevanssi settings page won't let you exclude categories you have restricted the search to.
-* Members plugin compatibility has been improved: it's only used if the 'content permissions' feature has been enabled.
-* The excerpt settings page was a bit buggy.
-* Slimstat analytics is now added to the blocked shortcodes list.
-* New filter: `relevanssi_search_form` works exactly like `get_search_form`, but only applies to the Relevanssi shortcode search forms.
-* New JetPack taxonomies and post types have been added to the block list so they won't appear in Relevanssi settings.
+= 4.3.2 =
+* New feature: SEOPress support, posts marked "noindex" in SEOPress are no longer indexed by Relevanssi by default.
+* Changed behaviour: Membership plugin compatibility is removed from `relevanssi_default_post_ok` function and has been moved to individual compatibility functions for each supported membership plugin. This makes it much easier to for example disable the membership plugin features if required.
+* Minor fix: The `searchform` shortcode now works better with different kinds of search forms.
+* Minor fix: Yoast SEO compatibility won't block indexing of posts with explicitly allowed indexing.
+* Minor fix: The `relevanssi_the_tags()` function printed out plain text, not HTML code like it should. The function now also accepts the post ID as a parameter.
+* Minor fix: Excerpt creation and highlighting have been improved a little.
 
-= 4.1.2 =
-* Choosing "CSS Style" for highlighting was not possible. That is now fixed.
-* Gutenberg reusable block indexing was fatally broken with the latest Gutenberg version. That has been updated.
-* Relevanssi now by default respects the WooCommerce "exclude from search" setting.
-* `post__not_in` still didn't work properly, it does now.
-* New filter: `relevanssi_comparison_order` can be used to define the sorting order when sorting the results by post type.
-* "Did you mean" process included a very slow query. It is now cached, leading in some cases to massive performance improvements (we're talking about several seconds here).
-* Highlights inside `code` and similar blocks are handled better now.
+= 4.3.1.1 =
+* Remove notice about undefined index.
 
-= 4.1.1.2 =
-* Fixes the broken User searches page.
+= 4.3.1 =
+* Adding a missing file.
 
-= 4.1.1.1 =
-* Adding the missing Gutenberg compatibility file.
-
-= 4.1.1 =
-* Relevanssi can now index Gutenberg reusable blocks. (This functionality broke once already before release, so that can happen, since Gutenberg is still in very active development.)
-* The `post__in` and `post__not_in` parameters didn't work, and are now fixed. `post_parent__in` and `post_parent__not_in` are also improved.
-* You can use named meta queries for sorting posts. Meta query sorting is improved in other ways as well.
-* Log export didn't work properly.
-* Adding stopwords from the common word list has been fixed.
-* The `relevanssi_get_words_having` filter hook is now also applied to the free version Did you mean queries.
-* New filters: `relevanssi_1day` and `relevanssi_7days` can be used to adjust the number of days for log displays, so instead of 1, 7 and 30 days you can have anything you want.
-
-= 4.1.0.1 =
-* Actually working admin search.
-
-= 4.1 =
-* New feature: You can now export the search log as a CSV file.
-* New feature: Admin Search page allows you to perform searches in WP admin using Relevanssi.
-* New filter: `relevanssi_admin_search_capability` can be used to adjust who sees the admin search page.
-* New filter: `relevanssi_entities_inside_pre` and `relevanssi_entities_inside_code` adjust how HTML entities are handled inside `pre` and `code` tags.
-* Numeric meta values (`meta_value_num`) are now sorted as numbers and not strings.
-* Pinned posts have `$post->relevanssi_pinned` set to 1 for debugging purposes, but you can also use this for styling the posts in the search results templates.
-* The Did you mean feature has been toned down a bit, to make the suggestions slightly less weird in some cases.
-* Post parent parameters now accept 0 as a value, making it easier to search for children of any post or posts without a parent.
-* Polylang compatibility has been improved.
-* Phrases with apostrophes inside work better.
-* The `relevanssi_excerpt` filter hook got a second parameter that holds the post ID.
-* Custom field sorting actually works now.
-* WP Search Suggest compatibility added.
+= 4.3.0 =
+* New feature: Multi-phrase searches now respect AND and OR operators. If multiple phrases are included in an OR search, any posts with at least one phrase will be included. In AND search, all phrases must be included.
+* New feature: Admin search has been improved: there's a post type dropdown and the search is triggered when you press enter. The debug information has a `div` tag around it with the id `debugging`, so you can hide them with CSS if you want to. The numbering of results also makes more sense.
+* New feature: The date parameters (`year`, `monthnum`, `w`, `day`, `hour`, `minute`, `second`, `m`) are now supported.
+* New feature: New filter hook `relevanssi_indexing_limit` filters the default number of posts to index (10). If you have issues with indexing timing out, you can try adjusting this to a smaller number like 5 or 1.
+* New feature: Support for Paid Membership Pro added.
+* New feature: WordPress SEO support, posts marked "noindex" in WordPress SEO are no longer indexed by Relevanssi by default.
+* Removed feature: qTranslate is no longer supported.
+* Major fix: Tax query searching had some bugs in it, manifesting especially into Polylang not limiting the languages correctly. Some problems with the test suites were found and fixed, and similar problems won't happen again.
+* Minor fix: Admin search only shows editing options to users with enough capabilities to use them.
+* Minor fix: Phrase searching now uses filterable post statuses instead of a hard-coded set of post statuses.
+* Minor fix: The plugin action links were missing on the Plugins page list, they're back now.
+* Minor fix: Search terms with slashes won't cause errors anymore.
+* Minor fix: Relevanssi admin pages have been examined for accessibility and form labels have been improved in many places.
+* Deprecated: `relevanssi_get_term_taxonomy()` function is deprecated and will be removed at some point in the future.
 
 == Upgrade notice ==
-= 4.2.0 =
-* New features, bug fixes, smaller improvements.
+= 4.3.4 =
+* Comment indexing bug fix, compatibility improvements and minor bug fixes and improvements.
 
-= 4.1.4 =
-* Restrict Content Pro support, bug fixes and small improvements.
+= 4.3.3 =
+* Bug fixes and overall improvements.
 
-= 4.1.3 =
-* Small improvements here and there.
+= 4.3.2 =
+* Yoast SEO compatibility fix, minor updates.
 
-= 4.1.2 =
-* Better compatibility with Gutenberg, new features.
+= 4.3.1.1 =
+* Remove an error notice.
 
-= 4.1.1.2 =
-* Fixes the broken User searches page.
+= 4.3.1 =
+* Fixes the broken 4.3.0 release.
 
-= 4.1.1.1 =
-* Adding the missing Gutenberg compatibility file.
-
-= 4.1.1 =
-* Minor improvements here and there, particularly in custom field sorting.
-
-= 4.1 =
-* New features and plenty of small fixes.
+= 4.3.0 =
+* Major bug fixes for taxonomy queries, new features and smaller improvements.
