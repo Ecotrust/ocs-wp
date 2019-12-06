@@ -67,7 +67,7 @@ function setup() {
   add_theme_support('html5', ['caption']);
 
   // Tell the TinyMCE editor to use a custom stylesheet
-  add_editor_style(Assets\asset_path('styles/editor-style.css'));
+  // add_editor_style(Assets\asset_path('styles/editor-style.css'));
 
   /* Doesn't need to be set over and over again so commented for now
   	// We need the medium and large image sizes to be cropped.
