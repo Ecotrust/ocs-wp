@@ -45,8 +45,9 @@ add_filter( 'relevanssi_query_filter', 'relevanssi_limit_filter' );
 add_action( 'relevanssi_trim_logs', 'relevanssi_trim_logs' );
 add_action( 'relevanssi_custom_field_value', 'relevanssi_filter_custom_fields', 10, 2 );
 
-// Plugin and theme compatibility.
+// Page builder shortcodes.
 add_filter( 'relevanssi_pre_excerpt_content', 'relevanssi_remove_page_builder_shortcodes', 9 );
+add_filter( 'relevanssi_post_content', 'relevanssi_remove_page_builder_shortcodes', 9 );
 
 // Permalink handling.
 add_filter( 'the_permalink', 'relevanssi_permalink', 10, 2 );
@@ -65,10 +66,9 @@ register_activation_hook( $relevanssi_variables['file'], 'relevanssi_install' );
  *
  * @global string $pagenow              Current admin page.
  * @global array  $relevanssi_variables The global Relevanssi variables array.
- * @global object $wpdb                 The WP database interface.
  */
 function relevanssi_init() {
-	global $pagenow, $relevanssi_variables, $wpdb;
+	global $pagenow, $relevanssi_variables;
 
 	$plugin_dir = dirname( plugin_basename( $relevanssi_variables['file'] ) );
 	load_plugin_textdomain( 'relevanssi', false, $plugin_dir . '/languages' );
@@ -424,7 +424,7 @@ function relevanssi_create_database_tables( $relevanssi_db_version ) {
 		update_option( 'relevanssi_db_version', $relevanssi_db_version );
 	}
 
-	if ( $wpdb->get_var( "SELECT COUNT(*) FROM $relevanssi_stopword_table WHERE 1" ) < 1 ) { // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.NoCaching
+	if ( empty( get_option( 'relevanssi_stopwords', '' ) ) ) {
 		relevanssi_populate_stopwords();
 	}
 }

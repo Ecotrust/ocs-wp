@@ -3,7 +3,7 @@
 Plugin Name: TablePress Extension: Responsive Tables
 Plugin URI: https://tablepress.org/extensions/responsive-tables/
 Description: Extension for TablePress that adds several modes for responsiveness of tables
-Version: 1.6
+Version: 1.7
 Author: Tobias Bäthge
 Author URI: https://tobias.baethge.com/
 */
@@ -49,7 +49,7 @@ class TablePress_Responsive_Tables {
 	 * @var string
 	 * @since 1.3
 	 */
-	protected static $version = '1.6';
+	protected static $version = '1.7';
 
 	/**
 	 * Instance of the Plugin Update Checker class.

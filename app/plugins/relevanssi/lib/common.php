@@ -51,6 +51,30 @@ function relevanssi_strtolower( $string ) {
 }
 
 /**
+ * Multibyte friendly substr.
+ *
+ * If multibyte string functions are available, returns mb_substr() and falls
+ * back to substr() if multibyte functions are not available.
+ *
+ * @param string $string The source string.
+ * @param int    $start  If start is non-negative, the returned string will
+ * start at the start'th position in str, counting from zero. If start is
+ * negative, the returned string will start at the start'th character from the
+ * end of string.
+ * @param int    $length Maximum number of characters to use from string. If
+ * omitted or null is passed, extract all characters to the end of the string.
+ *
+ * @return string $string The string in lowercase.
+ */
+function relevanssi_substr( $string, $start, $length = null ) {
+	if ( ! function_exists( 'mb_substr' ) ) {
+		return substr( $string, $start, $length );
+	} else {
+		return mb_substr( $string, $start, $length );
+	}
+}
+
+/**
  * Adds the search result match breakdown to the post object.
  *
  * Reads in the number of matches and stores it in the relevanssi_hits filed
@@ -107,8 +131,8 @@ function relevanssi_add_matches( &$post, $data ) {
 	if ( isset( $data['mysqlcolumn_matches'][ $post->ID ] ) ) {
 		$hits['mysqlcolumn'] = $data['mysqlcolumn_matches'][ $post->ID ];
 	}
-	if ( isset( $data['scores'][ $post->ID ] ) ) {
-		$hits['score'] = round( $data['scores'][ $post->ID ], 2 );
+	if ( isset( $data['doc_weights'][ $post->ID ] ) ) {
+		$hits['score'] = round( $data['doc_weights'][ $post->ID ], 2 );
 	}
 	if ( isset( $data['term_hits'][ $post->ID ] ) ) {
 		$hits['terms'] = $data['term_hits'][ $post->ID ];
@@ -278,14 +302,17 @@ function relevanssi_populate_array( $matches ) {
 		array_push( $ids, $match->doc );
 	}
 
-	$ids   = array_keys( array_flip( $ids ) ); // Remove duplicate IDs.
-	$ids   = implode( ', ', $ids );
-	$posts = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE id IN ( $ids )", OBJECT ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	$ids = array_keys( array_flip( $ids ) ); // Remove duplicate IDs.
+	do {
+		$hundred_ids = array_splice( $ids, 0, 100 );
+		$id_list     = implode( ', ', $hundred_ids );
+		$posts       = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE id IN ( $id_list )", OBJECT ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
-	foreach ( $posts as $post ) {
-		$relevanssi_post_array[ $post->ID ] = $post;
-		$relevanssi_post_types[ $post->ID ] = $post->post_type;
-	}
+		foreach ( $posts as $post ) {
+			$relevanssi_post_array[ $post->ID ] = $post;
+			$relevanssi_post_types[ $post->ID ] = $post->post_type;
+		}
+	} while ( $ids );
 
 	// Re-enable caching.
 	wp_suspend_cache_addition( false );
@@ -428,6 +455,7 @@ function relevanssi_recognize_phrases( $search_query, $operator = 'AND' ) {
 			$keys = '';
 
 			if ( is_array( $custom_fields ) ) {
+				array_push( $custom_fields, '_relevanssi_pdf_content' );
 				$custom_fields_escaped = implode( "','", array_map( 'esc_sql', $custom_fields ) );
 				$keys                  = "AND m.meta_key IN ('$custom_fields_escaped')";
 			}
@@ -444,6 +472,18 @@ function relevanssi_recognize_phrases( $search_query, $operator = 'AND' ) {
 				AND p.post_status IN ($status))";
 
 			$queries[] = $query;
+		} elseif ( RELEVANSSI_PREMIUM ) {
+			$index_post_types = get_option( 'relevanssi_index_post_types', array() );
+			if ( in_array( 'attachment', $index_post_types, true ) ) {
+				$query = "(SELECT ID
+				FROM $wpdb->posts AS p, $wpdb->postmeta AS m
+				WHERE p.ID = m.post_id
+				AND m.meta_key = '_relevanssi_pdf_content'
+				AND m.meta_value LIKE '%$phrase%'
+				AND p.post_status IN ($status))";
+
+				$queries[] = $query;
+			}
 		}
 
 		if ( 'on' === get_option( 'relevanssi_index_pdf_parent' ) ) {
@@ -520,10 +560,10 @@ function relevanssi_get_custom_fields() {
 		} elseif ( 'visible' === $custom_fields ) {
 			return $custom_fields;
 		} else {
-			$custom_fields       = explode( ',', $custom_fields );
-			$count_custom_fields = count( $custom_fields );
-			for ( $i = 0; $i < $count_custom_fields; $i++ ) {
-				$custom_fields[ $i ] = trim( $custom_fields[ $i ] );
+			$custom_fields_raw = explode( ',', $custom_fields );
+			$custom_fields     = false;
+			if ( is_array( $custom_fields_raw ) ) {
+				$custom_fields = array_filter( array_map( 'trim', $custom_fields_raw ) );
 			}
 		}
 	} else {
@@ -795,11 +835,13 @@ function relevanssi_prevent_default_request( $request, $query ) {
  *
  * @param string|array   $string          The string, or an array of strings, to
  *                                        tokenize.
- * @param boolean|string $remove_stops    If true, stopwords are removed. If 'body',
- *                                        also removes the body stopwords. Default
- *                                        true.
+ * @param boolean|string $remove_stops    If true, stopwords are removed. If
+ * 'body', also removes the body stopwords. Default true.
  * @param int            $min_word_length The minimum word length to include.
- *                                        Default -1.
+ * Default -1.
+ *
+ * @return int[] An array of tokens as the keys and their frequency as the
+ * value.
  */
 function relevanssi_tokenize( $string, $remove_stops = true, $min_word_length = -1 ) {
 	$tokens = array();
@@ -825,6 +867,15 @@ function relevanssi_tokenize( $string, $remove_stops = true, $min_word_length = 
 	}
 	if ( 'body' === $remove_stops && function_exists( 'relevanssi_fetch_body_stopwords' ) ) {
 		$stopword_list = array_merge( $stopword_list, relevanssi_fetch_body_stopwords() );
+	}
+
+	/**
+	 * Disables stopwords completely.
+	 *
+	 * @param boolean If true, stopwords are not used. Default false.
+	 */
+	if ( apply_filters( 'relevanssi_disable_stopwords', false ) ) {
+		$stopword_list = array();
 	}
 
 	if ( function_exists( 'relevanssi_apply_thousands_separator' ) ) {
@@ -1296,7 +1347,6 @@ function relevanssi_switch_blog( $new_blog, $prev_blog ) {
 	}
 
 	$relevanssi_variables['relevanssi_table'] = $wpdb->prefix . 'relevanssi';
-	$relevanssi_variables['stopword_table']   = $wpdb->prefix . 'relevanssi_stopwords';
 	$relevanssi_variables['log_table']        = $wpdb->prefix . 'relevanssi_log';
 }
 
@@ -1529,7 +1579,7 @@ function relevanssi_simple_generate_suggestion( $query ) {
 	$data = get_transient( 'relevanssi_didyoumean_query' );
 	if ( empty( $data ) ) {
 		$data = $wpdb->get_results( $q ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-		set_transient( 'relevanssi_didyoumean_query', $data, 60 * 60 * 24 * 7 );
+		set_transient( 'relevanssi_didyoumean_query', $data, MONTH_IN_SECONDS );
 	}
 
 	$query            = htmlspecialchars_decode( $query, ENT_QUOTES );
@@ -1749,6 +1799,8 @@ function relevanssi_get_forbidden_post_types() {
 		'ninja-table',          // Ninja Tables.
 		'shop_order',           // WooCommerce.
 		'shop_order_refund',    // WooCommerce.
+		'wc_order_status',      // WooCommerce.
+		'wc_order_email',       // WooCommerce.
 		'shop_webhook',         // WooCommerce.
 		'et_theme_builder',     // Divi.
 		'et_template',          // Divi.
@@ -1759,6 +1811,23 @@ function relevanssi_get_forbidden_post_types() {
 		'amn_wpforms',          // WP Forms.
 		'wpforms_log',          // WP Forms.
 		'dlm_download_version', // Download Monitor.
+		'wpcf7_contact_form',   // WP Contact Form 7.
+		'amn_exact-metrics',    // Google Analytics Dashboard.
+		'edd_commission',       // Easy Digital Downloads.
+		'edd_payment',          // Easy Digital Downloads.
+		'edd_discount',         // Easy Digital Downloads.
+		'eddpointslog',         // Easy Digital Downloads.
+		'edd_log',              // Easy Digital Downloads.
+		'edd-zapier-sub',       // Easy Digital Downloads.
+		'pys_event',            // Pixel Your Site.
+		'wp-types-group',       // WP Types.
+		'wp-types-term-group',  // WP Types.
+		'wp-types-user-group',  // WP Types.
+		'vc_grid_item',         // Visual Composer.
+		'bigcommerce_task',     // BigCommerce.
+		'slides',               // Qoda slides.
+		'carousels',            // Qoda carousels.
+
 	);
 }
 
@@ -1774,6 +1843,9 @@ function relevanssi_get_forbidden_taxonomies() {
 		'amp_validation_error',   // AMP.
 		'product_visibility',     // WooCommerce.
 		'wpforms_log_type',       // WP Forms.
+		'amp_template',           // AMP.
+		'edd_commission_status',  // Easy Digital Downloads.
+		'edd_log_type',           // Easy Digital Downloads.
 	);
 }
 
@@ -1809,4 +1881,52 @@ function relevanssi_filter_custom_fields( $values, $field ) {
 		$values = array();
 	}
 	return $values;
+}
+
+
+/**
+ * Removes page builder short codes from content.
+ *
+ * Page builder shortcodes cause problems in excerpts and add junk to posts in
+ * indexing. This function cleans them out.
+ *
+ * @param string $content The content to clean.
+ *
+ * @return string The content without page builder shortcodes.
+ */
+function relevanssi_remove_page_builder_shortcodes( $content ) {
+	$context = current_filter();
+	/**
+	 * Filters the page builder shortcode.
+	 *
+	 * @param array  An array of page builder shortcode regexes.
+	 * @param string Context, ie. the current filter hook, if you want your
+	 * changes to only count for indexing or for excerpts. In indexing, this
+	 * is 'relevanssi_post_content', for excerpts it's
+	 * 'relevanssi_pre_excerpt_content'.
+	 */
+	$search_array = apply_filters(
+		'relevanssi_page_builder_shortcodes',
+		array(
+			// Remove content.
+			'/\[et_pb_code.*?\].*\[\/et_pb_code\]/im',
+			'/\[et_pb_sidebar.*?\].*\[\/et_pb_sidebar\]/im',
+			'/\[et_pb_fullwidth_slider.*?\].*\[\/et_pb_fullwidth_slider\]/im',
+			'/\[vc_raw_html.*?\].*\[\/vc_raw_html\]/im',
+			// Remove only the tags.
+			'/\[\/?et_pb.*?\]/im',
+			'/\[\/?vc.*?\]/im',
+			'/\[\/?mk.*?\]/im',
+			'/\[\/?cs_.*?\]/im',
+			'/\[\/?av_.*?\]/im',
+			'/\[\/?fusion_.*?\]/im',
+			'/\[maxmegamenu.*?\]/im',
+			'/\[ai1ec.*?\]/im',
+			'/\[eme_.*?\]/im',
+			'/\[layerslider.*?\]/im',
+		),
+		$context
+	);
+	$content      = preg_replace( $search_array, ' ', $content );
+	return $content;
 }
