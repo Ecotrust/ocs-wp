@@ -201,7 +201,7 @@
 
 
 /* Keep the publish box on the screen */
-#major-publishing-actions.affix,
+/* #major-publishing-actions.affix,
 #submitdiv.affix,
 #nav-menu-header.affix,
 #nav-menu-meta.affix {
@@ -213,4 +213,4 @@
     top: 31px;
 	width: 259px;
 	z-index: 1000;
-}
+} */
