@@ -2,6 +2,7 @@
 * http://scrollnav.com
 * Copyright (c) 2015 James Wilson; Licensed MIT */
 (function($) {
+  var S;
 
   // Animate scrolling to section location
   var scroll_to = function(value, speed, offset, animated) {
@@ -24,7 +25,7 @@
     return window.location.hash;
   };
 
-  var S = {
+  S = {
     classes: {
       loading: 'sn-loading',
       failed: 'sn-failed',
@@ -455,4 +456,5 @@
 
     return method.apply(this, options);
   };
+
 })(jQuery);
