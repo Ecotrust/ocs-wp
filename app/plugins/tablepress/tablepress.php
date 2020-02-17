@@ -4,66 +4,46 @@
  *
  * @package TablePress
  * @author Tobias Bäthge
- * @version 1.10
- *
- *
- * Plugin Name: TablePress
- * Plugin URI: https://tablepress.org/
- * Description: Embed beautiful and feature-rich tables into your posts and pages, without having to write code.
- * Version: 1.10
- * Requires at least: 5.3
- * Requires PHP: 5.6.20
- * Author: Tobias Bäthge
- * Author URI: https://tobias.baethge.com/
- * Author email: wordpress@tobias.baethge.com
- * License: GPL 2
- * Donate URI: https://tablepress.org/donate/
- *
- *
- * Copyright 2012-2019 Tobias Bäthge
- *
- * TablePress is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License, version 2, as published by
- * the Free Software Foundation.
- *
- * TablePress is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with WordPress. If not, see https://www.gnu.org/licenses/gpl-2.0.html.
+ * @version 1.7
  */
+
+/*
+Plugin Name: TablePress
+Plugin URI: https://tablepress.org/
+Description: Embed beautiful and feature-rich tables into your posts and pages, without having to write code.
+Version: 1.7
+Author: Tobias Bäthge
+Author URI: https://tobias.baethge.com/
+Author email: wordpress@tobias.baethge.com
+Text Domain: tablepress
+Domain Path: /i18n
+License: GPL 2
+Donate URI: https://tablepress.org/donate/
+*/
+
+/*	Copyright 2012-2015 Tobias Bäthge
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License, version 2, as
+	published by the Free Software Foundation.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 // Prohibit direct script loading.
 defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
 
 // Define certain plugin variables as constants.
-if ( ! defined( 'TABLEPRESS_ABSPATH' ) ) {
-	define( 'TABLEPRESS_ABSPATH', plugin_dir_path( __FILE__ ) );
-}
-
-if ( ! defined( 'TABLEPRESS__FILE__' ) ) {
-	define( 'TABLEPRESS__FILE__', __FILE__ );
-}
-
-if ( ! defined( 'TABLEPRESS__DIR__' ) ) {
-	define( 'TABLEPRESS__DIR__', __DIR__ );
-}
-
-if ( ! defined( 'TABLEPRESS_BASENAME' ) ) {
-	define( 'TABLEPRESS_BASENAME', plugin_basename( TABLEPRESS__FILE__ ) );
-}
-
-/*
- * Define global JSON encoding options that TablePress uses.
- */
-if ( ! defined( 'TABLEPRESS_JSON_OPTIONS' ) ) {
-	$tablepress_json_options = 0;
-	$tablepress_json_options |= JSON_UNESCAPED_SLASHES; // Don't escape slashes to make search/replace of URLs in the database much easier.
-	define( 'TABLEPRESS_JSON_OPTIONS', $tablepress_json_options );
-	unset( $tablepress_json_options );
-}
+define( 'TABLEPRESS_ABSPATH', plugin_dir_path( __FILE__ ) );
+define( 'TABLEPRESS__FILE__', __FILE__ );
+define( 'TABLEPRESS_BASENAME', plugin_basename( TABLEPRESS__FILE__ ) );
 
 /**
  * Load TablePress class, which holds common functions and variables.

@@ -13,28 +13,19 @@
 }
 
 /* Nav Tab Menu */
-@media screen and (min-width: 783px) and (max-width: 1150px) {
+@media screen and (max-width: 1150px) {
 	/* Push nav bar down on small screens to not have tabs flow in mid-air, due to screen meta pushing */
 	#tablepress-nav {
 		padding-top: 30px;
 	}
 }
-@media screen and (max-width: 700px) {
-	#tablepress-nav {
-		border-bottom: 0;
-	}
-	#tablepress-nav .nav-tab {
-		margin: 0 0 10px 0.5em;
-		border-bottom: 1px solid #ccc;
-	}
-}
-#tablepress-nav .wp-heading-inline {
+#tablepress-nav .plugin-name {
 	float: left;
-	padding: 5px 0 0;
-	line-height: inherit;
+	padding: 5px 0;
 }
-#tablepress-nav .nav-tab-separator {
-	margin-left: 2em;
+#tablepress-nav .separator {
+	margin: 6px;
+	float: left;
 }
 
 /* Add New Table form */
@@ -49,6 +40,11 @@
 	float: left;
 	width: 150px;
 	margin-right: 20px;
+}
+
+/* Placeholder fields in gray text color, but only if JS is enabled */
+.js #tablepress-page .placeholder-active {
+	color: #bbbbbb;
 }
 
 /* Width of the columns on the "All Tables" list */
@@ -87,17 +83,24 @@
 	background: transparent;
 	border: none;
 	color: #333333;
-	width: 120px;
+	width: 110px;
 	margin: 0;
 	padding: 0;
 	font-weight: bold;
+	-webkit-box-shadow: none;
 	box-shadow: none;
 	text-align: center;
+	vertical-align: top;
+}
+#tablepress-page .table-shortcode {
+	cursor: text;
 }
 
 /* Table ID/name dropdown on "Export" screen */
 #tablepress-page #tables-export {
 	width: 100%;
+	height: auto;
+	line-height: normal;
 }
 
 /* Red border for form fields that have invalid values */
@@ -142,23 +145,23 @@
 	padding-top: 6px;
 }
 /* Adjust positioning of labels in relation to checkboxes/radio buttons */
-#tablepress_import-import-form .column-2 label {
+#tablepress_edit-table-options .column-2 label,
+#tablepress_edit-datatables-features .column-2 label {
+	vertical-align: top;
+}
+#tablepress_import-import-form .column-2 label,
+#tablepress_import-import-wp-table-reloaded .column-2 label {
+	vertical-align: top;
 	margin-right: 20px; /* some margin on radio buttons */
+}
+#tablepress-page input,
+#tablepress-page .button {
+	vertical-align: middle;
+}
+#tablepress-page .widefat th input {
+	vertical-align: text-top;
 }
 /* Red color for the "Uninstall TablePress" button on the "Plugin Options" screen */
 #uninstall-tablepress {
 	color: #BC0B0B;
-}
-/* Select dropdown alignment on the "Plugin Options" screen */
-#tablepress-page select {
-	vertical-align: baseline;
-}
-/* Equal heights for UI elements */
-#tablepress-page textarea,
-.tablepress-postbox-table .button {
-	margin: 1px;
-}
-#tablepress-page .button,
-#tablepress-page select {
-	min-height: 30px;
 }

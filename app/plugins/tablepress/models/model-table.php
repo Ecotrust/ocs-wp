@@ -50,11 +50,11 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @since 1.0.0
 	 * @var array $args {
 	 *     @type int   $last_id    Last table ID that was given to a new table.
-	 *     @type array $table_post Connections between table ID and post ID (key: table ID, value: post ID).
-	 * }
+ 	 *     @type array $table_post Connections between table ID and post ID (key: table ID, value: post ID).
+ 	 * }
 	 */
 	protected $default_tables = array(
-		'last_id'    => 0,
+		'last_id' => 0,
 		'table_post' => array(),
 	);
 
@@ -76,102 +76,102 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @var array
 	 * @link https://www.datatables.net/upgrade/1.10-convert
 	 */
-	protected $datatables_parameter_mappings = array(
+	protected $datatables_parameter_mappings = array (
 		'fnStateSaveParams' => 'stateSaveParams',
 		'fnStateLoadParams' => 'stateLoadParams',
 		'fnPreDrawCallback' => 'preDrawCallback',
-		'fnHeaderCallback'  => 'headerCallback',
-		'fnFooterCallback'  => 'footerCallback',
-		'sSortDescending'   => 'sortDescending',
-		'sPaginationType'   => 'pagingType',
-		'sLoadingRecords'   => 'loadingRecords',
-		'sDefaultContent'   => 'defaultContent',
-		'sContentPadding'   => 'contentPadding',
-		'iCookieDuration'   => 'stateDuration',
-		'bScrollCollapse'   => 'scrollCollapse',
-		'asStripeClasses'   => 'stripeClasses',
-		'sSortAscending'    => 'sortAscending',
-		'sInfoThousands'    => 'thousands',
-		'iDisplayLength'    => 'pageLength',
-		'fnServerParams'    => 'ajax',
-		'fnInitComplete'    => 'initComplete',
-		'fnInfoCallback'    => 'infoCallback',
-		'fnFormatNumber'    => 'formatNumber',
-		'fnDrawCallback'    => 'drawCallback',
-		'aaSortingFixed'    => 'orderFixed',
-		'sSortDataType'     => 'orderDataType',
-		'sServerMethod'     => 'ajax',
-		'sScrollXInner'     => 'scrollXInner',
-		'sInfoFiltered'     => 'infoFiltered',
-		'sAjaxDataProp'     => 'dataSrc',
-		'iDisplayStart'     => 'displayStart',
-		'iDeferLoading'     => 'deferLoading',
-		'fnStateLoaded'     => 'stateLoaded',
-		'fnRowCallback'     => 'rowCallback',
-		'fnCreatedCell'     => 'createdCell',
-		'bSortCellsTop'     => 'orderCellsTop',
-		'bLengthChange'     => 'lengthChange',
-		'sZeroRecords'      => 'zeroRecords',
-		'sInfoPostFix'      => 'infoPostFix',
-		'fnServerData'      => 'ajax',
-		'fnCreatedRow'      => 'createdRow',
-		'bSortClasses'      => 'orderClasses',
-		'bDeferRender'      => 'deferRender',
-		'aoSearchCols'      => 'searchCols',
-		'aoColumnDefs'      => 'columnDefs',
-		'sProcessing'       => 'processing',
-		'sLengthMenu'       => 'lengthMenu',
-		'sEmptyTable'       => 'emptyTable',
-		'sAjaxSource'       => 'ajax',
-		'fnStateSave'       => 'stateSaveCallback',
-		'fnStateLoad'       => 'stateLoadCallback',
-		'bServerSide'       => 'serverSide',
-		'bSearchable'       => 'searchable',
-		'bProcessing'       => 'processing',
-		'aLengthMenu'       => 'lengthMenu',
-		'sInfoEmpty'        => 'infoEmpty',
-		'bStateSave'        => 'stateSave',
-		'bAutoWidth'        => 'autoWidth',
-		'className'         => 'className', // Replace "className" with itself, to avoid that the replacement for "sName" breaks it.
-		'sPrevious'         => 'previous',
-		'sCellType'         => 'cellType',
-		'oPaginate'         => 'paginate',
-		'oLanguage'         => 'language',
-		'iTabIndex'         => 'tabIndex',
-		'iDataSort'         => 'orderData',
-		'bSortable'         => 'orderable',
-		'bRetrieve'         => 'retrieve',
-		'bPaginate'         => 'paging',
-		'bJQueryUI'         => 'jQueryUI',
-		'asSorting'         => 'orderSequence',
-		'aoColumns'         => 'columns',
-		'aaSorting'         => 'order',
-		'aDataSort'         => 'orderData',
-		'sScrollY'          => 'scrollY',
-		'sScrollX'          => 'scrollX',
-		'bVisible'          => 'visible',
-		'bDestroy'          => 'destroy',
-		'aTargets'          => 'targets',
-		'sSearch'           => 'search',
-		'oSearch'           => 'search',
-		'mRender'           => 'render',
-		'bFilter'           => 'searching',
-		'sWidth'            => 'width',
-		'sTitle'            => 'title',
-		'sFirst'            => 'first',
-		'sClass'            => 'className',
-		'aaData'            => 'data',
-		'sType'             => 'type',
-		'sNext'             => 'next',
-		'sName'             => 'name',
-		'sLast'             => 'last',
-		'sInfo'             => 'info',
-		'oAria'             => 'aria',
-		'mData'             => 'data',
-		'bSort'             => 'ordering',
-		'bInfo'             => 'info',
-		'sUrl'              => 'url',
-		'sDom'              => 'dom',
+		'fnHeaderCallback' => 'headerCallback',
+		'fnFooterCallback' => 'footerCallback',
+		'sSortDescending' => 'sortDescending',
+		'sPaginationType' => 'pagingType',
+		'sLoadingRecords' => 'loadingRecords',
+		'sDefaultContent' => 'defaultContent',
+		'sContentPadding' => 'contentPadding',
+		'iCookieDuration' => 'stateDuration',
+		'bScrollCollapse' => 'scrollCollapse',
+		'asStripeClasses' => 'stripeClasses',
+		'sSortAscending' => 'sortAscending',
+		'sInfoThousands' => 'thousands',
+		'iDisplayLength' => 'pageLength',
+		'fnServerParams' => 'ajax',
+		'fnInitComplete' => 'initComplete',
+		'fnInfoCallback' => 'infoCallback',
+		'fnFormatNumber' => 'formatNumber',
+		'fnDrawCallback' => 'drawCallback',
+		'aaSortingFixed' => 'orderFixed',
+		'sSortDataType' => 'orderDataType',
+		'sServerMethod' => 'ajax',
+		'sScrollXInner' => 'scrollXInner',
+		'sInfoFiltered' => 'infoFiltered',
+		'sAjaxDataProp' => 'dataSrc',
+		'iDisplayStart' => 'displayStart',
+		'iDeferLoading' => 'deferLoading',
+		'fnStateLoaded' => 'stateLoaded',
+		'fnRowCallback' => 'rowCallback',
+		'fnCreatedCell' => 'createdCell',
+		'bSortCellsTop' => 'orderCellsTop',
+		'bLengthChange' => 'lengthChange',
+		'sZeroRecords' => 'zeroRecords',
+		'sInfoPostFix' => 'infoPostFix',
+		'fnServerData' => 'ajax',
+		'fnCreatedRow' => 'createdRow',
+		'bSortClasses' => 'orderClasses',
+		'bDeferRender' => 'deferRender',
+		'aoSearchCols' => 'searchCols',
+		'aoColumnDefs' => 'columnDefs',
+		'sProcessing' => 'processing',
+		'sLengthMenu' => 'lengthMenu',
+		'sEmptyTable' => 'emptyTable',
+		'sAjaxSource' => 'ajax',
+		'fnStateSave' => 'stateSaveCallback',
+		'fnStateLoad' => 'stateLoadCallback',
+		'bServerSide' => 'serverSide',
+		'bSearchable' => 'searchable',
+		'bProcessing' => 'processing',
+		'aLengthMenu' => 'lengthMenu',
+		'sInfoEmpty' => 'infoEmpty',
+		'bStateSave' => 'stateSave',
+		'bAutoWidth' => 'autoWidth',
+		'className' => 'className', // Replace "className" with itself, to avoid that the replacement for "sName" breaks it.
+		'sPrevious' => 'previous',
+		'sCellType' => 'cellType',
+		'oPaginate' => 'paginate',
+		'oLanguage' => 'language',
+		'iTabIndex' => 'tabIndex',
+		'iDataSort' => 'orderData',
+		'bSortable' => 'orderable',
+		'bRetrieve' => 'retrieve',
+		'bPaginate' => 'paging',
+		'bJQueryUI' => 'jQueryUI',
+		'asSorting' => 'orderSequence',
+		'aoColumns' => 'columns',
+		'aaSorting' => 'order',
+		'aDataSort' => 'orderData',
+		'sScrollY' => 'scrollY',
+		'sScrollX' => 'scrollX',
+		'bVisible' => 'visible',
+		'bDestroy' => 'destroy',
+		'aTargets' => 'targets',
+		'sSearch' => 'search',
+		'oSearch' => 'search',
+		'mRender' => 'render',
+		'bFilter' => 'searching',
+		'sWidth' => 'width',
+		'sTitle' => 'title',
+		'sFirst' => 'first',
+		'sClass' => 'className',
+		'aaData' => 'data',
+		'sType' => 'type',
+		'sNext' => 'next',
+		'sName' => 'name',
+		'sLast' => 'last',
+		'sInfo' => 'info',
+		'oAria' => 'aria',
+		'mData' => 'data',
+		'bSort' => 'ordering',
+		'bInfo' => 'info',
+		'sUrl' => 'url',
+		'sDom' => 'dom',
 	);
 
 	/**
@@ -184,7 +184,7 @@ class TablePress_Table_Model extends TablePress_Model {
 		$this->model_post = TablePress::load_model( 'post' );
 
 		$params = array(
-			'option_name'   => 'tablepress_tables',
+			'option_name' => 'tablepress_tables',
 			'default_value' => $this->default_tables,
 		);
 		$this->tables = TablePress::load_class( 'TablePress_WP_Option', 'class-wp_option.php', 'classes', $params );
@@ -222,12 +222,16 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @return array Post.
 	 */
 	protected function _table_to_post( array $table, $post_id ) {
-		// Run filters on content in each cell and other fields.
-		$table = $this->filter_content( $table );
-
-		// Sanitize each cell, table name, and table description, if the user is not allowed to work with unfiltered HTML.
+		/*
+		 * Sanitize each cell, if the user is not allowed to work with unfiltered HTML.
+		 * Table name and description are sanitized by WordPress directly, but the JSON would break if we don't do it ourselves.
+		 */
 		if ( ! current_user_can( 'unfiltered_html' ) ) {
-			$table = $this->sanitize( $table );
+			foreach ( $table['data'] as $row_idx => $row ) {
+				foreach ( $row as $column_idx => $cell_content ) {
+					$table['data'][ $row_idx ][ $column_idx ] = wp_kses_post( $cell_content ); // equals wp_filter_post_kses(), but without the unncessary slashes handling
+				}
+			}
 		}
 
 		// New posts have a post ID of false in WordPress.
@@ -236,11 +240,11 @@ class TablePress_Table_Model extends TablePress_Model {
 		}
 
 		$post = array(
-			'ID'             => $post_id,
-			'post_title'     => $table['name'],
+			'ID' => $post_id,
+			'post_title' => $table['name'],
 			// 'post_author' => $table['author'],
-			'post_excerpt'   => $table['description'],
-			'post_content'   => wp_json_encode( $table['data'], TABLEPRESS_JSON_OPTIONS ),
+			'post_excerpt' => $table['description'],
+			'post_content' => wp_json_encode( $table['data'] ),
 			'post_mime_type' => 'application/json',
 		);
 
@@ -254,15 +258,15 @@ class TablePress_Table_Model extends TablePress_Model {
 	 *
 	 * @param WP_Post $post      Post.
 	 * @param string  $table_id  Table ID.
-	 * @param bool    $load_data Whether the table data shall be loaded.
+	 * @param bool    $with_data Whether the table data shall be loaded.
 	 * @return array Table.
 	 */
 	protected function _post_to_table( $post, $table_id, $load_data ) {
 		$table = array(
-			'id'            => $table_id,
-			'name'          => $post->post_title,
-			'description'   => $post->post_excerpt,
-			'author'        => $post->post_author,
+			'id' => $table_id,
+			'name' => $post->post_title,
+			'description' => $post->post_excerpt,
+			'author' => $post->post_author,
 			// 'created' => $post->post_date,
 			'last_modified' => $post->post_modified,
 		);
@@ -282,9 +286,12 @@ class TablePress_Table_Model extends TablePress_Model {
 
 			// If possible, try to find out what error prevented the JSON from being decoded.
 			$table['json_error'] = 'The error could not be determined.';
-			$json_error_msg = json_last_error_msg();
-			if ( false !== $json_error_msg ) {
-				$table['json_error'] = $json_error_msg;
+			// @TODO: The `function_exists` check can be removed once support for WP 4.3 is dropped, as a compat function was added in WP 4.4.
+			if ( function_exists( 'json_last_error_msg' ) ) {
+				$json_error_msg = json_last_error_msg();
+				if ( false !== $json_error_msg ) {
+					$table['json_error'] = $json_error_msg;
+				}
 			}
 
 			$table['description'] = "[ERROR] TABLE IS CORRUPTED (JSON error: {$table['json_error']})!  DO NOT EDIT THIS TABLE NOW!\nInstead, please see https://tablepress.org/faq/corrupted-tables/ for instructions.\n-\n{$table['description']}";
@@ -374,69 +381,6 @@ class TablePress_Table_Model extends TablePress_Model {
 	}
 
 	/**
-	 * Sanitize the table to remove undesired HTML code using KSES.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @param array $table Table.
-	 * @return array Sanitized table.
-	 */
-	public function sanitize( array $table ) {
-		// Sanitize the table name and description.
-		$fields = array( 'name', 'description' );
-		foreach ( $fields as $field ) {
-			$table[ $field ] = wp_kses_post( $table[ $field ] );
-		}
-
-		// Sanitize each cell.
-		foreach ( $table['data'] as $row_idx => $row ) {
-			foreach ( $row as $column_idx => $cell_content ) {
-				$table['data'][ $row_idx ][ $column_idx ] = wp_kses_post( $cell_content ); // equals wp_filter_post_kses(), but without the unncessary slashes handling
-			}
-		}
-
-		return $table;
-	}
-
-	/**
-	 * Filter/modify the content of table cells and other fields, e.g. for security hardening.
-	 *
-	 * This is similar to the `sanitize()` method, but executed for all users.
-	 * In 1.10.0, adding `rel="noopener noreferrer"` to all HTML link elements like `<a target=` was added. See https://core.trac.wordpress.org/ticket/43187.
-	 *
-	 * @since 1.10.0
-	 *
-	 * @param array $table Table.
-	 * @return array Filtered/modified table.
-	 */
-	public function filter_content( array $table ) {
-		/**
-		 * Filter whether the contents of table cells and fields should be filtered/modified.
-		 *
-		 * @since 1.10.0
-		 *
-		 * @param bool $filter Whether to filter the content of table cells and other fields. Default true.
-		 */
-		if ( ! apply_filters( 'tablepress_filter_table_cell_content', true ) ) {
-			return;
-		}
-
-		// Filter the table name and description.
-		$fields = array( 'name', 'description' );
-		foreach ( $fields as $field ) {
-			$table[ $field ] = wp_targeted_link_rel( $table[ $field ] );
-		}
-
-		foreach ( $table['data'] as $row_idx => $row ) {
-			foreach ( $row as $column_idx => $cell_content ) {
-				$table['data'][ $row_idx ][ $column_idx ] = wp_targeted_link_rel( $cell_content );
-			}
-		}
-
-		return $table;
-	}
-
-	/**
 	 * Save a table.
 	 *
 	 * @since 1.0.0
@@ -478,7 +422,7 @@ class TablePress_Table_Model extends TablePress_Model {
 		// At this point, post was successfully added.
 
 		// Invalidate table output caches that belong to this table.
-		$this->invalidate_table_output_cache( $table['id'] );
+		$this->_invalidate_table_output_cache( $table['id'] );
 		// Flush caching plugins' caches.
 		$this->_flush_caching_plugins_caches();
 
@@ -615,7 +559,7 @@ class TablePress_Table_Model extends TablePress_Model {
 		$this->_remove_post_id( $table_id );
 
 		// Invalidate table output caches that belong to this table.
-		$this->invalidate_table_output_cache( $table_id );
+		$this->_invalidate_table_output_cache( $table_id );
 		// Flush caching plugins' caches.
 		$this->_flush_caching_plugins_caches();
 
@@ -647,7 +591,7 @@ class TablePress_Table_Model extends TablePress_Model {
 			$this->model_post->delete( $post_id ); // Post Meta fields will be deleted automatically by that function.
 			unset( $tables['table_post'][ $table_id ] );
 			// Invalidate table output caches that belong to this table.
-			$this->invalidate_table_output_cache( $table_id );
+			$this->_invalidate_table_output_cache( $table_id );
 		}
 
 		$this->tables->update( $tables );
@@ -690,21 +634,17 @@ class TablePress_Table_Model extends TablePress_Model {
 		}
 
 		$count_db = $this->model_post->count_posts();
-		return array(
-			'list' => $count_list,
-			'db'   => $count_db,
-		);
+		return array( 'list' => $count_list, 'db' => $count_db );
 	}
 
 	/**
 	 * Delete all transients used for output caching of a table (e.g. when the table is updated or deleted).
 	 *
 	 * @since 1.0.0
-	 * @since 1.8.0 Renamed from _invalidate_table_output_cache to invalidate_table_output_cache and made public.
 	 *
 	 * @param string $table_id Table ID.
 	 */
-	public function invalidate_table_output_cache( $table_id ) {
+	protected function _invalidate_table_output_cache( $table_id ) {
 		$caches_list_transient_name = 'tablepress_c_' . md5( $table_id );
 		$caches_list = get_transient( $caches_list_transient_name );
 		if ( false !== $caches_list ) {
@@ -867,37 +807,37 @@ class TablePress_Table_Model extends TablePress_Model {
 	public function get_table_template() {
 		// Attention: Array keys have to be lowercase, to make it possible to match them with Shortcode attributes!
 		$table = array(
-			'id'            => false,
-			'name'          => '',
-			'description'   => '',
-			'data'          => array( array( '' ) ), // one empty cell
+			'id' => false,
+			'name' => '',
+			'description' => '',
+			'data' => array( array( '' ) ), // one empty cell
 			// 'created' => current_time( 'mysql' ),
 			'last_modified' => current_time( 'mysql' ),
-			'author'        => get_current_user_id(),
-			'options'       => array(
-				'last_editor'                 => get_current_user_id(),
-				'table_head'                  => true,
-				'table_foot'                  => false,
-				'alternating_row_colors'      => true,
-				'row_hover'                   => true,
-				'print_name'                  => false,
-				'print_name_position'         => 'above',
-				'print_description'           => false,
-				'print_description_position'  => 'below',
-				'extra_css_classes'           => '',
+			'author' => get_current_user_id(),
+			'options' => array(
+				'last_editor' => get_current_user_id(),
+				'table_head' => true,
+				'table_foot' => false,
+				'alternating_row_colors' => true,
+				'row_hover' => true,
+				'print_name' => false,
+				'print_name_position' => 'above',
+				'print_description' => false,
+				'print_description_position' => 'below',
+				'extra_css_classes' => '',
 				// DataTables JavaScript library
-				'use_datatables'              => true,
-				'datatables_sort'             => true,
-				'datatables_filter'           => true,
-				'datatables_paginate'         => true,
-				'datatables_lengthchange'     => true,
+				'use_datatables' => true,
+				'datatables_sort' => true,
+				'datatables_filter' => true,
+				'datatables_paginate' => true,
+				'datatables_lengthchange' => true,
 				'datatables_paginate_entries' => 10,
-				'datatables_info'             => true,
-				'datatables_scrollx'          => false,
-				'datatables_custom_commands'  => '',
+				'datatables_info' => true,
+				'datatables_scrollx' => false,
+				'datatables_custom_commands' => '',
 			),
-			'visibility'    => array(
-				'rows'    => array( 1 ), // one visbile row
+			'visibility' => array(
+				'rows' => array( 1 ), // one visbile row
 				'columns' => array( 1 ), // one visible column
 			),
 		);
@@ -961,13 +901,13 @@ class TablePress_Table_Model extends TablePress_Model {
 			$new_table['number']['columns'] = intval( $new_table['number']['columns'] );
 			if ( 0 === $new_table['number']['rows']
 			|| 0 === $new_table['number']['columns']
-			|| count( $new_table['data'] ) !== $new_table['number']['rows']
-			|| count( $new_table['data'][0] ) !== $new_table['number']['columns'] ) {
+			|| $new_table['number']['rows'] !== count( $new_table['data'] )
+			|| $new_table['number']['columns'] !== count( $new_table['data'][0] ) ) {
 				return new WP_Error( 'table_prepare_size_check_numbers_dont_match' );
 			}
 			// Visibility also needs to have correct dimensions.
-			if ( count( $new_table['visibility']['rows'] ) !== $new_table['number']['rows']
-			|| count( $new_table['visibility']['columns'] ) !== $new_table['number']['columns'] ) {
+			if ( $new_table['number']['rows'] !== count( $new_table['visibility']['rows'] )
+			|| $new_table['number']['columns'] !== count( $new_table['visibility']['columns'] ) ) {
 				return new WP_Error( 'table_prepare_size_check_visibility_doesnt_match' );
 			}
 
@@ -1050,7 +990,7 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @return bool True on success, false on error.
 	 */
 	protected function _add_table_options( $post_id, array $options ) {
-		$options = wp_json_encode( $options, TABLEPRESS_JSON_OPTIONS );
+		$options = wp_json_encode( $options );
 		return $this->model_post->add_meta_field( $post_id, $this->table_options_field_name, $options );
 	}
 
@@ -1064,7 +1004,7 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @return bool True on success, false on error.
 	 */
 	protected function _update_table_options( $post_id, array $options ) {
-		$options = wp_json_encode( $options, TABLEPRESS_JSON_OPTIONS );
+		$options = wp_json_encode( $options );
 		return $this->model_post->update_meta_field( $post_id, $this->table_options_field_name, $options );
 	}
 
@@ -1094,7 +1034,7 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @return bool True on success, false on error.
 	 */
 	protected function _add_table_visibility( $post_id, array $visibility ) {
-		$visibility = wp_json_encode( $visibility, TABLEPRESS_JSON_OPTIONS );
+		$visibility = wp_json_encode( $visibility );
 		return $this->model_post->add_meta_field( $post_id, $this->table_visibility_field_name, $visibility );
 	}
 
@@ -1108,7 +1048,7 @@ class TablePress_Table_Model extends TablePress_Model {
 	 * @return bool True on success, false on error.
 	 */
 	protected function _update_table_visibility( $post_id, array $visibility ) {
-		$visibility = wp_json_encode( $visibility, TABLEPRESS_JSON_OPTIONS );
+		$visibility = wp_json_encode( $visibility );
 		return $this->model_post->update_meta_field( $post_id, $this->table_visibility_field_name, $visibility );
 	}
 
@@ -1270,7 +1210,7 @@ class TablePress_Table_Model extends TablePress_Model {
 		}
 
 		foreach ( $table_post as $table_id => $post_id ) {
-			$this->invalidate_table_output_cache( $table_id );
+			$this->_invalidate_table_output_cache( $table_id );
 		}
 	}
 

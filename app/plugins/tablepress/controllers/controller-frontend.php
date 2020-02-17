@@ -53,6 +53,9 @@ class TablePress_Frontend_Controller extends TablePress_Controller {
 		// Remove WP-Table Reloaded Shortcodes and CSS, and add TablePress Shortcodes.
 		add_action( 'init', array( $this, 'init_shortcodes' ), 20 ); // run on priority 20 as WP-Table Reloaded Shortcodes are registered at priority 10
 
+		// Make TablePress Shortcodes work in text widgets.
+		add_filter( 'widget_text', array( $this, 'widget_text_filter' ) );
+
 		/**
 		 * Filter whether the WordPress search shall also search TablePress tables.
 		 *
@@ -289,7 +292,7 @@ class TablePress_Frontend_Controller extends TablePress_Controller {
 					$parameters['orderClasses'] = '"orderClasses":false';
 				}
 				// Alternating row colors is default, so remove them if not wanted with [].
-				$parameters['stripeClasses'] = '"stripeClasses":' . ( ( $js_options['alternating_row_colors'] ) ? '["even","odd"]' : '[]' );
+				$parameters['stripeClasses'] = '"stripeClasses":' . ( ( $js_options['alternating_row_colors'] ) ? "['even','odd']" : '[]' );
 				// The following options are activated by default, so we only need to "false" them if we don't want them, but don't need to "true" them if we do.
 				if ( ! $js_options['datatables_sort'] ) {
 					$parameters['ordering'] = '"ordering":false';
@@ -307,7 +310,7 @@ class TablePress_Frontend_Controller extends TablePress_Controller {
 						$parameters['lengthChange'] = '"lengthChange":false';
 					}
 					if ( 10 !== $js_options['datatables_paginate_entries'] ) {
-						$parameters['pageLength'] = '"pageLength":' . $js_options['datatables_paginate_entries'];
+						$parameters['pageLength'] = '"pageLength":'. $js_options['datatables_paginate_entries'];
 					}
 				} else {
 					$parameters['paging'] = '"paging":false';
@@ -378,7 +381,7 @@ class TablePress_Frontend_Controller extends TablePress_Controller {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param string $commands The JS commands for the DataTables JS library.
+		 * @param array $commands The JS commands for the DataTables JS library.
 		 */
 		$commands = apply_filters( 'tablepress_all_datatables_commands', $commands );
 		if ( empty( $commands ) ) {
@@ -519,7 +522,7 @@ JS;
 		// Generate unique HTML ID, depending on how often this table has already been shown on this page.
 		if ( ! isset( $this->shown_tables[ $table_id ] ) ) {
 			$this->shown_tables[ $table_id ] = array(
-				'count'     => 0,
+				'count' => 0,
 				'instances' => array(),
 			);
 		}
@@ -572,20 +575,10 @@ JS;
 		if ( $render_options['use_datatables'] && $render_options['table_head'] && count( $table['data'] ) > 1 ) {
 			// Get options for the DataTables JavaScript library from the table's render options.
 			$js_options = array();
-			foreach ( array(
-				'alternating_row_colors',
-				'datatables_sort',
-				'datatables_paginate',
-				'datatables_paginate',
-				'datatables_paginate_entries',
-				'datatables_lengthchange',
-				'datatables_filter',
-				'datatables_info',
-				'datatables_scrollx',
-				'datatables_scrolly',
-				'datatables_locale',
-				'datatables_custom_commands',
-			) as $option ) {
+			foreach ( array( 'alternating_row_colors', 'datatables_sort', 'datatables_paginate',
+								'datatables_paginate', 'datatables_paginate_entries', 'datatables_lengthchange',
+								'datatables_filter', 'datatables_info', 'datatables_scrollx', 'datatables_scrolly',
+								'datatables_locale', 'datatables_custom_commands' ) as $option ) {
 				$js_options[ $option ] = $render_options[ $option ];
 			}
 			/**
@@ -608,7 +601,7 @@ JS;
 		// Check if table output shall and can be loaded from the transient cache, otherwise generate the output.
 		if ( $render_options['cache_table_output'] && ! is_user_logged_in() ) {
 			// Hash the Render Options array to get a unique cache identifier.
-			$table_hash = md5( wp_json_encode( $render_options, TABLEPRESS_JSON_OPTIONS ) );
+			$table_hash = md5( wp_json_encode( $render_options ) );
 			$transient_name = 'tablepress_' . $table_hash; // Attention: This string must not be longer than 45 characters!
 			$output = get_transient( $transient_name );
 			if ( false === $output || '' === $output ) {
@@ -628,7 +621,7 @@ JS;
 				if ( ! in_array( $transient_name, $caches_list, true ) ) {
 					$caches_list[] = $transient_name;
 				}
-				set_transient( $caches_list_transient_name, wp_json_encode( $caches_list, TABLEPRESS_JSON_OPTIONS ), 2 * DAY_IN_SECONDS );
+				set_transient( $caches_list_transient_name, wp_json_encode( $caches_list ), 2 * DAY_IN_SECONDS );
 			} else {
 				/**
 				 * Filter the cache hit comment message.
@@ -667,9 +660,9 @@ JS;
 
 		// Parse Shortcode attributes, only allow those that are specified.
 		$default_shortcode_atts = array(
-			'id'     => '',
-			'field'  => '',
-			'format' => '',
+				'id' => '',
+				'field' => '',
+				'format' => '',
 		);
 		/**
 		 * Filter the available/default attributes for the [table-info] Shortcode.
@@ -740,18 +733,10 @@ JS;
 						$time_diff = $current_timestamp - $modified_timestamp;
 						// Time difference is only shown up to one day.
 						if ( $time_diff >= 0 && $time_diff < DAY_IN_SECONDS ) {
-							$output = sprintf( __( '%s ago', 'default' ), human_time_diff( $modified_timestamp, $current_timestamp ) );
+							$output = sprintf( __( '%s ago', 'default' ), human_time_diff( $modified_timestamp, $current_timestamp ) ); // No `tablepress` text domain as translations are not loaded.
 						} else {
 							$output = TablePress::format_datetime( $table['last_modified'], 'mysql', '<br />' );
 						}
-						break;
-					case 'date':
-						$modified_timestamp = strtotime( $table['last_modified'] );
-						$output = date_i18n( get_option( 'date_format' ), $modified_timestamp );
-						break;
-					case 'time':
-						$modified_timestamp = strtotime( $table['last_modified'] );
-						$output = date_i18n( get_option( 'time_format' ), $modified_timestamp );
 						break;
 					case 'mysql':
 					default:
@@ -805,6 +790,32 @@ JS;
 		 */
 		$output = apply_filters( 'tablepress_shortcode_table_info_output', $output, $table, $shortcode_atts );
 		return $output;
+	}
+
+	/**
+	 * Handle Shortcodes in text widgets, by temporarily removing all Shortcodes, registering only the plugin's two,
+	 * running WP's Shortcode routines, and then restoring old behavior/Shortcodes.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @global array $shortcode_tags WordPress container for storing Shortcode definitions.
+	 *
+	 * @param string $content Text content of the text widget, will be searched for one of TablePress's Shortcodes.
+	 * @return string Text of the text widget, with eventually found Shortcodes having been replaced by corresponding output.
+	 */
+	public function widget_text_filter( $content ) {
+		global $shortcode_tags;
+		// Backup the currently registered Shortcodes and clear the global array.
+		$orig_shortcode_tags = $shortcode_tags;
+		$shortcode_tags = array();
+		// Register TablePress's Shortcodes (which are then the only ones registered).
+		add_shortcode( TablePress::$shortcode_info, array( $this, 'shortcode_table_info' ) );
+		add_shortcode( TablePress::$shortcode, array( $this, 'shortcode_table' ) );
+		// Run the WP Shortcode routines on the widget text (i.e. search for TablePress's Shortcodes).
+		$content = do_shortcode( $content );
+		// Restore the original Shortcodes (which includes TablePress's Shortcodes, for use in posts and pages).
+		$shortcode_tags = $orig_shortcode_tags;
+		return $content;
 	}
 
 	/**
@@ -885,7 +896,6 @@ JS;
 		// If $_GET['exact'] is set, WordPress doesn't use % in SQL LIKE clauses.
 		$exact = get_query_var( 'exact' );
 		$n = ( empty( $exact ) ) ? '%' : '';
-		$search_sql = $wpdb->remove_placeholder_escape( $search_sql );
 		foreach ( $query_result as $search_term => $table_ids ) {
 			$search_term = esc_sql( $wpdb->esc_like( $search_term ) );
 			$old_or = "OR ({$wpdb->posts}.post_content LIKE '{$n}{$search_term}{$n}')";
@@ -894,7 +904,6 @@ JS;
 			$new_or = $old_or . " OR ({$wpdb->posts}.post_content REGEXP '{$regexp}')";
 			$search_sql = str_replace( $old_or, $new_or, $search_sql );
 		}
-		$search_sql = $wpdb->add_placeholder_escape( $search_sql );
 
 		return $search_sql;
 	}

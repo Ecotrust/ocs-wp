@@ -32,9 +32,9 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @license https://opensource.org/licenses/lgpl-license.php GNU Lesser General Public License
+ * @license http://opensource.org/licenses/lgpl-license.php GNU Lesser General Public License
  * @package CSSTidy
  * @author Florian Schmitz (floele at gmail dot com) 2005-2007
  * @author Brett Zamir (brettz9 at yahoo dot com) 2007
@@ -50,7 +50,7 @@ defined( 'ABSPATH' ) || die( 'No direct script access allowed!' );
  * @author Florian Schmitz (floele at gmail dot com) 2005-2006
  * @version 1.1.0
  */
-class TablePress_CSSTidy_print {
+class CSSTidy_print {
 
 	/**
 	 * CSSTidy instance.
@@ -269,10 +269,6 @@ class TablePress_CSSTidy_print {
 					$import_components[0] = '\'' . trim( substr( $import_components[0], 4, -1 ), "'\"" ) . '\'';
 					$this->import[ $i ] = implode( ' ', $import_components );
 					$this->parser->log( 'Optimised @import : Removed "url("', 'Information' );
-				} elseif ( ! preg_match( '/^".+"$/', $this->import[ $i ] ) ) {
-					// Fixes a bug for @import ".." instead of the expected @import url("..")/
-					// If it comes in due to @import ".." the "" will be missing and the output will become @import .. (which is an error)/
-					$this->import[ $i ] = '"' . $this->import[ $i ] . '"';
 				}
 				$output .= $template[0] . '@import ' . $template[5] . $this->import[ $i ] . $template[6] . $template[13];
 			}
@@ -287,9 +283,8 @@ class TablePress_CSSTidy_print {
 			$output .= $template[0] . '@namespace ' . $template[5] . $this->namespace . $template[6] . $template[13];
 		}
 
-		$in_at_out = array();
+		$in_at_out = '';
 		$out = &$output;
-		$indent_level = 0;
 
 		foreach ( $this->tokens as $key => $token ) {
 			switch ( $token[0] ) {
@@ -298,11 +293,7 @@ class TablePress_CSSTidy_print {
 						$token[1] = str_replace( ',', ",\n", $token[1] );
 					}
 					$out .= $template[0] . $this->_htmlsp( $token[1], $plain ) . $template[1];
-					$indent_level++;
-					if ( ! isset( $in_at_out[ $indent_level ] ) ) {
-						$in_at_out[ $indent_level ] = '';
-					}
-					$out = &$in_at_out[ $indent_level ];
+					$out = &$in_at_out;
 					break;
 				case SEL_START:
 					if ( $this->parser->get_cfg( 'lowercase_s' ) ) {
@@ -340,27 +331,13 @@ class TablePress_CSSTidy_print {
 					}
 					break;
 				case AT_END:
-					if ( strlen( $template[10] ) ) {
-						// Indent the block we are closing.
-						$out = str_replace( "\n\n", "\r\n", $out ); // Don't fill empty lines.
-						$out = str_replace( "\n", "\n" . $template[10], $out );
-						$out = str_replace( "\r\n", "\n\n", $out );
-					}
-					if ( $indent_level > 1 ) {
-						$out = &$in_at_out[ $indent_level - 1 ];
-					}else {
-						$out = &$output;
-					}
-					$out .= $template[10] . $in_at_out[$indent_level];
-					if ( AT_END !== $this->_seeknocomment( $key, 1 ) ) {
-						$out .= $template[9];
-					} else {
-						$out .= rtrim( $template[9] );
-					}
-					unset( $in_at_out[ $indent_level ] );
-					$indent_level--;
+					$out = &$output;
+					$in_at_out = str_replace( "\n\n", "\r\n", $in_at_out); // don't fill empty lines
+					$in_at_out = str_replace( "\n", "\n" . $template[10], $in_at_out );
+					$in_at_out = str_replace( "\r\n", "\n\n", $in_at_out );
+					$out .= $template[10] . $in_at_out . $template[9];
+					$in_at_out = '';
 					break;
-				case IMPORTANT_COMMENT:
 				case COMMENT:
 					$out .= $template[11] . '/*' . $this->_htmlsp( $token[1], $plain ) . '*/' . $template[12];
 					break;
@@ -417,12 +394,6 @@ class TablePress_CSSTidy_print {
 		$sort_selectors = $this->parser->get_cfg( 'sort_selectors' );
 		$sort_properties = $this->parser->get_cfg( 'sort_properties' );
 
-		// Important comment section?
-		if ( isset( $this->css['!'] ) ) {
-			$this->parser->_add_token( IMPORTANT_COMMENT, rtrim( $this->css['!'] ), true );
-			unset( $this->css['!'] );
-		}
-
 		foreach ( $this->css as $medium => $val ) {
 			if ( $sort_selectors ) {
 				ksort( $val );
@@ -430,10 +401,8 @@ class TablePress_CSSTidy_print {
 			if ( intval( $medium ) < DEFAULT_AT ) {
 				// un medium vide (contenant @font-face ou autre @) ne produit aucun conteneur
 				if ( strlen( trim( $medium ) ) ) {
-					$parts_to_open = explode( '{', $medium );
-					foreach ( $parts_to_open as $part ) {
-						$this->parser->_add_token( AT_START, $part, true );
-					}				}
+					$this->parser->_add_token( AT_START, $medium, true );
+				}
 			} elseif ( $default_media ) {
 				$this->parser->_add_token( AT_START, $default_media, true );
 			}
@@ -473,10 +442,7 @@ class TablePress_CSSTidy_print {
 			if ( intval( $medium ) < DEFAULT_AT ) {
 				// un medium vide (contenant @font-face ou autre @) ne produit aucun conteneur
 				if ( strlen( trim( $medium ) ) ) {
-					$parts_to_close = explode( '{', $medium );
-					foreach ( array_reverse( $parts_to_close ) as $part ) {
-						$this->parser->_add_token( AT_END, $part, true );
-					}
+					$this->parser->_add_token( AT_END, $medium, true );
 				}
 			} elseif ( $default_media ) {
 				$this->parser->_add_token( AT_END, $default_media, true );
@@ -559,4 +525,4 @@ class TablePress_CSSTidy_print {
 		}
 	}
 
-} // class TablePress_CSSTidy_print
+} // class CSSTidy_print

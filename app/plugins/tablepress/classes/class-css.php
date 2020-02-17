@@ -29,11 +29,11 @@ class TablePress_CSS {
 	 * @return string Sanitized and tidied CSS code.
 	 */
 	public function sanitize_css( $css ) {
-		$csstidy = TablePress::load_class( 'TablePress_CSSTidy', 'class.csstidy.php', 'libraries/csstidy' );
+		$csstidy = TablePress::load_class( 'CSSTidy', 'class.csstidy.php', 'libraries/csstidy' );
 
 		// Sanitization and not just tidying for users without enough privileges.
 		if ( ! current_user_can( 'unfiltered_html' ) ) {
-			$csstidy->optimise = new TablePress_CSSTidy_custom_sanitize( $csstidy );
+			$csstidy->optimise = new CSSTidy_custom_sanitize( $csstidy );
 
 			// Let "arrows" survive, otherwise this might be recognized as the beginning of an HTML tag and removed with other stuff behind it.
 			$css = str_replace( '<=', '&lt;=', $css );
@@ -60,7 +60,7 @@ class TablePress_CSS {
 		$csstidy->set_cfg( 'css_level', 'CSS3.0' );
 		$csstidy->set_cfg( 'preserve_css', true );
 		$csstidy->set_cfg( 'timestamp', false );
-		$csstidy->set_cfg( 'template', TABLEPRESS__DIR__ . '/libraries/csstidy/tablepress-standard.tpl' );
+		$csstidy->set_cfg( 'template', dirname( TABLEPRESS__FILE__ ) . '/libraries/csstidy/tablepress-standard.tpl' );
 
 		$csstidy->parse( $css );
 		return $csstidy->print->plain();
@@ -75,8 +75,8 @@ class TablePress_CSS {
 	 * @return string Minified CSS code.
 	 */
 	public function minify_css( $css ) {
-		$csstidy = TablePress::load_class( 'TablePress_CSSTidy', 'class.csstidy.php', 'libraries/csstidy' );
-		$csstidy->optimise = new TablePress_CSSTidy_custom_sanitize( $csstidy );
+		$csstidy = TablePress::load_class( 'CSSTidy', 'class.csstidy.php', 'libraries/csstidy' );
+		$csstidy->optimise = new CSSTidy_custom_sanitize( $csstidy );
 		$csstidy->set_cfg( 'remove_bslash', false );
 		$csstidy->set_cfg( 'compress_colors', true );
 		$csstidy->set_cfg( 'compress_font-weight', true );
@@ -249,7 +249,7 @@ class TablePress_CSS {
 	/**
 	 * Save "Custom CSS" to files, delete "Custom CSS" files, or return HTML for the credentials form.
 	 *
-	 * Only used from "Plugin Options" screen, save_custom_css_to_file() is used in cases where no form output/redirection is possible (e.g. during plugin updates).
+	 * Only used from "Plugin Options" screen, save_custom_css_to_file() is used in cases where no form output/redirection is possible (plugin updates, WP-Table Reloaded Import).
 	 *
 	 * @since 1.0.0
 	 *
@@ -327,7 +327,7 @@ class TablePress_CSS {
 			$default_css = str_replace( 'url(tablepress.', 'url(' . $absolute_path, $default_css );
 		}
 		$file_content = array(
-			'normal'   => $custom_css_normal,
+			'normal' => $custom_css_normal,
 			'minified' => $custom_css_minified,
 			'combined' => $default_css . "\n" . $custom_css_minified,
 		);
@@ -436,10 +436,6 @@ class TablePress_CSS {
 		// W3 Total Cache
 		if ( function_exists( 'w3tc_minify_flush' ) ) {
 			w3tc_minify_flush();
-		}
-		// WP Fastest Cache
-		if ( isset( $GLOBALS['wp_fastest_cache'] ) && method_exists( $GLOBALS['wp_fastest_cache'], 'deleteCache' ) ) {
-			$GLOBALS['wp_fastest_cache']->deleteCache( true );
 		}
 	}
 
