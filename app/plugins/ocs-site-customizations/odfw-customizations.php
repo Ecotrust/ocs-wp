@@ -36,7 +36,7 @@ class ODFW_customizations {
          */
         if( ! defined( 'ODFW_CUSTOMIZATIONS_PLUGIN_URL') ) {
             define( 'ODFW_CUSTOMIZATIONS_PLUGIN_URL', trailingslashit( dirname( __FILE__ ) ) );
-        }
+	}
 
         if( ! defined( 'ODFW_MODULES') ) {
             define('ODFW_MODULES', ODFW_CUSTOMIZATIONS_PLUGIN_URL . 'modules/');
