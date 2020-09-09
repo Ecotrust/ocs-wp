@@ -2,5 +2,7 @@
 .sass-cache
 /node_modules
 /release
-/vendor
-/dist
+/js/*.js
+/js/*.map
+!/js/*.min.js
+!/js/*.min.js.map
