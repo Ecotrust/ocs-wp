@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Help
 Description: Administrators can create detailed, hierarchical documentation for the site's authors and editors, viewable in the WordPress admin.
-Version: 1.7.0
+Version: 1.6.1
 License: GPL
 Plugin URI: http://txfx.net/wordpress-plugins/wp-help/
 Author: Mark Jaquith
@@ -35,14 +35,14 @@ include( dirname( __FILE__ ) . '/lib/requirements-check.php' );
 
 $cws_wp_help_requirements_check = new CWS_WP_Help_Requirements_Check( array(
 	'title' => 'WP Help',
-	'php'   => '5.6',
-	'wp'    => '4.9',
+	'php'   => '5.3',
+	'wp'    => '4.7',
 	'file'  => __FILE__,
 ));
 
 if ( $cws_wp_help_requirements_check->passes() ) {
 	// Pull in the plugin classes and initialize
-	include( dirname( __FILE__ ) . '/lib/structure.php' );
+	include( dirname( __FILE__ ) . '/lib/wp-stack-plugin.php' );
 	include( dirname( __FILE__ ) . '/classes/plugin.php' );
 	CWS_WP_Help_Plugin::start( __FILE__ );
 }
