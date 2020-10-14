@@ -2,10 +2,10 @@
 	//global $specID,$specAsc; //Using set_query_var() instead of global
 	$spec = get_post($specID);
 	if($spec->post_type == 'strategy_species') {
-			
+
 	$scienctific_name = get_post_meta( $specID, 'species_meta_species-scientific-name', true );
 	$assoc = get_post_meta( $specID, 'coa_meta_strategy_species_association', true );
-	
+
 ?>
 
 	<article id="strategy-species-item-<?php echo $specID; ?>"  <?php post_class('grid-item'); ?>>
@@ -23,9 +23,9 @@
 				</div>
 			<h3 class="cpt-title"><?php echo get_the_title($specID); ?>
 			<?php
-				
+
 				if ( $specAsc ) { ?>
-					<span class='species-association'>(<? echo $specAsc ?>)</span></li>
+					<span class='species-association'>(<?php echo $specAsc ?>)</span></li>
 			<?php	} ?>
 			</h3>
 			<p><?php echo esc_html( $scienctific_name ); ?></p>
