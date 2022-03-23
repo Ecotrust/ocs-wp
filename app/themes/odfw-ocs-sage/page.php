@@ -22,7 +22,7 @@
 //   if (!empty($pdf_btn_url)) : 
 ?>
 <!--   <div class="pdf-download-btn-wrap">
-    <a href="<?=//$pdf_btn_url?>" target="_blank" class="btn btn-primary">&#8681; Download Chapter PDF</a>
+    <a href="<?php // echo $pdf_btn_url; ?>" target="_blank" class="btn btn-primary">&#8681; Download Chapter PDF</a>
    </div> -->
    <?php 
    // endif;
