@@ -17,6 +17,7 @@ declare var wsAmeActorSelectorData: {
 interface SelectedActorChangedCallback {
 	(newSelectedActor: string, oldSelectedActor: string): void
 }
+
 interface SaveVisibleActorAjaxParams {
 	ajaxUpdateAction: string,
 	ajaxUpdateNonce: string,
@@ -40,6 +41,7 @@ class AmeActorSelector {
 	private cachedVisibleActors: IAmeActor[] = null;
 
 	private selectorNode;
+	private isDomInitStarted: boolean = false;
 
 	constructor(
 		actorManager: AmeActorManagerInterface,
@@ -61,16 +63,17 @@ class AmeActorSelector {
 		const _ = AmeActorSelector._;
 		this.visibleUsers = _.intersection(this.visibleUsers, _.keys(actorManager.getUsers()));
 
-		if (jQuery.isReady) {
+		jQuery(() => {
 			this.initDOM();
-		} else {
-			jQuery(() => {
-				this.initDOM();
-			});
-		}
+		});
 	}
 
 	private initDOM() {
+		if (this.isDomInitStarted) {
+			return;
+		}
+		this.isDomInitStarted = true;
+
 		this.selectorNode = jQuery('#ws_actor_selector');
 		this.populateActorSelector();
 
@@ -82,7 +85,13 @@ class AmeActorSelector {
 
 		//Select an actor on click.
 		this.selectorNode.on('click', 'li a.ws_actor_option', (event) => {
-			let actor = jQuery(event.target).attr('href').substring(1);
+			const href = jQuery(event.target).attr('href');
+			const fragmentStart = href.indexOf('#');
+
+			let actor = null;
+			if (fragmentStart >= 0) {
+				actor = href.substring(fragmentStart + 1);
+			}
 			if (actor === '') {
 				actor = null;
 			}
@@ -143,6 +152,11 @@ class AmeActorSelector {
 	}
 
 	private highlightSelectedActor() {
+		//Set up and populate the selector element if we haven't done that yet.
+		if (!this.isDomInitStarted) {
+			this.initDOM();
+		}
+
 		//Deselect the previous item.
 		this.selectorNode.find('.current').removeClass('current');
 
@@ -257,9 +271,9 @@ class AmeActorSelector {
 		jQuery.post(
 			this.ajaxParams.adminAjaxUrl,
 			{
-				'action' : this.ajaxParams.ajaxUpdateAction,
-				'_ajax_nonce' : this.ajaxParams.ajaxUpdateNonce,
-				'visible_users' : jQuery.toJSON(this.visibleUsers)
+				'action': this.ajaxParams.ajaxUpdateAction,
+				'_ajax_nonce': this.ajaxParams.ajaxUpdateNonce,
+				'visible_users': jQuery.toJSON(this.visibleUsers)
 			}
 		);
 	}

@@ -1,11 +1,11 @@
 === Relevanssi - A Better Search ===
 Contributors: msaari
 Donate link: https://www.relevanssi.com/buy-premium/
-Tags: search, relevance, better search
+Tags: search, relevance, better search, product search, woocommerce search
 Requires at least: 4.9
-Tested up to: 5.3.2
-Requires PHP: 5.6
-Stable tag: 4.5.0
+Tested up to: 5.9
+Requires PHP: 7.0
+Stable tag: 4.15.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,9 +58,6 @@ Do note that using Relevanssi may require large amounts (hundreds of megabytes) 
 * [WP CLI commands](https://www.relevanssi.com/user-manual/wp-cli/).
 * [Related posts](https://www.relevanssi.com/knowledge-base/related-posts/).
 * [Redirects for searches](https://www.relevanssi.com/user-manual/redirects/).
-
-= Relevanssi in Facebook =
-You can find [Relevanssi in Facebook](https://www.facebook.com/relevanssi).
 
 == Screenshots ==
 
@@ -123,8 +120,6 @@ Thus, the weight of the word for a document increases the more often it appears 
 
 Each document database is full of useless words. All the little words that appear in just about every document are completely useless for information retrieval purposes. Basically, their inverted document frequency is really low, so they never have much power in matching. Also, removing those words helps to make the index smaller and searching faster.
 
-[](http://coderisk.com/wp/plugin/relevanssi/RIPS-XC1ekC4JKr)
-
 == Thanks ==
 * Cristian Damm for tag indexing, comment indexing, post/page exclusion and general helpfulness.
 * Marcus Dalgren for UTF-8 fixing.
@@ -133,36 +128,26 @@ Each document database is full of useless words. All the little words that appea
 * John Calahan for extensive 4.0 beta testing.
 
 == Changelog ==
-= 4.5.0 =
-* New feature: New filter hook `relevanssi_disable_stopwords` can be used to disable stopwords completely. Just add a filter function that returns `true`.
-* Changed behaviour: Stopwords are no longer automatically restored if emptied. It's now possible to empty the stopword list. If you want to restore the stopwords from the file (or from the database, if you're upgrading from an earlier version of Relevanssi and find your stopwords missing), just click the button on the stopwords settings page that restores the stopwords.
-* Changed behaviour: Changes to post weights in the `relevanssi_results` hook did not affect the relevance scores shown in excerpts. That's changed now, and the displayed scores are now taken from the `$doc_weight` array, which is returned in the return value array from `relevanssi_search()`.
-* Changed behaviour: Excerpt length and type are now checked outside the loop that goes through the posts. This reduces the number of database calls required.
-* Minor fix: Searching for regex special characters (for example parentheses, brackets) caused problems in excerpts.
-* Minor fix: Improvements in handling highlighting for words with apostrophes.
-* Minor fix: Disregard hanging commas at the end of post exclusion settings.
-* Minor fix: Sometimes excerpts wouldn't have an ellipsis in the beginning even though they should.
+= 4.15.1 =
+* Changed behaviour: Relevanssi now ignores WordPress metadata custom fields that aren't interesting for Relevanssi indexing.
+* Changed behaviour: Both `relevanssi_get_permalink()` and `relevanssi_the_permalink()` now can take post ID or a post object as a parameter and can thus be used outside the Loop.
+* Changed behaviour: The `relevanssi_hits_filter` hook now gets the WP_Query object as the second parameter.
+* Minor fix: Avoid error messages for missing `mysqlcolumn_matches` array key.
 
-= 4.4.1 =
-* Major fix: Returns the missing stopwords.
-
-= 4.4.0 =
-* New feature: It's now possible to exclude image attachments from the index with a simple setting on the indexing settings page.
-* New feature: Page builder short codes are now removed in Relevanssi indexing. This should reduce the amount of garbage data indexed for posts in Divi, Avada and other page builder themes.
-* Changed behaviour: The `relevanssi_page_builder_shortcodes` filter hook is now applied both in indexing and excerpts, and has a second parameter that will inform you of the current context.
-* Minor fix: Stopwords weren't case insensitive like they should. They are now. Also, stopwords are no longer stored in the `wp_relevanssi_stopwords` database table, but are now stored in the `relevanssi_stopwords` option.
-* Minor fix: A comma at the end of the custom field indexing setting made Relevanssi index all custom fields. This doesn't happen anymore and trailing commas are automatically removed, too.
-* Minor fix: Accessibility improvements all around the admin interface. Screen reader support should be better, feel free to report any further ways to make this better.
-* Minor fix: Doing searches without search terms and with the throttle disabled could cause problems. Relevanssi now makes sure throttle is always on when doing termless searches.
-* Minor fix: Untokenized search terms are used for building excerpts, which makes highlighting in excerpts work better.
-* Minor fix: Indexing did not adjust the number of posts indexed at one go like it should.
+= 4.15.0 =
+* New feature: The action hook `relevanssi_init` runs at the end of the `relevanssi_init()` function.
+* New feature: New filter hook `relevanssi_author_query_filter` filters the post author MySQL query.
+* New feature: New filter hook `relevanssi_by_date_query_filter` filters the by_date MySQL query.
+* New feature: New filter hook `relevanssi_date_query_filter` filters the date query MySQL query.
+* New feature: New filter hook `relevanssi_parent_query_filter` filters the post parent MySQL query.
+* New feature: New filter hook `relevanssi_post_query_filter` filters the post__in and post__not_in MySQL query.
+* New feature: New filter hook `relevanssi_post_status_query_filter` filters the post_status MySQL query.
+* New feature: New filter hook `relevanssi_post_type_query_filter` filters the post_type MySQL query.
+* Minor fix: The Bricks compatibility was improved, Relevanssi now notices changes to Bricks posts more often. Relevanssi also only reads the text from the `_bricks_page_content_2` custom field.
 
 == Upgrade notice ==
-= 4.5.0 =
-* Bug fixes and improvements to stopword management.
+= 4.15.1 =
+* Fixes warnings, improves permalink functions and relevanssi_hits_filter.
 
-= 4.4.1 =
-* Fixes missing stopwords problem in 4.4.0.
-
-= 4.4.0 =
-* Changes in relevanssi_page_builder_shortcodes filter hook, page builder indexing and image attachments.
+= 4.15.0 =
+* New filter hooks and improved Bricks compatibility.

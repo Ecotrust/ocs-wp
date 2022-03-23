@@ -18,7 +18,7 @@ foreach ($default_options as $k => $v) {
 // $backup_history is passed in
 if (false === $backup_history) $backup_history = UpdraftPlus_Backup_History::get_history();
 
-if (!empty($options['include_header'])) echo '<h2>'.__('Existing Backups', 'updraftplus').' ('.count($backup_history).')</h2>';
+if (!empty($options['include_header'])) echo '<h2>'.__('Existing backups', 'updraftplus').' ('.count($backup_history).')</h2>';
 
 ?>
 <div class="download-backups form-table">
@@ -48,12 +48,12 @@ if (!empty($options['include_header'])) echo '<h2>'.__('Existing Backups', 'updr
 			<?php
 				if (!empty($options['include_uploader'])) {
 				?>
-					<a class="updraft_uploader_toggle" href="<?php echo UpdraftPlus::get_current_clean_url();?>"><?php _e('Upload backup files', 'updraftplus'); ?></a> |
+					<a class="updraft_uploader_toggle" href="<?php echo esc_url(UpdraftPlus::get_current_clean_url());?>"><?php _e('Upload backup files', 'updraftplus'); ?></a> |
 				<?php
 				}
 			?>
-			<a href="<?php echo UpdraftPlus::get_current_clean_url();?>" class="updraft_rescan_local" title="<?php echo __('Press here to look inside your UpdraftPlus directory (in your web hosting space) for any new backup sets that you have uploaded.', 'updraftplus').' '.__('The location of this directory is set in the expert settings, in the Settings tab.', 'updraftplus'); ?>"><?php _e('Rescan local folder for new backup sets', 'updraftplus');?></a>
-			| <a href="<?php echo UpdraftPlus::get_current_clean_url();?>" class="updraft_rescan_remote" title="<?php _e('Press here to look inside your remote storage methods for any existing backup sets (from any site, if they are stored in the same folder).', 'updraftplus'); ?>"><?php _e('Rescan remote storage', 'updraftplus');?></a>
+			<a href="<?php echo esc_url(UpdraftPlus::get_current_clean_url());?>" class="updraft_rescan_local" title="<?php echo __('Press here to look inside your UpdraftPlus directory (in your web hosting space) for any new backup sets that you have uploaded.', 'updraftplus').' '.__('The location of this directory is set in the expert settings, in the Settings tab.', 'updraftplus'); ?>"><?php _e('Rescan local folder for new backup sets', 'updraftplus');?></a>
+			| <a href="<?php echo esc_url(UpdraftPlus::get_current_clean_url());?>" class="updraft_rescan_remote" title="<?php _e('Press here to look inside your remote storage methods for any existing backup sets (from any site, if they are stored in the same folder).', 'updraftplus'); ?>"><?php _e('Rescan remote storage', 'updraftplus');?></a>
 		</li>
 		<?php if (!empty($options['include_opera_warning'])) { ?>
 			<li class="updraft-opera-warning"><strong><?php _e('Opera web browser', 'updraftplus');?>:</strong> <?php _e('If you are using this, then turn Turbo/Road mode off.', 'updraftplus');?></li>

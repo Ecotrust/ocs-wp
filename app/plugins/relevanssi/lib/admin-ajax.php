@@ -14,6 +14,27 @@ add_action( 'wp_ajax_relevanssi_count_posts', 'relevanssi_count_posts_ajax_wrapp
 add_action( 'wp_ajax_relevanssi_count_missing_posts', 'relevanssi_count_missing_posts_ajax_wrapper' );
 add_action( 'wp_ajax_relevanssi_list_categories', 'relevanssi_list_categories' );
 add_action( 'wp_ajax_relevanssi_admin_search', 'relevanssi_admin_search' );
+add_action( 'wp_ajax_relevanssi_update_counts', 'relevanssi_update_counts' );
+add_action( 'wp_ajax_nopriv_relevanssi_update_counts', 'relevanssi_update_counts' );
+
+/**
+ * Checks if current user can access Relevanssi options.
+ *
+ * If the current user doesn't have sufficient access to Relevanssi options,
+ * the function will die. If the user has access, nothing happens.
+ *
+ * @return void
+ */
+function relevanssi_current_user_can_access_options() {
+	/**
+	 * Filters the capability required to access Relevanssi options.
+	 *
+	 * @param string The capability required. Default 'manage_options'.
+	 */
+	if ( ! current_user_can( apply_filters( 'relevanssi_options_capability', 'manage_options' ) ) ) {
+		wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'relevanssi' ) );
+	}
+}
 
 /**
  * Truncates the Relevanssi index.
@@ -21,6 +42,9 @@ add_action( 'wp_ajax_relevanssi_admin_search', 'relevanssi_admin_search' );
  * Wipes the index clean using relevanssi_truncate_index().
  */
 function relevanssi_truncate_index_ajax_wrapper() {
+	check_ajax_referer( 'relevanssi_indexing_nonce', 'security' );
+	relevanssi_current_user_can_access_options();
+
 	$response = relevanssi_truncate_index();
 	echo wp_json_encode( $response );
 	wp_die();
@@ -34,6 +58,7 @@ function relevanssi_truncate_index_ajax_wrapper() {
  */
 function relevanssi_index_posts_ajax_wrapper() {
 	check_ajax_referer( 'relevanssi_indexing_nonce', 'security' );
+	relevanssi_current_user_can_access_options();
 
 	$completed = absint( $_POST['completed'] );
 	$total     = absint( $_POST['total'] );
@@ -108,6 +133,8 @@ function relevanssi_index_posts_ajax_wrapper() {
  * AJAX wrapper for relevanssi_count_total_posts().
  */
 function relevanssi_count_posts_ajax_wrapper() {
+	relevanssi_current_user_can_access_options();
+
 	$count = relevanssi_count_total_posts();
 	echo wp_json_encode( $count );
 	wp_die();
@@ -119,6 +146,8 @@ function relevanssi_count_posts_ajax_wrapper() {
  * AJAX wrapper for relevanssi_count_missing_posts().
  */
 function relevanssi_count_missing_posts_ajax_wrapper() {
+	relevanssi_current_user_can_access_options();
+
 	$count = relevanssi_count_missing_posts();
 	echo wp_json_encode( $count );
 	wp_die();
@@ -130,6 +159,8 @@ function relevanssi_count_missing_posts_ajax_wrapper() {
  * AJAX wrapper for get_categories().
  */
 function relevanssi_list_categories() {
+	relevanssi_current_user_can_access_options();
+
 	$categories = get_categories(
 		array(
 			'taxonomy'   => 'category',
@@ -149,6 +180,14 @@ function relevanssi_list_categories() {
  */
 function relevanssi_admin_search() {
 	check_ajax_referer( 'relevanssi_admin_search_nonce', 'security' );
+	/**
+	 * Filters the capability required to access Relevanssi admin search page.
+	 *
+	 * @param string The capability required. Default 'edit_posts'.
+	 */
+	if ( ! current_user_can( apply_filters( 'relevanssi_admin_search_capability', 'edit_posts' ) ) ) {
+		wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'relevanssi' ) );
+	}
 
 	$args = array();
 	if ( isset( $_POST['args'] ) ) {
@@ -266,11 +305,13 @@ EOH;
 		/**
 		 * Filters the admin search results element.
 		 *
-		 * The post element is a <li> element. Feel free to edit the element any way you want to.
+		 * The post element is a <li> element. Feel free to edit the element any
+		 * way you want to.
 		 *
 		 * @param string $post_element The post element.
+		 * @param object $post         The post object.
 		 */
-		$result .= apply_filters( 'relevanssi_admin_search_element', $post_element );
+		$result .= apply_filters( 'relevanssi_admin_search_element', $post_element, $post );
 		if ( isset( $post->blog_id ) ) {
 			restore_current_blog();
 		}
@@ -285,7 +326,7 @@ EOH;
  * Formats the WP_Query parameters, looks at some filter hooks and presents the
  * information in an easy-to-read format.
  *
- * @param array $query The WP_Query object.
+ * @param WP_Query $query The WP_Query object.
  *
  * @return string The formatted debugging information.
  *
@@ -385,4 +426,32 @@ function relevanssi_admin_search_debugging_info( $query ) {
 	$result .= '</div>';
 
 	return $result;
+}
+
+/**
+ * Updates count options.
+ *
+ * Updates 'relevanssi_doc_count', 'relevanssi_terms_count' (and in Premium
+ * 'relevanssi_user_count' and 'relevanssi_taxterm_count'). These are slightly
+ * expensive queries, so they are updated when necessary as a non-blocking AJAX
+ * action and stored in options for quick retrieval.
+ *
+ * @global object $wpdb                 The WordPress database interface.
+ * @global array  $relevanssi_variables The Relevanssi global variable, used for table names.
+ */
+function relevanssi_update_counts() {
+	global $wpdb, $relevanssi_variables;
+
+	relevanssi_update_doc_count();
+
+	$terms_count = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $relevanssi_variables['relevanssi_table'] );  // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
+	update_option( 'relevanssi_terms_count', is_null( $terms_count ) ? 0 : $terms_count, false );
+
+	if ( RELEVANSSI_PREMIUM ) {
+		$user_count    = $wpdb->get_var( 'SELECT COUNT(DISTINCT item) FROM ' . $relevanssi_variables['relevanssi_table'] . " WHERE type = 'user'" );  // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
+		$taxterm_count = $wpdb->get_var( 'SELECT COUNT(DISTINCT item) FROM ' . $relevanssi_variables['relevanssi_table'] . " WHERE (type != 'post' AND type != 'attachment' AND type != 'user')" );  // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
+
+		update_option( 'relevanssi_user_count', is_null( $user_count ) ? 0 : $user_count, false );
+		update_option( 'relevanssi_taxterm_count', is_null( $taxterm_count ) ? 0 : $taxterm_count, false );
+	}
 }

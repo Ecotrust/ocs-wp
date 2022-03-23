@@ -3,13 +3,13 @@ Contributors: whiteshadow
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=A6P9S6CE3SRSW
 Tags: admin, dashboard, menu, security, wpmu
 Requires at least: 4.1
-Tested up to: 5.3
-Stable tag: 1.9.3
+Tested up to: 5.8.1
+Stable tag: 1.10
 
 Lets you edit the WordPress admin menu. You can re-order, hide or rename menus, add custom menus and more. 
 
 == Description ==
-Admin Menu Editor lets you manually edit the Dashboard menu. You can reorder the menus, show/hide specific items, change premissions, and more.
+Admin Menu Editor lets you manually edit the Dashboard menu. You can reorder the menus, show/hide specific items, change permissions, and more.
 
 **Features**
 
@@ -19,8 +19,20 @@ Admin Menu Editor lets you manually edit the Dashboard menu. You can reorder the
 * Move a menu item to a different submenu. 
 * Create custom menus that point to any part of the Dashboard or an external URL.
 * Hide/show any menu or menu item. A hidden menu is invisible to all users, including administrators.
+* Create login redirects and logout redirects.
 
 The [Pro version](http://w-shadow.com/AdminMenuEditor/) lets you set per-role menu permissions, hide a menu from everyone except a specific user, export your admin menu, drag items between menu levels, make menus open in a new window and more. [Try online demo](http://amedemo.com/wpdemo/demo.php).
+
+**Shortcodes**
+
+The plugin provides a few utility shortcodes. These are mainly intended to help with creating login/logout redirects, but you can also use them in posts and pages.
+
+* `[ame-wp-admin]` - URL of the WordPress dashboard (with a trailing slash).
+* `[ame-home-url]` - Site URL. Usually, this is the same as the URL in the "Site Address" field in *Settings -> General*.
+* `[ame-user-info field="..."]` - Information about the logged-in user. Parameters:
+    * `field` - The part of user profile to display. Supported fields include: `ID`, `user_login`, `display_name`, `locale`, `user_nicename`, `user_url`, and so on.
+    * `placeholder` - Optional. Text that will be shown if the visitor is not logged in.
+    * `encoding` - Optional. How to encode or escape the output. This is useful if you want to use the shortcode in your own HTML or JS code. Supported values: `auto` (default), `html`, `attr`, `js`, `none`.
 
 **Notes**
 
@@ -62,6 +74,67 @@ Plugins installed in the `mu-plugins` directory are treated as "always on", so y
 3. Re-ordering menu items via drag and drop
 
 == Changelog ==
+
+= 1.10 =
+* Added a "Redirects" feature. You can create login redirects, logout redirects, and registration redirects. You can configure redirects for specific roles and users. You can also set up a default redirect that will apply to everyone who doesn't have a specific setting. Redirect URLs can contain shortcodes, but not all shortcodes will work in this context.
+* Added a few utility shortcodes: `[ame-wp-admin]`, `[ame-home-url]`, `[ame-user-info field="..."]`. These are mainly intended to be used to create dynamic redirects, but they will also work in posts and pages.
+* Slightly improved the appearance of settings page tabs on small screens and in narrow browser windows.
+* Fixed a minor conflict where several hidden menu items created by "WP Grid Builder" would unexpectedly show up when AME is active.
+* Fixed a conflict with "LoftLoader Pro", "WS Form", and probably a few other plugins that create new admin menu items that link to the theme customizer. Previously, it was impossible to hide or edit those menu items.
+* Fixed a few jQuery deprecation warnings.
+* Fixed an "Undefined array key" warning that could appear if another plugin created a user role that did not have a "capabilities" key.
+* Fixed a minor BuddyBoss Platform compatibility issue where the menu editor would show a "BuddyBoss -> BuddyBoss" menu item that was not present in the actual admin menu. The item is created by BuddyBoss Platform, but it is apparently intended to be hidden.
+* Refactored the menu editor and added limited support for editing three level menus. While the free version doesn't have the ability to actually render nested items in the admin menu, it should at least load a menu configuration that includes more than two levels without crashing. This will probably only matter if someone edits the settings in the database or copies a menu configuration from the Pro version.
+
+= 1.9.10 =
+* Fixed a bug where the plugin could incorrectly identify a separator as the current menu item.
+* Fixed submenu box not expanding to align with the selected parent item.
+* Fixed a PHP 5 compatibility issue where the "Prevent bbPress from resetting role capabilities" would trigger notices and not work correctly. This bug did not affect newer PHP versions such as PHP 7.
+* Fixed a couple of icon and separator rendering bugs where the hover marker - that is, the colored vertical bar that appears next to the currently hovered menu item, introduced in WP 5.7 - could either show up in the wrong place or show up when it's not supposed to.
+* Fixed a jQuery Migrate warning about isFunction() being deprecated.
+
+= 1.9.9 =
+* Fixed a conflict with the "PRO Theme" plugin where "PRO Theme" would expand the wrong top level admin menu if the current submenu item had been moved from one parent menu to another.
+* Fixed PHP notice "Undefined offset: 0 in /wp-includes/capabilities.php on line 70" (various line numbers).
+* Fixed a conflict with "Stripe For WooCommerce" 3.2.12 where the "Stripe Gateway" menu had a wrong URL because a hidden menu item was not removed.
+* Fixed a browser warning about the "ws_nmh_pending_seen_urls" cookie not using the SameSite attribute.
+* Fixed a conflict with WooFunnels where changing the WooFunnels menu icon would result in both of the icons - the original one and the new one - showing up at the same time. The new icon was also misaligned.
+* Minor visual changes.
+* Tested with WordPress 5.7 and 5.8-alpha.
+
+= 1.9.8 =
+* Added a "bbPress override" option that prevents bbPress from resetting all changes that are made to dynamic bbPress roles. Enabling this option allows you to edit bbPress roles with any role editing plugin.
+* Fixed a conflict that caused some hidden Simple Calendars menu items to show up when Admin Menu Editor was activated.
+* Fixed a bug where menu items that had special characters like "&" and "/" in the slug could stop working if they were moved to a different submenu or to the top level.
+* Fixed a bug where changing the menu icon to an external image (like a URL pointing to a PNG file) could result in the old and the new icon being displayed at once, either side by side or one below the other. This only affected menu items that had an icon set in CSS by using  a `::before` pseudo-element. 
+* Fixed many jQuery deprecation warnings.
+* Fixed a bug where some menu settings would not loaded from the database when another plugin triggered a filter that caused the menu configuration to be loaded before AME loaded its modules.
+* Fixed bug that could cause an obscure conflict with plugins that change the admin URL, like "WP Hide & Security Enhancer". When a user tried to open "Dashboard -> Home", the plugin could incorrectly apply the permisssions of a another menu item to the "Home" item. If the other menu item was configured to be inaccessible, the user would get an error message when logging in (they were still successfully logged in).
+* Improved error reporting in situations where the plugin can't parse menu data.
+
+= 1.9.7 =
+* Fixed a conflict with Elementor 3.0.0-beta that caused the "Theme Builder" menu item to have the wrong URL. 
+* Minor performance optimization.
+
+= 1.9.6 =
+* Added an option to disable WPML support.
+* Fixed a minor WP 5.5 compatibility issue where some of the boxes shown on the menu settings page were displayed incorrectly.
+* Fixed a bug where hidden plugins were still visible under "Dashboard -> Updates" and were included in the number of updates shown in the admin menu, Toolbar and other places.
+* Fixed a conflict with WP Job Manager where activating Admin Menu Editor made the hidden "Dashboard -> Setup" menu visible.
+* Fixed a browser warning about cookies using "SameSite: None".
+* Fixed a conflict with plugins that use a different, incompatible version of the jquery-cookie library. For example: Participants Database Field Group Tabs.
+* Tested with WP 5.5-RC1 and 5.6-alpha.
+
+= 1.9.5 =
+* Fixed a conflict with Media Ace, Snax and "What's Your Reaction?" plugins where activating Admin Menu Editor would cause a number of previously hidden menu items become visible.
+* Tested up to WP 5.4.
+
+= 1.9.4 =
+* Fixed another warning about get_magic_quotes_gpc() being deprecated in PHP 7.4. This instance was missed in the previous patch.
+* Added a workaround for an issue with MailPoet 3 where some menu settings didn't work on MailPoet's admin pages.
+* Added a workaround for an issue with Extended Widget Options where the "getting started" page that's added by that plugin showed up in the menu editor even though it was supposed to be hidden.
+* Reduced the amount of space used by plugin visibility settings. This change will take effect the next time you save the settings.
+* Extended the "compress menu configuration data" feature to use ZLIB compression in addition to menu data restructuring. This greatly decreases the amount of data stored in the database, but increases decompression overhead.
 
 = 1.9.3 =
 * Fixed a warning about get_magic_quotes_gpc() being deprecated in PHP 7.4.

@@ -15,8 +15,8 @@ add_shortcode( 'searchform', 'relevanssi_search_form' );
 /**
  * Creates a link to search results.
  *
- * Using this is generally not a brilliant idea, actually. Google doesn't like if you
- * create links to internal search results.
+ * Using this is generally not a brilliant idea, actually. Google doesn't like
+ * it if you create links to internal search results.
  *
  * Usage: [search term='tomato']tomatoes[/search] would create a link like this:
  * <a href="/?s=tomato">tomatoes</a>
@@ -25,15 +25,13 @@ add_shortcode( 'searchform', 'relevanssi_search_form' );
  *
  * @global object $wpdb The WordPress database interface.
  *
- * @param array  $atts    The shortcode attributes. If 'term' is set, will use it as
- * the search term, otherwise the content word is used as the term.
+ * @param array  $atts    The shortcode attributes. If 'term' is set, will use
+ * it as the search term, otherwise the content word is used as the term.
  * @param string $content The content inside the shortcode tags.
  *
  * @return string A link to search results.
  */
 function relevanssi_shortcode( $atts, $content ) {
-	global $wpdb;
-
 	$attributes = shortcode_atts(
 		array(
 			'term'   => false,
@@ -113,16 +111,53 @@ function relevanssi_search_form( $atts ) {
 	if ( is_array( $atts ) ) {
 		$additional_fields = array();
 		foreach ( $atts as $key => $value ) {
-			if ( 'dropdown' === $key ) {
-				switch ( $value ) {
-					case 'category':
-						$name = 'cat';
-						break;
-					case 'post_tag':
-						$name = 'tag';
-						break;
-					default:
-						$name = $value;
+			if ( 'dropdown' === substr( $key, 0, 8 ) ) {
+				$key = 'dropdown';
+			}
+			if ( 'checklist' === substr( $key, 0, 9 ) ) {
+				$key = 'checklist';
+			}
+			if ( 'post_type_boxes' === $key ) {
+				$post_types = explode( ',', $value );
+				if ( is_array( $post_types ) ) {
+					$post_type_objects   = get_post_types( array(), 'objects' );
+					$additional_fields[] = '<div class="post_types"><strong>Post types</strong>: ';
+					foreach ( $post_types as $post_type ) {
+						$checked = '';
+						if ( '*' === substr( $post_type, 0, 1 ) ) {
+							$post_type = substr( $post_type, 1 );
+							$checked   = ' checked="checked" ';
+						}
+						if ( isset( $post_type_objects[ $post_type ] ) ) {
+							$additional_fields[] = '<span class="post_type post_type_' . $post_type . '">'
+							. '<input type="checkbox" name="post_types[]" value="' . $post_type . '"' . $checked . '/> '
+							. $post_type_objects[ $post_type ]->name . '</span>';
+						}
+					}
+					$additional_fields[] = '</div>';
+				}
+			} elseif ( 'dropdown' === $key && 'post_type' === $value ) {
+				$field = '<select name="post_type">';
+				$types = get_option( 'relevanssi_index_post_types' );
+				if ( ! is_array( $types ) ) {
+					$types = array();
+				}
+				foreach ( $types as $type ) {
+					if ( post_type_exists( $type ) ) {
+						$object = get_post_type_object( $type );
+						$field .= '<option value="' . $type . '">' . $object->labels->singular_name . '</option>';
+					}
+				}
+				$field              .= '</select>';
+				$additional_fields[] = $field;
+
+			} elseif ( 'dropdown' === $key && 'post_type' !== $value ) {
+				$name = $value;
+				if ( 'category' === $value ) {
+					$name = 'cat';
+				}
+				if ( 'post_tag' === $value ) {
+					$name = 'tag';
 				}
 				$args                = array(
 					'taxonomy'         => $value,
@@ -132,6 +167,27 @@ function relevanssi_search_form( $atts ) {
 					'name'             => $name,
 				);
 				$additional_fields[] = wp_dropdown_categories( $args );
+			} elseif ( 'checklist' === $key && 'post_type' !== $value ) {
+				$name = $value;
+				if ( 'category' === $value ) {
+					$name = 'cat';
+				}
+				if ( 'post_tag' === $value ) {
+					$name = 'tag';
+				}
+				$args = array(
+					'taxonomy' => $value,
+					'echo'     => 0,
+				);
+				if ( ! function_exists( 'wp_terms_checklist' ) ) {
+					include ABSPATH . 'wp-admin/includes/template.php';
+				}
+				$checklist           = wp_terms_checklist( 0, $args );
+				$checklist           = str_replace( 'post_category', 'cats', $checklist );
+				$checklist           = str_replace( 'tax_input[post_tag]', 'tags', $checklist );
+				$checklist           = str_replace( "disabled='disabled'", '', $checklist );
+				$checklist           = preg_replace( '/tax_input\[(.*?)\]/', '\1', $checklist );
+				$additional_fields[] = $checklist;
 			} else {
 				$key   = esc_attr( $key );
 				$value = esc_attr( $value );
@@ -144,7 +200,8 @@ function relevanssi_search_form( $atts ) {
 	/**
 	 * Filters the Relevanssi shortcode search form before it's used.
 	 *
-	 * @param string The form HTML code.
+	 * @param string $form The form HTML code.
+	 * @param array  $atts The shortcode attributes.
 	 */
-	return apply_filters( 'relevanssi_search_form', $form );
+	return apply_filters( 'relevanssi_search_form', $form, $atts );
 }

@@ -360,8 +360,6 @@ class UpdraftPlus_Temporary_Clone_Status {
 	 * @return string - the clone status description
 	 */
 	public function get_status_description() {
-		global $updraftplus;
-
 		$description = "";
 
 		switch ($this->current_status) {
@@ -399,7 +397,7 @@ class UpdraftPlus_Temporary_Clone_Status {
 		$uploaded = 0;
 		
 		foreach ($backupable_entities as $key => $info) {
-			foreach ($backup_history as $timestamp => $backup) {
+			foreach ($backup_history as $backup) {
 				if (isset($backup[$key]) && isset($backup[$key.'-size'])) {
 					$sets += count($backup[$key]);
 					$uploaded += $backup[$key.'-size'];
@@ -467,5 +465,5 @@ class UpdraftPlus_Temporary_Clone_Status {
 }
 
 if (defined('UPDRAFTPLUS_THIS_IS_CLONE') && 1 == UPDRAFTPLUS_THIS_IS_CLONE) {
-	$updraftplus_temporary_clone_status = new UpdraftPlus_Temporary_Clone_Status();
+	new UpdraftPlus_Temporary_Clone_Status();
 }

@@ -110,6 +110,19 @@ if ($updraftplus_checkout_embed) {
 				</tr>
 				<tr>
 					<td>
+						<img src="<?php echo UPDRAFTPLUS_URL.'/images/addons-images/anonymisation.png';?>" alt="<?php esc_attr_e('Anonymisation functions', 'updraftplus');?>" width="80" height="80" class="udp-premium-image">
+						<h4><?php _e('Anonymisation functions', 'updraftplus');?></h4>
+						<p><?php _e('Anonymise personal data in your database backups.', 'updraftplus');?></p>
+					</td>
+					<td>
+						<p><span class="dashicons dashicons-no-alt" aria-label="<?php esc_attr_e('No', 'updraftplus');?>"></span></p>
+					</td>
+					<td>
+						<p><span class="dashicons dashicons-yes" aria-label="<?php esc_attr_e('Yes', 'updraftplus');?>"></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td>
 						<img src="<?php echo UPDRAFTPLUS_URL.'/images/addons-images/incremental.png';?>" alt="<?php esc_attr_e('Incremental backups', 'updraftplus');?>" width="80" height="80" class="udp-premium-image">
 						<h4><?php _e('Incremental backups', 'updraftplus');?></h4>
 						<p><?php _e('Allows you to only backup changes to your files (such as a new image) that have been made to your site since the last backup.', 'updraftplus');?></p>
@@ -319,11 +332,6 @@ if ($updraftplus_checkout_embed) {
 				<h3><img src="<?php echo UPDRAFTPLUS_URL; ?>/images/other-plugins/wp-optimize.png" alt="WP Optimize"></h3>
 				<p><?php _e('Keep your database fast and efficient', 'updraftplus'); ?></p>
 				<a aria-label="WP Optimize. <?php echo __('Keep your database fast and efficient', 'updraftplus').'. '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://getwpo.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
-			</div>
-			<div class="udp-box">
-				<h3><img src="<?php echo UPDRAFTPLUS_URL; ?>/images/other-plugins/meta-slider.png" alt="MetaSlider"></h3>
-				<p><?php _e('Create powerful, seo-optimized slideshows in minutes', 'updraftplus'); ?></p>
-				<a aria-label="MetaSlider <?php echo __('Create powerful, seo-optimized slideshows in minutes', 'updraftplus').'. '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://www.metaslider.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
 			</div>
 		</div>
 	</section>	

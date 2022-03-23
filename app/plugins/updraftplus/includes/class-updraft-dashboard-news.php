@@ -82,7 +82,8 @@ class Updraft_Dashboard_News {
 	 */
 	private function get_transient_name() {
 		$locale = function_exists('get_user_locale') ? get_user_locale() : get_locale();
-		include(ABSPATH.WPINC.'/version.php');
+		global $wp_version;
+		@include(ABSPATH.WPINC.'/version.php');// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 		$dash_prefix = version_compare($wp_version, '4.8', '>=') ? 'dash_v2_' : 'dash_';
 		return version_compare($wp_version, '4.3', '>=') ? $dash_prefix.md5('dashboard_primary_'.$locale) : 'dash_'.md5('dashboard_primary');
 	}
@@ -157,7 +158,6 @@ class Updraft_Dashboard_News {
 	 */
 	public function transient_for_dashboard_news($value) {
 		if (!function_exists('wp_dashboard_primary_output')) return $value;
-		$dashboard_news_transient_name = $this->get_transient_name();
 		// Not needed first if condition, because filter hook name have already transient name. It is for better checking
 		if (!get_user_meta(get_current_user_id(), $this->slug.'_dismiss_dashboard_news', true) && !empty($value)) {
 			return $value.$this->get_dashboard_news_html();
@@ -190,7 +190,7 @@ class Updraft_Dashboard_News {
 		wp_dashboard_primary_output('dashboard_primary', $feeds);
 		$original_formatted_news = ob_get_clean();
 		$formatted_news = preg_replace('/<a(.+?)>(.+?)<\/a>/i', "<a$1>".$this->translations['item_prefix'].": $2</a>", $original_formatted_news);
-		$formatted_news = str_replace('<li>', '<li class="'.$this->slug.'_dashboard_news_item">'.'<a href="'.UpdraftPlus::get_current_clean_url().'" class="dashicons dashicons-no-alt" title="'.esc_attr($this->translations['dismiss_tooltip']).'" onClick="'.$this->slug.'_dismiss_dashboard_news(); return false;" style="float: right; box-shadow: none; margin-left: 5px;"></a>', $formatted_news);
+		$formatted_news = str_replace('<li>', '<li class="'.$this->slug.'_dashboard_news_item">'.'<a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" class="dashicons dashicons-no-alt" title="'.esc_attr($this->translations['dismiss_tooltip']).'" onClick="'.$this->slug.'_dismiss_dashboard_news(); return false;" style="float: right; box-shadow: none; margin-left: 5px;"></a>', $formatted_news);
 		set_transient($this->slug.'_dashboard_news', $formatted_news, 43200); // 12 hours
 
 		return $formatted_news;

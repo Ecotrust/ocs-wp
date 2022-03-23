@@ -85,7 +85,7 @@ foreach ($default_options as $k => $v) {
 		<th></th>
 		<td><div>
 		<?php
-			echo apply_filters('updraftplus_fixtime_ftinfo', '<p>'.__('To fix the time at which a backup should take place,', 'updraftplus').' ('.__('e.g. if your server is busy at day and you want to run overnight', 'updraftplus').'), '.__('to take incremental backups', 'updraftplus').', '.__('or to configure more complex schedules', 'updraftplus').', <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/shop/updraftplus-premium/").'" target="_blank">'.htmlspecialchars(__('use UpdraftPlus Premium', 'updraftplus')).'</a></p>');
+			echo apply_filters('updraftplus_fixtime_ftinfo', '<p>'.__('To fix the time at which a backup should take place,', 'updraftplus').' ('.__('e.g. if your server is busy at day and you want to run overnight', 'updraftplus').'), '.__('to take incremental backups', 'updraftplus').', '.__('or to configure more complex schedules', 'updraftplus').', <a href="'.$updraftplus->get_url('premium').'" target="_blank">'.htmlspecialchars(__('use UpdraftPlus Premium', 'updraftplus')).'</a></p>');
 		?>
 		</div></td>
 	</tr>
@@ -123,7 +123,7 @@ foreach ($default_options as $k => $v) {
 		<?php
 			if (false === apply_filters('updraftplus_storage_printoptions', false, $active_service)) {
 				echo '</div>';
-				echo '<p><a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/shop/morestorage/").'" target="_blank">'.htmlspecialchars(__('You can send a backup to more than one destination with an add-on.', 'updraftplus')).'</a></p>';
+				echo '<p><a href="'.$updraftplus->get_url('premium').'" target="_blank">'.htmlspecialchars(__('You can send a backup to more than one destination with Premium.', 'updraftplus')).'</a></p>';
 			}
 		?>
 		
@@ -145,7 +145,7 @@ foreach ($default_options as $k => $v) {
 		<th><?php _e('Include in files backup', 'updraftplus');?>:</th>
 		<td>
 			<?php echo $updraftplus_admin->files_selector_widgetry('', true, true); ?>
-			<p><?php echo apply_filters('updraftplus_admin_directories_description', __('The above directories are everything, except for WordPress core itself which you can download afresh from WordPress.org.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/shop/").'" target="_blank">'.htmlspecialchars(__('See also the "More Files" add-on from our shop.', 'updraftplus')).'</a>'); ?></p>
+			<p><?php echo apply_filters('updraftplus_admin_directories_description', __('The above directories are everything, except for WordPress core itself which you can download afresh from WordPress.org.', 'updraftplus').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/shop/").'" target="_blank">'.htmlspecialchars(__('See also the Premium version from our shop.', 'updraftplus')).'</a>'); ?></p>
 		</td>
 	</tr>
 </table>
@@ -173,7 +173,7 @@ foreach ($default_options as $k => $v) {
 
 			<td>
 
-			<a href="<?php echo UpdraftPlus::get_current_clean_url();?>" class="updraft_show_decryption_widget"><?php _e('You can manually decrypt an encrypted database here.', 'updraftplus');?></a>
+			<a href="<?php echo esc_url(UpdraftPlus::get_current_clean_url());?>" class="updraft_show_decryption_widget"><?php _e('You can manually decrypt an encrypted database here.', 'updraftplus');?></a>
 
 			<div id="updraft-manualdecrypt-modal" class="updraft-hidden" style="display:none;">
 				<p><h3><?php _e("Manually decrypt a database backup file", 'updraftplus'); ?></h3></p>
@@ -252,15 +252,33 @@ foreach ($default_options as $k => $v) {
 	} else {
 	?>
 
-	<tr>
+	<tr id="updraft_report_row_no_addon">
 		<th><?php _e('Email', 'updraftplus'); ?>:</th>
 		<td>
 			<?php
 				$updraft_email = UpdraftPlus_Options::get_updraft_option('updraft_email');
+				// in case that premium users doesn't have the reporting addon, then the same email report setting's functionality will be applied to the premium version
+				// since the free version allows only one service at a time, $active_service contains just a string name of particular service, in this case 'email'
+				// so we need to make the checking a bit more universal by transforming it into an array of services in which we can check whether email is the only service (free onestorage) or one of the services (premium multistorage)
+				$temp_services = $active_service;
+				if (is_string($temp_services)) $temp_services = (array) $temp_services;
+				$is_email_storage = !empty($temp_services) && in_array('email', $temp_services);
 			?>
-			<label for="updraft_email" class="updraft_checkbox"><input type="checkbox" id="updraft_email" name="updraft_email" value="<?php esc_attr_e(get_bloginfo('admin_email')); ?>"<?php if (!empty($updraft_email)) echo ' checked="checked"';?> > <?php echo __("Check this box to have a basic report sent to", 'updraftplus').' <a href="'.admin_url('options-general.php').'">'.__("your site's admin address", 'updraftplus').'</a> ('.htmlspecialchars(get_bloginfo('admin_email')).")."; ?></label>
+			<label for="updraft_email" class="updraft_checkbox email_report">
+				<input type="checkbox" id="updraft_email" name="updraft_email" value="<?php esc_attr_e(get_bloginfo('admin_email')); ?>"<?php if ($is_email_storage || !empty($updraft_email)) echo ' checked="checked"';?> <?php if ($is_email_storage) echo 'disabled onclick="return false"'; ?>> 
+				<?php
+					// have to add this hidden input so that when the form is submited and if the udpraft_email checkbox is disabled, this hidden input will be passed to the server along with other active elements
+					if ($is_email_storage) echo '<input type="hidden" name="updraft_email" value="'.esc_attr(get_bloginfo('admin_email')).'">';
+				?>
+				<div id="cb_not_email_storage_label" <?php echo ($is_email_storage) ? 'style="display: none"' : 'style="display: inline"'; ?>>
+					<?php echo __("Check this box to have a basic report sent to", 'updraftplus').' <a href="'.admin_url('options-general.php').'">'.__("your site's admin address", 'updraftplus').'</a> ('.htmlspecialchars(get_bloginfo('admin_email')).")."; ?>
+				</div>
+				<div id="cb_email_storage_label" <?php echo (!$is_email_storage) ? 'style="display: none"' : 'style="display: inline"'; ?>>
+					<?php echo __("Your email backup and a report will be sent to", 'updraftplus').' <a href="'.admin_url('options-general.php').'">'.__("your site's admin address", 'updraftplus').'</a> ('.htmlspecialchars(get_bloginfo('admin_email')).').'; ?>
+				</div>
+			</label>
 			<?php
-				if (!class_exists('UpdraftPlus_Addon_Reporting')) echo '<a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/shop/reporting/").'" target="_blank">'.__('For more reporting features, use the Reporting add-on.', 'updraftplus').'</a>';
+				if (!class_exists('UpdraftPlus_Addon_Reporting')) echo '<a href="'.$updraftplus->get_url('premium').'" target="_blank">'.__('For more reporting features, use the Premium version', 'updraftplus').'</a>';
 			?>
 		</td>
 	</tr>
@@ -270,8 +288,7 @@ foreach ($default_options as $k => $v) {
 ?>
 </table>
 
-<script type="text/javascript">
-/* <![CDATA[ */
+<script>
 <?php
 	$storage_objects_and_ids = UpdraftPlus_Storage_Methods_Interface::get_storage_objects_and_ids(array_keys($updraftplus->backup_methods));
 	// In PHP 5.5+, there's array_column() for this
@@ -282,7 +299,6 @@ foreach ($default_options as $k => $v) {
 
 	echo $updraftplus_admin->get_settings_js($method_objects, $really_is_writable, $updraft_dir, $active_service);
 ?>
-/* ]]> */
 </script>
 <table class="form-table width-900">
 	<tr>
@@ -291,7 +307,7 @@ foreach ($default_options as $k => $v) {
 
 	<tr>
 		<th><?php _e('Expert settings', 'updraftplus');?>:</th>
-		<td><a class="enableexpertmode" href="<?php echo UpdraftPlus::get_current_clean_url();?>#enableexpertmode"><?php _e('Show expert settings', 'updraftplus');?></a> - <?php _e("click this to show some further options; don't bother with this unless you have a problem or are curious.", 'updraftplus');?> <?php do_action('updraftplus_expertsettingsdescription'); ?></td>
+		<td><a class="enableexpertmode" href="<?php echo esc_url(UpdraftPlus::get_current_clean_url());?>#enableexpertmode"><?php _e('Show expert settings', 'updraftplus');?></a> - <?php _e("open this to show some further options; don't bother with this unless you have a problem or are curious.", 'updraftplus');?> <?php do_action('updraftplus_expertsettingsdescription'); ?></td>
 	</tr>
 	<?php
 	$delete_local = UpdraftPlus_Options::get_updraft_option('updraft_delete_local', 1);
@@ -348,7 +364,7 @@ foreach ($default_options as $k => $v) {
 
 	<tr class="expertmode updraft-hidden" style="display:none;">
 		<th><?php _e('Automatic updates', 'updraftplus');?>:</th>
-		<td><label><input type="checkbox" id="updraft_auto_updates" data-updraft_settings_test="updraft_auto_updates" name="updraft_auto_updates" value="1" <?php if (UpdraftPlus_Options::get_updraft_option('updraft_auto_updates')) echo 'checked="checked"'; ?>><br /><?php _e('Ask WordPress to automatically update UpdraftPlus when it finds an available update.', 'updraftplus');?></label><p><a href="https://wordpress.org/plugins/stops-core-theme-and-plugin-updates/" target="_blank"><?php _e('Read more about Easy Updates Manager', 'updraftplus'); ?></a></p></td>
+		<td><label><input type="checkbox" id="updraft_auto_updates" data-updraft_settings_test="updraft_auto_updates" name="updraft_auto_updates" value="1" <?php if ($updraftplus->is_automatic_updating_enabled()) echo 'checked="checked"'; ?>><br /><?php _e('Ask WordPress to automatically update UpdraftPlus when it finds an available update.', 'updraftplus');?></label><p><a href="https://wordpress.org/plugins/stops-core-theme-and-plugin-updates/" target="_blank"><?php _e('Read more about Easy Updates Manager', 'updraftplus'); ?></a></p></td>
 	</tr>
 
 	<?php do_action('updraftplus_configprint_expertoptions'); ?>

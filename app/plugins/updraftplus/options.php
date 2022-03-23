@@ -21,10 +21,20 @@ class UpdraftPlus_Options {
 		return 'options';
 	}
 
+	/**
+	 * Get the URL to the dashboard admin page
+	 *
+	 * @return String
+	 */
 	public static function admin_page_url() {
 		return admin_url('options-general.php');
 	}
 
+	/**
+	 * Get the base-name for the dashboard admin page
+	 *
+	 * @return String
+	 */
 	public static function admin_page() {
 		return 'options-general.php';
 	}
@@ -38,6 +48,14 @@ class UpdraftPlus_Options {
 		return UpdraftPlus_Options::get_updraft_option('updraft_lastmessage', __('(Nothing has been logged yet)', 'updraftplus'));
 	}
 
+	/**
+	 * Get the value for a specified option
+	 *
+	 * @param String option
+	 * @param Mixed	 $default
+	 *
+	 * @return Mixed
+	 */
 	public static function get_updraft_option($option, $default = null) {
 		$ret = get_option($option, $default);
 		return apply_filters('updraftplus_get_option', $ret, $option, $default);
@@ -203,9 +221,12 @@ class UpdraftPlus_Options {
 		return ($pot>28) ? 1 : $pot;
 	}
 
+	/**
+	 * Output information about the multisite add-on when relevant
+	 */
 	public static function show_admin_warning_multisite() {
 		global $updraftplus_admin;
-		$updraftplus_admin->show_admin_warning('<strong>'.__('UpdraftPlus warning:', 'updraftplus').'</strong> '.__('This is a WordPress multi-site (a.k.a. network) installation.', 'updraftplus').' <a href="https://updraftplus.com/shop/" target="_blank">'.__('WordPress Multisite is supported, with extra features, by UpdraftPlus Premium, or the Multisite add-on.', 'updraftplus').'</a> '.__('Without upgrading, UpdraftPlus allows <strong>every</strong> blog admin who can modify plugin settings to backup (and hence access the data, including passwords, from) and restore (including with customized modifications, e.g. changed passwords) <strong>the entire network</strong>.', 'updraftplus').' '.__('(This applies to all WordPress backup plugins unless they have been explicitly coded for multisite compatibility).', 'updraftplus'), 'error');
+		$updraftplus_admin->show_admin_warning('<strong>'.__('UpdraftPlus warning:', 'updraftplus').'</strong> '.__('This is a WordPress multi-site (a.k.a. network) installation.', 'updraftplus').' <a href="https://updraftplus.com/shop/" target="_blank">'.__('WordPress Multisite is supported, with extra features, by UpdraftPlus Premium.', 'updraftplus').'</a> '.__('Without upgrading, UpdraftPlus allows <strong>every</strong> blog admin who can modify plugin settings to backup (and hence access the data, including passwords, from) and restore (including with customized modifications, e.g. changed passwords) <strong>the entire network</strong>.', 'updraftplus').' '.__('(This applies to all WordPress backup plugins unless they have been explicitly coded for multisite compatibility).', 'updraftplus'), 'error');
 	}
 }
 

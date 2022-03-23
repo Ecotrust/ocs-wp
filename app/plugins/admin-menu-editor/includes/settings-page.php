@@ -354,6 +354,92 @@ $isProVersion = apply_filters('admin_menu_editor_is_pro', false);
 			</td>
 			</tr>
 
+			<?php
+			//The free version lacks the ability to render deeply nested menus in the dashboard, so the nesting
+			//options are hidden by default. However, if the user somehow acquires a configuration where this
+			//feature is enabled (e.g. by importing config from the Pro version), the free version can display
+			//and even edit that configuration to a limited extent.
+			if ( $isProVersion || !empty($settings['was_nesting_ever_changed']) ):
+				?>
+				<tr>
+					<th scope="row">
+						Three level menus
+						<a class="ws_tooltip_trigger ame-warning-tooltip"
+						   title="Caution: Experimental feature.&lt;br&gt;
+						   This feature might not work as expected and it could cause conflicts with other plugins or themes.">
+							<div class="dashicons dashicons-admin-tools"></div>
+						</a>
+					</th>
+					<td>
+						<fieldset>
+							<?php
+							$nestingOptions = array(
+								'Ask on first use'                                     => null,
+								'Enabled' . ($isProVersion ? '' : ' (only in editor)') => true,
+								'Disabled'                                             => false,
+							);
+							foreach ($nestingOptions as $label => $nestingSetting):
+								?>
+								<p>
+									<label>
+										<input type="radio" name="deep_nesting_enabled"
+										       value="<?php echo esc_attr(json_encode($nestingSetting)); ?>"
+											<?php
+											if ( $settings['deep_nesting_enabled'] === $nestingSetting ) {
+												echo ' checked="checked"';
+											}
+											?>>
+										<?php echo $label; ?>
+									</label>
+								</p>
+							<?php endforeach; ?>
+						</fieldset>
+					</td>
+				</tr>
+			<?php endif; ?>
+
+			<tr>
+				<th scope="row">
+					WPML support
+				</th>
+				<td>
+					<p>
+						<label>
+							<input type="checkbox" name="wpml_support_enabled"
+								<?php checked($settings['wpml_support_enabled']); ?>>
+							Make edited menu titles translatable with WPML
+
+							<br><span class="description">
+								The titles will appear in the "Strings" section in WPML.
+								If you don't use WPML or a similar translation plugin,
+								you can safely disable this option.
+							</span>
+						</label>
+					</p>
+				</td>
+			</tr>
+
+			<tr>
+				<th scope="row">
+					bbPress override
+				</th>
+				<td>
+					<p>
+						<label>
+							<input type="checkbox" name="bbpress_override_enabled"
+								<?php checked($settings['bbpress_override_enabled']); ?>>
+							Prevent bbPress from resetting role capabilities
+
+							<br><span class="description">
+								By default, bbPress will automatically undo any changes that are made to dynamic
+								bbPress roles. Enable this option to override that behaviour and make it possible
+								to change bbPress role capabilities.
+							</span>
+						</label>
+					</p>
+				</td>
+			</tr>
+
 			<tr>
 				<th scope="row">Error verbosity level</th>
 				<td>

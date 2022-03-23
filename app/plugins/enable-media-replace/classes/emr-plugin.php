@@ -10,8 +10,38 @@ class EnableMediaReplacePlugin
   protected $plugin_path;
   private static $instance;
 
+  private $user_cap = false;
+  private $general_cap = false;
+
   public function __construct()
   {
+      add_action('plugins_loaded', array($this, 'runtime'));
+  }
+
+  public function runtime()
+  {
+		 $this->nopriv_plugin_actions();
+
+     if (EMR_CAPABILITY !== false)
+     {
+        if (is_array(EMR_CAPABILITY))
+        {
+           $this->general_cap = EMR_CAPABILITY[0];
+           $this->user_cap = EMR_CAPABILITY[1];
+
+           if (! current_user_can($this->general_cap) && ! current_user_can($this->user_cap))
+              return;
+        }
+        else
+        {
+          $this->general_cap = EMR_CAPABILITY;
+          if (! current_user_can($this->general_cap))
+            return;
+        }
+     }
+     elseif (! current_user_can('upload_files'))
+        return;
+
      $this->plugin_actions(); // init
   }
 
@@ -21,13 +51,21 @@ class EnableMediaReplacePlugin
       self::$instance = new EnableMediaReplacePlugin();
 
     $log = Log::getInstance();
-    $uploaddir =wp_upload_dir();
-    if (isset($uploaddir['basedir']))
-      $log->setLogPath($uploaddir['basedir'] . "/emr_log");
-      
+    if (Log::debugIsActive())
+    {
+      $uploaddir = wp_upload_dir(null, false, false);
+      if (isset($uploaddir['basedir']))
+        $log->setLogPath($uploaddir['basedir'] . "/emr_log");
+    }
     return self::$instance;
   }
 
+	// Actions for EMR that always need to hook
+	protected function nopriv_plugin_actions()
+	{
+    	// shortcode
+    	add_shortcode('file_modified', array($this, 'get_modified_date'));
+	}
 
   public function plugin_actions()
   {
@@ -43,7 +81,7 @@ class EnableMediaReplacePlugin
     // content filters
     add_filter('media_row_actions', array($this,'add_media_action'), 10, 2);
     add_action('attachment_submitbox_misc_actions', array($this,'admin_date_replaced_media_on_edit_media_screen'), 91 );
-    add_filter('upload_mimes', array($this,'add_mime_types'), 1, 1);
+    //add_filter('upload_mimes', array($this,'add_mime_types'), 1, 1);
 
     // notices
     add_action('admin_notices', array($this,'display_notices'));
@@ -51,11 +89,8 @@ class EnableMediaReplacePlugin
     add_action('wp_ajax_emr_dismiss_notices', array($this,'dismiss_notices'));
 
     // editors
-    add_action( 'add_meta_boxes', function () { add_meta_box('emr-eplace-box', __('Replace Image', 'enable-media-replace'), array($this, 'replace_meta_box'), 'attachment', 'side', 'low'); }  );
+    add_action( 'add_meta_boxes', array($this, 'add_meta_boxes'),10,2 );
     add_filter('attachment_fields_to_edit', array($this, 'attachment_editor'), 10, 2);
-
-    // shortcode
-    add_shortcode('file_modified', array($this, 'get_modified_date'));
 
     /** Just after an image is replaced, try to browser decache the images */
     if (isset($_GET['emr_replaced']) && intval($_GET['emr_replaced'] == 1))
@@ -63,9 +98,10 @@ class EnableMediaReplacePlugin
       add_filter('wp_get_attachment_image_src',array($this, 'attempt_uncache_image'),  10, 4);
 
       // adds a metabox to list thumbnails. This is a cache reset hidden as feature.
-      add_action( 'add_meta_boxes', function () { add_meta_box('emr-replace-box', __('Replaced Thumbnails Preview', 'enable-media-replace'), array($this, 'show_thumbs_box'), 'attachment', 'side', 'low'); }  );
-      add_filter('postbox_classes_attachment_emr-replace-box', function($classes) { $classes[] = 'closed'; return $classes; });
+      //add_action( 'add_meta_boxes', function () {  );
+      add_filter('postbox_classes_attachment_emr-showthumbs-box', function($classes) { $classes[] = 'closed'; return $classes; });
     }
+
 
   }
 
@@ -75,7 +111,8 @@ class EnableMediaReplacePlugin
    */
   public function menu()
   {
-  	add_submenu_page(null, esc_html__("Replace media", "enable-media-replace"), esc_html__("Replace media", "enable-media-replace"), 'upload_files', 'enable-media-replace/enable-media-replace', array($this, 'route'));
+  	/* add_submenu_page(null, esc_html__("Replace media", "enable-media-replace"), esc_html__("Replace media", "enable-media-replace"), 'upload_files', 'enable-media-replace/enable-media-replace', array($this, 'route'));  */
+    add_submenu_page(null, esc_html__("Replace media", "enable-media-replace"), esc_html__("Replace media", "enable-media-replace"), 'upload_files', 'enable-media-replace/enable-media-replace', array($this, 'route'));
   }
 
   /**
@@ -87,7 +124,7 @@ class EnableMediaReplacePlugin
     load_plugin_textdomain( 'enable-media-replace', false, basename(dirname(EMR_ROOT_FILE) ) . '/languages' );
 
     // Load Submodules
-    Log::addDebug('Plugin Init');
+
     $notices = Notices::getInstance();
 
     // Enqueue notices
@@ -118,6 +155,7 @@ class EnableMediaReplacePlugin
             // @todo Later this should be move to it's own controller, and built view from there.
             if ( $action == 'media_replace' ) {
               if ( array_key_exists("attachment_id", $_GET) && intval($_GET["attachment_id"]) > 0) {
+								wp_enqueue_script('emr_upsell');
                 require_once($this->plugin_path . "views/popup.php"); // warning variables like $action be overwritten here.
               }
             }
@@ -131,6 +169,11 @@ class EnableMediaReplacePlugin
         break;
     }
 
+  }
+
+  public function getPluginURL($path = '')
+  {
+     return plugins_url($path, EMR_ROOT_FILE);
   }
 
   /** register styles and scripts
@@ -149,23 +192,31 @@ class EnableMediaReplacePlugin
 
     wp_register_style('emr_edit-attachment', plugins_url('css/edit_attachment.css', EMR_ROOT_FILE));
 
-    wp_register_script('emr_admin', plugins_url('js/emr_admin.js', EMR_ROOT_FILE), array('jquery'), false, true );
+    $mimes = array_values(get_allowed_mime_types());
+
+    wp_register_script('emr_admin', plugins_url('js/emr_admin.js', EMR_ROOT_FILE), array('jquery'), EMR_VERSION, true );
     $emr_options = array(
         'dateFormat' => $this->convertdate(get_option( 'date_format' )),
         'maxfilesize' => wp_max_upload_size(),
-
+        'allowed_mime' => $mimes,
     );
 
+		wp_register_script('emr_upsell', plugins_url('js/upsell.js', EMR_ROOT_FILE), array('jquery'), EMR_VERSION, true );
+
+		wp_localize_script('emr_upsell', 'emr_upsell', array(
+				'ajax' => admin_url('admin-ajax.php'),
+				'installing' => __('Installing ...', 'enable-media-replace'),
+
+		));
 
     if (Log::debugIsActive())
         $emr_options['is_debug'] = true;
 
     wp_localize_script('emr_admin', 'emr_options', $emr_options);
-
   }
 
   /** Utility function for the Jquery UI Datepicker */
-  function convertdate( $sFormat ) {
+  public function convertdate( $sFormat ) {
       switch( $sFormat ) {
           //Predefined WP date formats
           case 'F j, Y':
@@ -182,6 +233,21 @@ class EnableMediaReplacePlugin
               return( 'dd/mm/yy' );
           break;
       }
+  }
+
+  public function checkImagePermission($author_id, $post_id)
+  {
+      if ($this->general_cap === false && $this->user_cap === false)
+			{
+          if ( current_user_can('edit_post', $post_id)  === true)
+							return true;
+			}
+      elseif (current_user_can($this->general_cap))
+        return true;
+      elseif (current_user_can($this->user_cap) && $author_id == get_current_user_id())
+        return true;
+
+      return false;
   }
 
   /** Get the URL to the media replace page
@@ -201,8 +267,27 @@ class EnableMediaReplacePlugin
 
   }
 
+  public function add_meta_boxes($post_type, $post)
+  {
+			// Because some plugins don't like to play by the rules.
+		  if (is_null($post_type) || is_null($post))
+			 	return false;
+
+      if (! $this->checkImagePermission($post->post_author, $post->ID))
+      {  return;  }
+
+      add_meta_box('emr-replace-box', __('Replace Media', 'enable-media-replace'), array($this, 'replace_meta_box'), 'attachment', 'side', 'low');
+
+      if (isset($_GET['emr_replaced']) && intval($_GET['emr_replaced'] == 1))
+      {
+          add_meta_box('emr-showthumbs-box', __('Replaced Thumbnails Preview', 'enable-media-replace'), array($this, 'show_thumbs_box'), 'attachment', 'side', 'low');
+      }
+
+  }
+
   public function replace_meta_box($post)
   {
+
     $url = $this->getMediaReplaceURL($post->ID);
 
     $action = "media_replace";
@@ -220,6 +305,9 @@ class EnableMediaReplacePlugin
 
   public function show_thumbs_box($post)
   {
+    if (! $this->checkImagePermission($post->post_author, $post->ID))
+    {  return;  }
+
     wp_enqueue_style('emr_edit-attachment');
 
     $meta = wp_get_attachment_metadata($post->ID);
@@ -228,6 +316,20 @@ class EnableMediaReplacePlugin
     {  echo __('Thumbnails were not generated', 'enable-media-replace');
       return false;
     }
+
+    if (function_exists('wp_get_original_image_url')) // indicating WP 5.3+
+    {
+      $source_url = wp_get_original_image_url($post->ID);
+      // oldway will give -scaled in case of scaling.
+      $source_url_oldway = wp_get_attachment_url($post->ID);
+
+      if ($source_url !== $source_url_oldway)
+      {
+        echo "<div class='original previewwrapper'><img src='" . $source_url_oldway . "'><span class='label'>" . __('Original') . "</span></div>";
+      }
+
+    }
+
 
     foreach($meta['sizes'] as $size => $data)
     {
@@ -239,6 +341,19 @@ class EnableMediaReplacePlugin
 
   public function attachment_editor($form_fields, $post)
   {
+      $screen = null;
+
+      if (! $this->checkImagePermission($post->post_author, $post->ID))
+      {  return $form_fields;  }
+
+      if (function_exists('get_current_screen'))
+      {
+        $screen = get_current_screen();
+
+        if(! is_null($screen) && $screen->id == 'attachment') // hide on edit attachment screen.
+          return $form_fields;
+      }
+
       $url = $this->getMediaReplaceURL($post->ID);
       $action = "media_replace";
       $editurl = wp_nonce_url( $url, $action );
@@ -247,8 +362,9 @@ class EnableMediaReplacePlugin
       $form_fields["enable-media-replace"] = array(
               "label" => esc_html__("Replace media", "enable-media-replace"),
               "input" => "html",
-              "html" => "<p><a class='button-secondary' $link>" . esc_html__("Upload a new file", "enable-media-replace") . "</a></p>", "helps" => esc_html__("To replace the current file, click the link and upload a replacement.", "enable-media-replace")
+              "html" => "<a class='button-secondary' $link>" . esc_html__("Upload a new file", "enable-media-replace") . "</a>", "helps" => esc_html__("To replace the current file, click the link and upload a replacement.", "enable-media-replace")
             );
+
       return $form_fields;
   }
 
@@ -256,17 +372,23 @@ class EnableMediaReplacePlugin
    * @param array $mime_types
    * @return array
    */
+	 /* Off, no clue why this is here.
   public function add_mime_types($mime_types)
   {
     $mime_types['dat'] = 'text/plain';     // Adding .dat extension
     return $mime_types;
   }
-
+*/
   /**
    * Function called by filter 'media_row_actions'
    * Enables linking to EMR straight from the media library
   */
   public function add_media_action( $actions, $post) {
+
+
+    if (! $this->checkImagePermission($post->post_author, $post->ID))
+    {  return $actions;  }
+
   	$url = $this->getMediaReplaceURL($post->ID);
   	$action = "media_replace";
     	$editurl = wp_nonce_url( $url, $action );
@@ -286,14 +408,14 @@ class EnableMediaReplacePlugin
   	$current_screen = get_current_screen();
 
   	$crtScreen = function_exists("get_current_screen") ? get_current_screen() : (object)array("base" => false);
-
+/*
   	if(current_user_can( 'activate_plugins' ) && !get_option( 'emr_news') && !is_plugin_active('shortpixel-image-optimiser/wp-shortpixel.php')
   	   && ($crtScreen->base == "upload" || $crtScreen->base == "plugins")
           //for network installed plugins, don't display the message on subsites.
          && !(function_exists('is_multisite') && is_multisite() && is_plugin_active_for_network('enable-media-replace/enable-media-replace.php') && !is_main_site()))
   	{
   		require_once($this->plugin_path . '/views/notice.php');
-  	}
+  	} */
   }
 
   public function display_network_notices() {
@@ -322,17 +444,28 @@ class EnableMediaReplacePlugin
       return false;
 
     $post_id = $post->ID;
-  	if ( $post->post_modified == $post->post_date ) {
-  		return;
-  	}
+  	if ( $post->post_modified !== $post->post_date ) {
 
-  	$modified = date_i18n( __( 'M j, Y @ H:i' ) , strtotime( $post->post_modified ) );
+    	$modified = date_i18n( __( 'M j, Y @ H:i' ) , strtotime( $post->post_modified ) );
+    	?>
+    	<div class="misc-pub-section curtime">
+    		<span id="timestamp"><?php echo esc_html__( 'Revised', 'enable-media-replace' ); ?>: <b><?php echo $modified; ?></b></span>
+    	</div>
 
-  	?>
-  	<div class="misc-pub-section curtime">
-  		<span id="timestamp"><?php echo esc_html__( 'Revised', 'enable-media-replace' ); ?>: <b><?php echo $modified; ?></b></span>
-  	</div>
   	<?php
+    }
+    $author_id = get_post_meta($post_id, '_emr_replace_author', true);
+
+    if ($author_id)
+    {
+      $display_name = get_the_author_meta('display_name', $author_id);
+      ?>
+      <div class="misc-pub-section replace_author">
+        <span><?php echo esc_html__( 'Replaced By', 'enable-media-replace' ); ?>: <b><?php echo $display_name; ?></b></span>
+      </div>
+      <?php
+    }
+
   }
 
   /** When an image is just replaced, it can stuck in the browser cache making a look like it was not replaced. Try

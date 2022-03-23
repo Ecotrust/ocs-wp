@@ -3,9 +3,9 @@
  Plugin Name: Under Construction
  Plugin URI: https://wordpress.org/plugins/underconstruction/
  Description: Makes it so your site can only be accessed by users who log in. Useful for developing a site on a live server, without the world being able to see it
- Version: 1.18
+ Version: 1.19
  Author: Noah Kagan
- Author URI: http://SumoMe.com/
+ Author URI: https://appsumo.com/tools/wordpress/?utm_source=sumo&utm_medium=wp-widget&utm_campaign=underconstruction
  */
 
 /*
@@ -24,10 +24,15 @@
 
 ?>
 <?php
+
+if (!defined('UNDERCONSTRUCTION_PLUGIN_DIR')) {
+  define('UNDERCONSTRUCTION_PLUGIN_DIR', dirname(__FILE__));
+}
+
 class underConstruction
 {
 	var $installedFolder = "";
-	var $mainOptionsPage = "underConstructionMainOptions";
+	var $mainOptionsPage = "under-construction";
 
 	function __construct()
 	{
@@ -48,6 +53,10 @@ class underConstruction
 	{
 		/* Register our script. */
 		wp_register_script('underConstructionJS', WP_PLUGIN_URL.'/'.$this->installedFolder.'/underconstruction.min.js');
+		$this->uc_handle_external_redirects();
+
+		wp_enqueue_script('under-construction-admin',plugin_dir_url( __FILE__ ). 'scripts/underconstruction-scripts.js',array('jquery'));
+		wp_enqueue_style('under-construction-admin-style',plugin_dir_url( __FILE__ ).'styles/underconstruction-style-common.css', array(), '3.1.1');
 	}
 
 	function uc_changeMessage()
@@ -320,6 +329,44 @@ class underConstruction
 		delete_option('underconstruction_global_notification');
 	}
 
+	function admin_menu_link() {
+	  add_menu_page( 'Under Construction', 'Under Construction', 'manage_options', 'under-construction', array(& $this, 'uc_changeMessage'), 'dashicons-hammer');
+
+	  add_submenu_page( 'under-construction', 'Other Tools', 'Other Tools', 'manage_options', 'under-construction-plugin-other-tools', array($this, 'uc_other_tools_page'));
+
+	  add_submenu_page(
+	      'under-construction',
+	      'Appsumo',
+	      '<span class="under-construction-sidebar-appsumo-link"><span class="dashicons dashicons-star-filled" style="font-size: 17px"></span> AppSumo</span>',
+	      'manage_options',
+	      'uc_go_appsumo_pro',
+	      array($this, 'uc_handle_external_redirects')
+	    );
+
+	  //add_filter( 'plugin_action_links_' . plugin_basename(__FILE__),array($this, 'uc_filter_plugin_actions'), 10, 2 );
+	}
+
+	function uc_filter_plugin_actions($links, $file) {
+	  $settings_link = '<a href="admin.php?page=underConstruction">' . __('Settings') . '</a>';
+	  array_unshift( $links, $settings_link );
+
+	  return $links;
+	}
+
+	function uc_other_tools_page() {
+	  include(UNDERCONSTRUCTION_PLUGIN_DIR.'/other_tools.php');
+	}
+
+	function uc_handle_external_redirects() {
+	  if ( empty( $_GET['page'] ) ) {
+	    return;
+	  }
+
+	  if ( 'uc_go_appsumo_pro' === $_GET['page'] ) {
+	    wp_redirect( ( 'https://appsumo.com/tools/wordpress/?utm_source=sumo&utm_medium=wp-widget&utm_campaign=underconstruction' ) );
+	    die;
+	  }
+	}
 }
 
 $underConstructionPlugin = new underConstruction();
@@ -332,11 +379,14 @@ add_action('wp_login', array($underConstructionPlugin, 'uc_admin_override_WP'));
 add_action('plugins_loaded', 'underConstructionInitTranslation');
 
 add_action('admin_init', array($underConstructionPlugin, 'underConstructionAdminInit'));
-add_action('admin_menu', array($underConstructionPlugin, 'uc_adminMenu'));
+//add_action('admin_menu', array($underConstructionPlugin, 'uc_adminMenu'));
 
 register_activation_hook(__FILE__, array($underConstructionPlugin, 'uc_activate'));
 register_deactivation_hook(__FILE__, array($underConstructionPlugin, 'uc_deactivate'));
 register_uninstall_hook(__FILE__, 'underConstructionPlugin_delete');
+
+
+add_action("admin_menu", array($underConstructionPlugin, 'admin_menu_link'));
 
 
 
@@ -357,7 +407,7 @@ function underConstructionPluginLinks($links, $file)
 	if ($file == basename(dirname(__FILE__)).'/'.basename(__FILE__) && function_exists("admin_url"))
 	{
 		//add settings page
-		$manage_link = '<a href="'.admin_url('options-general.php?page='.$underConstructionPlugin->getMainOptionsPage()).'">'.__('Settings').'</a>';
+		$manage_link = '<a href="'.admin_url('?page='.$underConstructionPlugin->getMainOptionsPage()).'">'.__('Settings').'</a>';
 		array_unshift($links, $manage_link);
 
 

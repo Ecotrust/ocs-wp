@@ -89,14 +89,17 @@ function relevanssi_indexing_tab() {
 	$punct_hyphens_remove     = relevanssi_select( $punctuation['hyphens'], 'remove' );
 	$punct_hyphens_keep       = relevanssi_select( $punctuation['hyphens'], 'keep' );
 
-	$docs_count  = $wpdb->get_var( 'SELECT COUNT(DISTINCT doc) FROM ' . $relevanssi_variables['relevanssi_table'] . ' WHERE doc != -1' );  // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
-	$terms_count = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $relevanssi_variables['relevanssi_table'] );  // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
+	$docs_count  = get_option( 'relevanssi_doc_count', 0 );
+	$terms_count = get_option( 'relevanssi_terms_count', 0 );
 	$lowest_doc  = $wpdb->get_var( 'SELECT doc FROM ' . $relevanssi_variables['relevanssi_table'] . ' WHERE doc > 0 ORDER BY doc ASC LIMIT 1' );  // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
 
 	if ( RELEVANSSI_PREMIUM ) {
-		$user_count    = $wpdb->get_var( 'SELECT COUNT(DISTINCT item) FROM ' . $relevanssi_variables['relevanssi_table'] . " WHERE type = 'user'" );  // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
-		$taxterm_count = $wpdb->get_var( 'SELECT COUNT(DISTINCT item) FROM ' . $relevanssi_variables['relevanssi_table'] . " WHERE (type != 'post' AND type != 'attachment' AND type != 'user')" );  // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
+		$user_count    = get_option( 'relevanssi_user_count', 0 );
+		$taxterm_count = get_option( 'relevanssi_taxterm_count', 0 );
 	}
+
+	$this_page  = '?page=' . plugin_basename( $relevanssi_variables['file'] );
+	$update_url = wp_nonce_url( $this_page . '&tab=indexing&update_counts=1', 'update_counts' );
 
 	?>
 	<div id="indexing_tab">
@@ -123,7 +126,7 @@ function relevanssi_indexing_tab() {
 			</div>
 			<div id='relevanssi-note' style='display: none'></div>
 			<div id='relevanssi-progress' class='rpi-progress'><div class="rpi-indicator"></div></div>
-			<div id='relevanssi-timer'><?php esc_html_e( 'Time elapsed', 'relevanssi' ); ?>: <span id="relevanssi_elapsed">0:00:00</span> | <?php esc_html_e( 'Time remaining', 'relevanssi' ); ?>: <span id="relevanssi_estimated"><?php esc_html_e( 'some time', 'relevanssi' ); ?></span></div>
+			<div id='relevanssi-timer'><?php esc_html_e( 'Time elapsed', 'relevanssi' ); ?>: <span id="relevanssi_elapsed">0:00:00</span> | <?php esc_html_e( 'Time remaining', 'relevanssi' ); ?>: <span id="relevanssi_estimated"><?php esc_html_e( 'some time', 'relevanssi' ); ?></span></div>
 			<label for="results" class="screen-reader-text"><?php esc_html_e( 'Results', 'relevanssi' ); ?></label><textarea id='results' rows='10' cols='80'></textarea>
 			<div id='relevanssi-indexing-instructions' style='display: none'><?php esc_html_e( "Indexing should respond quickly. If nothing happens in couple of minutes, it's probably stuck. The most common reasons for indexing issues are incompatible shortcodes, so try disabling the shortcode expansion setting and try again. Also, if you've just updated Relevanssi, doing a hard refresh in your browser will make sure your browser is not trying to use an outdated version of the Relevanssi scripts.", 'relevanssi' ); ?></div>
 		</td>
@@ -138,6 +141,8 @@ function relevanssi_indexing_tab() {
 		</p>
 		<p><?php echo esc_html( $terms_count ); ?> <?php echo esc_html( _n( 'term in the index.', 'terms in the index.', $terms_count, 'relevanssi' ) ); ?><br />
 		<?php echo esc_html( $lowest_doc ); ?> <?php esc_html_e( 'is the lowest post ID indexed.', 'relevanssi' ); ?></p>
+		<?php /* Translators: %1$s opens the a tag, %2$s closes it. */ ?>
+		<p class="description">(<?php printf( esc_html__( 'These values may be inaccurate. If you need exact values, %1$supdate the counts%2$s', 'relevanssi' ), '<a href="' . esc_attr( $update_url ) . '">', '</a>' ); ?>.)</p>
 		</td>
 	</tr>
 	</table>
@@ -275,14 +280,14 @@ function relevanssi_indexing_tab() {
 			$checked = 'checked="checked"';
 		}
 
-		// Translators: %s is the post type name.
+		// Translators: %s is the taxonomy name.
 		$screen_reader_label = sprintf( __( 'Index taxonomy %s', 'relevanssi' ), $taxonomy->name );
 		$public              = __( 'no', 'relevanssi' );
-		// Translators: %s is the post type name.
+		// Translators: %s is the taxonomy name.
 		$screen_reader_public = sprintf( __( 'Taxonomy %s is not public', 'relevanssi' ), $taxonomy->name );
 		if ( $taxonomy->public ) {
 			$public = __( 'yes', 'relevanssi' );
-			// Translators: %s is the post type name.
+			// Translators: %s is the taxonomy name.
 			$screen_reader_public = sprintf( __( 'Taxonomy %s is public', 'relevanssi' ), $taxonomy->name );
 		}
 
@@ -422,29 +427,13 @@ function relevanssi_indexing_tab() {
 	</tr>
 
 	<?php
-	if ( function_exists( 'relevanssi_form_disable_shortcodes' ) ) {
-		relevanssi_form_disable_shortcodes();
-	}
+		do_action( 'relevanssi_indexing_tab_shortcodes' );
 	?>
 
 	</table>
 
 	<?php
-	if ( function_exists( 'relevanssi_form_index_users' ) ) {
-		relevanssi_form_index_users();
-	}
-	if ( function_exists( 'relevanssi_form_index_synonyms' ) ) {
-		relevanssi_form_index_synonyms();
-	}
-	if ( function_exists( 'relevanssi_form_index_taxonomies' ) ) {
-		relevanssi_form_index_taxonomies();
-	}
-	if ( function_exists( 'relevanssi_form_index_post_type_archives' ) ) {
-		relevanssi_form_index_post_type_archives();
-	}
-	if ( function_exists( 'relevanssi_form_index_pdf_parent' ) ) {
-		relevanssi_form_index_pdf_parent();
-	}
+		do_action( 'relevanssi_indexing_tab' );
 	?>
 
 	<h2><?php esc_html_e( 'Advanced indexing settings', 'relevanssi' ); ?></h2>
@@ -523,15 +512,7 @@ function relevanssi_indexing_tab() {
 		</td>
 	</tr>
 	<?php
-	if ( function_exists( 'relevanssi_form_thousands_separator' ) ) {
-		relevanssi_form_thousands_separator();
-	}
-	if ( function_exists( 'relevanssi_form_mysql_columns' ) ) {
-		relevanssi_form_mysql_columns();
-	}
-	if ( function_exists( 'relevanssi_form_internal_links' ) ) {
-		relevanssi_form_internal_links();
-	}
+	do_action( 'relevanssi_indexing_tab_advanced' );
 	?>
 
 	</table>

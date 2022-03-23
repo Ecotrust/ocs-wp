@@ -9,8 +9,16 @@ require_once(UPDRAFTPLUS_DIR.'/methods/s3.php');
  */
 class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 {
 
+	// This gets populated in the constructor
 	private $dreamobjects_endpoints = array();
+	
+	protected $provider_can_use_aws_sdk = false;
+	
+	protected $provider_has_regions = true;
 
+	/**
+	 * Class constructor
+	 */
 	public function __construct() {
 		// When new endpoint introduced in future, Please add it here and also add it as hard coded option for endpoint dropdown in self::get_partial_configuration_template_for_endpoint()
 		// Put the default first
@@ -23,21 +31,24 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 	
 	protected $use_v4 = false;
 
-	protected function set_region($obj, $region = '', $bucket_name = '') {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	/**
+	 * Given an S3 object, possibly set the region on it
+	 *
+	 * @param Object $obj		  - like UpdraftPlus_S3
+	 * @param String $region	  - or empty to fetch one from saved configuration
+	 * @param String $bucket_name
+	 */
+	protected function set_region($obj, $region = '', $bucket_name = '') {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- $bucket_name
+
 		$config = $this->get_config();
 		$endpoint = ('' != $region && 'n/a' != $region) ? $region : $config['endpoint'];
 		global $updraftplus;
 		if ($updraftplus->backup_time) {
-			$updraftplus->log("Set endpoint: $endpoint");
+			$updraftplus->log("Set endpoint (".get_class($obj)."): $endpoint");
 		
 			// Warning for objects-us-west-1 shutdown in Oct 2018
 			if ('objects-us-west-1.dream.io' == $endpoint) {
-				// Are we after the shutdown date?
-				if (time() >= 1538438400) {
-					$updraftplus->log("The objects-us-west-1.dream.io endpoint shut down on the 1st October 2018. The upload is expected to fail. Please see the following article for more information https://help.dreamhost.com/hc/en-us/articles/360002135871-Cluster-migration-procedure", 'warning', 'dreamobjects_west_shutdown');
-				} else {
-					$updraftplus->log("The objects-us-west-1.dream.io endpoint is scheduled to shut down on the 1st October 2018. You will need to switch to a different end-point and migrate your data before that date. Please see the following article for more information https://help.dreamhost.com/hc/en-us/articles/360002135871-Cluster-migration-procedure", 'warning', 'dreamobjects_west_shutdown');
-				}
+				$updraftplus->log("The objects-us-west-1.dream.io endpoint shut down on the 1st October 2018. The upload is expected to fail. Please see the following article for more information https://help.dreamhost.com/hc/en-us/articles/360002135871-Cluster-migration-procedure", 'warning', 'dreamobjects_west_shutdown');
 			}
 		}
 		
@@ -51,7 +62,7 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 	 */
 	public function get_supported_features() {
 		// This options format is handled via only accessing options via $this->get_options()
-		return array('multi_options', 'config_templates', 'multi_storage');
+		return array('multi_options', 'config_templates', 'multi_storage', 'conditional_logic');
 	}
 
 	/**
@@ -74,7 +85,7 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 	 *
 	 * @return Array - an array of options
 	 */
-	protected function get_config($force_refresh = false) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	protected function get_config($force_refresh = false) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- $force_refresh unused
 		$opts = $this->get_options();
 		$opts['whoweare'] = 'DreamObjects';
 		$opts['whoweare_long'] = 'DreamObjects';
@@ -107,7 +118,7 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 	/**
 	 * Get handlebar partial template string for endpoint of s3 compatible remote storage method. Other child class can extend it.
 	 *
-	 * @return string the partial template string
+	 * @return String the partial template string
 	 */
 	protected function get_partial_configuration_template_for_endpoint() {
 		// When new endpoint introduced in future, Please add it  as hard coded option for below  endpoint dropdown and also add as array value in private $dreamobjects_endpoints variable
@@ -127,15 +138,11 @@ class UpdraftPlus_BackupModule_dreamobjects extends UpdraftPlus_BackupModule_s3 
 	 * Modifies handerbar template options
 	 *
 	 * @param array $opts
-	 * @return array - Modified handerbar template options
+	 * @return Array - Modified handerbar template options
 	 */
 	public function transform_options_for_template($opts) {
 		$opts['endpoint'] = empty($opts['endpoint']) ? '' : $opts['endpoint'];
 		$opts['dreamobjects_endpoints'] = $this->dreamobjects_endpoints;
 		return $opts;
-	}
-	
-	public function credentials_test($posted_settings) {
-		$this->credentials_test_engine($this->get_config(), $posted_settings);
 	}
 }

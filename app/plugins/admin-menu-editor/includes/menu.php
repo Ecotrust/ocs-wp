@@ -3,6 +3,8 @@ abstract class ameMenu {
 	const format_name = 'Admin Menu Editor menu';
 	const format_version = '7.0';
 
+	protected static $custom_loaders = array();
+
 	/**
 	 * Load an admin menu from a JSON string.
 	 *
@@ -15,9 +17,13 @@ abstract class ameMenu {
 	 * @return array
 	 */
 	public static function load_json($json, $assume_correct_format = false, $always_normalize = false) {
-		$arr = json_decode($json, true);
+		$arr = json_decode($json, true); //TODO: Consider ignoring or substituting invalid UTF-8 characters.
 		if ( !is_array($arr) ) {
-			throw new InvalidMenuException('The input is not a valid JSON-encoded admin menu.');
+			$message = 'The input is not a valid JSON-encoded admin menu.';
+			if ( function_exists('json_last_error_msg') ) {
+				$message .= ' ' . json_last_error_msg();
+			}
+			throw new InvalidMenuException($message);
 		}
 		return self::load_array($arr, $assume_correct_format, $always_normalize);
 	}
@@ -83,6 +89,7 @@ abstract class ameMenu {
 		if ( isset($arr['color_css']) && is_string($arr['color_css']) ) {
 			$menu['color_css'] = $arr['color_css'];
 			$menu['color_css_modified'] = isset($arr['color_css_modified']) ? intval($arr['color_css_modified']) : 0;
+			$menu['icon_color_overrides'] = isset($arr['icon_color_overrides']) ? $arr['icon_color_overrides'] : null;
 		}
 
 		//Sanitize color presets.
@@ -148,6 +155,11 @@ abstract class ameMenu {
 			$menu['component_visibility'] = $visibility;
 		}
 
+		//Copy heading settings.
+		if ( isset($arr['menu_headings']) ) {
+			$menu['menu_headings'] = $arr['menu_headings'];
+		}
+
 		//Copy the "modified icons" flag.
 		if ( isset($arr['has_modified_dashicons']) ) {
 			$menu['has_modified_dashicons'] = (bool)$arr['has_modified_dashicons'];
@@ -156,6 +168,15 @@ abstract class ameMenu {
 		//Copy the pre-generated list of virtual capabilities.
 		if ( isset($arr['prebuilt_virtual_caps']) ) {
 			$menu['prebuilt_virtual_caps'] = $arr['prebuilt_virtual_caps'];
+		}
+
+		//Copy the modification timestamp.
+		if ( isset($arr['last_modified_on']) ) {
+			$menu['last_modified_on'] = substr(strval($arr['last_modified_on']), 0, 100);
+		}
+
+		foreach(self::$custom_loaders as $callback) {
+			$menu = call_user_func($callback, $menu, $arr);
 		}
 
 		return $menu;
@@ -206,6 +227,7 @@ abstract class ameMenu {
 	 */
 	public static function to_json($menu) {
 		$menu = self::add_format_header($menu);
+		//todo: Maybe use wp_json_encode() instead. At least one user had invalid UTF-8 characters in their menu.
 		$result = json_encode($menu);
 		if ( !is_string($result) ) {
 			$message = sprintf(
@@ -213,7 +235,6 @@ abstract class ameMenu {
 				gettype($result)
 			);
 			if ( function_exists('json_last_error') ) {
-				/** @noinspection PhpComposerExtensionStubsInspection */
 				$message .= sprintf(' JSON error code: %d.', json_last_error());
 			}
 			if ( function_exists('json_last_error_msg') ) {
@@ -512,11 +533,24 @@ abstract class ameMenu {
 			}
 		}
 	}
+
+	/**
+	 * @param callable $callback
+	 */
+	public static function add_custom_loader($callback) {
+		self::$custom_loaders[] = $callback;
+	}
 }
 
 class ameGrantedCapabilityFilter {
-	private $post_types = array();
-	private $taxonomies = array();
+	/**
+	 * @var string[]
+	 */
+	private $post_types;
+	/**
+	 * @var string[]
+	 */
+	private $taxonomies;
 
 	public function __construct() {
 		$this->post_types = get_post_types(array('public' => true, 'show_ui' => true), 'names', 'or');
@@ -582,4 +616,4 @@ class ameModifiedIconDetector {
 
 class InvalidMenuException extends Exception {}
 
-class ameInvalidJsonException extends RuntimeException {};
+class ameInvalidJsonException extends RuntimeException {}

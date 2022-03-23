@@ -28,14 +28,14 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 	/**
 	 * Get FTP object with parameters set
 	 *
-	 * @param  string  $server 			 Specify Server
-	 * @param  string  $user 			 Specify Username
-	 * @param  string  $pass 			 Specify Password
-	 * @param  boolean $disable_ssl		 Indicate whether to disable SSL
-	 * @param  boolean $disable_verify	 Indicate whether to disable verifiction
-	 * @param  boolean $use_server_certs Indicate whether to use server certificates
-	 * @param  boolean $passive 		 Indicate whether to use passive FTP mode
-	 * @return array
+	 * @param  String  $server 			 Specify Server
+	 * @param  String  $user 			 Specify Username
+	 * @param  String  $pass 			 Specify Password
+	 * @param  Boolean $disable_ssl		 Indicate whether to disable SSL
+	 * @param  Boolean $disable_verify	 Indicate whether to disable verifiction
+	 * @param  Boolean $use_server_certs Indicate whether to use server certificates
+	 * @param  Boolean $passive 		 Indicate whether to use passive FTP mode
+	 * @return Array
 	 */
 	private function getFTP($server, $user, $pass, $disable_ssl = false, $disable_verify = true, $use_server_certs = false, $passive = true) {
 
@@ -83,7 +83,7 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 	
 	public function get_supported_features() {
 		// The 'multi_options' options format is handled via only accessing options via $this->get_options()
-		return array('multi_options', 'config_templates', 'multi_storage');
+		return array('multi_options', 'config_templates', 'multi_storage', 'conditional_logic');
 	}
 
 	public function get_default_options() {
@@ -211,7 +211,15 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 
 	}
 
-	public function delete($files, $ftparr = array(), $sizeinfo = array()) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	/**
+	 * Delete a single file from the service using FTP protocols
+	 *
+	 * @param Array $files    - array of file names to delete
+	 * @param Array $ftparr   - FTP details/credentials
+	 * @param Array $sizeinfo - unused here
+	 * @return Boolean|String - either a boolean true or an error code string
+	 */
+	public function delete($files, $ftparr = array(), $sizeinfo = array()) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- $sizeinfo unused
 
 		global $updraftplus;
 		if (is_string($files)) $files = array($files);
@@ -234,7 +242,7 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 			if (is_wp_error($ftp) || !$ftp->connect()) {
 				if (is_wp_error($ftp)) $updraftplus->log_wp_error($ftp);
 				$this->log("Failure: we did not successfully log in with those credentials (host=".$opts['host'].").");
-				return false;
+				return 'authentication_fail';
 			}
 
 		}
@@ -247,7 +255,7 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 				$this->log("delete: succeeded (${ftp_remote_path}${file})");
 			} else {
 				$this->log("delete: failed (${ftp_remote_path}${file})");
-				$ret = false;
+				$ret = 'file_delete_error';
 			}
 		}
 		return $ret;
@@ -313,6 +321,7 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 	public function get_pre_configuration_template() {
 
 		global $updraftplus_admin;
+		global $updraftplus;
 
 		$classes = $this->get_css_classes(false);
 		
@@ -338,7 +347,7 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 
 				?>
 
-				<em><?php echo '<p>' . apply_filters('updraft_sftp_ftps_notice', '<strong>'.htmlspecialchars(__('Only non-encrypted FTP is supported by regular UpdraftPlus.')).'</strong> <a href="'.apply_filters("updraftplus_com_link", "https://updraftplus.com/shop/sftp/").'" target="_blank">'.__('If you want encryption (e.g. you are storing sensitive business data), then an add-on is available.', 'updraftplus')).'</a></p>'; ?></em>
+				<em><?php echo '<p>' . apply_filters('updraft_sftp_ftps_notice', '<strong>'.htmlspecialchars(__('Only non-encrypted FTP is supported by regular UpdraftPlus.')).'</strong> <a href="'.$updraftplus->get_url('premium').'" target="_blank">'.__('If you want encryption (e.g. you are storing sensitive business data), then an add-on is available in the Premium version.', 'updraftplus')).'</a></p>'; ?></em>
 			</td>
 		</tr>
 

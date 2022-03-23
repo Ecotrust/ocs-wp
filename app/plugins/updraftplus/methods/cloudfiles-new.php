@@ -29,8 +29,6 @@ class UpdraftPlus_BackupModule_cloudfiles_opencloudsdk extends UpdraftPlus_Backu
 
 		include_once(UPDRAFTPLUS_DIR.'/vendor/autoload.php');
 
-		global $updraftplus;
-
 		// The new authentication APIs don't match the values we were storing before
 		$new_authurl = ('https://lon.auth.api.rackspacecloud.com' == $authurl || 'uk' == $authurl) ? Rackspace::UK_IDENTITY_ENDPOINT : Rackspace::US_IDENTITY_ENDPOINT;
 
@@ -67,7 +65,7 @@ class UpdraftPlus_BackupModule_cloudfiles_opencloudsdk extends UpdraftPlus_Backu
 	 */
 	public function get_supported_features() {
 		// This options format is handled via only accessing options via $this->get_options()
-		return array('multi_options', 'config_templates', 'multi_storage');
+		return array('multi_options', 'config_templates', 'multi_storage', 'conditional_logic');
 	}
 
 	/**
@@ -94,8 +92,6 @@ class UpdraftPlus_BackupModule_cloudfiles_opencloudsdk extends UpdraftPlus_Backu
 
 		global $updraftplus_admin;
 
-		$classes = $this->get_css_classes();
-
 		if (!function_exists('json_last_error')) {
 			$updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('Your web server\'s PHP installation does not included a required module (%s). Please contact your web hosting provider\'s support.', 'updraftplus'), 'json').' '.sprintf(__("UpdraftPlus's %s module <strong>requires</strong> %s. Please do not file any support requests; there is no alternative.", 'updraftplus'), 'Cloud Files', 'json'), 'cloudfiles', false);
 		}
@@ -108,7 +104,8 @@ class UpdraftPlus_BackupModule_cloudfiles_opencloudsdk extends UpdraftPlus_Backu
 	 * @return String - the partial template, ready for substitutions to be carried out
 	 */
 	public function get_configuration_middlesection_template() {
-		global $updraftplus_admin;
+		global $updraftplus;
+		
 		$classes = $this->get_css_classes();
 		$template_str = '
 		<tr class="'.$classes.'">
@@ -134,7 +131,7 @@ class UpdraftPlus_BackupModule_cloudfiles_opencloudsdk extends UpdraftPlus_Backu
 			<th>'.__('Cloud Files Username', 'updraftplus').':</th>
 			<td><input data-updraft_settings_test="user" type="text" autocomplete="off" class="updraft_input--wide" '.$this->output_settings_field_name_and_id('user', true).' value="{{user}}" />
 			<div style="clear:both;">
-				'.apply_filters('updraft_cloudfiles_apikeysetting', '<a href="'.apply_filters("updraftplus_com_link", "https://updraftplus.com/shop/cloudfiles-enhanced/").'" target="_blank"><em>'.__('To create a new Rackspace API sub-user and API key that has access only to this Rackspace container, use this add-on.', 'updraftplus').'</em></a>').'
+				'.apply_filters('updraft_cloudfiles_apikeysetting', '<a href="'.$updraftplus->get_url('premium').'" target="_blank"><em>'.__('To create a new Rackspace API sub-user and API key that has access only to this Rackspace container, use Premium.', 'updraftplus').'</em></a>').'
 			</div>
 			</td>
 		</tr>
@@ -154,7 +151,7 @@ class UpdraftPlus_BackupModule_cloudfiles_opencloudsdk extends UpdraftPlus_Backu
 	 * Modifies handerbar template options
 	 *
 	 * @param array $opts handerbar template options
-	 * @return array - Modified handerbar template options
+	 * @return Array - Modified handerbar template options
 	 */
 	public function transform_options_for_template($opts) {
 		$opts['regions'] = array(
