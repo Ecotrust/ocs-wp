@@ -383,10 +383,12 @@
   position: fixed;
   top: 60px;
   width: inherit;
+}
 
-  @media (min-width: 540px) {
-	width: 25%;
-  }
+@media screen selector-append($selectors: …) (min-width: 540px) {
+	.scroll-nav.fixed {
+		width: 25%;
+  	}
 }
 
 
