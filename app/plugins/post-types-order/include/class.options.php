@@ -37,13 +37,21 @@
                             
                             $options['navigation_sort_apply']   = isset($_POST['navigation_sort_apply'])    ? intval($_POST['navigation_sort_apply'])   : '';
                                                 
-                            echo '<div class="updated fade"><p>' . esc_html__('Settings Saved', 'post-types-order') . '</p></div>';
-
                             update_option('cpto_options', $options);
                             update_option('CPT_configured', 'TRUE');
+                            
+                            add_action( 'admin_notices',        array( $this,   'admin_save_notice') );
                                
                         }   
                     
+                }
+                
+                
+            function admin_save_notice()
+                {
+
+                    echo "<div class='updated'><p>". esc_html__('Settings Saved', 'post-types-order')  ."</p></div>";
+                        
                 }
             
             
@@ -53,7 +61,6 @@
             
                     ?>
                         <div id="cpto" class="wrap"> 
-                            <div id="icon-settings" class="icon32"></div>
                             <h2><?php esc_html_e('General Settings', 'post-types-order') ?></h2>
                            
                             <?php $this->CPTO->functions->cpt_info_box(); ?>
@@ -79,10 +86,10 @@
                                                                                             'status'  
                                                                                             );
                                                             
-                                                            if(in_array($post_type_name, $ignore_post_types))
+                                                            if( in_array($post_type_name, $ignore_post_types) )
                                                                 continue;
                                                             
-                                                            if(is_post_type_hierarchical($post_type_name))
+                                                            if( is_post_type_hierarchical($post_type_name) )
                                                                 continue;
                                                                 
                                                             $post_type_data = get_post_type_object( $post_type_name );
