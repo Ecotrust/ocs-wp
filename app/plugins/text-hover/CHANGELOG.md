@@ -1,6 +1,149 @@
 # Changelog
 
+## 4.2 _(2022-03-22)_
+
+### Highlights:
+
+This release introduces security hardening to restrict HTML tags that can be used as hover text in fancy tooltips, adds DEVELOPER-DOCS.md, notes compatibility through WP 5.9, and minor settings page and documentation tweaks.
+
+### Details:
+
+* Change: Disallow all but the most basic formatting markup within hover text. Props Rohan Chaudhari.
+    * As continues to be the case, markup only ever works in the better looking tooltips.
+    * This only enforces the already documented limited markup support to basic formatting tags.
+    * Existing text hovers will be unaffected until the next time settings get saved.
+* New: Add DEVELOPER-DOCS.md and move hooks documentation into it
+* Change: Remove settings page helptext about 'replace_once' setting not applying to multibyte strings since it's no longer true
+* Change: Lowercase the displayed values for 'when' setting
+* Change: Move 'code' tags out of translatable string for 'when' setting
+* Change: Note compatibility through WP 5.9+
+* Change: Remove "A screenshot of" prefix from all screenshot captions
+* Change: Tweak installation instructions in README.md
+* Change: Fix typo in function docblock
+* Change: Update copyright date (2022)
+* New: Add a few more possible TODO items
+
+## 4.1 _(2021-06-29)_
+
+### Highlights:
+
+This feature release adds a new setting to allow for user-specified filters to be processed, updates the plugin framework significantly, improves the plugin settings page, restructures unit test files, notes compatibility through WP 5.7, and more.
+
+### Details:
+
+* New: Add new setting "More filters" to allow for user-specified filters to be processed
+* Change: Update plugin framework to 064
+    * 064:
+    * New: For checkbox settings, support a 'more_help' config option for defining help text to appear below checkbox and its label
+    * Fix: Fix URL for plugin listing donate link
+    * Change: Store donation URL as object variable
+    * Change: Update strings used for settings page donation link
+    * 063:
+    * Fix: Simplify settings initialization to prevent conflicts with other plugins
+    * Change: Remove ability to detect plugin settings page before current screen is set, as it is no longer needed
+    * Change: Enqueue thickbox during `'admin_enqueue_scripts'` action instead of during `'init'`
+    * Change: Use `is_plugin_admin_page()` in `help_tabs()` instead of reproducing its functionality
+    * Change: Trigger a debugging warning if `is_plugin_admin_page()` is used before `'admin_init'` action is fired
+    * 062:
+    * Change: Update `is_plugin_admin_page()` to use `get_current_screen()` when available
+    * Change: Actually prevent object cloning and unserialization by throwing an error
+    * Change: Check that there is a current screen before attempting to access its property
+    * Change: Remove 'type' attribute from `style` tag
+    * Change: Incorporate commonly defined styling for inline_textarea
+    * 061:
+    * Fix bug preventing settings from getting saved
+    * 060:
+    * Rename class from `c2c_{PluginName}_Plugin_051` to `c2c_Plugin_060`
+    * Move string translation handling into inheriting class making the plugin framework code plugin-agnostic
+        * Add abstract function `get_c2c_string()` as a getter for translated strings
+        * Replace all existing string usage with calls to `get_c2c_string()`
+    * Handle WordPress's deprecation of the use of the term "whitelist"
+        * Change: Rename `whitelist_options()` to `allowed_options()`
+        * Change: Use `add_allowed_options()` instead of deprecated `add_option_whitelist()` for WP 5.5+
+        * Change: Hook `allowed_options` filter instead of deprecated `whitelist_options` for WP 5.5+
+    * New: Add initial unit tests (currently just covering `is_wp_version_cmp()` and `get_c2c_string()`)
+    * Add `is_wp_version_cmp()` as a utility to compare current WP version against a given WP version
+    * Refactor `contextual_help()` to be easier to read, and correct function docblocks
+    * Don't translate urlencoded donation email body text
+    * Add inline comments for translators to clarify purpose of placeholders
+    * Change PHP package name (make it singular)
+    * Tweak inline function description
+    * Note compatibility through WP 5.7+
+    * Update copyright date (2021)
+    * 051:
+    * Allow setting integer input value to include commas
+    * Use `number_format_i18n()` to format integer value within input field
+    * Update link to coffee2code.com to be HTTPS
+    * Update `readme_url()` to refer to plugin's readme.txt on plugins.svn.wordpress.org
+    * Remove defunct line of code
+* New: Add `get_default_filters()` as getter for core filters, third-party filters, or both
+* Change: Allow displayed dropdown values for 'when' setting to be translated
+* Change: Improve settings page help text by adding, rephrasing, relocating, and tweaaking some formatting
+* Change: Change text_to_hover setting from being a textarea to inline textarea
+* Change: Move translation of all parent class strings into main plugin file
+* Change: Output newlines after block-level tags in settings page
+* Change: Omit 'cols' attribute for textarea since it is overridden
+* Change: Note compatibility through WP 5.7+
+* Change: Update copyright date (2021)
+* Change: Change plugin's short description
+* Change: Tweak plugin's readme.txt tags
+* Change: Sync installation instructions in README.txt with what's in readme.txt
+* Fix: Use correct textdomain for a string translation
+* Unit tests:
+    * Change: Restructure unit test directories and files into `tests/` top-level directory
+        * Change: Move `bin/` into `tests/`
+        * Change: Move `tests/bootstrap.php` into `tests/phpunit/`
+        * Change: In bootstrap, store path to plugin file constant so its value can be used within that file and in test file
+        * Change: Move `tests/*.php` into `tests/phpunit/tests/`
+        * Change: Remove 'test-' prefix from unit test files
+        * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
+    * New: Add additional punctuation-related test cases
+    * New: Add helper function `get_core_filters()` and `get_3rd_party_filters()` to DRY up data reuse
+* New: Add a few more possible TODO items
+* Change: Updated screenshot for settings page
+
+## 4.0 _(2020-07-16)_
+
+### Highlights:
+
+This minor release adds a new setting that can allow the plugin to run later to avoid potential conflicts with other plugins, now allows hover strings to begin or end with punctuation, updates its plugin framework, adds a TODO.md file, updates a few URLs to be HTTPS, expands unit testing, and updates compatibility to be WP 4.9-5.4+.
+
+### Details:
+
+* New: Add new setting to allow control over when text hovers are handled early or late in text processing process
+* New: Add filter `c2c_text_hover_filter_priority` for filtering hook priority for text hover handler
+* New: Allow text to hover string to begin and/or end in punctuation.
+* New: Add TODO.md and move existing TODO list from top of main plugin file into it
+* Change: Update plugin framework to 050
+    * 050:
+    * Allow a hash entry to literally have '0' as a value without being entirely omitted when saved
+    * Output donation markup using `printf()` rather than using string concatenation
+    * Update copyright date (2020)
+    * Note compatibility through WP 5.4+
+    * Drop compatibility with versions of WP older than 4.9
+* Change: Remove plugin setting page help text indicating order matters (it hasn't since v3.8)
+* Change: Note compatibility through WP 5.4+
+* Change: Drop compatibility with versions of WP older than 4.9
+* Change: Update links to coffee2code.com to be HTTPS
+* Unit tests:
+    * New: Add `get_filter_names()` as a helper method for getting the default and third-party filter names
+    * New: Add `unhook_default_filters()` as a helper method to unhook plugin's default filters hooked to `text_hover()`
+    * New: Add test case for hover text that includes HTML
+    * New: Add tests for `enqueue_scripts()`, `options_page_description()`
+    * New: Add test for setting name
+    * New: Add tests for setting defaults
+    * New: Add explicit tests to ensure falsey hover text values don't alter original text
+    * New: Add explicit tests to ensure text replacements don't occur within `abbr` tag contents or in any tag attributes
+    * Change: Store plugin instance in test object to simplify referencing it
+    * Change: Remove unnecessary unregistering of hooks in `tearDown()`
+    * Change: Add `$priority` argument to `test_hover_applies_to_default_filters()`
+    * Change: Remove duplicative `reset_options()` call
+    * Change: Rename unit test function so that it is treated as a unit test
+    * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and delete commented-out code)
+* Change: Update screenshot
+
 ## 3.9.1 _(2020-01-12)_
+
 * Fix: Revert to apply to the `the_excerpt` filter, which was mistakenly changed to `get_the_excerpt`
 * Change: Update some inline documentation relating to third-party plugin hook support
 * Unit tests:
@@ -40,7 +183,7 @@ This minor release adds support for select third-party plugins (Advanced Custom 
 * Change: Split paragraph in README.md's "Support" section into two
 
 ## 3.8 _(2018-08-01)_
-* New: Ensure longer, more precise link strings match before shorter strings that might also match, regardless of order defined
+* New: Ensure longer, more precise strings match before shorter strings that might also match, regardless of order defined
 * New: Add support for finding text to hover that may span more than one line or whose internal spaces vary in number and type
 * Fix: Prevent hover text from being embedded within other hover text
 * Change: Switch for using deprecated 'acronym' tag to using 'abbr'
