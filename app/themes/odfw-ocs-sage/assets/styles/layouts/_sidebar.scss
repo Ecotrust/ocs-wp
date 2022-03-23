@@ -383,6 +383,10 @@
   position: fixed;
   top: 60px;
   width: inherit;
+
+  @media (min-width: 540px) {
+	width: 25%;
+  }
 }
 
 
