@@ -143,8 +143,8 @@ if ( ! class_exists( 'CMB2_Bootstrap_221', false ) ) {
 			}
 
 			if ( ! defined( 'CMB2_DIR' ) ) {
-				// define( 'CMB2_DIR', trailingslashit( '/var/www/html/app/plugins/cmb2' ) );
-				define( 'CMB2_DIR', trailingslashit( dirname( __FILE__ ) ) );
+				define( 'CMB2_DIR', trailingslashit( '/var/www/html/app/plugins/cmb2' ) );
+				// define( 'CMB2_DIR', trailingslashit( dirname( __FILE__ ) ) );
 			}
 
 			$this->l10ni18n();
