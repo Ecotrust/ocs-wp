@@ -210,7 +210,7 @@ class WDS_CMB2_Attached_Posts_Field {
 	 */
 	protected function setup_admin_scripts() {
 		// $dir = trailingslashit( dirname( __FILE__ ) );
-		$dir = trailingslashit('/var/www/html/app/plugins/cmb2');
+		$dir = trailingslashit('/var/www/html/app/plugins/cmb2-attached-posts');
 
 		if ( 'WIN' === strtoupper( substr( PHP_OS, 0, 3 ) ) ) {
 			// Windows
